@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.OrderDao">
+    <!-- Mappers -->
+    <resultMap id="OrderMap" type="com.honglinktech.zbgj.entity.Order">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="goldWeight" column="gold_weight"/>
+        <result property="fee" column="fee"/>
+        <result property="payType" column="pay_type"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="isInvoice" column="is_invoice"/>
+        <result property="invoiceHeader" column="invoice_header"/>
+        <result property="remark" column="remark"/>
+        <result property="isRead" column="is_read"/>
+        <result property="push" column="push"/>
+        <result property="payFileName" column="pay_file_name"/>
+        <result property="payFilePath" column="pay_file_path"/>
+        <result property="payFileSize" column="pay_file_size"/>
+        <result property="illustrate" column="illustrate"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.honglinktech.zbgj.entity.Order">
+        INSERT INTO
+        tb_order(id,user_id,user_name,telephone,gold_weight,fee,money,pay_type,order_status,is_invoice,invoice_header,illustrate,remark,update_time,create_time)
+        VALUES
+        (#{id},#{userId},#{userName},#{telephone},#{goldWeight},#{fee},#{money},#{payType},#{orderStatus},#{isInvoice},#{invoiceHeader},#{illustrate},#{remark},now(),now())
+    </insert>
+
+    <update id="update">
+        UPDATE tb_order
+        SET
+        <if test="userId!=null">
+        user_id = #{userId},
+        </if>
+        <if test="userName!=null">
+        user_name = #{userName},
+        </if>
+        <if test="telephone!=null">
+        telephone = #{telephone},
+        </if>
+        <if test="goldWeight!=null">
+        gold_weight = #{goldWeight},
+        </if>
+        <if test="fee!=null">
+        fee = #{fee},
+        </if>
+        <if test="money!=null">
+        money = #{money},
+        </if>
+        <if test="orderStatus!=null">
+        order_status = #{orderStatus},
+        </if>
+        <if test="isInvoice!=null">
+        is_invoice = #{isInvoice},
+        </if>
+        <if test="invoiceHeader!=null">
+        invoice_header = #{invoiceHeader},
+        </if>
+        <if test="illustrate!=null">
+        illustrate = #{illustrate},
+        </if>
+        <if test="remark!=null">
+        remark = #{remark},
+        </if>
+        <if test="isRead!=null">
+        is_read = #{isRead},
+        </if>
+        <if test="payFileName!=null">
+        pay_file_name = #{payFileName},
+        </if>
+        <if test="payFilePath!=null">
+        pay_file_path = #{payFilePath},
+        </if>
+        <if test="payFileSize!=null">
+        pay_file_size = #{payFileSize},
+        </if>
+        update_time = now()
+        WHERE
+        id = #{id}
+    </update>
+	<select id="findByOrderId"
+            resultMap="OrderMap">
+        SELECT * FROM tb_order WHERE id = #{orderId}
+    </select>
+    <select id="findById"
+            resultMap="OrderMap">
+        SELECT * FROM tb_order WHERE id = #{id}
+    </select>
+    <select id="findByUserId"
+            resultMap="OrderMap">
+        SELECT * FROM tb_order WHERE user_id = #{userId}
+        <if test="list!=null">
+	        AND order_status IN
+	        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+	            #{item}
+	        </foreach>
+        </if>
+        ORDER BY is_read ASC, order_status ASC, UNIX_TIMESTAMP(update_time) DESC
+        <if test="start!=null and rows!=null">
+            limit #{start},#{rows}
+        </if>
+    </select>
+
+    <select id="findBySearch" resultMap="OrderMap">
+        SELECT DISTINCT o.* FROM tb_order o
+        <if test="type!=null">
+            , tb_order_item oi, tb_product_item pi
+        </if>
+        <if test="addressType!=null">
+            , tb_order_address oa, tb_address address
+        </if>
+        WHERE 1=1
+        <if test="status!=null">
+            AND o.order_status = #{status}
+        </if>
+        <if test="read!=null">
+            AND o.is_read = #{read}
+        </if>
+        <if test="type!=null">
+            AND o.id = oi.order_id AND oi.item_id = pi.id AND pi.sale_type = #{type}
+        </if>
+        <if test="addressType!=null">
+            AND o.id = oa.order_id AND oa.address_id = address.id AND address.type = #{addressType}
+        </if>
+        <if test="key!=null">
+            AND (o.id LIKE CONCAT('%',"${key}",'%')
+            	OR o.user_id LIKE CONCAT('%',"${key}",'%') 
+            	OR o.user_name LIKE CONCAT('%',"${key}",'%')
+            	OR o.telephone LIKE CONCAT('%',"${key}",'%')
+            	OR o.illustrate LIKE CONCAT('%',"${key}",'%')
+            	OR o.remark LIKE CONCAT('%',"${key}",'%'))
+        </if>
+        ORDER BY order_status ASC, UNIX_TIMESTAMP(o.update_time) DESC
+        <if test="start!=null and size!=null">
+            LIMIT #{start}, #{size}
+        </if>
+    </select>
+
+    <select id="countBySearch" resultType="long">
+        SELECT count(DISTINCT o.id) FROM tb_order o
+        <if test="type!=null">
+            , tb_order_item oi, tb_product_item pi
+        </if>
+        <if test="addressType!=null">
+            , tb_order_address oa, tb_address address
+        </if>
+        WHERE 1=1
+        <if test="status!=null">
+            AND o.order_status = #{status}
+        </if>
+        <if test="type!=null">
+            AND o.id = oi.order_id AND oi.item_id = pi.id AND pi.sale_type = #{type}
+        </if>
+        <if test="addressType!=null">
+            AND o.id = oa.order_id AND oa.address_id = address.id AND address.type = #{addressType}
+        </if>
+        <if test="key!=null">
+            AND (o.id LIKE CONCAT('%',"${key}",'%')
+            	OR o.user_id LIKE CONCAT('%',"${key}",'%')
+            	OR o.user_name LIKE CONCAT('%',"${key}",'%')
+            	OR o.telephone LIKE CONCAT('%',"${key}",'%')
+            	OR o.illustrate LIKE CONCAT('%',"${key}",'%') 
+            	OR o.remark LIKE CONCAT('%',"${key}",'%'))
+        </if>
+    </select>
+    <select id="findByStatusList" parameterType="List" resultMap="OrderMap">
+        SELECT o.* FROM tb_order o WHERE 1=1 AND o.order_status IN
+        <foreach collection="status" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        ORDER BY UNIX_TIMESTAMP(o.create_time) DESC
+        <if test="start!=null and size!=null">
+            LIMIT #{start}, #{size}
+        </if>
+    </select>
+
+    <select id="countByStatusList" parameterType="List" resultType="long">
+        SELECT count(1) FROM tb_order WHERE order_status IN
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+    <select id="statusUnread" resultType="int">
+        select count(1) from tb_order o where o.user_id = #{userId} and o.is_read=0
+    </select>
+    
+    <update id="updateReadOrder">
+    	update tb_order set is_read=#{isRead} where id = #{orderId}
+    </update>
+    <update id="updatePush">
+    	update tb_order set push=#{push} where id = #{orderId}
+    </update>
+
+</mapper>

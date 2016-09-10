@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.ShipItemDao">
+    <!-- Mappers -->
+    <resultMap id="ShipItemMap" type="com.honglinktech.zbgj.entity.ShipItem">
+        <id property="id" column="id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="addressId" column="address_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="itemId" column="item_id"/>
+        <result property="itemName" column="item_name"/>
+        <result property="image" column="image"/>
+        <result property="specId" column="spec_id"/>
+        <result property="shiType" column="shi_type"/>
+        <result property="number" column="number"/>
+        <result property="styleName" column="style_name"/>
+        <result property="remark" column="remark"/>
+        <result property="status" column="status"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="online" column="online"/>
+        <result property="read" column="is_read"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.honglinktech.zbgj.entity.ShipItem"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO
+        tb_ship_item(order_id,address_id,user_id,user_name,telephone,item_id,item_name,image,spec_id,shi_type,number,style_name,remark,status,online,create_time)
+        VALUES
+        (#{orderId},#{addressId},#{userId},#{userName},#{telephone},#{itemId},#{itemName},#{image},#{specId},#{shiType},#{number},#{styleName},#{remark},#{status},#{online},now())
+    </insert>
+    <!--更新-->
+    <update id="update">
+        UPDATE tb_ship_item
+        SET
+        <if test="orderId != null">
+        order_id = #{orderId},
+        </if>
+        <if test="userId != null">
+        user_id = #{userId},
+        </if>
+        <if test="userName != null">
+        user_name = #{userName},
+        </if>
+        <if test="telephone != null">
+        telephone = #{telephone},
+        </if>
+        <if test="itemId != null">
+        item_id = #{itemId},
+        </if>
+        <if test="itemName != null">
+        item_name = #{itemName},
+        </if>
+        <if test="image != null">
+        image = #{image},
+        </if>
+        <if test="specId != null">
+        spec_id = #{specId},
+        </if>
+        <if test="shiType != null">
+        shi_type = #{shiType},
+        </if>
+        <if test="online != null">
+        online = #{online},
+        </if>
+        <if test="number != null">
+        number = #{number},
+        </if>
+        <if test="styleName != null">
+        style_name = #{styleName},
+        </if>
+        <if test="remark != null">
+        remark = #{remark},
+        </if>
+        <if test="status != null">
+        status = #{status},
+        </if>
+        <if test="online != null">
+        online = #{online},
+        </if>
+        id = #{id}
+        WHERE
+        id = #{id}
+    </update>
+<!--更新-->
+    <update id="delete" parameterType="int">
+        UPDATE tb_ship_item
+        SET
+        delete_flag = 1
+        WHERE
+        id = #{id}
+    </update>
+    <select id="findById" resultMap="ShipItemMap">
+        SELECT *
+        FROM tb_ship_item
+        WHERE id = #{id}
+    </select>
+    
+    <select id="findByOrderId" resultMap="ShipItemMap">
+        SELECT *
+        FROM tb_ship_item
+        WHERE order_id = #{orderId}
+        AND delete_flag=0
+    </select>
+    <select id="findShipItemByStaus" resultMap="ShipItemMap">
+        SELECT *
+        FROM tb_ship_item
+        WHERE 1 = 1
+        AND delete_flag=0
+        <if test="list!=null">
+	        AND status IN
+	        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+	            #{item}
+	        </foreach>
+        </if>
+    </select>
+    <select id="findShipItemBean" parameterType="map" resultType="com.honglinktech.zbgj.bean.ShipItemBean">
+                SELECT 
+        oi.id,
+        oi.order_id AS orderId,
+        oi.user_id AS userId,
+        oi.user_name AS userName,
+        oi.telephone,
+        oi.status,
+		oi.item_id AS itemId,
+		oi.is_read AS `read`,
+		pi.name AS itemName,
+		pi.image,
+		oi.shi_type AS shiType,
+		oi.online,
+		oi.number,
+		oi.style_name AS styleName,
+		oi.remark,
+		oi.address_id,
+		oi.create_time as createTime,
+		oi.remark,
+		addr.id AS addressId,
+		addr.user_name AS aUserName,
+		addr.telephone AS aTelephone,
+		addr.illustrate AS illustrate,
+		addr.type AS aType,
+		CONCAT(addr.path,' ',addr.detail) AS address,
+		oi.spec_id AS specId,
+		spec.name AS specName,
+		spec.prefix,
+		spec.spe_show_unit AS specUnitPrice,
+		spec.spe_type AS speType,
+		spec.start_value AS specStartValue,
+		spec.end_value AS specEndValue
+        FROM tb_ship_item oi 
+				LEFT JOIN tb_product_item pi ON(oi.item_id = pi.id) 
+				LEFT JOIN tb_specification spec ON(oi.spec_id = spec.id) 
+				LEFT JOIN tb_address addr ON(oi.address_id = addr.id)
+        WHERE 1=1
+        AND oi.delete_flag=0
+        <if test="key != null">
+          AND (oi.user_name LIKE CONCAT('%',"${key}",'%') OR oi.telephone LIKE CONCAT('%',"${key}",'%'))
+        </if>
+        <if test="orderId != null">
+          AND oi.order_id = #{orderId}
+        </if>
+        <if test="userId != null">
+          AND oi.user_id = #{userId}
+        </if>
+        <if test="status!=null">
+	        AND status IN
+	        <foreach collection="status" index="index" item="item" open="(" separator="," close=")">
+	            #{item}
+	        </foreach>
+        </if>
+        ORDER BY oi.user_id DESC,oi.user_id DESC
+    </select>
+    <select id="findShipList" parameterType="map" resultType="com.honglinktech.zbgj.bean.ShipUserBean">
+        SELECT 
+        si.user_id AS userId,
+        si.user_name AS userName,
+        si.telephone,
+        (SELECT sum(si1.number) from tb_ship_item si1 WHERE si1.status=1 AND si1.delete_flag=0 AND si1.user_id = si.user_id 
+	        <if test="key!=null">
+	            AND (si1.telephone LIKE CONCAT('%',"${key}",'%') 
+	            	 OR si1.user_name LIKE CONCAT('%',"${key}",'%') ) 
+	        </if>
+        ) AS waitShipNum,
+		(SELECT sum(si2.number) from tb_ship_item si2 WHERE si2.status=2 AND si2.delete_flag=0 AND si2.user_id = si.user_id 
+			<if test="key!=null">
+	            AND (si2.telephone LIKE CONCAT('%',"${key}",'%') 
+	            	 OR si2.user_name LIKE CONCAT('%',"${key}",'%') ) 
+	        </if>
+		) AS orderComplateNum 
+		FROM tb_ship_item si WHERE si.delete_flag=0  
+		<if test="key!=null">
+            AND (si.telephone LIKE CONCAT('%',"${key}",'%') 
+            	 OR si.user_name LIKE CONCAT('%',"${key}",'%') ) 
+        </if>
+		GROUP BY si.user_id 
+		ORDER BY waitShipNum DESC
+    	<if test="start!=null and rows!=null">
+            limit #{start},#{rows}
+        </if>
+    </select>
+    <select id="findShipListCount" resultType="int">
+         SELECT count(1) FROM (SELECT 1 FROM tb_ship_item si where si.delete_flag=0 GROUP BY si.user_id ) AS tb
+    </select>
+    <select id="statusUnread" resultType="int">
+         select count(1) from tb_ship_item where user_id = #{userId} AND is_read=0 AND status=1 AND delete_flag=0 
+    </select>
+    <update id="updateReadShip">
+         update tb_ship_item set is_read=1 where user_id = #{userId} AND is_read=0 AND item_id=${itemId} and online=${line} AND status=1
+    </update>
+</mapper>

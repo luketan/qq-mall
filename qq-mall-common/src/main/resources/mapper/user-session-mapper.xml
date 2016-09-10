@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.UserSessionDao">
+
+    <!-- Mappers -->
+    <resultMap id="UserSessionMap" type="com.honglinktech.zbgj.entity.UserSession">
+        <id property="uid" column="uid"/>
+        <result property="token" column="token"/>
+        <result property="password" column="password"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <insert id="save" parameterType="com.honglinktech.zbgj.entity.UserSession">
+        INSERT INTO
+        tb_user_session(uid,token,expire_time,create_time,update_time)
+        VALUES
+        (#{uid},#{token},#{expireTime},NOW(),NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE tb_user_session
+        SET
+        <if test="uid!=null">
+        	uid=#{uid},
+        </if>
+        <if test="expireTime!=null">
+        	expire_time=#{expireTime},
+        </if>
+        <if test="token!=null">
+        	token=#{token},
+        </if>
+        update_time = NOW()
+        WHERE
+        uid = #{uid}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tb_user_session
+        WHERE uid = #{uid}
+    </delete>
+
+    <select id="findById" resultMap="UserSessionMap">
+        SELECT * FROM tb_user_session WHERE uid = #{uid}
+    </select>
+    
+    <select id="checkLoginToken" resultMap="UserSessionMap">
+        SELECT * FROM tb_user_session WHERE token = #{token}
+    </select>
+
+</mapper>

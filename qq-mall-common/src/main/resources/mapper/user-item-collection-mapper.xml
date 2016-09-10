@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.UserItemCollectionDao">
+
+    <!-- Mappers -->
+    <resultMap id="UserItemCollectionMap" type="com.honglinktech.zbgj.entity.UserItemCollection">
+        <id property="id" column="id"/>
+        <result property="itemId" column="item_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="createDate" column="create_date"/>
+    </resultMap>
+
+    <insert id="save">
+        INSERT INTO
+        tb_user_item_collection(item_id,user_id,create_date)
+        VALUES
+        (#{itemId},#{userId},NOW())
+    </insert>
+
+    
+    <delete id="delete">
+        DELETE FROM tb_user_item_collection
+        WHERE id = #{id}
+    </delete>
+    
+     <delete id="deleteByUserIdAndItemId">
+        DELETE FROM tb_user_item_collection
+        WHERE user_id = #{userId} and item_id = #{itemId}
+    </delete>
+
+    <select id="findById" resultMap="UserItemCollectionMap">
+        SELECT * FROM tb_user_item_collection WHERE id = #{id}
+    </select>
+    <select id="findByItemIdAndUserId" resultMap="UserItemCollectionMap">
+        SELECT  * FROM tb_user_item_collection WHERE user_id = #{userId} and item_id = #{itemId}
+    </select>
+    <select id="findCountByItemIdAndUserId" resultType="int">
+        SELECT count(1) FROM tb_user_item_collection WHERE user_id = #{userId} and item_id = #{itemId}
+    </select>
+    <select id="findByUserId" resultType="com.honglinktech.zbgj.bean.ProductItemBean">
+        SELECT uic.item_id as id,
+        	   pi.name as name,
+        	   pi.image as image,
+        	   pi.description as description
+        	   FROM tb_user_item_collection uic left join tb_product_item pi on (uic.item_id=pi.id and pi.delete_flag=0) WHERE user_id = #{userId}
+    </select>
+    <select id="findCountByUserId" resultType="int">
+        SELECT count(1) FROM tb_user_item_collection uic WHERE user_id = #{userId}
+    </select>
+
+</mapper>

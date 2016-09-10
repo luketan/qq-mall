@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.NewProductDao">
+    <!-- Mappers -->
+
+    <select id="findById"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.entity.NewProduct">
+        select
+        id,
+        name,
+        illustrate,
+        is_recommend as isRecommend,
+        is_sale as isSale,
+        is_book as isBook,
+        synopsis,
+        synopsis_img,
+        detail,
+        purchase_notes as purchaseNotes,
+        series_id as seriesId,
+        category_id as categoryId,
+        image,
+        sort,
+        create_user_id as createUserId,
+        update_date as updateTime,
+        delete_flag as deleteFlag
+        from tb_new_product where id = #{id}
+    </select>
+
+    <!-- 保存 -->
+    <insert id="save"
+            parameterType="com.honglinktech.zbgj.entity.NewProduct"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO tb_new_product
+        (
+        name,
+        illustrate,
+        is_recommend,
+        is_sale,
+        is_book,
+        synopsis,
+        synopsis_img,
+        detail,
+        purchase_notes,
+        series_id,
+        category_id,
+        image,
+        sort,
+        create_user_id,
+        update_date,
+        delete_flag,
+        create_time
+        )
+        VALUES
+        (
+        #{name},
+        #{illustrate},
+        #{isRecommend},
+        #{isSale},
+        #{isBook},
+        #{synopsis},
+        #{synopsisImg},
+        #{detail},
+        #{purchaseNotes},
+        #{seriesId},
+        #{categoryId},
+        #{image},
+        #{sort},
+        #{createUserId},
+        now(),
+        #{deleteFlag},
+        now()
+        )
+    </insert>
+
+    <!-- 更新-->
+    <update id="update"
+            parameterType="com.honglinktech.zbgj.entity.NewProduct">
+        UPDATE tb_new_product
+        SET
+        <if test="name!=null">
+            name=#{name},
+        </if>
+        <if test="illustrate!=null">
+            illustrate=#{illustrate},
+        </if>
+        <if test="isRecommend!=null">
+            is_recommend=#{isRecommend},
+        </if>
+          	is_sale=#{isSale},
+        <if test="isBook!=null">
+            is_book=#{isBook},
+        </if>
+        <if test="synopsis!=null">
+            synopsis=#{synopsis},
+        </if>
+        <if test="synopsisImg!=null">
+            synopsis_img=#{synopsisImg},
+        </if>
+        <if test="detail!=null">
+            detail=#{detail},
+        </if>
+        <if test="purchaseNotes!=null">
+            purchase_notes=#{purchaseNotes},
+        </if>
+        <if test="seriesId!=null">
+            series_id=#{seriesId},
+        </if>
+        <if test="categoryId!=null">
+            category_id=#{categoryId},
+        </if>
+         <if test="image!=null">
+            image=#{image},
+        </if>
+        <if test="sort!=null">
+            sort=#{sort},
+        </if>
+        <if test="createUserId!=null">
+            create_user_id=#{createUserId},
+        </if>
+
+        <if test="deleteFlag!=null">
+            delete_flag= #{deleteFlag},
+        </if>
+
+        update_date=now()
+        WHERE
+        id = #{id}
+    </update>
+
+    <!--查询所有的-->
+    <select id="findAllPage" parameterType="map"
+            resultType="com.honglinktech.zbgj.bean.NewProductBean">
+         SELECT
+        p.id,
+        p.name,
+        p.illustrate,
+        p.synopsis,
+        p.synopsis_img as synopsisImg,
+        p.is_recommend AS isRecommend,
+        p.series_id AS seriesId,
+        s.name AS seriesName,
+        p.category_id AS categoryId,
+        c.name AS categoryName,
+        p.image,
+        p.sort
+        FROM tb_new_product p,tb_product_category c,tb_product_series s
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+        <if test="isSale!=null">
+          AND p.is_sale=#{isSale}
+        </if>
+        <if test="recommend!=null">
+          AND  p.is_recommend=TRUE
+        </if>
+        ORDER BY p.sort ASC ,p.update_date DESC
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+
+    </select>
+
+    <!--查询所有的总数-->
+    <select id="findAllCount" parameterType="map"
+            resultType="int">
+        SELECT
+        count(p.id) AS totalRecord
+        FROM tb_new_product p,
+        tb_product_category c,tb_product_series s 
+
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+        <if test="rows==2">
+            AND  p.is_recommend=TRUE
+        </if>
+        ORDER BY p.update_date DESC
+
+    </select>
+
+    <!--查询所有的-->
+    <select id="findByIdsPage" parameterType="map"
+            resultType="com.honglinktech.zbgj.bean.NewProductBean">
+        SELECT
+        p.id,
+        p.name,
+        p.illustrate,
+        p.synopsis,
+        p.synopsis_img as synopsisImg,
+        -- p.detail,
+        -- p.purchase_notes AS purchaseNotes,
+        e.phone,
+        p.series_id AS seriesId,
+        s.name AS seriesName,
+        p.category_id AS categoryId,
+        c.name AS categoryName,
+        p.image,
+        p.sort,
+        (CASE WHEN u.user_id IS NULL THEN "1" ELSE "0" END) AS collectFlag
+
+        FROM tb_new_product p LEFT JOIN tb_user_product_collection u ON p.id=u.product_id AND u.delete_flag=0 AND
+        u.user_id=#{userId},
+        tb_product_category c,tb_product_series s 
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+        AND p.id IN
+        <foreach item="item" index="index" collection="ids" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+
+
+        ORDER BY p.sort ASC ,p.update_date DESC
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+
+    </select>
+
+
+    <!--查询所有的  用户添加索引-->
+    <select id="findMapAllPage" parameterType="map"
+            resultType="map">
+        SELECT
+        p.id,
+        p.name,
+        p.illustrate,
+        p.synopsis,
+        p.synopsis_img as synopsisImg,
+        p.detail,
+        s.name AS series,
+        c.name AS category,
+        p.sort,
+        p.update_date as updateTime
+
+        FROM tb_new_product p,
+        tb_product_category c,tb_product_series s 
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+        <if test="id!=null">
+            and p.id=#{id}
+        </if>
+        ORDER BY p.sort ASC ,p.update_date DESC
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+
+    </select>
+
+
+
+    <!--根据id查询详情-->
+    <select id="findNewProductBeanById" parameterType="int"
+            resultType="com.honglinktech.zbgj.bean.NewProductBean">
+        SELECT
+        p.id,
+        p.name,
+        p.illustrate,
+        p.synopsis,
+        p.synopsis_img as synopsisImg,
+        p.detail,
+        p.sort,
+        p.purchase_notes AS purchaseNotes,
+        p.series_id AS seriesId,
+        s.name AS seriesName,
+        p.category_id AS categoryId,
+        c.name AS categoryName,
+        p.is_recommend AS isRecommend,
+        p.is_sale AS isSale,
+        p.image
+
+        FROM tb_new_product p ,tb_product_category c,tb_product_series s
+
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+        AND p.id=#{id}
+
+    </select>
+        <!--根据id查询详情-->
+    <select id="findNewProductBeanByExhId" parameterType="int"
+            resultType="com.honglinktech.zbgj.bean.NewProductBean">
+        SELECT
+        p.id,
+        p.name,
+        p.illustrate,
+        p.synopsis,
+        p.synopsis_img as synopsisImg,
+        p.detail,
+        p.purchase_notes AS purchaseNotes,
+        p.series_id AS seriesId,
+        s.name AS seriesName,
+        p.category_id AS categoryId,
+        c.name AS categoryName,
+        p.is_recommend AS isRecommend,
+        p.image
+
+        FROM tb_new_product p ,tb_product_category c,tb_product_series s
+
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+
+    </select>
+
+    
+    <!-- 删除-->
+    <update id="delete"
+            parameterType="int">
+        UPDATE tb_new_product
+        SET
+        delete_flag=1,
+        update_date=now()
+        WHERE
+        id = #{id}
+    </update>
+    <select id="findAllProduct" resultType="com.honglinktech.zbgj.bean.NewProductBean">
+        SELECT
+        p.id,
+        p.name,
+        p.illustrate,
+        p.synopsis,
+        p.synopsis_img as synopsisImg,
+        p.series_id AS seriesId,
+        s.name AS seriesName,
+        p.category_id AS categoryId,
+        c.name AS categoryName,
+        p.image,
+        p.sort
+        FROM tb_new_product p,
+        tb_product_category c,tb_product_series s 
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+        ORDER BY p.sort ASC ,p.update_date DESC
+    </select>
+    <select id="findProductsByPage"
+     parameterType="map"
+     resultType="com.honglinktech.zbgj.bean.NewProductBean">
+        SELECT
+        p.id,
+        p.name,
+        p.illustrate,
+        p.synopsis,
+        p.synopsis_img as synopsisImg,
+        p.series_id AS seriesId,
+        s.name AS seriesName,
+        p.category_id AS categoryId,
+        c.name AS categoryName,
+        p.image,
+        p.is_recommend AS isRecommend,
+        p.is_sale AS isSale,
+        p.sort
+        FROM tb_new_product p,
+        tb_product_category c,tb_product_series s 
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+        <if test="sale!=null">
+        AND p.is_sale = ${sale}
+        </if>
+        <if test="key!=null">
+            AND (
+	               p.name LIKE CONCAT('%',"${key}",'%')
+	            OR s.name LIKE CONCAT('%',"${key}",'%')
+            ) 
+        </if>
+        ORDER BY p.sort ASC ,p.update_date DESC
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+        
+    </select>
+    <select id="findProductCountByPage"
+     parameterType="map"
+     resultType="int">
+        SELECT
+        COUNT(1)
+        FROM tb_new_product p,
+        tb_product_category c,tb_product_series s 
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+    </select>
+    <select id="findHomeNewProductCount"
+     parameterType="map"
+     resultType="int">
+        SELECT
+        COUNT(1)
+        FROM tb_new_product p,
+        tb_product_category c,tb_product_series s 
+        WHERE p.category_id=c.id
+        AND p.series_id=s.id
+        AND p.delete_flag=0
+        AND s.delete_flag=0
+        AND c.delete_flag=0
+        <if test="productId!=null">
+       		AND p.id > #{productId}
+        </if>
+        <if test="newTime!=null">
+       		AND UNIX_TIMESTAMP(p.create_time) > #{newTime}
+        </if>
+    </select>
+
+	<update id="batchUpdateSale" >
+    	update tb_new_product p set is_sale = #{isSale}
+    	where p.id IN 
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+</mapper>

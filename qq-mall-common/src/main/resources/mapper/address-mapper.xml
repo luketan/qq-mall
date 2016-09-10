@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.AddressDao">
+
+    <!-- Mappers -->
+    <resultMap id="AddressMap" type="com.honglinktech.zbgj.entity.Address">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="path" column="path"/>
+        <result property="detail" column="detail"/>
+        <result property="userName" column="user_name"/>
+        <result property="telephone" column="telephone"/>
+        <result property="type" column="type"/>
+        <result property="illustrate" column="illustrate"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleteFlag" column="delete_flag"/>
+    </resultMap>
+
+    <!-- 保存 -->
+    <insert id="save"
+            parameterType="com.honglinktech.zbgj.entity.Address"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO tb_address
+        (
+        user_id,
+        path,
+        detail,
+        user_name,
+        telephone,
+        type,
+        illustrate,
+        create_time,
+        delete_flag
+        )
+        VALUES
+        (
+        #{userId},
+        #{path},
+        #{detail},
+        #{userName},
+        #{telephone},
+        #{type},
+        #{illustrate},
+        now(),
+        #{deleteFlag}
+        )
+    </insert>
+
+    <!-- 更新-->
+    <update id="update"
+            parameterType="com.honglinktech.zbgj.entity.Address">
+        UPDATE tb_address
+        SET
+        path=#{path},
+        detail=#{detail}
+        <if test="userName!=null">
+            ,user_name=#{userName}
+        </if>
+        <if test="telephone!=null">
+            ,telephone=#{telephone}
+        </if>
+        <if test="illustrate!=null">
+            ,illustrate=#{illustrate}
+        </if>
+        <if test="deleteFlag!=null">
+            ,delete_flag= #{deleteFlag}
+        </if>
+        WHERE
+        id = #{id}
+        <if test="userId!=null">
+            AND user_id= #{userId}
+        </if>
+    </update>
+
+
+    <!-- 删除-->
+    <update id="delete"
+            parameterType="int">
+        UPDATE tb_address
+        SET
+        delete_flag=1
+        WHERE
+        id = #{id}
+    </update>
+     <!-- 删除-->
+    <update id="deleteByUserId"
+            parameterType="int">
+        UPDATE tb_address
+        SET
+        delete_flag=1
+        WHERE
+        id = #{id} and user_id = #{userId}
+    </update>
+
+
+    <select id="findById"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.entity.Address">
+        select
+        id,
+        user_id AS userId,
+        path,
+        detail,
+        user_name AS userName,
+        telephone AS telephone,
+        type,
+        illustrate,
+        create_time AS createTime,
+        delete_flag AS deleteFlag
+        from tb_address where 1=1 AND id = #{id}
+    </select>
+
+
+    <select id="findByUserId" parameterType="int" resultMap="AddressMap">
+        select
+        *
+        from tb_address where 1=1 AND delete_flag=0
+        <if test="userId!=null">
+           AND user_id = #{userId}
+        </if>
+        <if test="type!=null">
+            AND type = #{type}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+    <select id="findByPage" resultMap="AddressMap">
+        select
+        *
+        from tb_address where 1=1 AND delete_flag=0
+        <if test="userId!=null">
+           AND user_id = #{userId}
+        </if>
+        <if test="type!=null">
+           AND type = #{type}
+        </if>
+        ORDER BY create_time DESC
+        <if test="start!=null and rows!=null">
+           limit #{start},#{rows}
+        </if>
+    </select>
+    <select id="findByPageCount" resultType="int">
+        select
+      	count(1)
+        from tb_address where 1=1 AND delete_flag=0
+        <if test="type!=null">
+           AND type = #{type}
+        </if>
+        <if test="userId!=null">
+           AND user_id = #{userId}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

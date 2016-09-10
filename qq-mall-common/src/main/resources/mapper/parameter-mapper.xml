@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.ParameterDao">
+
+    <!-- Mappers -->
+    <resultMap id="ParameterMap" type="com.honglinktech.zbgj.entity.old.Parameter">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="code" column="code"/>
+        <result property="value" column="val"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUid" column="update_uid"/>
+    </resultMap>
+
+    <!-- 保存 -->
+    <insert id="save"
+            parameterType="com.honglinktech.zbgj.entity.old.Parameter"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO tb_parameter
+        (
+        name,
+        type,
+        code,
+        val,
+        remark,
+        create_time,
+        create_uid,
+        update_time,
+        update_uid
+        )
+        VALUES
+        (
+        #{name},
+        #{type},
+        #{code},
+        #{value},
+        #{remark},
+        now(),
+        #{createUid},
+        #{updateTime},
+        #{updateUid}
+        )
+    </insert>
+
+    <!-- 更新-->
+    <update id="update"
+            parameterType="com.honglinktech.zbgj.entity.old.Parameter">
+        UPDATE tb_parameter
+        SET
+        name=#{name},
+        type=#{type},
+        code=#{code},
+        val=#{value},
+        remark=#{remark},
+        create_time=#{createTime},
+        create_uid=#{createUid},
+        update_time=now(),
+        update_uid= #{updateUid}
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <!-- 删除-->
+    <delete id="delete" parameterType="int">
+        DELETE FROM tb_parameter
+        WHERE id = #{id}
+    </delete>
+
+
+    <select id="findById" parameterType="int" resultMap="ParameterMap">
+        SELECT *
+        FROM tb_parameter WHERE 1=1 AND id = #{id}
+    </select>
+
+    <select id="findByType" parameterType="int" resultMap="ParameterMap">
+        SELECT *
+        FROM tb_parameter WHERE 1=1 AND type = #{type}
+    </select>
+    <select id="findByCode" parameterType="String" resultMap="ParameterMap">
+        SELECT *
+        FROM tb_parameter WHERE 1=1 AND code = #{code}
+    </select>
+
+    <select id="findAll" resultMap="ParameterMap">
+        SELECT *
+        FROM tb_parameter
+    </select>
+
+    <select id="findPage" resultMap="ParameterMap">
+        SELECT *
+        FROM tb_parameter LIMIT #{start}, #{size}
+    </select>
+
+    <select id="countAll" resultType="long">
+        SELECT count(1)
+        FROM tb_parameter
+    </select>
+</mapper>

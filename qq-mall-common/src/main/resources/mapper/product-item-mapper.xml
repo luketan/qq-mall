@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.ProductItemDao">
+
+
+    <select id="findById"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.entity.ProductItem">
+        SELECT
+        pi.id,
+        pi.product_id AS productId,
+        pi.name,
+        pi.barcode,
+        pi.image,
+        pi.image_search AS imageSearch,
+        pi.remind,
+        pi.format,
+        pi.description,
+        pi.sort,
+        pi.fee,
+        pi.vip_fee AS vipFee,
+        pi.category_id as categoryId,
+        pi.is_sale as isSale,
+        pi.is_recommend as isRecommend,
+        pi.creator_id as creatorId,
+        pi.create_time as createTime,
+        pi.update_time as updateTime,
+        pi.delete_time as deleteTime,
+        pi.delete_flag as deleteFlag,
+        pi.sale_type as saleType
+        FROM tb_product_item pi 
+        WHERE pi.id = #{id} and pi.delete_flag = 0
+    </select>
+    <select id="findByName"
+            parameterType="String"
+            resultType="com.honglinktech.zbgj.entity.ProductItem">
+        SELECT
+        id,
+        product_id AS productId,
+        name,
+        barcode,
+        image,
+        image_search AS imageSearch,
+        remind,
+        format,
+        description,
+        sort,
+        fee,
+        vip_fee AS vipFee,
+        category_id as categoryId,
+        is_sale as isSale,
+        creator_id as creatorId,
+        create_time as createTime,
+        update_time as updateTime,
+        delete_time as deleteTime,
+        delete_flag as deleteFlag,
+        sale_type as saleType
+        FROM tb_product_item WHERE name = #{name}
+    </select>
+
+    <!-- 保存 -->
+    <insert id="save"
+            parameterType="com.honglinktech.zbgj.entity.ProductItem"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO tb_product_item
+        (
+        product_id,
+        name,
+        barcode,
+        image,
+        image_search,
+        remind,
+        format,
+        description,
+        is_sale,
+        is_recommend,
+        sort,
+        fee,
+        vip_fee,
+        category_id,
+        creator_id,
+        create_time,
+        update_time,
+        delete_time,
+        delete_flag,
+        sale_type
+        )
+        VALUES
+        (
+        #{productId},
+        #{name},
+        #{barcode},
+        #{image},
+        #{imageSearch},
+        #{remind},
+        #{format},
+        #{description},
+        #{isSale},
+        #{isRecommend},
+        #{sort},
+        #{fee},
+        #{vipFee},
+        #{categoryId},
+        #{creatorId},
+        now(),
+        #{updateTime},
+        #{deleteTime},
+        #{deleteFlag},
+        #{saleType}
+        )
+    </insert>
+
+    <!-- 更新-->
+    <update id="update"
+            parameterType="com.honglinktech.zbgj.entity.ProductItem">
+        UPDATE tb_product_item
+        SET
+        product_id=#{productId},
+        name=#{name},
+        <if test="barcode!=null">
+            barcode=#{barcode},
+        </if>
+        <if test="image!=null">
+            image=#{image},
+        </if>
+        <if test="imageSearch!=null">
+            image_search=#{imageSearch},
+        </if>
+        <if test="remind!=null">
+            remind=#{remind},
+        </if>
+        <if test="format!=null">
+            format=#{format},
+        </if>
+        <if test="isRecommend!=null">
+            is_recommend=#{isRecommend},
+        </if>
+        description=#{description},
+        is_sale=#{isSale},
+        sale_type=#{saleType},
+        sort=#{sort},
+        <if test="fee!=null">
+            fee=#{fee},
+        </if>
+        <if test="vipFee!=null">
+            vip_fee=#{vipFee},
+        </if>
+        <if test="categoryId!=null">
+            category_id=#{categoryId},
+        </if>
+        <if test="creatorId!=null">
+            creator_id=#{creatorId},
+        </if>
+        update_time=now(),
+        <if test="deleteTime!=null">
+            delete_time=#{deleteTime},
+        </if>
+        <if test="deleteFlag!=null">
+            delete_flag=#{deleteFlag},
+        </if>
+        id = #{id}
+        WHERE
+        id = #{id}
+    </update>
+
+    <!--&lt;!&ndash; 删除&ndash;&gt;-->
+    <update id="delete">
+        UPDATE tb_product_item
+        SET
+        delete_flag=1,
+        delete_time=now()
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <select id="findProductItemByMap"
+            parameterType="map"
+            resultType="com.honglinktech.zbgj.entity.ProductItem">
+        SELECT
+         id,
+        product_id AS productId,
+        name,
+        barcode,
+        image,
+        image_search AS imageSearch,
+        remind,
+        format,
+        description,
+        sort,
+        fee,
+        vip_fee AS vipFee,
+        category_id as categoryId,
+        is_sale as isSale,
+        is_recommend as isRecommend,
+        creator_id as creatorId,
+        create_time as createTime,
+        update_time as updateTime,
+        delete_time as deleteTime,
+        delete_flag as deleteFlag,
+        sale_type as saleType
+        FROM tb_product_item as pi
+        WHERE pi.delete_flag=0 
+        <if test="barcode!=null">
+            AND pi.barcode=#{barcode}
+        </if>
+        <if test="name!=null">
+            AND pi.name=#{name}
+        </if>
+        <if test="productId!=null">
+            AND pi.product_id=#{productId}
+        </if>
+        <if test="isSale!=null">
+            AND pi.is_sale=#{isSale}
+        </if>
+        <if test="isRecommend!=null">
+            AND pi.is_recommend=#{isRecommend}
+        </if>
+        ORDER BY pi.sort is NULL ,pi.sort ASC ,pi.update_time DESC
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+
+    </select>
+
+
+    <select id="findAll"
+            resultType="com.honglinktech.zbgj.entity.ProductItem">
+        SELECT
+        id,
+        product_id AS productId,
+        name,
+        image,
+        image_search AS imageSearch,
+        remind,
+        format,
+        description,
+        sort,
+        fee,
+        vip_fee AS vipFee,
+        category_id as categoryId,
+        is_sale as isSale,
+        is_recommend as isRecommend,
+        creator_id as creatorId,
+        create_time as createTime,
+        update_time as updateTime,
+        delete_time as deleteTime,
+        delete_flag as deleteFlag,
+        sale_type as saleType
+        FROM tb_product_item
+    </select>
+    <select id="findProductItemPageByMap"
+            parameterType="map"
+            resultType="com.honglinktech.zbgj.entity.ProductItem">
+            SELECT
+        pi.id,
+        pi.product_id AS productId,
+        pi.name,
+        pi.image,
+        pi.image_search AS imageSearch,
+        pi.remind,
+        pi.format,
+        pi.description,
+        pi.sort,
+        pi.fee,
+        pi.vip_fee AS vipFee,
+        pi.category_id,
+        pi.is_sale as isSale,
+        pi.is_recommend as isRecommend,
+        pi.creator_id as creatorId,
+        pi.create_time as createTime,
+        pi.update_time as updateTime,
+        pi.delete_time as deleteTime,
+        pi.delete_flag as deleteFlag,
+        pi.sale_type as saleType,
+        p.name as newProductName
+        FROM tb_product_item pi 
+        left join tb_new_product p ON (pi.product_id = p.id)  
+        WHERE 1=1 AND pi.delete_flag!=1 
+        <!-- and p.delete_flag!=1 -->
+        <if test="productId!=null">
+            AND pi.product_id = #{productId}
+        </if>
+        <if test="productName!=null">
+            AND p.name LIKE CONCAT('%',"${productName}",'%')
+        </if>
+        <if test="itemName!=null">
+            AND pi.name LIKE CONCAT('%',"${itemName}",'%')
+        </if>
+        <if test="saleType!=null">
+            AND pi.sale_type = #{saleType}
+        </if>
+        <if test="isSale!=null">
+            AND pi.is_sale = #{isSale}
+        </if>
+        <if test="isRecommend!=null">
+            AND pi.is_recommend = #{isRecommend}
+        </if>
+        ORDER BY pi.product_id desc,pi.update_time desc
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+       
+    </select>
+    <select id="findProductItemCountByMap"
+            parameterType="map"
+            resultType="int">
+        SELECT
+        count(1)
+        FROM tb_product_item pi left join tb_new_product p ON (pi.product_id = p.id)  WHERE 1=1 AND pi.delete_flag!=1 
+        <!-- and p.delete_flag!=1 -->
+        <if test="productId!=null">
+            AND pi.product_id = #{productId}
+        </if>
+        <if test="productName!=null">
+            AND p.name LIKE CONCAT('%',"${productName}",'%')
+        </if>
+        <if test="itemName!=null">
+            AND pi.name LIKE CONCAT('%',"${itemName}",'%')
+        </if>
+        <if test="saleType!=null">
+            AND pi.sale_type = #{saleType}
+        </if>
+        <if test="isSale!=null">
+            AND pi.is_sale = #{isSale}
+        </if>
+        <if test="isRecommend!=null">
+            AND pi.is_recommend = #{isRecommend}
+        </if>
+    </select>
+    <select id="findProductItemSearchCount"
+            parameterType="map"
+            resultType="int">
+       	SELECT COUNT(1) 
+       	FROM tb_product_item pi 
+       	LEFT JOIN tb_new_product np ON(pi.product_id = np.id AND np.delete_flag = 0) 
+       	<if test="supplierId!=null">
+       		LEFT JOIN tb_supplier_product ps ON(np.id = ps.product_id) 
+       	</if>
+       	WHERE 
+       	pi.delete_flag = 0
+       	<if test="isSale!=null">
+            AND pi.is_sale = #{isSale}
+        </if>
+        <if test="isRecommend!=null">
+            AND pi.is_recommend = #{isRecommend}
+        </if>
+        <if test="productItemCategoryId!=null">
+            AND pi.category_id = #{productItemCategoryId} 
+        </if>
+       	<if test="productCategoryId!=null">
+            AND np.category_id = #{productCategoryId} 
+        </if>
+        <if test="supplierId!=null">
+            AND ps.supplier_id = #{supplierId} 
+        </if>
+        <if test="name!=null">
+            AND pi.name = #{name} 
+        </if>
+       	
+    </select>
+    <select id="findProductItemSearch"
+            parameterType="map"
+            resultType="com.honglinktech.zbgj.bean.ProductItemBean">
+       	SELECT 
+		pi.id,
+		pi.name,
+		pi.image,
+		pi.image_search AS imageSearch,
+		pi.description,
+		pi.remind,
+		pic.name AS categoryName
+       	FROM tb_product_item pi 
+       	LEFT JOIN tb_new_product np ON(pi.product_id = np.id AND np.delete_flag = 0)
+       	<if test="supplierId!=null">
+       		LEFT JOIN tb_supplier_product ps ON(np.id = ps.product_id)
+       	</if>
+       	LEFT JOIN tb_product_item_category pic ON(pi.category_id = pic.id)
+       	WHERE 
+       	pi.delete_flag = 0
+        <if test="isSale!=null">
+            AND pi.is_sale=#{isSale}
+        </if>
+        <if test="isRecommend!=null">
+            AND pi.is_recommend = #{isRecommend}
+        </if>
+       	<if test="productItemCategoryId!=null">
+            AND pi.category_id = #{productItemCategoryId} 
+        </if>
+       	<if test="productCategoryId!=null">
+            AND np.category_id = #{productCategoryId} 
+        </if>
+        <if test="supplierId!=null">
+            AND ps.supplier_id = #{supplierId} 
+        </if>
+        <if test="name!=null">
+            AND pi.name = #{name} 
+        </if>
+        ORDER BY pi.update_time desc
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+       	
+    </select>
+    <update id="batchUpdateSale" >
+    	update tb_product_item pi set is_sale = #{isSale}
+    	where pi.id IN 
+    	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

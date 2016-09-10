@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.ProductItemCategoryDao">
+    <!-- Mappers -->
+
+    <select id="findById"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.entity.ProductItemCategory">
+        select
+        id,
+        code,
+        name,
+        image,
+        sort,
+        update_date as updateDate,
+        delete_flag as deleteFlag
+        from tb_product_item_category where id = #{id}
+    </select>
+
+    <select id="findAll"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.entity.ProductItemCategory">
+        select
+        id,
+        code,
+        name,
+        image,
+        sort,
+        update_date as updateDate
+        from tb_product_item_category where delete_flag = 0
+    </select>
+
+
+    <!-- 保存 -->
+    <insert id="save"
+            parameterType="com.honglinktech.zbgj.entity.ProductItemCategory"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO tb_product_item_category
+        (
+        code,
+        name,
+        image,
+        sort,
+        update_date,
+        delete_flag
+        )
+        VALUES
+        (
+        #{code},
+        #{name},
+        #{image},
+        #{sort},
+        now(),
+        #{deleteFlag}
+        )
+    </insert>
+
+    <!-- 更新-->
+    <update id="update"
+            parameterType="com.honglinktech.zbgj.entity.ProductItemCategory">
+        UPDATE tb_product_item_category
+        SET
+        code=#{code},
+        name=#{name},
+        sort=#{sort},
+        <if test="image!=null">
+        image=#{image},
+        </if>
+        <if test="deleteFlag!=null">
+            delete_flag= #{deleteFlag},
+        </if>
+        update_date=now()
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <!-- 删除-->
+    <update id="delete"
+            parameterType="int">
+        UPDATE tb_product_item_category
+        SET
+        delete_flag=1,
+        update_date=now()
+        WHERE
+        id = #{id}
+    </update>
+
+</mapper>

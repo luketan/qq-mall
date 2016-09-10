@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.AdminDao">
+
+    <!-- Mappers -->
+    <resultMap id="AdminMap" type="com.honglinktech.zbgj.entity.Admin">
+        <id property="id" column="id"/>
+        <result property="loginName" column="login_name"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="solt" column="solt"/>
+        <result property="telephone" column="telephone"/>
+        <result property="active" column="is_active"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="login" resultMap="AdminMap">
+        SELECT * FROM tb_admin WHERE login_name = #{loginName} AND password = #{password}
+    </select>
+    
+    <update id="updateLoginPwd">
+    	UPDATE tb_admin SET password = #{newPwd} WHERE password = #{oldPwd} AND id = #{id}
+    </update>
+    
+    <insert id="save" parameterType="com.honglinktech.zbgj.entity.Admin"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO
+        tb_admin(login_name,password,solt,user_name,telephone,is_active,create_time,update_time)
+        VALUES
+        (#{loginName},#{password},#{solt},#{userName},#{telephone},#{active},NOW(),NOW())
+    </insert>
+
+    <update id="update">
+        UPDATE tb_admin
+        SET
+        <if test="loginName!=null">
+        	login_name=#{loginName},
+        </if>
+        <if test="password!=null">
+        	password=#{password},
+        </if>
+        <if test="solt!=null">
+        	solt=#{solt},
+        </if>
+        <if test="userName!=null">
+        	user_name=#{userName},
+        </if>
+        <if test="telephone!=null">
+        	telephone=#{telephone},
+        </if>
+        <if test="active!=null">
+        	is_active=#{active},
+        </if>
+        update_time = NOW()
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tb_admin
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findById" resultMap="AdminMap">
+        SELECT * FROM tb_admin WHERE id = #{id}
+    </select>
+    
+    <select id="findByTelephone" resultMap="AdminMap">
+        SELECT * FROM tb_admin WHERE telephone = #{telephone}
+    </select>
+
+    <select id="findByUserId" resultMap="AdminMap">
+        SELECT r.* FROM tb_admin r, tb_admin_role ul WHERE r.id = ul.role_id AND ul.admin_id = #{uid}
+    </select>
+
+    <select id="page" resultMap="AdminMap">
+        SELECT * FROM tb_admin LIMIT #{start}, #{size}
+    </select>
+
+ 	<select id="findAll" resultMap="AdminMap">
+        SELECT * FROM tb_admin
+    </select>
+    
+    <select id="countAll" resultType="Long">
+        SELECT count(1) FROM tb_admin
+    </select>
+
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.AdvertisementDao">
+    <!-- Mappers -->
+
+    <select id="findById"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.entity.Advertisement">
+        select
+        id,
+        image,
+        value,
+        type,
+        sort,
+        title,
+        update_date as updateDate,
+        delete_flag as deleteFlag,
+        create_user_id as createUserId
+        from tb_advertisement where id = #{id}
+    </select>
+
+    <!-- 保存 -->
+    <insert id="save"
+            parameterType="com.honglinktech.zbgj.entity.Advertisement"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO tb_advertisement
+        (
+        image,
+        value,
+        type,
+        title,
+        sort,
+        update_date,
+        delete_flag,
+        create_user_id
+        )
+        VALUES
+        (
+        #{image},
+        #{value},
+        #{type},
+        #{title},
+        #{sort},
+        now(),
+        #{deleteFlag},
+        #{createUserId}
+
+        )
+    </insert>
+
+    <!-- 更新-->
+    <update id="update"
+            parameterType="com.honglinktech.zbgj.entity.Advertisement">
+        UPDATE tb_advertisement
+        SET
+       	<if test="image!=null">
+            image=#{image},
+        </if>
+        <if test="value!=null">
+            value=#{value},
+        </if>
+        <if test="type!=null">
+            type=#{type},
+        </if>
+        <if test="title!=null">
+            title=#{title},
+        </if>
+        <if test="sort!=null">
+            sort=#{sort},
+        </if>
+        <if test="createUserId!=null">
+            create_user_id=#{createUserId},
+        </if>
+        <if test="deleteFlag!=null">
+            delete_flag= #{deleteFlag},
+        </if>
+        update_date=now()
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <!-- 删除-->
+    <update id="delete"
+            parameterType="int">
+        UPDATE tb_advertisement
+        SET
+        delete_flag=1,
+        update_date=now()
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <!--查询广告列表-->
+    <select id="findAdvertisementListPage"
+            parameterType="map"
+            resultType="map">
+        select
+        id,
+        image,
+        value,
+        type,
+        title,
+        sort
+        from tb_advertisement i where delete_flag=0 ORDER BY sort ASC ,update_date DESC
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+    </select>
+
+
+    <select id="findAdvertisementPage"
+            parameterType="map"
+            resultType="com.honglinktech.zbgj.entity.Advertisement">
+        select
+        id,
+        image,
+        value,
+        title,
+        type,
+        sort
+        from tb_advertisement i where delete_flag=0 ORDER BY sort ASC , update_date DESC
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+    </select>
+    <select id="findAdvertisementCount"
+            parameterType="map"
+            resultType="int">
+        select
+        count(1)
+        from tb_advertisement i
+        where delete_flag=0
+    </select>
+</mapper>

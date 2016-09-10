@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.SupplierDao">
+
+    <!--根据id查询-->
+    <select id="findSupplierById"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.entity.Supplier">
+        select
+        s.id,
+        s.name,
+        s.phone,
+        s.logo,
+        s.payment_method as paymentMethod,
+        s.update_date as updateDate,
+        s.create_user_id as createUserId,
+        s.delete_flag as deleteFlag
+        from tb_supplier as s where id = #{id}
+    </select>
+
+    <!--查询所有可用的原料供应商-->
+    <select id="findAll"
+            resultType="com.honglinktech.zbgj.entity.Supplier">
+        select
+        s.id,
+        s.name,
+        s.phone,
+        s.logo,
+        s.payment_method as paymentMethod
+        from tb_supplier as s where delete_flag =0
+    </select>
+
+    <!--查询所有可用的原料供应商-->
+    <select id="findSupplierPage" parameterType="map"
+            resultType="com.honglinktech.zbgj.entity.Supplier">
+        select
+        s.id,
+        s.name,
+        s.phone,
+        s.logo,
+        s.payment_method as paymentMethod
+        from tb_supplier as s where delete_flag =0
+        <if test="start!=null and rows!=null">
+            LIMIT #{start}, #{rows}
+        </if>
+    </select>
+    <!--查询所有可用的原料供应商数量-->
+    <select id="findSupplierPageCount" parameterType="map"
+            resultType="int">
+        select
+        count(1)
+        from tb_supplier as s where delete_flag =0
+    </select>
+
+    <!-- 保存 -->
+    <insert id="save"
+            parameterType="com.honglinktech.zbgj.entity.Supplier"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO tb_supplier
+        (
+        name,
+        phone,
+        logo,
+        payment_method,
+        update_date,
+        create_user_id
+        )
+        VALUES
+        (
+        #{name},
+        #{phone},
+        #{logo},
+        #{paymentMethod},
+        now(),
+        #{createUserId}
+        )
+    </insert>
+    <!-- 更新-->
+    <update id="update"
+            parameterType="com.honglinktech.zbgj.entity.Supplier">
+        UPDATE tb_supplier
+        SET
+        name=#{name},
+        logo=#{logo},
+        <if test="phone!=null">
+            phone=#{phone},
+        </if>
+        payment_method=#{paymentMethod},
+        <if test="createUserId!=null">
+            create_user_id= #{createUserId},
+        </if>
+        <if test="deleteFlag!=null">
+            delete_flag= #{deleteFlag},
+        </if>
+        update_date= now()
+        WHERE
+        id = #{id}
+    </update>
+    <!--通过展厅id查询所有的原料供应商-->
+    <select id="findByExhibitionId"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.entity.Supplier">
+        select
+        s.id,
+        s.name,
+        s.phone,
+        s.logo,
+        s.payment_method as paymentMethod
+        from tb_supplier as s,tb_exhibition_supplier as es
+        where s.delete_flag=0 and es.delete_flag=0
+        and es.supplier_id=s.id AND es.exhibition_id= #{exhibitionId}
+    </select>
+    <!-- 删除-->
+    <update id="delete"
+            parameterType="int">
+        UPDATE tb_supplier
+        SET
+        delete_flag=1,
+        update_date=now()
+        WHERE
+        id = #{id}
+    </update>
+    
+    <!--通过id查询原料供应商-->
+    <select id="findByProductId"
+            parameterType="int"
+            resultType="com.honglinktech.zbgj.bean.SupplierBean">
+        select  s.id,
+        s.name,
+        s.phone,
+        s.logo,
+        s.payment_method as paymentMethod
+        <if test="productId!=null">
+        ,ps.product_id as productId
+        </if>
+        FROM tb_supplier s 
+        <if test="productId!=null">
+        LEFT JOIN tb_supplier_product ps on(s.id = ps.supplier_id AND ps.product_id=#{productId}) 
+        </if>
+        
+        WHERE s.delete_flag=0
+    </select>
+    
+</mapper>
