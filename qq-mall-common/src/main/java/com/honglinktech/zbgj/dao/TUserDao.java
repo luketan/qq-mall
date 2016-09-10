@@ -22,7 +22,7 @@ public class TUserDao extends BaseDao<TUser>{
 		nickName("nick_name",Types.VARCHAR,false,false,true),
 		account("account",Types.VARCHAR,false,false,false),
 		password("password",Types.VARCHAR,false,false,false),
-		motto("motto",Types.VARCHAR,false,false,true),
+		sign("sign",Types.VARCHAR,false,false,true),
 		head("head",Types.VARCHAR,false,false,true),
 		virtualMoney("virtual_money",Types.DECIMAL,false,false,true),
 		money("money",Types.DECIMAL,false,false,true),
@@ -96,7 +96,7 @@ public class TUserDao extends BaseDao<TUser>{
 			tUser.setNickName(rs.getString("nick_name"));
 			tUser.setAccount(rs.getString("account"));
 			tUser.setPassword(rs.getString("password"));
-			tUser.setMotto(rs.getString("motto"));
+			tUser.setSign(rs.getString("sign"));
 			tUser.setHead(rs.getString("head"));
 			tUser.setVirtualMoney(rs.getBigDecimal("virtual_money"));
 			tUser.setMoney(rs.getBigDecimal("money"));

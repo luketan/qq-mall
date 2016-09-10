@@ -9,7 +9,7 @@ import com.honglinktech.zbgj.base.BaseService;
 import com.honglinktech.zbgj.entity.TUserFriend;
 
 /**
-*经理的朋友业务
+*用户的朋友业务
 **/
 @Component
 public class TUserFriendService extends BaseService<TUserFriend> {

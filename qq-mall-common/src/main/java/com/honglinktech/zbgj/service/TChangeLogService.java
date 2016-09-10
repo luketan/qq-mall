@@ -9,7 +9,7 @@ import com.honglinktech.zbgj.base.BaseService;
 import com.honglinktech.zbgj.entity.TChangeLog;
 
 /**
-*变更变更日志[逗比、经验、vip]业务
+*变更变更日志[逗比、经验、vip]  注意分表业务
 **/
 @Component
 public class TChangeLogService extends BaseService<TChangeLog> {

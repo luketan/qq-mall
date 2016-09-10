@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.honglinktech.zbgj.bean.ShipAddressBean;
 import com.honglinktech.zbgj.bean.ShipUserBean;
 import com.honglinktech.zbgj.common.Page;
-import com.honglinktech.zbgj.common.old.Response;
+import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.Address;
 import com.honglinktech.zbgj.entity.ShipItem;
 import com.honglinktech.zbgj.enums.ShipStatusEnum;

@@ -21,7 +21,7 @@ public class TPicDao extends BaseDao<TPic>{
 		id("id",Types.INTEGER,true,true,false),
 		objId("obj_id",Types.INTEGER,false,false,true),
 		type("type",Types.INTEGER,false,false,true),
-		picName("pic_name",Types.VARCHAR,false,false,true),
+		picTitle("pic_title",Types.VARCHAR,false,false,true),
 		picUrl("pic_url",Types.VARCHAR,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true);
@@ -79,7 +79,7 @@ public class TPicDao extends BaseDao<TPic>{
 			tPic.setId(rs.getInt("id"));
 			tPic.setObjId(rs.getInt("obj_id"));
 			tPic.setType(rs.getInt("type"));
-			tPic.setPicName(rs.getString("pic_name"));
+			tPic.setPicTitle(rs.getString("pic_title"));
 			tPic.setPicUrl(rs.getString("pic_url"));
 			tPic.setCreateTime(rs.getTimestamp("create_time"));
 			tPic.setUpdateTime(rs.getTimestamp("update_time"));

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.honglinktech.zbgj.common.Page;
-import com.honglinktech.zbgj.common.old.Response;
+import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.Admin;
 import com.honglinktech.zbgj.entity.Role;
 import com.honglinktech.zbgj.service.SystemService;

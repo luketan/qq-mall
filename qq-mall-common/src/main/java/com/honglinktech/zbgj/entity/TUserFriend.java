@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 /**
-*经理的朋友
+*用户的朋友
 **/
 public class TUserFriend extends BaseModel implements Serializable{
 
@@ -25,9 +25,9 @@ public class TUserFriend extends BaseModel implements Serializable{
 	private Integer friendUserLevel;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "friend_money",length = 10,allowNull=true)
 	private Integer friendMoney;
-	@FieldMeta(primaryKey = false,fieldName = "更新时间",dbName = "update_time",length = 19,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
-	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
 	
 	/**
@@ -97,7 +97,7 @@ public class TUserFriend extends BaseModel implements Serializable{
 	public void setFriendMoney(Integer friendMoney){
 		  this.friendMoney = friendMoney; 
 	}
-	/*更新时间*/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}

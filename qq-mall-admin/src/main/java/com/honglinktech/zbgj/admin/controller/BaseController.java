@@ -27,8 +27,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.honglinktech.zbgj.admin.common.Constants;
 import com.honglinktech.zbgj.common.Page;
+import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.SystemArgsCache;
-import com.honglinktech.zbgj.common.old.Response;
 import com.honglinktech.zbgj.entity.CAdmin;
 
 /**

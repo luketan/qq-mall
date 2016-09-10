@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.honglinktech.zbgj.bean.OrderDetailBean;
 import com.honglinktech.zbgj.common.Page;
-import com.honglinktech.zbgj.common.old.Response;
-import com.honglinktech.zbgj.common.old.Result;
+import com.honglinktech.zbgj.common.Response;
+import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.entity.Address;
 import com.honglinktech.zbgj.entity.Order;
 import com.honglinktech.zbgj.entity.OrderAddressItem;

@@ -15,7 +15,7 @@ public class TUserSession extends BaseModel implements Serializable{
 	private Integer userId;
 	@FieldMeta(primaryKey = false,fieldName = "访问标识",dbName = "token",length = 128,allowNull=false)
 	private String token;
-	@FieldMeta(primaryKey = false,fieldName = "时间",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
@@ -47,7 +47,7 @@ public class TUserSession extends BaseModel implements Serializable{
 	public void setToken(String token){
 		  this.token = token; 
 	}
-	/*时间*/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}

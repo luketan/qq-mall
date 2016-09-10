@@ -25,9 +25,9 @@ public class CAdmin extends BaseModel implements Serializable{
 	private String phone;
 	@FieldMeta(primaryKey = false,fieldName = "管理员状态",dbName = "status",length = 10,allowNull=true)
 	private Integer status;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "更新时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
 	
 	/**
@@ -97,14 +97,14 @@ public class CAdmin extends BaseModel implements Serializable{
 	public void setStatus(Integer status){
 		  this.status = status; 
 	}
-	/**/
+	/*更新时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}
 	public void setUpdateTime(Date updateTime){
 		  this.updateTime = updateTime; 
 	}
-	/**/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}

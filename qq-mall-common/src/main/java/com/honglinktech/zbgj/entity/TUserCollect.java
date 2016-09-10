@@ -19,9 +19,9 @@ public class TUserCollect extends BaseModel implements Serializable{
 	private String goodsName;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "goods_url",length = 225,allowNull=true)
 	private String goodsUrl;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
 	
 	/**
@@ -67,14 +67,14 @@ public class TUserCollect extends BaseModel implements Serializable{
 	public void setGoodsUrl(String goodsUrl){
 		  this.goodsUrl = goodsUrl; 
 	}
-	/**/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	/**/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}

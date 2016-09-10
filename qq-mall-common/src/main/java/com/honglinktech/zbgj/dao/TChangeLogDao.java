@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.honglinktech.zbgj.base.BaseDao;
 import com.honglinktech.zbgj.entity.TChangeLog;
 /**
-*变更变更日志[逗比、经验、vip]Dao
+*变更变更日志[逗比、经验、vip]  注意分表Dao
 **/
 @Component
 public class TChangeLogDao extends BaseDao<TChangeLog>{
@@ -28,7 +28,7 @@ public class TChangeLogDao extends BaseDao<TChangeLog>{
 		currNum("curr_num",Types.INTEGER,false,false,false),
 		level("level",Types.INTEGER,false,false,false),
 		comments("comments",Types.VARCHAR,false,false,false),
-		createTime("create_time",Types.TIMESTAMP,false,false,false);
+		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
 		private int dbType;
 		private boolean primaryKey;

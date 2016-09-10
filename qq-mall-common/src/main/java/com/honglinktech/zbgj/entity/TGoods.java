@@ -61,9 +61,9 @@ public class TGoods extends BaseModel implements Serializable{
 	private Integer status;
 	@FieldMeta(primaryKey = false,fieldName = "主图路径",dbName = "img_url",length = 225,allowNull=true)
 	private String imgUrl;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
 	
 	/**
@@ -269,14 +269,14 @@ public class TGoods extends BaseModel implements Serializable{
 	public void setImgUrl(String imgUrl){
 		  this.imgUrl = imgUrl; 
 	}
-	/**/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}
 	public void setUpdateTime(Date updateTime){
 		  this.updateTime = updateTime; 
 	}
-	/**/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}

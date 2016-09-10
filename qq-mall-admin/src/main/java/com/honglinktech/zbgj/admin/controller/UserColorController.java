@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.honglinktech.zbgj.common.Page;
-import com.honglinktech.zbgj.common.old.Response;
+import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.User;
 import com.honglinktech.zbgj.entity.UserColor;
 import com.honglinktech.zbgj.service.UserColorService;

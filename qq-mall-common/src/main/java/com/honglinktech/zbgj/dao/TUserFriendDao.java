@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.honglinktech.zbgj.base.BaseDao;
 import com.honglinktech.zbgj.entity.TUserFriend;
 /**
-*经理的朋友Dao
+*用户的朋友Dao
 **/
 @Component
 public class TUserFriendDao extends BaseDao<TUserFriend>{
@@ -25,8 +25,8 @@ public class TUserFriendDao extends BaseDao<TUserFriend>{
 		friendUserHead("friend_user_head",Types.VARCHAR,false,false,true),
 		friendUserLevel("friend_user_level",Types.INTEGER,false,false,true),
 		friendMoney("friend_money",Types.INTEGER,false,false,true),
-		updateTime("update_time",Types.TIMESTAMP,false,false,false),
-		createTime("create_time",Types.TIMESTAMP,false,false,false);
+		updateTime("update_time",Types.TIMESTAMP,false,false,true),
+		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
 		private int dbType;
 		private boolean primaryKey;

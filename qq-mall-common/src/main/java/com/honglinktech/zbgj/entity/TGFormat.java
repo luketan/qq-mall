@@ -25,9 +25,9 @@ public class TGFormat extends BaseModel implements Serializable{
 	private String args;
 	@FieldMeta(primaryKey = false,fieldName = "状态(1正常，2删除，3下架)",dbName = "status",length = 10,allowNull=true)
 	private Integer status;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
 	
 	/**
@@ -97,14 +97,14 @@ public class TGFormat extends BaseModel implements Serializable{
 	public void setStatus(Integer status){
 		  this.status = status; 
 	}
-	/**/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	/**/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}

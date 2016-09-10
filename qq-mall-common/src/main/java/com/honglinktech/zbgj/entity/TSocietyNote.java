@@ -39,9 +39,9 @@ public class TSocietyNote extends BaseModel implements Serializable{
 	private Integer type;
 	@FieldMeta(primaryKey = false,fieldName = "1是待审核，2是已经审核通过",dbName = "status",length = 10,allowNull=true)
 	private Integer status;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
 	
 	/**
@@ -167,14 +167,14 @@ public class TSocietyNote extends BaseModel implements Serializable{
 	public void setStatus(Integer status){
 		  this.status = status; 
 	}
-	/**/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	/**/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}

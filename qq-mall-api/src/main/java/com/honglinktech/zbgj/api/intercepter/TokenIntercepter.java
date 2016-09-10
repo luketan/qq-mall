@@ -16,8 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.honglinktech.zbgj.common.ErrorCode;
-import com.honglinktech.zbgj.common.old.Response;
-import com.honglinktech.zbgj.common.old.Result;
+import com.honglinktech.zbgj.common.Response;
+import com.honglinktech.zbgj.common.Result;
 
 /**
  * 请求拦截器

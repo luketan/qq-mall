@@ -20,7 +20,9 @@ public class THintDao extends BaseDao<THint>{
 		tableName("t_hint",0,false,false,false),
 		id("id",Types.INTEGER,true,true,false),
 		content("content",Types.VARCHAR,false,false,false),
-		type("type",Types.INTEGER,false,false,false),
+		subType("sub_type",Types.INTEGER,false,false,true),
+		remark("remark",Types.VARCHAR,false,false,true),
+		type("type",Types.INTEGER,true,false,false),
 		createTime("create_time",Types.TIMESTAMP,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -76,6 +78,8 @@ public class THintDao extends BaseDao<THint>{
 			THint tHint = new THint();
 			tHint.setId(rs.getInt("id"));
 			tHint.setContent(rs.getString("content"));
+			tHint.setSubType(rs.getInt("sub_type"));
+			tHint.setRemark(rs.getString("remark"));
 			tHint.setType(rs.getInt("type"));
 			tHint.setCreateTime(rs.getTimestamp("create_time"));
 			tHint.setUpdateTime(rs.getTimestamp("update_time"));

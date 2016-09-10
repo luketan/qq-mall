@@ -21,8 +21,8 @@ public class TUser extends BaseModel implements Serializable{
 	private String account;
 	@FieldMeta(primaryKey = false,fieldName = "密码",dbName = "password",length = 20,allowNull=false)
 	private String password;
-	@FieldMeta(primaryKey = false,fieldName = "座右铭",dbName = "motto",length = 50,allowNull=true)
-	private String motto;
+	@FieldMeta(primaryKey = false,fieldName = "个性签名",dbName = "sign",length = 50,allowNull=true)
+	private String sign;
 	@FieldMeta(primaryKey = false,fieldName = "头像",dbName = "head",length = 225,allowNull=true)
 	private String head;
 	@FieldMeta(primaryKey = false,fieldName = "虚拟币(逗币)",dbName = "virtual_money",length = 10,allowNull=true)
@@ -55,9 +55,9 @@ public class TUser extends BaseModel implements Serializable{
 	private Integer tryIs;
 	@FieldMeta(primaryKey = false,fieldName = "用户类型，1普通，2小编",dbName = "type",length = 10,allowNull=true)
 	private Integer type;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
 	
 	/**
@@ -67,12 +67,12 @@ public class TUser extends BaseModel implements Serializable{
 	
 	public TUser(){
  	}
- 	public TUser(Integer id,String nickName,String account,String password,String motto,String head,BigDecimal virtualMoney,BigDecimal money,Integer point,Integer exp,Integer level,String email,Integer isEmail,String phone,Integer phoneIs,Integer status,String from,Integer sex,Integer sexu,Integer tryIs,Integer type){
+ 	public TUser(Integer id,String nickName,String account,String password,String sign,String head,BigDecimal virtualMoney,BigDecimal money,Integer point,Integer exp,Integer level,String email,Integer isEmail,String phone,Integer phoneIs,Integer status,String from,Integer sex,Integer sexu,Integer tryIs,Integer type){
  		this.id = id;
 		this.nickName = nickName;
 		this.account = account;
 		this.password = password;
-		this.motto = motto;
+		this.sign = sign;
 		this.head = head;
 		this.virtualMoney = virtualMoney;
 		this.money = money;
@@ -120,12 +120,12 @@ public class TUser extends BaseModel implements Serializable{
 	public void setPassword(String password){
 		  this.password = password; 
 	}
-	/*座右铭*/
-	public String getMotto(){
-		 return this.motto; 
+	/*个性签名*/
+	public String getSign(){
+		 return this.sign; 
 	}
-	public void setMotto(String motto){
-		  this.motto = motto; 
+	public void setSign(String sign){
+		  this.sign = sign; 
 	}
 	/*头像*/
 	public String getHead(){
@@ -239,14 +239,14 @@ public class TUser extends BaseModel implements Serializable{
 	public void setType(Integer type){
 		  this.type = type; 
 	}
-	/**/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}
 	public void setUpdateTime(Date updateTime){
 		  this.updateTime = updateTime; 
 	}
-	/**/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}

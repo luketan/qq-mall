@@ -15,7 +15,11 @@ public class THint extends BaseModel implements Serializable{
 	private Integer id;
 	@FieldMeta(primaryKey = false,fieldName = "内容",dbName = "content",length = 255,allowNull=false)
 	private String content;
-	@FieldMeta(primaryKey = false,fieldName = "类型(1下拉更新,2转圈,3发帖,)",dbName = "type",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "论坛主题(不同的主题)",dbName = "sub_type",length = 10,allowNull=true)
+	private Integer subType;
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "remark",length = 20,allowNull=true)
+	private String remark;
+	@FieldMeta(primaryKey = true,fieldName = "类型(1下拉更新,2转圈,3发帖,4回帖)",dbName = "type",length = 10,allowNull=false)
 	private Integer type;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
@@ -29,9 +33,11 @@ public class THint extends BaseModel implements Serializable{
 	
 	public THint(){
  	}
- 	public THint(Integer id,String content,Integer type){
+ 	public THint(Integer id,String content,Integer subType,String remark,Integer type){
  		this.id = id;
 		this.content = content;
+		this.subType = subType;
+		this.remark = remark;
 		this.type = type;
 		
  	}
@@ -50,7 +56,21 @@ public class THint extends BaseModel implements Serializable{
 	public void setContent(String content){
 		  this.content = content; 
 	}
-	/*类型(1下拉更新,2转圈,3发帖,)*/
+	/*论坛主题(不同的主题)*/
+	public Integer getSubType(){
+		 return this.subType; 
+	}
+	public void setSubType(Integer subType){
+		  this.subType = subType; 
+	}
+	/**/
+	public String getRemark(){
+		 return this.remark; 
+	}
+	public void setRemark(String remark){
+		  this.remark = remark; 
+	}
+	/*类型(1下拉更新,2转圈,3发帖,4回帖)*/
 	public Integer getType(){
 		 return this.type; 
 	}

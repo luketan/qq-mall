@@ -7,7 +7,7 @@ import java.util.Date;
 
 
 /**
-*变更变更日志[逗比、经验、vip]
+*变更变更日志[逗比、经验、vip]  注意分表
 **/
 public class TChangeLog extends BaseModel implements Serializable{
 
@@ -31,7 +31,7 @@ public class TChangeLog extends BaseModel implements Serializable{
 	private Integer level;
 	@FieldMeta(primaryKey = false,fieldName = "变更批注",dbName = "comments",length = 500,allowNull=false)
 	private String comments;
-	@FieldMeta(primaryKey = false,fieldName = "记录创建时间",dbName = "create_time",length = 19,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
 	
 	/**
@@ -125,7 +125,7 @@ public class TChangeLog extends BaseModel implements Serializable{
 	public void setComments(String comments){
 		  this.comments = comments; 
 	}
-	/*记录创建时间*/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}

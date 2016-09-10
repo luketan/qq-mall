@@ -17,13 +17,13 @@ public class TPic extends BaseModel implements Serializable{
 	private Integer objId;
 	@FieldMeta(primaryKey = false,fieldName = "图片类型(1是商品图，10是评论图片,11是论坛评论图片)",dbName = "type",length = 10,allowNull=true)
 	private Integer type;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "pic_name",length = 50,allowNull=true)
-	private String picName;
+	@FieldMeta(primaryKey = false,fieldName = "图片标题",dbName = "pic_title",length = 50,allowNull=true)
+	private String picTitle;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "pic_url",length = 225,allowNull=true)
 	private String picUrl;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
 	
 	/**
@@ -33,11 +33,11 @@ public class TPic extends BaseModel implements Serializable{
 	
 	public TPic(){
  	}
- 	public TPic(Integer id,Integer objId,Integer type,String picName,String picUrl){
+ 	public TPic(Integer id,Integer objId,Integer type,String picTitle,String picUrl){
  		this.id = id;
 		this.objId = objId;
 		this.type = type;
-		this.picName = picName;
+		this.picTitle = picTitle;
 		this.picUrl = picUrl;
 		
  	}
@@ -63,12 +63,12 @@ public class TPic extends BaseModel implements Serializable{
 	public void setType(Integer type){
 		  this.type = type; 
 	}
-	/**/
-	public String getPicName(){
-		 return this.picName; 
+	/*图片标题*/
+	public String getPicTitle(){
+		 return this.picTitle; 
 	}
-	public void setPicName(String picName){
-		  this.picName = picName; 
+	public void setPicTitle(String picTitle){
+		  this.picTitle = picTitle; 
 	}
 	/**/
 	public String getPicUrl(){
@@ -77,14 +77,14 @@ public class TPic extends BaseModel implements Serializable{
 	public void setPicUrl(String picUrl){
 		  this.picUrl = picUrl; 
 	}
-	/**/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	/**/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}

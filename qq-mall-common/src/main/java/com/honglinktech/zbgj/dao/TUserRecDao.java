@@ -18,8 +18,9 @@ import com.honglinktech.zbgj.entity.TUserRec;
 public class TUserRecDao extends BaseDao<TUserRec>{
 	public enum DBMaping{
 		tableName("t_user_rec",0,false,false,false),
-		userId("user_id",Types.INTEGER,false,false,true),
-		recUserId("rec_user_id",Types.INTEGER,false,false,true),
+		id("id",Types.INTEGER,true,true,false),
+		userId("user_id",Types.INTEGER,false,false,false),
+		recUserId("rec_user_id",Types.INTEGER,false,false,false),
 		recUserName("rec_user_name",Types.VARCHAR,false,false,true),
 		awardType("award_type",Types.INTEGER,false,false,true),
 		awardNum("award_num",Types.INTEGER,false,false,true),
@@ -75,6 +76,7 @@ public class TUserRecDao extends BaseDao<TUserRec>{
         public TUserRec mapRow(ResultSet rs, int rowNum) throws SQLException {  
 
 			TUserRec tUserRec = new TUserRec();
+			tUserRec.setId(rs.getInt("id"));
 			tUserRec.setUserId(rs.getInt("user_id"));
 			tUserRec.setRecUserId(rs.getInt("rec_user_id"));
 			tUserRec.setRecUserName(rs.getString("rec_user_name"));

@@ -15,9 +15,9 @@ public class TGoodsFormat extends BaseModel implements Serializable{
 	private Integer goodsId;
 	@FieldMeta(primaryKey = true,fieldName = "规格ID",dbName = "format_id",length = 10,allowNull=false)
 	private Integer formatId;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime;
 	
 	/**
@@ -47,14 +47,14 @@ public class TGoodsFormat extends BaseModel implements Serializable{
 	public void setFormatId(Integer formatId){
 		  this.formatId = formatId; 
 	}
-	/**/
+	/*创建时间*/
 	public Date getCreateTime(){
 		 return this.createTime; 
 	}
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	/**/
+	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
 	}

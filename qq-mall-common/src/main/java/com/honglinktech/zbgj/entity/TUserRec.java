@@ -11,9 +11,11 @@ import java.util.Date;
 **/
 public class TUserRec extends BaseModel implements Serializable{
 
-	@FieldMeta(primaryKey = false,fieldName = "用户id",dbName = "user_id",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
+	private Integer id;
+	@FieldMeta(primaryKey = false,fieldName = "用户id",dbName = "user_id",length = 10,allowNull=false)
 	private Integer userId;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "rec_user_id",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "rec_user_id",length = 10,allowNull=false)
 	private Integer recUserId;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "rec_user_name",length = 20,allowNull=true)
 	private String recUserName;
@@ -31,8 +33,9 @@ public class TUserRec extends BaseModel implements Serializable{
 	
 	public TUserRec(){
  	}
- 	public TUserRec(Integer userId,Integer recUserId,String recUserName,Integer awardType,Integer awardNum){
- 		this.userId = userId;
+ 	public TUserRec(Integer id,Integer userId,Integer recUserId,String recUserName,Integer awardType,Integer awardNum){
+ 		this.id = id;
+		this.userId = userId;
 		this.recUserId = recUserId;
 		this.recUserName = recUserName;
 		this.awardType = awardType;
@@ -40,7 +43,14 @@ public class TUserRec extends BaseModel implements Serializable{
 		
  	}
  	
-		/*用户id*/
+		/**/
+	public Integer getId(){
+		 return this.id; 
+	}
+	public void setId(Integer id){
+		  this.id = id; 
+	}
+	/*用户id*/
 	public Integer getUserId(){
 		 return this.userId; 
 	}
