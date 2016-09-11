@@ -195,7 +195,7 @@ public abstract class BaseDao<T>{
         sql.append(sqlWhere).append(sqlOrderBy);
         sql.append(" limit ?,? ");  
         logger.info("[sql-findByQueryHelperNoCount]->"+sql);
-        Object[] args = { (queryHelper.getPageIndex()-1) * queryHelper.getPageSize(), queryHelper.getPageSize() };  
+        Object[] args = { (queryHelper.getIndex()-1) * queryHelper.getSize(), queryHelper.getSize() };  
 //        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);  
         queryHelper.setResultList(jdbcTemplate.query(sql.toString(), args, getRowMapper()));
         return queryHelper;  
@@ -224,7 +224,7 @@ public abstract class BaseDao<T>{
         sql.append(sqlWhere).append(sqlOrderBy);
         sql.append(" limit ?,? ");  
         logger.info("[sql-findByQueryHelper]->"+sql);
-        Object[] args = { (queryHelper.getPageIndex()-1) * queryHelper.getPageSize(), queryHelper.getPageSize() };  
+        Object[] args = { (queryHelper.getIndex()-1) * queryHelper.getSize(), queryHelper.getSize() };  
 //        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);  
         queryHelper.setResultList(jdbcTemplate.query(sql.toString(), args, getRowMapper()));
         queryHelper.setTotalRow(findCount(sqlWhere.toString()));
@@ -661,6 +661,19 @@ public abstract class BaseDao<T>{
         }  
         logger.info("[sql]->"+sql);
         return jdbcTemplate.queryForObject(sql.toString(), Integer.class);
+    }
+    /**
+     * 查询总数
+     * @param where
+     * @return
+     */
+    public List<T> findByWhere(String where) {  
+        StringBuffer sql = new StringBuffer(" SELECT * FROM " + getDBMapping(TABLENAME)[0]);  
+        if (!StringUtils.isEmpty(where)) {  
+        	sql.append(" "+where);
+        } 
+        logger.info("[sql]->"+sql);
+        return jdbcTemplate.query(sql.toString(), getRowMapper());  
     }
     
     /**

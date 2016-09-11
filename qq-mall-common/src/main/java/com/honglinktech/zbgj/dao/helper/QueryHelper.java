@@ -6,9 +6,9 @@ import java.util.Map;
 public class QueryHelper<T> {  
   
 	//页下标
-	private Integer pageIndex=1;
+	private Integer index=1;
 	//页大小
-	private Integer pageSize=10;
+	private Integer size=10;
 	//查询条件
 	private String queryWhere;
 	// 结果集  
@@ -20,20 +20,20 @@ public class QueryHelper<T> {
     //查询条件
     private Map<String, String[]> whereMap;
     
-	public Integer getPageIndex() {
-		if(pageIndex==0){
-			pageIndex=1;
+	public Integer getIndex() {
+		if(index<=0){
+			index=1;
 		}
-		return pageIndex;
+		return index;
 	}
-	public void setPageIndex(Integer pageIndex) {
-		this.pageIndex = pageIndex;
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
-	public Integer getPageSize() {
-		return pageSize;
+	public Integer getSize() {
+		return size;
 	}
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
+	public void setSize(Integer size) {
+		this.size = size;
 	}
 	public List<T> getResultList() {
 		return resultList;
@@ -68,14 +68,14 @@ public class QueryHelper<T> {
 	public QueryHelper(){
 		
 	}
-	public QueryHelper(int pageIndex,int pageSize,String queryWhere){
-		this.pageIndex = pageIndex;
-		this.pageSize = pageSize;
+	public QueryHelper(int index,int size,String queryWhere){
+		this.index = index;
+		this.size = size;
 		this.queryWhere = queryWhere;
 	}
-	public QueryHelper(int pageIndex,int pageSize,Map<String, String[]> whereMap){
-		this.pageIndex = pageIndex;
-		this.pageSize = pageSize;
+	public QueryHelper(int index,int size,Map<String, String[]> whereMap){
+		this.index = index;
+		this.size = size;
 		this.whereMap = whereMap;
 	}
 	public QueryHelper(Map<String, String[]> whereMap){
@@ -89,7 +89,7 @@ public class QueryHelper<T> {
 	
     @Override
     public String toString() {
-    	System.out.println("[pageIndex]->"+pageIndex+"[pageSize]->"+pageSize+"[queryWhere]->"+queryWhere+"[totalRow]->"+totalRow+"[orderBy]->"+orderBy+"[whereMap]->"+whereMap+"[resultList]->"+resultList);
+    	System.out.println("[pageIndex]->"+index+"[pageSize]->"+size+"[queryWhere]->"+queryWhere+"[totalRow]->"+totalRow+"[orderBy]->"+orderBy+"[whereMap]->"+whereMap+"[resultList]->"+resultList);
     	return super.toString();
     }
 }  

@@ -21,6 +21,8 @@ public enum ExceptionEnum {
 	ADMIN_ACCOUNT_NOT_NULL("010004","用户名不能为空！","account not null!"),
 	ADMIN_PASSWORD_NOT_NULL("010005","密码不能为空！","password not null!"),
 	//user 020000
+	USER_PASSWORD_ERROR("020001","用户名或者密码错误","account or password error!"),
+	USER_MUCH_ERROR("020002","系统错误","much user,account:{0},password:{1}!"),
 	
 	//good 030000
 	

@@ -180,7 +180,7 @@ public abstract class CommonBaseController<T extends BaseEntity,E extends BaseSe
 		            if(!StringUtils.isEmpty(value))
 		            map.put(name, new String[]{String.valueOf(value)});
 		        } 
-			}catch (IllegalArgumentException|IllegalAccessException e) {
+			}catch (Exception e) {
 				throw new BaseException(e.getMessage());
 			}
 		}
@@ -213,10 +213,10 @@ public abstract class CommonBaseController<T extends BaseEntity,E extends BaseSe
 			            }
 			            Object invoke = method.invoke(p);
 			            if(method.getName().equals("allowNull")){
-			            	allowNull = (boolean)invoke;
+			            	allowNull = (Boolean)invoke;
 			            }
 			            if(method.getName().equals("primaryKey")){
-			            	primaryKey = (boolean)invoke;
+			            	primaryKey = (Boolean)invoke;
 			            }
 			            if(SAVE.equals(operate)){
 			            	System.out.println(fieldName+"======"+primaryKey+"====="+allowNull);
@@ -241,9 +241,9 @@ public abstract class CommonBaseController<T extends BaseEntity,E extends BaseSe
 					
 			    }
 			}
-		} catch (IllegalAccessException|IllegalArgumentException|InvocationTargetException | NoSuchMethodException | SecurityException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new BaseException(ExceptionEnum.COMMON_ERROE);
+			throw new BaseException(ExceptionEnum.COMMON_ERROE,e.getMessage());
 		} 
 	}
 	

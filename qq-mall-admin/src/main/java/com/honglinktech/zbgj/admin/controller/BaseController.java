@@ -3,11 +3,6 @@
  */
 package com.honglinktech.zbgj.admin.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,23 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.honglinktech.zbgj.admin.common.Constants;
-import com.honglinktech.zbgj.common.Page;
-import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.SystemArgsCache;
 import com.honglinktech.zbgj.entity.CAdmin;
 
 /**
  * 控制器支持类
  *
- * @author Dayong
- * @version 2016-2-03
  */
 @Configuration
 public abstract class BaseController {

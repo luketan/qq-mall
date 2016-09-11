@@ -14,7 +14,6 @@ import com.honglinktech.zbgj.entity.TUser;
 /**
 *Dao
 **/
-@Component
 public class TUserDao extends BaseDao<TUser>{
 	public enum DBMaping{
 		tableName("t_user",0,false,false,false),

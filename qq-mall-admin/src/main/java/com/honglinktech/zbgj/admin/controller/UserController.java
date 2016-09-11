@@ -45,32 +45,6 @@ public class UserController extends BaseController {
     @Autowired  
     private Environment env;
     
-    
-    /**
-     * 分页查询订单
-     *
-     * @param status 订单状态
-     * @param type   销售方式
-     * @param pickup 取货方式
-     * @param key    关键字
-     * @param index  分页页数
-     * @param size   分页大小
-     * @param model
-     * @return
-     */
-    @RequiresPermissions("system:user:list")
-    @RequestMapping("/list")
-    public String list(@RequestParam(required = false, defaultValue = "1") int index,
-            @RequestParam(required = false, defaultValue = "15") int size,Model model) {
-    	
-    		String mallId = env.getProperty("system.mallId");
-    		int mId = StringUtils.isEmpty(mallId)?0:Integer.valueOf(mallId);
-    		
-    		Page<User> page = usersService.userList(mId,index, size, "user/list");
-    		model.addAttribute("page", page);
-	        return "user/list";
-    }
-    
     /**
      * 用户修改
      * @param status 订单状态

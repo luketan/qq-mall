@@ -1,5 +1,7 @@
 package com.honglinktech.zbgj.common;
 
+import com.honglinktech.zbgj.base.ExceptionEnum;
+
 
 
 /**
@@ -12,7 +14,7 @@ public class Result {
      * @return
      */
     public static <T> Response<T> success() {
-        return new Response<T>(0, "操作成功");
+        return new Response<T>(ExceptionEnum.COMMON_SUCCESS.getRetCode(), "操作成功");
     }
 
 
@@ -23,7 +25,7 @@ public class Result {
      * @return
      */
     public static <T> Response<T> success(String desc) {
-        return new Response<T>(0, desc);
+        return new Response<T>(ExceptionEnum.COMMON_SUCCESS.getRetCode(), desc);
     }
 
     /**
@@ -33,7 +35,7 @@ public class Result {
      * @return
      */
     public static <T> Response<T> fail(String desc) {
-        return new Response<T>(1, desc);
+        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), desc);
     }
 
     /**
@@ -43,7 +45,7 @@ public class Result {
      * @param desc
      * @return
      */
-    public static <T> Response<T> fail(int code, String desc) {
+    public static <T> Response<T> fail(String code, String desc) {
         return new Response<T>(code, desc);
     }
 
@@ -54,7 +56,7 @@ public class Result {
      * @return
      */
     public static <T> Response<T> resultSet(T result) {
-        return new Response<T>(0, "操作成功", result);
+        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), "操作成功", result);
     }
 
     /**
@@ -64,7 +66,7 @@ public class Result {
      * @return
      */
     public static <T> Response<T> resultSet(T result, int totalRecord) {
-        return new Response<T>(0, "操作成功", result, totalRecord);
+        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), "操作成功", result, totalRecord);
     }
 
     /**
@@ -75,11 +77,11 @@ public class Result {
      * @return
      */
     public static <T> Response<T> resultSet(String msg, T result) {
-        return new Response<T>(0, msg, result);
+        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), msg, result);
     }
 
 
     public static <T> Response<T> resultSet(String msg, T result, int totalRecord) {
-        return new Response<T>(0, msg, result, totalRecord);
+        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), msg, result, totalRecord);
     }
 }

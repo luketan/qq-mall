@@ -90,7 +90,7 @@ public class CAdminDao extends BaseDao<CAdmin>{
 			return cAdmin; 
         }  
           
-    }  
+    }
 	@Override
 	protected RowMapper<CAdmin> getRowMapper() {
 		return new CAdminRowMapper();

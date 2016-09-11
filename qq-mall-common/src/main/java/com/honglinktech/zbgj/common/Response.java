@@ -5,7 +5,7 @@ package com.honglinktech.zbgj.common;
  * @param <T>
  */
 public class Response<T> {
-    private int code;  //0表示成功   1表示失败  9999token超时
+    private String code;  //0表示成功   1表示失败  9999token超时
     private String msg;
     private T result;
     private int totalRecord;//总记录数
@@ -18,7 +18,7 @@ public class Response<T> {
      * @param id
      * @param desc
      */
-    public Response(int code, String desc) {
+    public Response(String code, String desc) {
         this.code = code;
         this.msg = desc;
     }
@@ -30,24 +30,24 @@ public class Response<T> {
      * @param id
      * @param desc
      */
-    public Response(int code, String desc, T result) {
+    public Response(String code, String desc, T result) {
         this.code = code;
         this.msg = desc;
         this.result = result;
     }
 
-    public Response(int code, String msg, T result, int totalRecord) {
+    public Response(String code, String msg, T result, int totalRecord) {
         this.code = code;
         this.msg = msg;
         this.result = result;
         this.totalRecord = totalRecord;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
