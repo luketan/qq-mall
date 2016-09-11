@@ -1,6 +1,6 @@
 package com.honglinktech.zbgj.entity;
 
-import com.honglinktech.zbgj.base.BaseModel;
+import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
 import java.util.Date; 
@@ -9,7 +9,7 @@ import java.util.Date;
 /**
 *商品活动
 **/
-public class TGoodsActivity extends BaseModel implements Serializable{
+public class TGoodsActivity extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "商品ID",dbName = "goods_id",length = 10,allowNull=false)
 	private Integer goodsId;

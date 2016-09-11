@@ -1,13 +1,13 @@
 package com.honglinktech.zbgj.entity;
 
-import com.honglinktech.zbgj.base.BaseModel;
+import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
 
 /**
 *
 **/
-public class TSenWords extends BaseModel implements Serializable{
+public class TSenWords extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
 	private Integer id;

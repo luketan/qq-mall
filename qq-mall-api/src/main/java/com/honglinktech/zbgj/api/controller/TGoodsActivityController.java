@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TGoodsActivity;
 import com.honglinktech.zbgj.service.TGoodsActivityService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TGoodsActivityService;
 @ControllerMeta(name = "商品活动")
 @RestController
 @RequestMapping("/tGoodsActivity/api/")
-public class TGoodsActivityController extends BaseController<TGoodsActivity,TGoodsActivityService> {
+public class TGoodsActivityController extends CommonBaseController<TGoodsActivity,TGoodsActivityService> {
 
 	private TGoodsActivityService tGoodsActivityService;
 

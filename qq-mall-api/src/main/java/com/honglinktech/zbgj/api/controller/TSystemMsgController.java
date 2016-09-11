@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TSystemMsg;
 import com.honglinktech.zbgj.service.TSystemMsgService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TSystemMsgService;
 @ControllerMeta(name = "系统消息")
 @RestController
 @RequestMapping("/tSystemMsg/api/")
-public class TSystemMsgController extends BaseController<TSystemMsg,TSystemMsgService> {
+public class TSystemMsgController extends CommonBaseController<TSystemMsg,TSystemMsgService> {
 
 	private TSystemMsgService tSystemMsgService;
 

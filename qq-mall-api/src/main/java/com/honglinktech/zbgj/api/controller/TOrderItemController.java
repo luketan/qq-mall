@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TOrderItem;
 import com.honglinktech.zbgj.service.TOrderItemService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TOrderItemService;
 @ControllerMeta(name = "订单详情")
 @RestController
 @RequestMapping("/tOrderItem/api/")
-public class TOrderItemController extends BaseController<TOrderItem,TOrderItemService> {
+public class TOrderItemController extends CommonBaseController<TOrderItem,TOrderItemService> {
 
 	private TOrderItemService tOrderItemService;
 

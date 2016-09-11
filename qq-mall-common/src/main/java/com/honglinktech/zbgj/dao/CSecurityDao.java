@@ -23,7 +23,7 @@ public class CSecurityDao extends BaseDao<CSecurity>{
 		type("type",Types.INTEGER,false,false,true),
 		name("name",Types.VARCHAR,false,false,true),
 		code("code",Types.VARCHAR,false,false,true),
-		description("description",Types.VARCHAR,false,false,true);
+		desc("desc",Types.VARCHAR,false,false,true);
 		private String dbName;
 		private int dbType;
 		private boolean primaryKey;
@@ -80,7 +80,7 @@ public class CSecurityDao extends BaseDao<CSecurity>{
 			cSecurity.setType(rs.getInt("type"));
 			cSecurity.setName(rs.getString("name"));
 			cSecurity.setCode(rs.getString("code"));
-			cSecurity.setDescription(rs.getString("description"));
+			cSecurity.setDesc(rs.getString("desc"));
 			return cSecurity; 
         }  
           

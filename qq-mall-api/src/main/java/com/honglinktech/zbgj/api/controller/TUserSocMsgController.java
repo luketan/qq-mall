@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TUserSocMsg;
 import com.honglinktech.zbgj.service.TUserSocMsgService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TUserSocMsgService;
 @ControllerMeta(name = "用户社区消息")
 @RestController
 @RequestMapping("/tUserSocMsg/api/")
-public class TUserSocMsgController extends BaseController<TUserSocMsg,TUserSocMsgService> {
+public class TUserSocMsgController extends CommonBaseController<TUserSocMsg,TUserSocMsgService> {
 
 	private TUserSocMsgService tUserSocMsgService;
 

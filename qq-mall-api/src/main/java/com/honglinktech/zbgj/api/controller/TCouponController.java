@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TCoupon;
 import com.honglinktech.zbgj.service.TCouponService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TCouponService;
 @ControllerMeta(name = "优惠券")
 @RestController
 @RequestMapping("/tCoupon/api/")
-public class TCouponController extends BaseController<TCoupon,TCouponService> {
+public class TCouponController extends CommonBaseController<TCoupon,TCouponService> {
 
 	private TCouponService tCouponService;
 

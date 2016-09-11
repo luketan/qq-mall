@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TSocietyNote;
 import com.honglinktech.zbgj.service.TSocietyNoteService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TSocietyNoteService;
 @ControllerMeta(name = "帖子")
 @RestController
 @RequestMapping("/tSocietyNote/api/")
-public class TSocietyNoteController extends BaseController<TSocietyNote,TSocietyNoteService> {
+public class TSocietyNoteController extends CommonBaseController<TSocietyNote,TSocietyNoteService> {
 
 	private TSocietyNoteService tSocietyNoteService;
 

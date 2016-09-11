@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TPic;
 import com.honglinktech.zbgj.service.TPicService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TPicService;
 @ControllerMeta(name = "商品图片")
 @RestController
 @RequestMapping("/tPic/api/")
-public class TPicController extends BaseController<TPic,TPicService> {
+public class TPicController extends CommonBaseController<TPic,TPicService> {
 
 	private TPicService tPicService;
 

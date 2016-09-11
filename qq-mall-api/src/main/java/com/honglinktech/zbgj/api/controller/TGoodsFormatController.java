@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TGoodsFormat;
 import com.honglinktech.zbgj.service.TGoodsFormatService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TGoodsFormatService;
 @ControllerMeta(name = "商品规格")
 @RestController
 @RequestMapping("/tGoodsFormat/api/")
-public class TGoodsFormatController extends BaseController<TGoodsFormat,TGoodsFormatService> {
+public class TGoodsFormatController extends CommonBaseController<TGoodsFormat,TGoodsFormatService> {
 
 	private TGoodsFormatService tGoodsFormatService;
 

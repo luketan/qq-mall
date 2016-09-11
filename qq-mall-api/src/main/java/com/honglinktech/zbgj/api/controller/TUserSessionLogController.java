@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TUserSessionLog;
 import com.honglinktech.zbgj.service.TUserSessionLogService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TUserSessionLogService;
 @ControllerMeta(name = "登录日志表")
 @RestController
 @RequestMapping("/tUserSessionLog/api/")
-public class TUserSessionLogController extends BaseController<TUserSessionLog,TUserSessionLogService> {
+public class TUserSessionLogController extends CommonBaseController<TUserSessionLog,TUserSessionLogService> {
 
 	private TUserSessionLogService tUserSessionLogService;
 

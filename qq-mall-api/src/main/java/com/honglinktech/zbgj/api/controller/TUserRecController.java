@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TUserRec;
 import com.honglinktech.zbgj.service.TUserRecService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TUserRecService;
 @ControllerMeta(name = "注册用户推荐奖励")
 @RestController
 @RequestMapping("/tUserRec/api/")
-public class TUserRecController extends BaseController<TUserRec,TUserRecService> {
+public class TUserRecController extends CommonBaseController<TUserRec,TUserRecService> {
 
 	private TUserRecService tUserRecService;
 

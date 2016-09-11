@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TGType;
 import com.honglinktech.zbgj.service.TGTypeService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TGTypeService;
 @ControllerMeta(name = "商品类别表")
 @RestController
 @RequestMapping("/tGType/api/")
-public class TGTypeController extends BaseController<TGType,TGTypeService> {
+public class TGTypeController extends CommonBaseController<TGType,TGTypeService> {
 
 	private TGTypeService tGTypeService;
 

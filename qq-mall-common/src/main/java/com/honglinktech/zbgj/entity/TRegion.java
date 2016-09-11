@@ -1,13 +1,13 @@
 package com.honglinktech.zbgj.entity;
 
-import com.honglinktech.zbgj.base.BaseModel;
+import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
 
 /**
 *
 **/
-public class TRegion extends BaseModel implements Serializable{
+public class TRegion extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "region_id",length = 22,allowNull=false)
 	private Double regionId;

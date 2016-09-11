@@ -1,13 +1,13 @@
 package com.honglinktech.zbgj.entity;
 
-import com.honglinktech.zbgj.base.BaseModel;
+import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
 
 /**
 *系统权限表
 **/
-public class CSecurity extends BaseModel implements Serializable{
+public class CSecurity extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
 	private Integer id;
@@ -19,8 +19,8 @@ public class CSecurity extends BaseModel implements Serializable{
 	private String name;
 	@FieldMeta(primaryKey = false,fieldName = "权限编码",dbName = "code",length = 32,allowNull=true)
 	private String code;
-	@FieldMeta(primaryKey = false,fieldName = "权限说明",dbName = "description",length = 255,allowNull=true)
-	private String description;
+	@FieldMeta(primaryKey = false,fieldName = "权限说明",dbName = "desc",length = 255,allowNull=true)
+	private String desc;
 	
 	/**
 	 * 
@@ -29,13 +29,13 @@ public class CSecurity extends BaseModel implements Serializable{
 	
 	public CSecurity(){
  	}
- 	public CSecurity(Integer id,Integer parentId,Integer type,String name,String code,String description){
+ 	public CSecurity(Integer id,Integer parentId,Integer type,String name,String code,String desc){
  		this.id = id;
 		this.parentId = parentId;
 		this.type = type;
 		this.name = name;
 		this.code = code;
-		this.description = description;
+		this.desc = desc;
 		
  	}
  	
@@ -75,11 +75,11 @@ public class CSecurity extends BaseModel implements Serializable{
 		  this.code = code; 
 	}
 	/*权限说明*/
-	public String getDescription(){
-		 return this.description; 
+	public String getDesc(){
+		 return this.desc; 
 	}
-	public void setDescription(String description){
-		  this.description = description; 
+	public void setDesc(String desc){
+		  this.desc = desc; 
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.honglinktech.zbgj.entity;
 
-import com.honglinktech.zbgj.base.BaseModel;
+import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
 import java.util.Date; 
@@ -9,7 +9,7 @@ import java.util.Date;
 /**
 *管理员表
 **/
-public class CAdmin extends BaseModel implements Serializable{
+public class CAdmin extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "管理员ID",dbName = "id",length = 10,allowNull=false)
 	private Integer id;

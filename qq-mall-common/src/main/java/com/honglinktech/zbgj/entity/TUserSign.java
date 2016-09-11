@@ -1,6 +1,6 @@
 package com.honglinktech.zbgj.entity;
 
-import com.honglinktech.zbgj.base.BaseModel;
+import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
 import java.util.Date; 
@@ -9,7 +9,7 @@ import java.util.Date;
 /**
 *用户的个性签名记录
 **/
-public class TUserSign extends BaseModel implements Serializable{
+public class TUserSign extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "ID",dbName = "id",length = 10,allowNull=false)
 	private Integer id;

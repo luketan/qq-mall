@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TProblem;
 import com.honglinktech.zbgj.service.TProblemService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TProblemService;
 @ControllerMeta(name = "活动")
 @RestController
 @RequestMapping("/tProblem/api/")
-public class TProblemController extends BaseController<TProblem,TProblemService> {
+public class TProblemController extends CommonBaseController<TProblem,TProblemService> {
 
 	private TProblemService tProblemService;
 

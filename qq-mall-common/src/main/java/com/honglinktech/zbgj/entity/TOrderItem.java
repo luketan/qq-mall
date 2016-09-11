@@ -1,6 +1,6 @@
 package com.honglinktech.zbgj.entity;
 
-import com.honglinktech.zbgj.base.BaseModel;
+import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
 import java.math.BigDecimal; 
@@ -11,7 +11,7 @@ import java.util.Date;
 /**
 *订单详情
 **/
-public class TOrderItem extends BaseModel implements Serializable{
+public class TOrderItem extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "订单项Id",dbName = "id",length = 10,allowNull=false)
 	private Integer id;

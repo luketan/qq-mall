@@ -1,6 +1,6 @@
 package com.honglinktech.zbgj.entity;
 
-import com.honglinktech.zbgj.base.BaseModel;
+import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
 import java.math.BigDecimal; 
@@ -11,7 +11,7 @@ import java.util.Date;
 /**
 *
 **/
-public class TUser extends BaseModel implements Serializable{
+public class TUser extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "用户ID",dbName = "id",length = 10,allowNull=false)
 	private Integer id;

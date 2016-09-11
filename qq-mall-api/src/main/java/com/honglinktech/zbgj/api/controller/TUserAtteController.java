@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TUserAtte;
 import com.honglinktech.zbgj.service.TUserAtteService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TUserAtteService;
 @ControllerMeta(name = "用户关注")
 @RestController
 @RequestMapping("/tUserAtte/api/")
-public class TUserAtteController extends BaseController<TUserAtte,TUserAtteService> {
+public class TUserAtteController extends CommonBaseController<TUserAtte,TUserAtteService> {
 
 	private TUserAtteService tUserAtteService;
 

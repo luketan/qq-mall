@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TUserSign;
 import com.honglinktech.zbgj.service.TUserSignService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TUserSignService;
 @ControllerMeta(name = "用户的个性签名记录")
 @RestController
 @RequestMapping("/tUserSign/api/")
-public class TUserSignController extends BaseController<TUserSign,TUserSignService> {
+public class TUserSignController extends CommonBaseController<TUserSign,TUserSignService> {
 
 	private TUserSignService tUserSignService;
 

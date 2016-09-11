@@ -72,9 +72,12 @@
     <!-- 事务管理 通知 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
-            <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
-            <tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
-            <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
+	        <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
+	        <tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
+	        <tx:method name="login*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
+	        <tx:method name="register*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
+		    <tx:method name="find*" read-only="true"/>
             <tx:method name="select*" read-only="true"/>
             <tx:method name="count*" read-only="true"/>
             <tx:method name="*"/>
@@ -83,7 +86,7 @@
 
     <!-- 事务 aop 配置 -->
     <aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* com.honglinktech.zbgj.service.*.*(..))"/>
+        <aop:pointcut id="serviceMethods" expression="execution(* com.honglinktech.zbgj.service.*.*(..)) || execution(* com.honglinktech.zbgj.service.self.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
 

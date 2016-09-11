@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TSocietyReward;
 import com.honglinktech.zbgj.service.TSocietyRewardService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TSocietyRewardService;
 @ControllerMeta(name = "社区打赏")
 @RestController
 @RequestMapping("/tSocietyReward/api/")
-public class TSocietyRewardController extends BaseController<TSocietyReward,TSocietyRewardService> {
+public class TSocietyRewardController extends CommonBaseController<TSocietyReward,TSocietyRewardService> {
 
 	private TSocietyRewardService tSocietyRewardService;
 

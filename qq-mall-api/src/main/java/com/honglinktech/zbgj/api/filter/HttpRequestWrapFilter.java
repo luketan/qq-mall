@@ -66,7 +66,7 @@ public class HttpRequestWrapFilter implements Filter {
             if (contentType == null) contentType = "";
 
             final StringBuilder logMessage =
-                    new StringBuilder("REST Request == ").append("[HTTP METHOD:").append(httpServletRequest.getMethod()).append("] [URL INFO:")
+                    new StringBuilder("REST Request = ").append("[HTTP METHOD:").append(httpServletRequest.getMethod()).append("] [URL INFO:")
                             .append(httpServletRequest.getRequestURL()).append("] [REQUEST PARAMETERS:").append(requestMap).append("] [REQUEST BODY:")
                             .append(bufferedReqest.getRequestBody()).append("] [CONTENT TYPE:").append(contentType).append("]");
 

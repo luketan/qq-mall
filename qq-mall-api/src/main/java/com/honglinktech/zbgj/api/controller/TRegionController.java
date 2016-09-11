@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TRegion;
 import com.honglinktech.zbgj.service.TRegionService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TRegionService;
 @ControllerMeta(name = "")
 @RestController
 @RequestMapping("/tRegion/api/")
-public class TRegionController extends BaseController<TRegion,TRegionService> {
+public class TRegionController extends CommonBaseController<TRegion,TRegionService> {
 
 	private TRegionService tRegionService;
 

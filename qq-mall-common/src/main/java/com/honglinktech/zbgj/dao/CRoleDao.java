@@ -21,7 +21,7 @@ public class CRoleDao extends BaseDao<CRole>{
 		id("id",Types.INTEGER,true,true,false),
 		type("type",Types.INTEGER,false,false,true),
 		name("name",Types.VARCHAR,false,false,true),
-		description("description",Types.VARCHAR,false,false,true);
+		desc("desc",Types.VARCHAR,false,false,true);
 		private String dbName;
 		private int dbType;
 		private boolean primaryKey;
@@ -76,7 +76,7 @@ public class CRoleDao extends BaseDao<CRole>{
 			cRole.setId(rs.getInt("id"));
 			cRole.setType(rs.getInt("type"));
 			cRole.setName(rs.getString("name"));
-			cRole.setDescription(rs.getString("description"));
+			cRole.setDesc(rs.getString("desc"));
 			return cRole; 
         }  
           

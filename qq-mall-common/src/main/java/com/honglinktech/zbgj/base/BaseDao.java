@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -154,7 +155,8 @@ public abstract class BaseDao<T>{
     }
   
     public T findById(Serializable id) {  
-        String sql = "SELECT * FROM " + getDBMapping(TABLENAME)[0] + " WHERE id=?";  
+        String sql = "SELECT * FROM " + getDBMapping(TABLENAME)[0] + " WHERE id=?"; 
+        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);
 //        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);  
         return jdbcTemplate.query(sql, getRowMapper(), id).get(0);  
     }  

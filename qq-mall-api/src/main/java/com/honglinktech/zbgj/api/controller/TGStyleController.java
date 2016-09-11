@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TGStyle;
 import com.honglinktech.zbgj.service.TGStyleService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TGStyleService;
 @ControllerMeta(name = "商品款式")
 @RestController
 @RequestMapping("/tGStyle/api/")
-public class TGStyleController extends BaseController<TGStyle,TGStyleService> {
+public class TGStyleController extends CommonBaseController<TGStyle,TGStyleService> {
 
 	private TGStyleService tGStyleService;
 

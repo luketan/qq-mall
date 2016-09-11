@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TGBrand;
 import com.honglinktech.zbgj.service.TGBrandService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TGBrandService;
 @ControllerMeta(name = "商品品牌")
 @RestController
 @RequestMapping("/tGBrand/api/")
-public class TGBrandController extends BaseController<TGBrand,TGBrandService> {
+public class TGBrandController extends CommonBaseController<TGBrand,TGBrandService> {
 
 	private TGBrandService tGBrandService;
 

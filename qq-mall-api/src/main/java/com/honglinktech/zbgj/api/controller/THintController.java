@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.THint;
 import com.honglinktech.zbgj.service.THintService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.THintService;
 @ControllerMeta(name = "提示语")
 @RestController
 @RequestMapping("/tHint/api/")
-public class THintController extends BaseController<THint,THintService> {
+public class THintController extends CommonBaseController<THint,THintService> {
 
 	private THintService tHintService;
 

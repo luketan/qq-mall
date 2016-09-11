@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.annotation.ControllerMeta;
-import com.honglinktech.zbgj.api.base.BaseController;
+import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.entity.TUserCollect;
 import com.honglinktech.zbgj.service.TUserCollectService;
 /**
@@ -15,7 +15,7 @@ import com.honglinktech.zbgj.service.TUserCollectService;
 @ControllerMeta(name = "用户的收藏")
 @RestController
 @RequestMapping("/tUserCollect/api/")
-public class TUserCollectController extends BaseController<TUserCollect,TUserCollectService> {
+public class TUserCollectController extends CommonBaseController<TUserCollect,TUserCollectService> {
 
 	private TUserCollectService tUserCollectService;
 
