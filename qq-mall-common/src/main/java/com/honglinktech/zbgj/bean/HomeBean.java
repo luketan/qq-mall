@@ -20,8 +20,6 @@ public class HomeBean {
 		this.type = module.getType();
 		this.url = module.getUrl();
 		Gson gson = new Gson();
-		System.out.println("----------------------------------");
-		System.out.println("[content]"+module.getContent());
 		this.results = gson.fromJson(module.getContent(), Result.class);
 	
 	}

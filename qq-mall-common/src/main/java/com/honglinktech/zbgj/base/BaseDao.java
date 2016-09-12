@@ -673,9 +673,10 @@ public abstract class BaseDao<T>{
         	sql.append(" "+where);
         } 
         logger.info("[sql]->"+sql);
+        System.out.println("[findByWhere.sql]->"+sql);
         return jdbcTemplate.query(sql.toString(), getRowMapper());  
     }
-    
+    	
     /**
      * spring jdbc处理
      * @param jdbcTemplate

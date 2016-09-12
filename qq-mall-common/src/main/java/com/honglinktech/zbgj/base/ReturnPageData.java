@@ -2,8 +2,8 @@ package com.honglinktech.zbgj.base;
 
 public class ReturnPageData {
 	private int total;
-	private int pageIndex;
-	private int pageSize;
+	private int index;
+	private int size;
 	
 	private Object results;
 	public int getTotal() {
@@ -18,22 +18,22 @@ public class ReturnPageData {
 	public void setResults(Object results) {
 		this.results = results;
 	}
-	public int getPageIndex() {
-		return pageIndex;
+	public int getIndex() {
+		return index;
 	}
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
+	public void setIndex(int index) {
+		this.index = index;
 	}
-	public int getPageSize() {
-		return pageSize;
+	public int getSize() {
+		return size;
 	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
+	public void setSize(int size) {
+		this.size = size;
 	}
-	public ReturnPageData(int pageIndex, int pageSize,int total, Object results) {
+	public ReturnPageData(int index, int size,int total, Object results) {
 		super();
-		this.pageIndex = pageIndex;
-		this.pageSize = pageSize;
+		this.index = index;
+		this.size = size;
 		this.total = total;
 		this.results = results;
 	}

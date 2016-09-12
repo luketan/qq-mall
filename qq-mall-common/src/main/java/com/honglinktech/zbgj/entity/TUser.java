@@ -17,9 +17,9 @@ public class TUser extends BaseEntity implements Serializable{
 	private Integer id;
 	@FieldMeta(primaryKey = false,fieldName = "昵称",dbName = "nick_name",length = 20,allowNull=true)
 	private String nickName;
-	@FieldMeta(primaryKey = false,fieldName = "账号",dbName = "account",length = 50,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "账号",dbName = "account",length = 64,allowNull=false)
 	private String account;
-	@FieldMeta(primaryKey = false,fieldName = "密码",dbName = "password",length = 20,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "密码",dbName = "password",length = 64,allowNull=false)
 	private String password;
 	@FieldMeta(primaryKey = false,fieldName = "个性签名",dbName = "sign",length = 50,allowNull=true)
 	private String sign;
@@ -37,13 +37,13 @@ public class TUser extends BaseEntity implements Serializable{
 	private Integer level;
 	@FieldMeta(primaryKey = false,fieldName = "邮箱",dbName = "email",length = 50,allowNull=true)
 	private String email;
-	@FieldMeta(primaryKey = false,fieldName = "是否已认证(0否,1是)",dbName = "is_email",length = 10,allowNull=true)
-	private Integer isEmail;
+	@FieldMeta(primaryKey = false,fieldName = "是否已认证(0否,1是)",dbName = "email_is",length = 10,allowNull=true)
+	private Integer emailIs;
 	@FieldMeta(primaryKey = false,fieldName = "手机号码",dbName = "phone",length = 50,allowNull=true)
 	private String phone;
 	@FieldMeta(primaryKey = false,fieldName = "是否已认证(0否,1是)",dbName = "phone_is",length = 10,allowNull=true)
 	private Integer phoneIs;
-	@FieldMeta(primaryKey = false,fieldName = "状态(1未激活,2正常，3被锁定，4被拉黑)",dbName = "status",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "状态(0未激活,1正常，2被锁定，3被拉黑)",dbName = "status",length = 10,allowNull=true)
 	private Integer status;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "from",length = 50,allowNull=true)
 	private String from;
@@ -67,7 +67,7 @@ public class TUser extends BaseEntity implements Serializable{
 	
 	public TUser(){
  	}
- 	public TUser(Integer id,String nickName,String account,String password,String sign,String head,BigDecimal virtualMoney,BigDecimal money,Integer point,Integer exp,Integer level,String email,Integer isEmail,String phone,Integer phoneIs,Integer status,String from,Integer sex,Integer sexu,Integer tryIs,Integer type){
+ 	public TUser(Integer id,String nickName,String account,String password,String sign,String head,BigDecimal virtualMoney,BigDecimal money,Integer point,Integer exp,Integer level,String email,Integer emailIs,String phone,Integer phoneIs,Integer status,String from,Integer sex,Integer sexu,Integer tryIs,Integer type){
  		this.id = id;
 		this.nickName = nickName;
 		this.account = account;
@@ -80,7 +80,7 @@ public class TUser extends BaseEntity implements Serializable{
 		this.exp = exp;
 		this.level = level;
 		this.email = email;
-		this.isEmail = isEmail;
+		this.emailIs = emailIs;
 		this.phone = phone;
 		this.phoneIs = phoneIs;
 		this.status = status;
@@ -177,11 +177,11 @@ public class TUser extends BaseEntity implements Serializable{
 		  this.email = email; 
 	}
 	/*是否已认证(0否,1是)*/
-	public Integer getIsEmail(){
-		 return this.isEmail; 
+	public Integer getEmailIs(){
+		 return this.emailIs; 
 	}
-	public void setIsEmail(Integer isEmail){
-		  this.isEmail = isEmail; 
+	public void setEmailIs(Integer emailIs){
+		  this.emailIs = emailIs; 
 	}
 	/*手机号码*/
 	public String getPhone(){
@@ -197,7 +197,7 @@ public class TUser extends BaseEntity implements Serializable{
 	public void setPhoneIs(Integer phoneIs){
 		  this.phoneIs = phoneIs; 
 	}
-	/*状态(1未激活,2正常，3被锁定，4被拉黑)*/
+	/*状态(0未激活,1正常，2被锁定，3被拉黑)*/
 	public Integer getStatus(){
 		 return this.status; 
 	}

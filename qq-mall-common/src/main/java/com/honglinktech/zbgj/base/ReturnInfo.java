@@ -13,7 +13,7 @@ public class ReturnInfo {
 	}
 	public ReturnInfo(ExceptionEnum exceptionEnum,Object...args) {
 		this.code=exceptionEnum.getRetCode();
-		this.msg=exceptionEnum.getRetString();
+		this.msg=exceptionEnum.getRetString(args);
 	}
 	public ReturnInfo(ExceptionEnum exceptionEnum,Object result) {
 		this.result = result;

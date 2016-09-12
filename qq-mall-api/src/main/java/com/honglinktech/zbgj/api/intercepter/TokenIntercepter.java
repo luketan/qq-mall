@@ -34,15 +34,15 @@ public class TokenIntercepter implements HandlerInterceptor {
     	
     	String mallId = env.getProperty("system.mallId");
     	String uri = request.getRequestURI();
+    	String token=request.getHeader("token");
+    	System.out.println("token["+token+"],mallId["+mallId+"]"+getRemoteHost(request));
     	if(uri.indexOf("/user/login")==-1 &&
     	   uri.indexOf("/order/kd100callbac")==-1 &&
     	   uri.indexOf("/order/subscribe")==-1 &&
     	   uri.indexOf("/order/homeCount")==-1 &&
     	   uri.indexOf("/home/find/systemPara")==-1&&
-    	   uri.indexOf("/platform/user/findAuthInfo")==-1){
+    	   uri.indexOf("/platform/user/findAuthInfo")==-1){   		
     		
-    		String token=request.getHeader("token");
-        	System.out.println("token["+token+"],mallId["+mallId+"]");
 //        	if(StringUtils.isEmpty(token)){
 //        		PrintWriter printWriter = response.getWriter();
 //        		Response<Object> res = Result.fail(ErrorCode.tokenFail, "token不能为空");
@@ -70,6 +70,20 @@ public class TokenIntercepter implements HandlerInterceptor {
     	}
     	
         return true;
+    }
+    
+    public String getRemoteHost(javax.servlet.http.HttpServletRequest request){
+        String ip = request.getHeader("x-forwarded-for");
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)){
+            ip = request.getRemoteAddr();
+        }
+        return ip.equals("0:0:0:0:0:0:0:1")?"127.0.0.1":ip;
     }
 
     @Override

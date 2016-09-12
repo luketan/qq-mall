@@ -1,11 +1,6 @@
 package com.honglinktech.zbgj.api.controller.self;
 
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,11 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
-import com.honglinktech.zbgj.bean.HomeBean;
 import com.honglinktech.zbgj.common.Response;
-import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.dao.TModuleDao;
-import com.honglinktech.zbgj.entity.TModule;
 import com.honglinktech.zbgj.entity.TUser;
 import com.honglinktech.zbgj.service.self.UserService;
 

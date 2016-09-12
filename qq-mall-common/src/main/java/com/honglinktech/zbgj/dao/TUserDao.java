@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import javax.annotation.Resource;
+
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.honglinktech.zbgj.base.BaseDao;
@@ -29,7 +29,7 @@ public class TUserDao extends BaseDao<TUser>{
 		exp("exp",Types.INTEGER,false,false,true),
 		level("level",Types.INTEGER,false,false,true),
 		email("email",Types.VARCHAR,false,false,true),
-		isEmail("is_email",Types.INTEGER,false,false,true),
+		emailIs("email_is",Types.INTEGER,false,false,true),
 		phone("phone",Types.VARCHAR,false,false,true),
 		phoneIs("phone_is",Types.INTEGER,false,false,true),
 		status("status",Types.INTEGER,false,false,true),
@@ -103,7 +103,7 @@ public class TUserDao extends BaseDao<TUser>{
 			tUser.setExp(rs.getInt("exp"));
 			tUser.setLevel(rs.getInt("level"));
 			tUser.setEmail(rs.getString("email"));
-			tUser.setIsEmail(rs.getInt("is_email"));
+			tUser.setEmailIs(rs.getInt("email_is"));
 			tUser.setPhone(rs.getString("phone"));
 			tUser.setPhoneIs(rs.getInt("phone_is"));
 			tUser.setStatus(rs.getInt("status"));

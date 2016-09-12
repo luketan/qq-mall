@@ -56,9 +56,17 @@ public class Result {
      * @return
      */
     public static <T> Response<T> resultSet(T result) {
-        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), "操作成功", result);
+        return new Response<T>(ExceptionEnum.COMMON_SUCCESS.getRetCode(), "操作成功", result);
     }
-
+    /**
+     * 
+     * @param ee
+     * @param args
+     * @return
+     */
+    public static <T> Response<T> resultExceptionEnum(ExceptionEnum ee, String...args) {
+        return new Response<T>(ee.getRetCode(), ee.getRetString(args));
+    }
     /**
      * @param result
      * @param totalRecord 总数
@@ -66,7 +74,7 @@ public class Result {
      * @return
      */
     public static <T> Response<T> resultSet(T result, int totalRecord) {
-        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), "操作成功", result, totalRecord);
+        return new Response<T>(ExceptionEnum.COMMON_SUCCESS.getRetCode(), "操作成功", result, totalRecord);
     }
 
     /**
@@ -77,11 +85,11 @@ public class Result {
      * @return
      */
     public static <T> Response<T> resultSet(String msg, T result) {
-        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), msg, result);
+        return new Response<T>(ExceptionEnum.COMMON_SUCCESS.getRetCode(), msg, result);
     }
 
 
     public static <T> Response<T> resultSet(String msg, T result, int totalRecord) {
-        return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), msg, result, totalRecord);
+        return new Response<T>(ExceptionEnum.COMMON_SUCCESS.getRetCode(), msg, result, totalRecord);
     }
 }

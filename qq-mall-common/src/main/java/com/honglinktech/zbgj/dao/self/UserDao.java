@@ -16,10 +16,11 @@ import com.honglinktech.zbgj.entity.TUser;
 public class UserDao extends TUserDao {
 
 	public Response<TUser> login(String account, String password) {
-		List<TUser> users = findByWhere("Where ("+DBMaping.account.getDbName()+"="+account+" OR "+DBMaping.email.getDbName()+"="+account+" OR "+DBMaping.phone+"="+account+") AND "
-				+DBMaping.account.getDbName()+" = " +password);
+		List<TUser> users = findByWhere("Where ("+DBMaping.account.getDbName()+"='"+account+"' OR "+DBMaping.email.getDbName()+"='"+account+"' OR "+DBMaping.phone+"='"+account+"') AND "
+				
+				+DBMaping.password.getDbName()+" = '" +password+"'");
 		
-		if(users == null){
+		if(users == null || users.size() == 0){
 			return Result.fail(ExceptionEnum.USER_PASSWORD_ERROR.getRetCode(),ExceptionEnum.USER_PASSWORD_ERROR.getRetString());
 		}
 		if(users.size()>1){

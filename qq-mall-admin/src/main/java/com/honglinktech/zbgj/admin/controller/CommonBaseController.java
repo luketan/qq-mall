@@ -135,17 +135,17 @@ public abstract class CommonBaseController<T extends BaseEntity,E extends BaseSe
 	@RequestMapping(value="findByPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ReturnInfo findByPage(@RequestBody T t) throws BaseException{
-		QueryHelper<T> qh = new QueryHelper<T>(t.getPageIndex(),t.getPageSize(),createWhereMap(t));
+		QueryHelper<T> qh = new QueryHelper<T>(t.getIndex(),t.getSize(),createWhereMap(t));
 		QueryHelper<T> result = getService().findByQueryHelper(qh);
 		
-		return new ReturnInfo(ExceptionEnum.COMMON_SUCCESS,new ReturnPageData(t.getPageIndex(), t.getPageSize(), result.getTotalRow(), result.getResultList()));
+		return new ReturnInfo(ExceptionEnum.COMMON_SUCCESS,new ReturnPageData(t.getIndex(), t.getSize(), result.getTotalRow(), result.getResultList()));
 	}
 	
 	@RequestMapping(value="findByPageNoCount",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ReturnInfo findByPageNoCount(@RequestBody T t) throws BaseException{
 		System.out.println("********************"+new Gson().toJson(t));
-		QueryHelper<T> qh = new QueryHelper<T>(t.getPageIndex(),t.getPageSize(),createWhereMap(t));
+		QueryHelper<T> qh = new QueryHelper<T>(t.getIndex(),t.getSize(),createWhereMap(t));
 		QueryHelper<T> result = getService().findByQueryHelperNoCount(qh);
 		return new ReturnInfo(ExceptionEnum.COMMON_SUCCESS,result.getResultList());
 	}
