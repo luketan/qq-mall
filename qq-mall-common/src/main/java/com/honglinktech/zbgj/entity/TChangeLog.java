@@ -12,27 +12,27 @@ import java.util.Date;
 public class TChangeLog extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "主键ID",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "车队经理ID",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "记录对象Id[商品Id，帖子Id]",dbName = "object_id",length = 10,allowNull=false)
-	private Integer objectId;
+	private Integer objectId=null;
 	@FieldMeta(primaryKey = false,fieldName = "记录类型",dbName = "type",length = 10,allowNull=false)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "日志类型",dbName = "log_type",length = 10,allowNull=false)
-	private Integer logType;
+	private Integer logType=null;
 	@FieldMeta(primaryKey = false,fieldName = "变更前的数量",dbName = "before_num",length = 10,allowNull=false)
-	private Integer beforeNum;
+	private Integer beforeNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "变更数量数目",dbName = "num",length = 10,allowNull=false)
-	private Integer num;
+	private Integer num=null;
 	@FieldMeta(primaryKey = false,fieldName = "变更后的数量",dbName = "curr_num",length = 10,allowNull=false)
-	private Integer currNum;
+	private Integer currNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "记录时经理的级别",dbName = "level",length = 10,allowNull=false)
-	private Integer level;
+	private Integer level=null;
 	@FieldMeta(primaryKey = false,fieldName = "变更批注",dbName = "comments",length = 500,allowNull=false)
-	private String comments;
+	private String comments=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

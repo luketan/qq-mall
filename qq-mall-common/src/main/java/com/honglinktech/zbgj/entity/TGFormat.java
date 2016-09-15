@@ -12,23 +12,23 @@ import java.util.Date;
 public class TGFormat extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "规格名称",dbName = "name",length = 225,allowNull=false)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品类型",dbName = "goods_type",length = 10,allowNull=true)
-	private Integer goodsType;
+	private Integer goodsType=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型名称",dbName = "type_name",length = 50,allowNull=true)
-	private String typeName;
+	private String typeName=null;
 	@FieldMeta(primaryKey = false,fieldName = "规格类型(1同类商品包邮，2全包邮)",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "规格系数",dbName = "args",length = 128,allowNull=true)
-	private String args;
+	private String args=null;
 	@FieldMeta(primaryKey = false,fieldName = "状态(1正常，2删除，3下架)",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

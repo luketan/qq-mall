@@ -10,11 +10,11 @@ import java.io.Serializable;
 public class CAdminRole extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户ID",dbName = "admin_id",length = 10,allowNull=true)
-	private Integer adminId;
+	private Integer adminId=null;
 	@FieldMeta(primaryKey = false,fieldName = "角色ID",dbName = "role_id",length = 10,allowNull=true)
-	private Integer roleId;
+	private Integer roleId=null;
 	
 	/**
 	 * 

@@ -14,51 +14,51 @@ import java.util.Date;
 public class TUser extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "用户ID",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "昵称",dbName = "nick_name",length = 20,allowNull=true)
-	private String nickName;
+	private String nickName=null;
 	@FieldMeta(primaryKey = false,fieldName = "账号",dbName = "account",length = 64,allowNull=false)
-	private String account;
+	private String account=null;
 	@FieldMeta(primaryKey = false,fieldName = "密码",dbName = "password",length = 64,allowNull=false)
-	private String password;
+	private String password=null;
 	@FieldMeta(primaryKey = false,fieldName = "个性签名",dbName = "sign",length = 50,allowNull=true)
-	private String sign;
+	private String sign=null;
 	@FieldMeta(primaryKey = false,fieldName = "头像",dbName = "head",length = 225,allowNull=true)
-	private String head;
+	private String head=null;
 	@FieldMeta(primaryKey = false,fieldName = "虚拟币(逗币)",dbName = "virtual_money",length = 10,allowNull=true)
-	private BigDecimal virtualMoney;
+	private BigDecimal virtualMoney=null;
 	@FieldMeta(primaryKey = false,fieldName = "账户余额",dbName = "money",length = 10,allowNull=true)
-	private BigDecimal money;
+	private BigDecimal money=null;
 	@FieldMeta(primaryKey = false,fieldName = "商城积分",dbName = "point",length = 10,allowNull=true)
-	private Integer point;
+	private Integer point=null;
 	@FieldMeta(primaryKey = false,fieldName = "社区经验",dbName = "exp",length = 10,allowNull=true)
-	private Integer exp;
+	private Integer exp=null;
 	@FieldMeta(primaryKey = false,fieldName = "社区级别",dbName = "level",length = 10,allowNull=true)
-	private Integer level;
+	private Integer level=null;
 	@FieldMeta(primaryKey = false,fieldName = "邮箱",dbName = "email",length = 50,allowNull=true)
-	private String email;
+	private String email=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否已认证(0否,1是)",dbName = "email_is",length = 10,allowNull=true)
-	private Integer emailIs;
+	private Integer emailIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "手机号码",dbName = "phone",length = 50,allowNull=true)
-	private String phone;
+	private String phone=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否已认证(0否,1是)",dbName = "phone_is",length = 10,allowNull=true)
-	private Integer phoneIs;
+	private Integer phoneIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "状态(0未激活,1正常，2被锁定，3被拉黑)",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "from",length = 50,allowNull=true)
-	private String from;
+	private String from=null;
 	@FieldMeta(primaryKey = false,fieldName = "性别(1男，2女)",dbName = "sex",length = 10,allowNull=true)
-	private Integer sex;
+	private Integer sex=null;
 	@FieldMeta(primaryKey = false,fieldName = "性取向(1爱好男，2爱好女，3双性恋，4无性恋，5保密)",dbName = "sexu",length = 10,allowNull=true)
-	private Integer sexu;
+	private Integer sexu=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否是体验师",dbName = "try_is",length = 10,allowNull=true)
-	private Integer tryIs;
+	private Integer tryIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户类型，1普通，2小编",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

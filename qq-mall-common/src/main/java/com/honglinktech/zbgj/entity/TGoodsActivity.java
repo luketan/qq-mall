@@ -12,13 +12,13 @@ import java.util.Date;
 public class TGoodsActivity extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "商品ID",dbName = "goods_id",length = 10,allowNull=false)
-	private Integer goodsId;
+	private Integer goodsId=null;
 	@FieldMeta(primaryKey = true,fieldName = "活动ID",dbName = "activity_id",length = 10,allowNull=false)
-	private Integer activityId;
+	private Integer activityId=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

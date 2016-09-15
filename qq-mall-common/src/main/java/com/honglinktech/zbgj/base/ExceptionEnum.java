@@ -23,6 +23,7 @@ public enum ExceptionEnum {
 	//user 020000
 	USER_PASSWORD_ERROR("020001","用户名或者密码错误","account or password error!"),
 	USER_MUCH_ERROR("020002","系统错误","much user,account:{0},password:{1}!"),
+	USER_LOGINOUT_ERROR("020003","退出登录失败！","loginout error,userId:{0}!"),
 	
 	//good 030000
 	
@@ -37,14 +38,21 @@ public enum ExceptionEnum {
 		return retCode;
 	}
 	public String getRetString(Object... args){
-		MessageFormat.format(retString, args);
-		return MessageFormat.format(retString, args);
+		if(args!=null && args.length>0){
+			return MessageFormat.format(retString, args);
+		}else{
+			return retString;
+		}
 	}
 	public String getLogString(){
 		return logString;
 	}
 	public String getLogString(Object... args){
-		return MessageFormat.format(logString, args);
+		if(args!=null && args.length>0){
+			return MessageFormat.format(logString, args);
+		}else{
+			return logString;
+		}
 	}
 	public void setRetCode(String retCode){
 		this.retCode = retCode;

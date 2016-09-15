@@ -12,21 +12,21 @@ import java.util.Date;
 public class TGType extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "类别名称",dbName = "name",length = 200,allowNull=false)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型图标",dbName = "ico",length = 100,allowNull=true)
-	private String ico;
+	private String ico=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型图片",dbName = "img",length = 100,allowNull=true)
-	private String img;
+	private String img=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否首页l栏(0不是，1是)",dbName = "top_is",length = 10,allowNull=true)
-	private Integer topIs;
+	private Integer topIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "状态(1正常，2删除，3下架)",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

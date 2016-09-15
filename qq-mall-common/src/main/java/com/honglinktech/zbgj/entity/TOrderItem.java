@@ -14,29 +14,29 @@ import java.util.Date;
 public class TOrderItem extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "订单项Id",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "主订单ID",dbName = "order_id",length = 10,allowNull=false)
-	private Integer orderId;
+	private Integer orderId=null;
 	@FieldMeta(primaryKey = false,fieldName = "产品单品ID",dbName = "goods_id",length = 10,allowNull=false)
-	private Integer goodsId;
+	private Integer goodsId=null;
 	@FieldMeta(primaryKey = false,fieldName = "单品名称",dbName = "goods_name",length = 100,allowNull=false)
-	private String goodsName;
+	private String goodsName=null;
 	@FieldMeta(primaryKey = false,fieldName = "规格ID",dbName = "format_id",length = 10,allowNull=false)
-	private Integer formatId;
+	private Integer formatId=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品规格名称",dbName = "goods_format",length = 100,allowNull=true)
-	private String goodsFormat;
+	private String goodsFormat=null;
 	@FieldMeta(primaryKey = false,fieldName = "购买数量",dbName = "number",length = 10,allowNull=false)
-	private Integer number;
+	private Integer number=null;
 	@FieldMeta(primaryKey = false,fieldName = "市场价格",dbName = "market_price",length = 10,allowNull=true)
-	private BigDecimal marketPrice;
+	private BigDecimal marketPrice=null;
 	@FieldMeta(primaryKey = false,fieldName = "成交价格",dbName = "price",length = 10,allowNull=true)
-	private BigDecimal price;
+	private BigDecimal price=null;
 	@FieldMeta(primaryKey = false,fieldName = "备注",dbName = "remark",length = 225,allowNull=true)
-	private String remark;
+	private String remark=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

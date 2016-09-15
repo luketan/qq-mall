@@ -14,57 +14,57 @@ import java.util.Date;
 public class TGoods extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品名称",dbName = "name",length = 255,allowNull=false)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "子标题（提醒）",dbName = "sub_name",length = 255,allowNull=true)
-	private String subName;
+	private String subName=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品详情",dbName = "detail",length = 65535,allowNull=true)
-	private String detail;
+	private String detail=null;
 	@FieldMeta(primaryKey = false,fieldName = "售出数量",dbName = "sales_num",length = 10,allowNull=true)
-	private Integer salesNum;
+	private Integer salesNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "库存数量",dbName = "keep_num",length = 10,allowNull=true)
-	private Integer keepNum;
+	private Integer keepNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "市场价",dbName = "mark_price",length = 10,allowNull=true)
-	private BigDecimal markPrice;
+	private BigDecimal markPrice=null;
 	@FieldMeta(primaryKey = false,fieldName = "原价",dbName = "former_price",length = 10,allowNull=true)
-	private BigDecimal formerPrice;
+	private BigDecimal formerPrice=null;
 	@FieldMeta(primaryKey = false,fieldName = "现在价格",dbName = "price",length = 10,allowNull=true)
-	private BigDecimal price;
+	private BigDecimal price=null;
 	@FieldMeta(primaryKey = false,fieldName = "评论数量",dbName = "discuss_num",length = 10,allowNull=true)
-	private Integer discussNum;
+	private Integer discussNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "促销名字",dbName = "promo_name",length = 225,allowNull=true)
-	private String promoName;
+	private String promoName=null;
 	@FieldMeta(primaryKey = false,fieldName = "促销价",dbName = "promo_price",length = 10,allowNull=true)
-	private Float promoPrice;
+	private Float promoPrice=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否促销",dbName = "promo_is",length = 10,allowNull=true)
-	private Integer promoIs;
+	private Integer promoIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否热卖",dbName = "hot_is",length = 10,allowNull=true)
-	private Integer hotIs;
+	private Integer hotIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否是精品",dbName = "gifts_is",length = 10,allowNull=true)
-	private Integer giftsIs;
+	private Integer giftsIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "品牌ID",dbName = "brand_id",length = 10,allowNull=true)
-	private Integer brandId;
+	private Integer brandId=null;
 	@FieldMeta(primaryKey = false,fieldName = "品牌名称",dbName = "brand_name",length = 128,allowNull=true)
-	private String brandName;
+	private String brandName=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "type_id",length = 10,allowNull=true)
-	private Integer typeId;
+	private Integer typeId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "type_name",length = 128,allowNull=true)
-	private String typeName;
+	private String typeName=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "style_id",length = 10,allowNull=true)
-	private Integer styleId;
+	private Integer styleId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "style_name",length = 128,allowNull=true)
-	private String styleName;
+	private String styleName=null;
 	@FieldMeta(primaryKey = false,fieldName = "收藏数量",dbName = "collect_num",length = 10,allowNull=true)
-	private Integer collectNum;
+	private Integer collectNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品状态（1正常,2已售完，3已下架,4删除，5待审核）",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "主图路径",dbName = "img_url",length = 225,allowNull=true)
-	private String imgUrl;
+	private String imgUrl=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

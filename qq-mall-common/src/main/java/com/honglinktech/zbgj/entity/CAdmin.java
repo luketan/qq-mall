@@ -12,23 +12,23 @@ import java.util.Date;
 public class CAdmin extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "管理员ID",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户名",dbName = "user_name",length = 20,allowNull=false)
-	private String userName;
+	private String userName=null;
 	@FieldMeta(primaryKey = false,fieldName = "账户名",dbName = "account",length = 20,allowNull=false)
-	private String account;
+	private String account=null;
 	@FieldMeta(primaryKey = false,fieldName = "密码",dbName = "password",length = 20,allowNull=false)
-	private String password;
+	private String password=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "email",length = 50,allowNull=true)
-	private String email;
+	private String email=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "phone",length = 20,allowNull=true)
-	private String phone;
+	private String phone=null;
 	@FieldMeta(primaryKey = false,fieldName = "管理员状态",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "更新时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

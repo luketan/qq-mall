@@ -12,27 +12,27 @@ import java.util.Date;
 public class TGActivity extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "活动ID",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "活动名称",dbName = "name",length = 225,allowNull=false)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "活动类型(1打折,2包邮,3赠送)",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "活动系数",dbName = "args",length = 225,allowNull=true)
-	private String args;
+	private String args=null;
 	@FieldMeta(primaryKey = false,fieldName = "活动详情",dbName = "detail",length = 225,allowNull=true)
-	private String detail;
+	private String detail=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否有时效(0无时效，1有时效)",dbName = "available",length = 10,allowNull=true)
-	private Integer available;
+	private Integer available=null;
 	@FieldMeta(primaryKey = false,fieldName = "开始时间",dbName = "start_time",length = 19,allowNull=true)
-	private Date startTime;
+	private Date startTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "结束时间",dbName = "end_time",length = 19,allowNull=true)
-	private Date endTime;
+	private Date endTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "状态(1正常，2删除，3下架)",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

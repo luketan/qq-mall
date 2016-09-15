@@ -12,35 +12,35 @@ import java.util.Date;
 public class TUserAddress extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "用户地址ID",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户ID",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "省名称",dbName = "province_name",length = 50,allowNull=true)
-	private String provinceName;
+	private String provinceName=null;
 	@FieldMeta(primaryKey = false,fieldName = "省ID",dbName = "province_code",length = 50,allowNull=true)
-	private String provinceCode;
+	private String provinceCode=null;
 	@FieldMeta(primaryKey = false,fieldName = "市名称",dbName = "city_name",length = 50,allowNull=true)
-	private String cityName;
+	private String cityName=null;
 	@FieldMeta(primaryKey = false,fieldName = "市ID",dbName = "city_code",length = 50,allowNull=true)
-	private String cityCode;
+	private String cityCode=null;
 	@FieldMeta(primaryKey = false,fieldName = "区ID",dbName = "region_code",length = 50,allowNull=true)
-	private String regionCode;
+	private String regionCode=null;
 	@FieldMeta(primaryKey = false,fieldName = "区名称",dbName = "region_name",length = 50,allowNull=true)
-	private String regionName;
+	private String regionName=null;
 	@FieldMeta(primaryKey = false,fieldName = "街道",dbName = "road",length = 255,allowNull=true)
-	private String road;
+	private String road=null;
 	@FieldMeta(primaryKey = false,fieldName = "电话号码",dbName = "phone",length = 15,allowNull=false)
-	private String phone;
+	private String phone=null;
 	@FieldMeta(primaryKey = false,fieldName = "邮编",dbName = "zipcode",length = 10,allowNull=true)
-	private Integer zipcode;
+	private Integer zipcode=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否是默认地址",dbName = "default_is",length = 10,allowNull=true)
-	private Integer defaultIs;
+	private Integer defaultIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "状态(1正常，2删除)",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

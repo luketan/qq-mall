@@ -12,19 +12,19 @@ import java.util.Date;
 public class TPic extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品类型",dbName = "obj_id",length = 10,allowNull=true)
-	private Integer objId;
+	private Integer objId=null;
 	@FieldMeta(primaryKey = false,fieldName = "图片类型(1是商品图，10是评论图片,11是论坛评论图片)",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "图片标题",dbName = "pic_title",length = 50,allowNull=true)
-	private String picTitle;
+	private String picTitle=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "pic_url",length = 225,allowNull=true)
-	private String picUrl;
+	private String picUrl=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

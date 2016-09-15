@@ -12,19 +12,19 @@ import java.util.Date;
 public class TUserRec extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户id",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "rec_user_id",length = 10,allowNull=false)
-	private Integer recUserId;
+	private Integer recUserId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "rec_user_name",length = 20,allowNull=true)
-	private String recUserName;
+	private String recUserName=null;
 	@FieldMeta(primaryKey = false,fieldName = "奖励类型（1逗币）",dbName = "award_type",length = 10,allowNull=true)
-	private Integer awardType;
+	private Integer awardType=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "award_num",length = 10,allowNull=true)
-	private Integer awardNum;
+	private Integer awardNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

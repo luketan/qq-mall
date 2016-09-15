@@ -12,21 +12,21 @@ import java.util.Date;
 public class TUserSessionLog extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户Id",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "访问标识",dbName = "token",length = 128,allowNull=false)
-	private String token;
+	private String token=null;
 	@FieldMeta(primaryKey = false,fieldName = "IP",dbName = "login_ip",length = 64,allowNull=true)
-	private String loginIp;
+	private String loginIp=null;
 	@FieldMeta(primaryKey = false,fieldName = "1是ios，2是Android，3是微信，4是pc",dbName = "form",length = 10,allowNull=true)
-	private Integer form;
+	private Integer form=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型[登入：1，登出：2]",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "unique",length = 64,allowNull=true)
-	private String unique;
+	private String unique=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

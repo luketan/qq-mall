@@ -12,27 +12,27 @@ import java.util.Date;
 public class TModule extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "ID",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "模块名称（管理后台可见）",dbName = "name",length = 32,allowNull=true)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "标题",dbName = "title",length = 64,allowNull=true)
-	private String title;
+	private String title=null;
 	@FieldMeta(primaryKey = false,fieldName = "模块跳转",dbName = "url",length = 128,allowNull=true)
-	private String url;
+	private String url=null;
 	@FieldMeta(primaryKey = false,fieldName = "内容（）",dbName = "content",length = 65535,allowNull=true)
-	private String content;
+	private String content=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型(1.首页)",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "主题类型(1首页)",dbName = "main_type",length = 10,allowNull=true)
-	private Integer mainType;
+	private Integer mainType=null;
 	@FieldMeta(primaryKey = false,fieldName = "排序",dbName = "sort",length = 10,allowNull=true)
-	private Integer sort;
+	private Integer sort=null;
 	@FieldMeta(primaryKey = false,fieldName = "备注",dbName = "remark",length = 255,allowNull=true)
-	private String remark;
+	private String remark=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

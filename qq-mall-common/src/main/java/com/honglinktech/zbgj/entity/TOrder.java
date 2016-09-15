@@ -14,33 +14,33 @@ import java.util.Date;
 public class TOrder extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "订单编号",dbName = "order_code",length = 50,allowNull=true)
-	private String orderCode;
+	private String orderCode=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "总价",dbName = "money",length = 10,allowNull=true)
-	private BigDecimal money;
+	private BigDecimal money=null;
 	@FieldMeta(primaryKey = false,fieldName = "邮费",dbName = "post_money",length = 10,allowNull=true)
-	private BigDecimal postMoney;
+	private BigDecimal postMoney=null;
 	@FieldMeta(primaryKey = false,fieldName = "支付方式（1货到付款，2是支付宝支付，3是微信支付）",dbName = "pay_type",length = 10,allowNull=true)
-	private Integer payType;
+	private Integer payType=null;
 	@FieldMeta(primaryKey = false,fieldName = "订单状态（1未支付，2支付未成功，3支付成功）",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "订单来源，1用户购物车,2社区赠送",dbName = "form",length = 10,allowNull=true)
-	private Integer form;
+	private Integer form=null;
 	@FieldMeta(primaryKey = false,fieldName = "快递单号",dbName = "post_code",length = 50,allowNull=true)
-	private String postCode;
+	private String postCode=null;
 	@FieldMeta(primaryKey = false,fieldName = "备注",dbName = "remark",length = 225,allowNull=true)
-	private String remark;
+	private String remark=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否需要发票",dbName = "invoice_is",length = 10,allowNull=true)
-	private Integer invoiceIs;
+	private Integer invoiceIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "invoice_head",length = 128,allowNull=true)
-	private String invoiceHead;
+	private String invoiceHead=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

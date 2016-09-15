@@ -12,23 +12,23 @@ import java.util.Date;
 public class TCouponUser extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "coupon_id",length = 10,allowNull=false)
-	private Integer couponId;
+	private Integer couponId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "coupon_name",length = 128,allowNull=true)
-	private String couponName;
+	private String couponName=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "value",length = 10,allowNull=true)
-	private Integer value;
+	private Integer value=null;
 	@FieldMeta(primaryKey = false,fieldName = "1正常",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "start_date",length = 19,allowNull=true)
-	private Date startDate;
+	private Date startDate=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "end_date",length = 19,allowNull=true)
-	private Date endDate;
+	private Date endDate=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

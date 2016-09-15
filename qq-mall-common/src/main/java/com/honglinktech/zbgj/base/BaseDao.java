@@ -353,7 +353,7 @@ public abstract class BaseDao<T>{
         StringBuffer sql = new StringBuffer();
         try{
 	        Field[] fields = (entityClass).getDeclaredFields();
-	        if (sqlFlag.equals(SQL_INSERT)) {  
+	        if (sqlFlag.equals(SQL_INSERT)) {
 	            sql.append(" INSERT INTO " + getDBMapping(TABLENAME)[0]);  
 	            sql.append("(");  
 	            for (int i = 0; fields != null && i < fields.length; i++) {

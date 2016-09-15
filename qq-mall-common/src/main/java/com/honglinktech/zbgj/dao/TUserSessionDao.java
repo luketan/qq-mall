@@ -14,7 +14,6 @@ import com.honglinktech.zbgj.entity.TUserSession;
 /**
 *用户回话信息Dao
 **/
-@Component
 public class TUserSessionDao extends BaseDao<TUserSession>{
 	public enum DBMaping{
 		tableName("t_user_session",0,false,false,false),

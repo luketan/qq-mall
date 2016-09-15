@@ -10,13 +10,13 @@ import java.io.Serializable;
 public class CRole extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "角色ID",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "关联系统",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "角色名称",dbName = "name",length = 32,allowNull=true)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "角色描述",dbName = "desc",length = 255,allowNull=true)
-	private String desc;
+	private String desc=null;
 	
 	/**
 	 * 

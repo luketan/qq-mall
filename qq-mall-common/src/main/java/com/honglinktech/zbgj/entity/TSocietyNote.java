@@ -12,37 +12,37 @@ import java.util.Date;
 public class TSocietyNote extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "社区主题id",dbName = "society_subject_id",length = 10,allowNull=false)
-	private Integer societySubjectId;
+	private Integer societySubjectId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_name",length = 50,allowNull=true)
-	private String userName;
+	private String userName=null;
 	@FieldMeta(primaryKey = false,fieldName = "标题",dbName = "title",length = 50,allowNull=true)
-	private String title;
+	private String title=null;
 	@FieldMeta(primaryKey = false,fieldName = "帖子详情",dbName = "detail",length = 500,allowNull=true)
-	private String detail;
+	private String detail=null;
 	@FieldMeta(primaryKey = false,fieldName = "发表地址",dbName = "address",length = 50,allowNull=true)
-	private String address;
+	private String address=null;
 	@FieldMeta(primaryKey = false,fieldName = "查看数量",dbName = "look_num",length = 10,allowNull=true)
-	private Integer lookNum;
+	private Integer lookNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "评论数量",dbName = "dis_num",length = 10,allowNull=true)
-	private Integer disNum;
+	private Integer disNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "top_is",length = 10,allowNull=true)
-	private Integer topIs;
+	private Integer topIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否推荐",dbName = "rec_is",length = 10,allowNull=true)
-	private Integer recIs;
+	private Integer recIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否是精品",dbName = "gifts_is",length = 10,allowNull=true)
-	private Integer giftsIs;
+	private Integer giftsIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "1是社区讨论帖子，2是体验贴",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "1是待审核，2是已经审核通过",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

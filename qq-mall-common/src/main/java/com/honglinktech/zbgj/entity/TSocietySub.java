@@ -12,29 +12,29 @@ import java.util.Date;
 public class TSocietySub extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "name",length = 50,allowNull=true)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "icon",length = 50,allowNull=true)
-	private String icon;
+	private String icon=null;
 	@FieldMeta(primaryKey = false,fieldName = "简介",dbName = "synopsis",length = 225,allowNull=true)
-	private String synopsis;
+	private String synopsis=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "1正常",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "sort",length = 10,allowNull=true)
-	private Integer sort;
+	private Integer sort=null;
 	@FieldMeta(primaryKey = false,fieldName = "热门度，就是帖子数",dbName = "hot_num",length = 10,allowNull=true)
-	private Integer hotNum;
+	private Integer hotNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "奖励类型，（0没有奖励，1奖励逗币，2奖励积分，3是逗币和积分）",dbName = "award_type",length = 10,allowNull=true)
-	private Integer awardType;
+	private Integer awardType=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "award_num",length = 10,allowNull=true)
-	private Integer awardNum;
+	private Integer awardNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

@@ -10,13 +10,13 @@ import java.io.Serializable;
 public class TSenWords extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "word",length = 25,allowNull=false)
-	private String word;
+	private String word=null;
 	@FieldMeta(primaryKey = false,fieldName = "1政治类，2",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "状态(1可用)",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	
 	/**
 	 * 

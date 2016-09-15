@@ -32,10 +32,11 @@ public class TokenIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     	
-    	String mallId = env.getProperty("system.mallId");
+//    	String mallId = env.getProperty("system.mallId");
     	String uri = request.getRequestURI();
     	String token=request.getHeader("token");
-    	System.out.println("token["+token+"],mallId["+mallId+"]"+getRemoteHost(request));
+    	String userId=request.getHeader("userId");
+    	System.out.println("token["+token+"],userId["+userId+"]"+getRemoteHost(request));
     	if(uri.indexOf("/user/login")==-1 &&
     	   uri.indexOf("/order/kd100callbac")==-1 &&
     	   uri.indexOf("/order/subscribe")==-1 &&

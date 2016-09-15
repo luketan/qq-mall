@@ -10,17 +10,17 @@ import java.io.Serializable;
 public class CSecurity extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "父节点ID",dbName = "parent_id",length = 10,allowNull=true)
-	private Integer parentId;
+	private Integer parentId=null;
 	@FieldMeta(primaryKey = false,fieldName = "权限类型(1.后台管理,2.商户管理)",dbName = "type",length = 10,allowNull=true)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "权限名称",dbName = "name",length = 32,allowNull=true)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "权限编码",dbName = "code",length = 32,allowNull=true)
-	private String code;
+	private String code=null;
 	@FieldMeta(primaryKey = false,fieldName = "权限说明",dbName = "desc",length = 255,allowNull=true)
-	private String desc;
+	private String desc=null;
 	
 	/**
 	 * 

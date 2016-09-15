@@ -12,27 +12,27 @@ import java.util.Date;
 public class TGoodsDis extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品ID",dbName = "goods_id",length = 10,allowNull=false)
-	private Integer goodsId;
+	private Integer goodsId=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户ID",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户名称",dbName = "user_name",length = 50,allowNull=true)
-	private String userName;
+	private String userName=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品规格ID",dbName = "goods_format_id",length = 10,allowNull=true)
-	private Integer goodsFormatId;
+	private Integer goodsFormatId=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品规格",dbName = "goods_format",length = 50,allowNull=true)
-	private String goodsFormat;
+	private String goodsFormat=null;
 	@FieldMeta(primaryKey = false,fieldName = "评价内容",dbName = "content",length = 225,allowNull=true)
-	private String content;
+	private String content=null;
 	@FieldMeta(primaryKey = false,fieldName = "评论值(掩码处理：物流，客服，质量）",dbName = "type_value",length = 5,allowNull=true)
-	private String typeValue;
+	private String typeValue=null;
 	@FieldMeta(primaryKey = false,fieldName = "评论值(1满意，2一般，3不满意)",dbName = "discuss_value",length = 10,allowNull=true)
-	private Integer discussValue;
+	private Integer discussValue=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

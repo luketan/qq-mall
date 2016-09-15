@@ -12,25 +12,25 @@ import java.util.Date;
 public class TProblem extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品类型",dbName = "goods_id",length = 10,allowNull=false)
-	private Integer goodsId;
+	private Integer goodsId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_name",length = 50,allowNull=true)
-	private String userName;
+	private String userName=null;
 	@FieldMeta(primaryKey = false,fieldName = "活动详情",dbName = "question",length = 225,allowNull=true)
-	private String question;
+	private String question=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "answer",length = 225,allowNull=true)
-	private String answer;
+	private String answer=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "admin_id",length = 10,allowNull=true)
-	private Integer adminId;
+	private Integer adminId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "admin_name",length = 50,allowNull=true)
-	private String adminName;
+	private String adminName=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

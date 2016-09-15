@@ -12,25 +12,25 @@ import java.util.Date;
 public class TGoodsTag extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "标签名称",dbName = "name",length = 255,allowNull=false)
-	private String name;
+	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "标签类型(1商品标签，2是帖子标签)",dbName = "type",length = 10,allowNull=false)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "img",length = 225,allowNull=true)
-	private String img;
+	private String img=null;
 	@FieldMeta(primaryKey = false,fieldName = "状态",dbName = "status",length = 10,allowNull=true)
-	private Integer status;
+	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "title",length = 225,allowNull=true)
-	private String title;
+	private String title=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "subtitle",length = 225,allowNull=true)
-	private String subtitle;
+	private String subtitle=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否显示首页",dbName = "show_main",length = 10,allowNull=true)
-	private Integer showMain;
+	private Integer showMain=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

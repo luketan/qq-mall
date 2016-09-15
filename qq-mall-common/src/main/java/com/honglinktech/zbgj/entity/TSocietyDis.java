@@ -12,27 +12,27 @@ import java.util.Date;
 public class TSocietyDis extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "society_note_id",length = 10,allowNull=true)
-	private Integer societyNoteId;
+	private Integer societyNoteId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=true)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_name",length = 50,allowNull=true)
-	private String userName;
+	private String userName=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "content",length = 225,allowNull=true)
-	private String content;
+	private String content=null;
 	@FieldMeta(primaryKey = false,fieldName = "评论被点赞用户",dbName = "like_user",length = 500,allowNull=true)
-	private String likeUser;
+	private String likeUser=null;
 	@FieldMeta(primaryKey = false,fieldName = "跟帖的上级（0表示回复帖子）",dbName = "parent",length = 10,allowNull=true)
-	private Integer parent;
+	private Integer parent=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "reply_user_id",length = 10,allowNull=true)
-	private Integer replyUserId;
+	private Integer replyUserId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "reply_user_name",length = 50,allowNull=true)
-	private String replyUserName;
+	private String replyUserName=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 

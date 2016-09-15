@@ -12,23 +12,23 @@ import java.util.Date;
 public class TUserAtte extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "用户ID",dbName = "user_id",length = 10,allowNull=false)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = true,fieldName = "好友ID",dbName = "atte_user_id",length = 10,allowNull=false)
-	private Integer atteUserId;
+	private Integer atteUserId=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型（1：好友申请，2：好友，3陌生人）",dbName = "type",length = 10,allowNull=false)
-	private Integer type;
+	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "好友名字",dbName = "atte_user_name",length = 50,allowNull=true)
-	private String atteUserName;
+	private String atteUserName=null;
 	@FieldMeta(primaryKey = false,fieldName = "好友经理头像",dbName = "atte_user_head",length = 300,allowNull=true)
-	private String atteUserHead;
+	private String atteUserHead=null;
 	@FieldMeta(primaryKey = false,fieldName = "好友等级",dbName = "atte_user_level",length = 10,allowNull=true)
-	private Integer atteUserLevel;
+	private Integer atteUserLevel=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "atte_money",length = 10,allowNull=true)
-	private Integer atteMoney;
+	private Integer atteMoney=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	
 	/**
 	 * 

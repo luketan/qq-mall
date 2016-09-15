@@ -10,21 +10,21 @@ import java.io.Serializable;
 public class TRegion extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "region_id",length = 22,allowNull=false)
-	private Double regionId;
+	private Double regionId=null;
 	@FieldMeta(primaryKey = false,fieldName = "身份证码",dbName = "region_code",length = 100,allowNull=false)
-	private String regionCode;
+	private String regionCode=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "region_name",length = 100,allowNull=false)
-	private String regionName;
+	private String regionName=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "parent_id",length = 22,allowNull=false)
-	private Double parentId;
+	private Double parentId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "region_level",length = 22,allowNull=false)
-	private Double regionLevel;
+	private Double regionLevel=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "region_order",length = 22,allowNull=false)
-	private Double regionOrder;
+	private Double regionOrder=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "region_name_en",length = 100,allowNull=false)
-	private String regionNameEn;
+	private String regionNameEn=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "region_shortname_en",length = 10,allowNull=false)
-	private String regionShortnameEn;
+	private String regionShortnameEn=null;
 	
 	/**
 	 * 

@@ -14,29 +14,29 @@ import java.util.Date;
 public class TShoppingCart extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
-	private Integer id;
+	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=true)
-	private Integer userId;
+	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "goods_id",length = 10,allowNull=true)
-	private Integer goodsId;
+	private Integer goodsId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "goods_name",length = 225,allowNull=true)
-	private String goodsName;
+	private String goodsName=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "image_url",length = 225,allowNull=true)
-	private String imageUrl;
+	private String imageUrl=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "price",length = 10,allowNull=true)
-	private BigDecimal price;
+	private BigDecimal price=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "mark_price",length = 10,allowNull=true)
-	private BigDecimal markPrice;
+	private BigDecimal markPrice=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品规格id",dbName = "format_id",length = 10,allowNull=true)
-	private Integer formatId;
+	private Integer formatId=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品规格名字",dbName = "format_name",length = 225,allowNull=true)
-	private String formatName;
+	private String formatName=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "num",length = 10,allowNull=true)
-	private Integer num;
+	private Integer num=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
-	private Date createTime;
+	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime;
+	private Date updateTime=null;
 	
 	/**
 	 * 
