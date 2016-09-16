@@ -13,6 +13,7 @@ public enum ExceptionEnum {
 	COMMON_DATEBASE_PARAMETER_ERROE("000005","系统错误，请联系工作人员！","data base set parameter error!"),
 	COMMON_DATEBASE_PRIMARYKEY_ERROE("000006","系统错误，请联系工作人员！","data base set primarykey error!"),
 	COMMON_TOKEN_ERROE("000007","用户会话信息错误，或者过期，请重新登录！","token error，ip{0}!"),
+	COMMON_USER_CODE_NOT_EMPTY("000008","用户会话信息错误，或者过期，请重新登录！","user code not empty!"),
 	
 	//admin 010000
 	ADMIN_ACCOUNT_NOT_EXIST("010001","账户不存在","account name[{0}] does not exist!"),

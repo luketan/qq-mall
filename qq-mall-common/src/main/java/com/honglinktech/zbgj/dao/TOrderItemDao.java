@@ -22,12 +22,14 @@ public class TOrderItemDao extends BaseDao<TOrderItem>{
 		orderId("order_id",Types.INTEGER,false,false,false),
 		goodsId("goods_id",Types.INTEGER,false,false,false),
 		goodsName("goods_name",Types.VARCHAR,false,false,false),
-		formatId("format_id",Types.INTEGER,false,false,false),
-		goodsFormat("goods_format",Types.VARCHAR,false,false,true),
-		number("number",Types.INTEGER,false,false,false),
-		marketPrice("market_price",Types.DECIMAL,false,false,true),
+		goodsImg("goods_img",Types.VARCHAR,false,false,true),
+		formatId("format_id",Types.INTEGER,false,false,true),
+		formatName("format_name",Types.VARCHAR,false,false,true),
+		number("number",Types.INTEGER,false,false,true),
 		price("price",Types.DECIMAL,false,false,true),
+		marketPrice("market_price",Types.DECIMAL,false,false,true),
 		remark("remark",Types.VARCHAR,false,false,true),
+		disIs("dis_is",Types.INTEGER,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -85,12 +87,14 @@ public class TOrderItemDao extends BaseDao<TOrderItem>{
 			tOrderItem.setOrderId(rs.getInt("order_id"));
 			tOrderItem.setGoodsId(rs.getInt("goods_id"));
 			tOrderItem.setGoodsName(rs.getString("goods_name"));
+			tOrderItem.setGoodsImg(rs.getString("goods_img"));
 			tOrderItem.setFormatId(rs.getInt("format_id"));
-			tOrderItem.setGoodsFormat(rs.getString("goods_format"));
+			tOrderItem.setFormatName(rs.getString("format_name"));
 			tOrderItem.setNumber(rs.getInt("number"));
-			tOrderItem.setMarketPrice(rs.getBigDecimal("market_price"));
 			tOrderItem.setPrice(rs.getBigDecimal("price"));
+			tOrderItem.setMarketPrice(rs.getBigDecimal("market_price"));
 			tOrderItem.setRemark(rs.getString("remark"));
+			tOrderItem.setDisIs(rs.getInt("dis_is"));
 			tOrderItem.setUpdateTime(rs.getTimestamp("update_time"));
 			tOrderItem.setCreateTime(rs.getTimestamp("create_time"));
 			return tOrderItem; 

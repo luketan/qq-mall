@@ -13,7 +13,7 @@ public class TChangeLog extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "主键ID",dbName = "id",length = 10,allowNull=false)
 	private Integer id=null;
-	@FieldMeta(primaryKey = false,fieldName = "车队经理ID",dbName = "user_id",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "用户ID",dbName = "user_id",length = 10,allowNull=false)
 	private Integer userId=null;
 	@FieldMeta(primaryKey = false,fieldName = "记录对象Id[商品Id，帖子Id]",dbName = "object_id",length = 10,allowNull=false)
 	private Integer objectId=null;
@@ -62,7 +62,7 @@ public class TChangeLog extends BaseEntity implements Serializable{
 	public void setId(Integer id){
 		  this.id = id; 
 	}
-	/*车队经理ID*/
+	/*用户ID*/
 	public Integer getUserId(){
 		 return this.userId; 
 	}

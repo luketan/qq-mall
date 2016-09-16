@@ -15,15 +15,15 @@ public class TUserAtte extends BaseEntity implements Serializable{
 	private Integer userId=null;
 	@FieldMeta(primaryKey = true,fieldName = "好友ID",dbName = "atte_user_id",length = 10,allowNull=false)
 	private Integer atteUserId=null;
-	@FieldMeta(primaryKey = false,fieldName = "类型（1：好友申请，2：好友，3陌生人）",dbName = "type",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "类型（1好友申请，2好友，3陌生人）",dbName = "type",length = 10,allowNull=false)
 	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "好友名字",dbName = "atte_user_name",length = 50,allowNull=true)
 	private String atteUserName=null;
-	@FieldMeta(primaryKey = false,fieldName = "好友经理头像",dbName = "atte_user_head",length = 300,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "好友头像",dbName = "atte_user_head",length = 300,allowNull=true)
 	private String atteUserHead=null;
 	@FieldMeta(primaryKey = false,fieldName = "好友等级",dbName = "atte_user_level",length = 10,allowNull=true)
 	private Integer atteUserLevel=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "atte_money",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "好友金额",dbName = "atte_money",length = 10,allowNull=true)
 	private Integer atteMoney=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime=null;
@@ -62,7 +62,7 @@ public class TUserAtte extends BaseEntity implements Serializable{
 	public void setAtteUserId(Integer atteUserId){
 		  this.atteUserId = atteUserId; 
 	}
-	/*类型（1：好友申请，2：好友，3陌生人）*/
+	/*类型（1好友申请，2好友，3陌生人）*/
 	public Integer getType(){
 		 return this.type; 
 	}
@@ -76,7 +76,7 @@ public class TUserAtte extends BaseEntity implements Serializable{
 	public void setAtteUserName(String atteUserName){
 		  this.atteUserName = atteUserName; 
 	}
-	/*好友经理头像*/
+	/*好友头像*/
 	public String getAtteUserHead(){
 		 return this.atteUserHead; 
 	}
@@ -90,7 +90,7 @@ public class TUserAtte extends BaseEntity implements Serializable{
 	public void setAtteUserLevel(Integer atteUserLevel){
 		  this.atteUserLevel = atteUserLevel; 
 	}
-	/**/
+	/*好友金额*/
 	public Integer getAtteMoney(){
 		 return this.atteMoney; 
 	}

@@ -13,7 +13,7 @@ public class TProblem extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
 	private Integer id=null;
-	@FieldMeta(primaryKey = false,fieldName = "商品类型",dbName = "goods_id",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "商品类型",dbName = "goods_id",length = 10,allowNull=true)
 	private Integer goodsId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=false)
 	private Integer userId=null;

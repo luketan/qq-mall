@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import javax.annotation.Resource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.honglinktech.zbgj.base.BaseDao;
@@ -32,12 +32,14 @@ public class TUserDao extends BaseDao<TUser>{
 		emailIs("email_is",Types.INTEGER,false,false,true),
 		phone("phone",Types.VARCHAR,false,false,true),
 		phoneIs("phone_is",Types.INTEGER,false,false,true),
-		status("status",Types.INTEGER,false,false,true),
-		from("from",Types.VARCHAR,false,false,true),
+		age("age",Types.VARCHAR,false,false,true),
 		sex("sex",Types.INTEGER,false,false,true),
 		sexu("sexu",Types.INTEGER,false,false,true),
+		marr("marr",Types.INTEGER,false,false,true),
 		tryIs("try_is",Types.INTEGER,false,false,true),
 		type("type",Types.INTEGER,false,false,true),
+		status("status",Types.INTEGER,false,false,true),
+		from("from",Types.VARCHAR,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -106,12 +108,14 @@ public class TUserDao extends BaseDao<TUser>{
 			tUser.setEmailIs(rs.getInt("email_is"));
 			tUser.setPhone(rs.getString("phone"));
 			tUser.setPhoneIs(rs.getInt("phone_is"));
-			tUser.setStatus(rs.getInt("status"));
-			tUser.setFrom(rs.getString("from"));
+			tUser.setAge(rs.getString("age"));
 			tUser.setSex(rs.getInt("sex"));
 			tUser.setSexu(rs.getInt("sexu"));
+			tUser.setMarr(rs.getInt("marr"));
 			tUser.setTryIs(rs.getInt("try_is"));
 			tUser.setType(rs.getInt("type"));
+			tUser.setStatus(rs.getInt("status"));
+			tUser.setFrom(rs.getString("from"));
 			tUser.setUpdateTime(rs.getTimestamp("update_time"));
 			tUser.setCreateTime(rs.getTimestamp("create_time"));
 			return tUser; 

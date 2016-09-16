@@ -14,10 +14,13 @@ import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.UserLoginBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
+import com.honglinktech.zbgj.dao.TUserCollectDao;
 import com.honglinktech.zbgj.dao.TUserSessionDao;
+import com.honglinktech.zbgj.dao.helper.QueryHelper;
 import com.honglinktech.zbgj.dao.self.UserDao;
 import com.honglinktech.zbgj.dao.self.UserSessionDao;
 import com.honglinktech.zbgj.entity.TUser;
+import com.honglinktech.zbgj.entity.TUserCollect;
 import com.honglinktech.zbgj.entity.TUserSession;
 import com.honglinktech.zbgj.service.TUserService;
 import com.honglinktech.zbgj.utils.HashUtils;
@@ -30,6 +33,9 @@ public class UserService extends TUserService {
 	private UserDao userDao;
 	@Resource
 	private UserSessionDao userSessionDao;
+	@Resource
+	private TUserCollectDao tuserCollectDao;
+	
 
 	public Response<UserLoginBean> login(String account, String password) throws BaseException{
 
@@ -72,6 +78,34 @@ public class UserService extends TUserService {
 	public Response<String> loginout(Integer id) throws BaseException{
 
 		return userSessionDao.loginout(id);
+		
+	}
+	public Response<String> saveOrUpdateCollect(TUserCollect userCollect) throws BaseException{
+		
+		if(userCollect.getId() != null && userCollect.getId() > 0){//取消收藏
+			tuserCollectDao.deleteById(userCollect.getId());
+			return Result.success("取消收藏成功~");
+		}else{//添加收藏
+			tuserCollectDao.save(userCollect);
+			return Result.success("添加收藏成功~");
+		}
+		
+		
+	}
+	public Response<List<TUserCollect>> findCollects(Integer userId,Integer type,Integer index,Integer size) throws BaseException{
+		
+		Map<String,String[]> whereMap = new HashMap<String, String[]>();
+		whereMap.put(TUserCollectDao.DBMaping.userId.getDbName(), new String[]{String.valueOf(userId)});
+		whereMap.put(TUserCollectDao.DBMaping.type.getDbName(), new String[]{String.valueOf(type)});
+		QueryHelper<TUserCollect> qh = new QueryHelper<TUserCollect>(whereMap);
+		qh.setIndex(index);
+		qh.setSize(size);
+		QueryHelper<TUserCollect> restQH= tuserCollectDao.findByQueryHelper(qh);
+		
+		if(restQH.getResultList().size()==0){
+			return Result.resultSet("没有查询到数据~", null);
+		}
+		return Result.resultSet(restQH.getResultList(), restQH.getTotalRow());
 		
 	}
 }

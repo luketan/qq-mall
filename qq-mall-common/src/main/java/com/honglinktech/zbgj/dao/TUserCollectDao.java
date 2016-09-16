@@ -19,9 +19,14 @@ public class TUserCollectDao extends BaseDao<TUserCollect>{
 	public enum DBMaping{
 		tableName("t_user_collect",0,false,false,false),
 		id("id",Types.INTEGER,true,true,false),
-		goodsId("goods_id",Types.INTEGER,false,false,true),
-		goodsName("goods_name",Types.VARCHAR,false,false,true),
-		goodsUrl("goods_url",Types.VARCHAR,false,false,true),
+		userId("user_id",Types.INTEGER,false,false,true),
+		objId("obj_id",Types.INTEGER,false,false,true),
+		objType("obj_type",Types.INTEGER,false,false,true),
+		objTypeName("obj_type_name",Types.VARCHAR,false,false,true),
+		type("type",Types.INTEGER,false,false,true),
+		name("name",Types.VARCHAR,false,false,true),
+		imgUrl("img_url",Types.VARCHAR,false,false,true),
+		price("price",Types.DECIMAL,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -76,9 +81,14 @@ public class TUserCollectDao extends BaseDao<TUserCollect>{
 
 			TUserCollect tUserCollect = new TUserCollect();
 			tUserCollect.setId(rs.getInt("id"));
-			tUserCollect.setGoodsId(rs.getInt("goods_id"));
-			tUserCollect.setGoodsName(rs.getString("goods_name"));
-			tUserCollect.setGoodsUrl(rs.getString("goods_url"));
+			tUserCollect.setUserId(rs.getInt("user_id"));
+			tUserCollect.setObjId(rs.getInt("obj_id"));
+			tUserCollect.setObjType(rs.getInt("obj_type"));
+			tUserCollect.setObjTypeName(rs.getString("obj_type_name"));
+			tUserCollect.setType(rs.getInt("type"));
+			tUserCollect.setName(rs.getString("name"));
+			tUserCollect.setImgUrl(rs.getString("img_url"));
+			tUserCollect.setPrice(rs.getBigDecimal("price"));
 			tUserCollect.setCreateTime(rs.getTimestamp("create_time"));
 			tUserCollect.setUpdateTime(rs.getTimestamp("update_time"));
 			return tUserCollect; 

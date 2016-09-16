@@ -19,20 +19,24 @@ public class TOrderItem extends BaseEntity implements Serializable{
 	private Integer orderId=null;
 	@FieldMeta(primaryKey = false,fieldName = "产品单品ID",dbName = "goods_id",length = 10,allowNull=false)
 	private Integer goodsId=null;
-	@FieldMeta(primaryKey = false,fieldName = "单品名称",dbName = "goods_name",length = 100,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "单品名称",dbName = "goods_name",length = 64,allowNull=false)
 	private String goodsName=null;
-	@FieldMeta(primaryKey = false,fieldName = "规格ID",dbName = "format_id",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "goods_img",length = 128,allowNull=true)
+	private String goodsImg=null;
+	@FieldMeta(primaryKey = false,fieldName = "规格ID",dbName = "format_id",length = 10,allowNull=true)
 	private Integer formatId=null;
-	@FieldMeta(primaryKey = false,fieldName = "商品规格名称",dbName = "goods_format",length = 100,allowNull=true)
-	private String goodsFormat=null;
-	@FieldMeta(primaryKey = false,fieldName = "购买数量",dbName = "number",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "商品规格名称",dbName = "format_name",length = 100,allowNull=true)
+	private String formatName=null;
+	@FieldMeta(primaryKey = false,fieldName = "购买数量",dbName = "number",length = 10,allowNull=true)
 	private Integer number=null;
-	@FieldMeta(primaryKey = false,fieldName = "市场价格",dbName = "market_price",length = 10,allowNull=true)
-	private BigDecimal marketPrice=null;
 	@FieldMeta(primaryKey = false,fieldName = "成交价格",dbName = "price",length = 10,allowNull=true)
 	private BigDecimal price=null;
+	@FieldMeta(primaryKey = false,fieldName = "市场价格",dbName = "market_price",length = 10,allowNull=true)
+	private BigDecimal marketPrice=null;
 	@FieldMeta(primaryKey = false,fieldName = "备注",dbName = "remark",length = 225,allowNull=true)
 	private String remark=null;
+	@FieldMeta(primaryKey = false,fieldName = "是否已经评论(0未评论,1已评论)",dbName = "dis_is",length = 10,allowNull=true)
+	private Integer disIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
@@ -45,17 +49,19 @@ public class TOrderItem extends BaseEntity implements Serializable{
 	
 	public TOrderItem(){
  	}
- 	public TOrderItem(Integer id,Integer orderId,Integer goodsId,String goodsName,Integer formatId,String goodsFormat,Integer number,BigDecimal marketPrice,BigDecimal price,String remark){
+ 	public TOrderItem(Integer id,Integer orderId,Integer goodsId,String goodsName,String goodsImg,Integer formatId,String formatName,Integer number,BigDecimal price,BigDecimal marketPrice,String remark,Integer disIs){
  		this.id = id;
 		this.orderId = orderId;
 		this.goodsId = goodsId;
 		this.goodsName = goodsName;
+		this.goodsImg = goodsImg;
 		this.formatId = formatId;
-		this.goodsFormat = goodsFormat;
+		this.formatName = formatName;
 		this.number = number;
-		this.marketPrice = marketPrice;
 		this.price = price;
+		this.marketPrice = marketPrice;
 		this.remark = remark;
+		this.disIs = disIs;
 		
  	}
  	
@@ -87,6 +93,13 @@ public class TOrderItem extends BaseEntity implements Serializable{
 	public void setGoodsName(String goodsName){
 		  this.goodsName = goodsName; 
 	}
+	/**/
+	public String getGoodsImg(){
+		 return this.goodsImg; 
+	}
+	public void setGoodsImg(String goodsImg){
+		  this.goodsImg = goodsImg; 
+	}
 	/*规格ID*/
 	public Integer getFormatId(){
 		 return this.formatId; 
@@ -95,11 +108,11 @@ public class TOrderItem extends BaseEntity implements Serializable{
 		  this.formatId = formatId; 
 	}
 	/*商品规格名称*/
-	public String getGoodsFormat(){
-		 return this.goodsFormat; 
+	public String getFormatName(){
+		 return this.formatName; 
 	}
-	public void setGoodsFormat(String goodsFormat){
-		  this.goodsFormat = goodsFormat; 
+	public void setFormatName(String formatName){
+		  this.formatName = formatName; 
 	}
 	/*购买数量*/
 	public Integer getNumber(){
@@ -108,13 +121,6 @@ public class TOrderItem extends BaseEntity implements Serializable{
 	public void setNumber(Integer number){
 		  this.number = number; 
 	}
-	/*市场价格*/
-	public BigDecimal getMarketPrice(){
-		 return this.marketPrice; 
-	}
-	public void setMarketPrice(BigDecimal marketPrice){
-		  this.marketPrice = marketPrice; 
-	}
 	/*成交价格*/
 	public BigDecimal getPrice(){
 		 return this.price; 
@@ -122,12 +128,26 @@ public class TOrderItem extends BaseEntity implements Serializable{
 	public void setPrice(BigDecimal price){
 		  this.price = price; 
 	}
+	/*市场价格*/
+	public BigDecimal getMarketPrice(){
+		 return this.marketPrice; 
+	}
+	public void setMarketPrice(BigDecimal marketPrice){
+		  this.marketPrice = marketPrice; 
+	}
 	/*备注*/
 	public String getRemark(){
 		 return this.remark; 
 	}
 	public void setRemark(String remark){
 		  this.remark = remark; 
+	}
+	/*是否已经评论(0未评论,1已评论)*/
+	public Integer getDisIs(){
+		 return this.disIs; 
+	}
+	public void setDisIs(Integer disIs){
+		  this.disIs = disIs; 
 	}
 	/*修改时间*/
 	public Date getUpdateTime(){
