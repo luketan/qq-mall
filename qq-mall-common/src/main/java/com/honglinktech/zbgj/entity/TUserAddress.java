@@ -1,5 +1,11 @@
 package com.honglinktech.zbgj.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
+import org.springframework.jdbc.core.RowMapper;
+
 import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
@@ -15,6 +21,10 @@ public class TUserAddress extends BaseEntity implements Serializable{
 	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户ID",dbName = "user_id",length = 10,allowNull=false)
 	private Integer userId=null;
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_name",length = 64,allowNull=true)
+	private String userName=null;
+	@FieldMeta(primaryKey = false,fieldName = "电话号码",dbName = "phone",length = 15,allowNull=false)
+	private String phone=null;
 	@FieldMeta(primaryKey = false,fieldName = "省名称",dbName = "province_name",length = 50,allowNull=true)
 	private String provinceName=null;
 	@FieldMeta(primaryKey = false,fieldName = "省ID",dbName = "province_code",length = 50,allowNull=true)
@@ -29,8 +39,6 @@ public class TUserAddress extends BaseEntity implements Serializable{
 	private String regionName=null;
 	@FieldMeta(primaryKey = false,fieldName = "街道",dbName = "road",length = 255,allowNull=true)
 	private String road=null;
-	@FieldMeta(primaryKey = false,fieldName = "电话号码",dbName = "phone",length = 15,allowNull=false)
-	private String phone=null;
 	@FieldMeta(primaryKey = false,fieldName = "邮编",dbName = "zipcode",length = 10,allowNull=true)
 	private Integer zipcode=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否是默认地址",dbName = "default_is",length = 10,allowNull=true)
@@ -49,9 +57,11 @@ public class TUserAddress extends BaseEntity implements Serializable{
 	
 	public TUserAddress(){
  	}
- 	public TUserAddress(Integer id,Integer userId,String provinceName,String provinceCode,String cityName,String cityCode,String regionCode,String regionName,String road,String phone,Integer zipcode,Integer defaultIs,Integer status){
+ 	public TUserAddress(Integer id,Integer userId,String userName,String phone,String provinceName,String provinceCode,String cityName,String cityCode,String regionCode,String regionName,String road,Integer zipcode,Integer defaultIs,Integer status){
  		this.id = id;
 		this.userId = userId;
+		this.userName = userName;
+		this.phone = phone;
 		this.provinceName = provinceName;
 		this.provinceCode = provinceCode;
 		this.cityName = cityName;
@@ -59,7 +69,6 @@ public class TUserAddress extends BaseEntity implements Serializable{
 		this.regionCode = regionCode;
 		this.regionName = regionName;
 		this.road = road;
-		this.phone = phone;
 		this.zipcode = zipcode;
 		this.defaultIs = defaultIs;
 		this.status = status;
@@ -79,6 +88,20 @@ public class TUserAddress extends BaseEntity implements Serializable{
 	}
 	public void setUserId(Integer userId){
 		  this.userId = userId; 
+	}
+	/**/
+	public String getUserName(){
+		 return this.userName; 
+	}
+	public void setUserName(String userName){
+		  this.userName = userName; 
+	}
+	/*电话号码*/
+	public String getPhone(){
+		 return this.phone; 
+	}
+	public void setPhone(String phone){
+		  this.phone = phone; 
 	}
 	/*省名称*/
 	public String getProvinceName(){
@@ -129,13 +152,6 @@ public class TUserAddress extends BaseEntity implements Serializable{
 	public void setRoad(String road){
 		  this.road = road; 
 	}
-	/*电话号码*/
-	public String getPhone(){
-		 return this.phone; 
-	}
-	public void setPhone(String phone){
-		  this.phone = phone; 
-	}
 	/*邮编*/
 	public Integer getZipcode(){
 		 return this.zipcode; 
@@ -172,4 +188,86 @@ public class TUserAddress extends BaseEntity implements Serializable{
 		  this.createTime = createTime; 
 	}
 
+	
+	public enum DBMaping{
+		tableName("t_user_address",0,false,false,false),
+		id("id",Types.INTEGER,true,true,false),
+		userId("user_id",Types.INTEGER,false,false,false),
+		userName("user_name",Types.VARCHAR,false,false,true),
+		phone("phone",Types.VARCHAR,false,false,false),
+		provinceName("province_name",Types.VARCHAR,false,false,true),
+		provinceCode("province_code",Types.VARCHAR,false,false,true),
+		cityName("city_name",Types.VARCHAR,false,false,true),
+		cityCode("city_code",Types.VARCHAR,false,false,true),
+		regionCode("region_code",Types.VARCHAR,false,false,true),
+		regionName("region_name",Types.VARCHAR,false,false,true),
+		road("road",Types.VARCHAR,false,false,true),
+		zipcode("zipcode",Types.INTEGER,false,false,true),
+		defaultIs("default_is",Types.INTEGER,false,false,true),
+		status("status",Types.INTEGER,false,false,true),
+		updateTime("update_time",Types.TIMESTAMP,false,false,true),
+		createTime("create_time",Types.TIMESTAMP,false,false,true);
+		private String dbName;
+		private int dbType;
+		private boolean primaryKey;
+		private boolean isAotuIn;
+		private boolean isAllowNull;
+	    public String getDbName(){
+	    	 return this.dbName;
+	    }
+	    public int getDbType(){
+	    	 return this.dbType;
+	    }
+	    public boolean getPrimaryKey(){
+	    	 return this.primaryKey;
+	    }
+	    public boolean isAotuIn(){
+	    	 return this.isAotuIn;
+	    }
+	    public boolean isAllowNull(){
+	    	 return this.isAllowNull;
+	    }
+	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
+	    	 this.dbName = dbName;
+	    	 this.dbType = dbType;
+	    	 this.primaryKey = primaryKey;
+	    	 this.isAotuIn = isAotuIn;
+	    	 this.isAllowNull = isAllowNull;
+	    }
+	}
+	public Object[] getDBMapping(String filedName){
+		for(DBMaping d:DBMaping.values()){
+			if(d.toString().equals(filedName)){
+				DBMaping dbMaping = DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
+				return values;
+			}
+		}
+		return null;
+	}
+	public static class TUserAddressRowMapper implements RowMapper<TUserAddress> {  
+        @Override  
+        public TUserAddress mapRow(ResultSet rs, int rowNum) throws SQLException {  
+
+			TUserAddress tUserAddress = new TUserAddress();
+			tUserAddress.setId(rs.getInt("id"));
+			tUserAddress.setUserId(rs.getInt("user_id"));
+			tUserAddress.setUserName(rs.getString("user_name"));
+			tUserAddress.setPhone(rs.getString("phone"));
+			tUserAddress.setProvinceName(rs.getString("province_name"));
+			tUserAddress.setProvinceCode(rs.getString("province_code"));
+			tUserAddress.setCityName(rs.getString("city_name"));
+			tUserAddress.setCityCode(rs.getString("city_code"));
+			tUserAddress.setRegionCode(rs.getString("region_code"));
+			tUserAddress.setRegionName(rs.getString("region_name"));
+			tUserAddress.setRoad(rs.getString("road"));
+			tUserAddress.setZipcode(rs.getInt("zipcode"));
+			tUserAddress.setDefaultIs(rs.getInt("default_is"));
+			tUserAddress.setStatus(rs.getInt("status"));
+			tUserAddress.setUpdateTime(rs.getTimestamp("update_time"));
+			tUserAddress.setCreateTime(rs.getTimestamp("create_time"));
+			return tUserAddress; 
+        }  
+          
+    }
 }

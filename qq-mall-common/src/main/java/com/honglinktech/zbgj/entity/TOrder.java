@@ -1,5 +1,11 @@
 package com.honglinktech.zbgj.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
+import org.springframework.jdbc.core.RowMapper;
+
 import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
@@ -234,4 +240,96 @@ public class TOrder extends BaseEntity implements Serializable{
 		  this.createTime = createTime; 
 	}
 
+	
+	public enum DBMaping{
+		tableName("t_order",0,false,false,false),
+		id("id",Types.INTEGER,true,true,false),
+		orderCode("order_code",Types.VARCHAR,false,false,true),
+		userId("user_id",Types.INTEGER,false,false,false),
+		addressId("address_id",Types.INTEGER,false,false,true),
+		money("money",Types.DECIMAL,false,false,true),
+		payType("pay_type",Types.INTEGER,false,false,true),
+		payStatus("pay_status",Types.INTEGER,false,false,true),
+		status("status",Types.INTEGER,false,false,true),
+		postId("post_id",Types.INTEGER,false,false,true),
+		postName("post_name",Types.VARCHAR,false,false,true),
+		postCode("post_code",Types.VARCHAR,false,false,true),
+		postMoney("post_money",Types.DECIMAL,false,false,true),
+		invoiceIs("invoice_is",Types.INTEGER,false,false,true),
+		invoiceHead("invoice_head",Types.VARCHAR,false,false,true),
+		push("push",Types.INTEGER,false,false,true),
+		readIs("read_is",Types.INTEGER,false,false,true),
+		deleteFlag("delete_flag",Types.INTEGER,false,false,true),
+		form("form",Types.INTEGER,false,false,true),
+		remark("remark",Types.VARCHAR,false,false,true),
+		updateTime("update_time",Types.TIMESTAMP,false,false,true),
+		createTime("create_time",Types.TIMESTAMP,false,false,true);
+		private String dbName;
+		private int dbType;
+		private boolean primaryKey;
+		private boolean isAotuIn;
+		private boolean isAllowNull;
+	    public String getDbName(){
+	    	 return this.dbName;
+	    }
+	    public int getDbType(){
+	    	 return this.dbType;
+	    }
+	    public boolean getPrimaryKey(){
+	    	 return this.primaryKey;
+	    }
+	    public boolean isAotuIn(){
+	    	 return this.isAotuIn;
+	    }
+	    public boolean isAllowNull(){
+	    	 return this.isAllowNull;
+	    }
+	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
+	    	 this.dbName = dbName;
+	    	 this.dbType = dbType;
+	    	 this.primaryKey = primaryKey;
+	    	 this.isAotuIn = isAotuIn;
+	    	 this.isAllowNull = isAllowNull;
+	    }
+	}
+	public Object[] getDBMapping(String filedName){
+		for(DBMaping d:DBMaping.values()){
+			if(d.toString().equals(filedName)){
+				DBMaping dbMaping = DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
+				return values;
+			}
+		}
+		return null;
+	}
+	public static class TOrderRowMapper implements RowMapper<TOrder> {  
+        @Override  
+        public TOrder mapRow(ResultSet rs, int rowNum) throws SQLException {  
+
+			TOrder tOrder = new TOrder();
+			tOrder.setId(rs.getInt("id"));
+			tOrder.setOrderCode(rs.getString("order_code"));
+			tOrder.setUserId(rs.getInt("user_id"));
+			tOrder.setAddressId(rs.getInt("address_id"));
+			tOrder.setMoney(rs.getBigDecimal("money"));
+			tOrder.setPayType(rs.getInt("pay_type"));
+			tOrder.setPayStatus(rs.getInt("pay_status"));
+			tOrder.setStatus(rs.getInt("status"));
+			tOrder.setPostId(rs.getInt("post_id"));
+			tOrder.setPostName(rs.getString("post_name"));
+			tOrder.setPostCode(rs.getString("post_code"));
+			tOrder.setPostMoney(rs.getBigDecimal("post_money"));
+			tOrder.setInvoiceIs(rs.getInt("invoice_is"));
+			tOrder.setInvoiceHead(rs.getString("invoice_head"));
+			tOrder.setPush(rs.getInt("push"));
+			tOrder.setReadIs(rs.getInt("read_is"));
+			tOrder.setDeleteFlag(rs.getInt("delete_flag"));
+			tOrder.setForm(rs.getInt("form"));
+			tOrder.setRemark(rs.getString("remark"));
+			tOrder.setUpdateTime(rs.getTimestamp("update_time"));
+			tOrder.setCreateTime(rs.getTimestamp("create_time"));
+			return tOrder; 
+        }  
+          
+    }
 }

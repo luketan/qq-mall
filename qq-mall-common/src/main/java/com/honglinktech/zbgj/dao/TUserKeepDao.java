@@ -6,17 +6,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.honglinktech.zbgj.base.BaseDao;
-import com.honglinktech.zbgj.entity.TGBrand;
+import com.honglinktech.zbgj.entity.TUserKeep;
 /**
-*商品品牌Dao
+*用户的收藏Dao
 **/
 @Component
-public class TGBrandDao extends BaseDao<TGBrand>{
+public class TUserKeepDao extends BaseDao<TUserKeep>{
 	
 	public Object[] getDBMapping(String filedName){
-		for(TGBrand.DBMaping d:TGBrand.DBMaping.values()){
+		for(TUserKeep.DBMaping d:TUserKeep.DBMaping.values()){
 			if(d.toString().equals(filedName)){
-				TGBrand.DBMaping dbMaping = TGBrand.DBMaping.valueOf(filedName);
+				TUserKeep.DBMaping dbMaping = TUserKeep.DBMaping.valueOf(filedName);
 				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
 				return values;
 			}
@@ -32,7 +32,7 @@ public class TGBrandDao extends BaseDao<TGBrand>{
 	}
 	 
 	@Override
-	protected RowMapper<TGBrand> getRowMapper() {
-		return new TGBrand.TGBrandRowMapper();
+	protected RowMapper<TUserKeep> getRowMapper() {
+		return new TUserKeep.TUserKeepRowMapper();
 	}
 }

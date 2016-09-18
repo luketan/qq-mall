@@ -1,5 +1,11 @@
 package com.honglinktech.zbgj.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
+import org.springframework.jdbc.core.RowMapper;
+
 import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
@@ -11,7 +17,7 @@ import java.util.Date;
 /**
 *用户的收藏
 **/
-public class TUserCollect extends BaseEntity implements Serializable{
+public class TUserKeep extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "ID",dbName = "id",length = 10,allowNull=false)
 	private Integer id=null;
@@ -41,9 +47,9 @@ public class TUserCollect extends BaseEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public TUserCollect(){
+	public TUserKeep(){
  	}
- 	public TUserCollect(Integer id,Integer userId,Integer objId,Integer objType,String objTypeName,Integer type,String name,String imgUrl,BigDecimal price){
+ 	public TUserKeep(Integer id,Integer userId,Integer objId,Integer objType,String objTypeName,Integer type,String name,String imgUrl,BigDecimal price){
  		this.id = id;
 		this.userId = userId;
 		this.objId = objId;
@@ -134,4 +140,76 @@ public class TUserCollect extends BaseEntity implements Serializable{
 		  this.updateTime = updateTime; 
 	}
 
+	
+	public enum DBMaping{
+		tableName("t_user_keep",0,false,false,false),
+		id("id",Types.INTEGER,true,true,false),
+		userId("user_id",Types.INTEGER,false,false,true),
+		objId("obj_id",Types.INTEGER,false,false,true),
+		objType("obj_type",Types.INTEGER,false,false,true),
+		objTypeName("obj_type_name",Types.VARCHAR,false,false,true),
+		type("type",Types.INTEGER,false,false,true),
+		name("name",Types.VARCHAR,false,false,true),
+		imgUrl("img_url",Types.VARCHAR,false,false,true),
+		price("price",Types.DECIMAL,false,false,true),
+		createTime("create_time",Types.TIMESTAMP,false,false,true),
+		updateTime("update_time",Types.TIMESTAMP,false,false,true);
+		private String dbName;
+		private int dbType;
+		private boolean primaryKey;
+		private boolean isAotuIn;
+		private boolean isAllowNull;
+	    public String getDbName(){
+	    	 return this.dbName;
+	    }
+	    public int getDbType(){
+	    	 return this.dbType;
+	    }
+	    public boolean getPrimaryKey(){
+	    	 return this.primaryKey;
+	    }
+	    public boolean isAotuIn(){
+	    	 return this.isAotuIn;
+	    }
+	    public boolean isAllowNull(){
+	    	 return this.isAllowNull;
+	    }
+	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
+	    	 this.dbName = dbName;
+	    	 this.dbType = dbType;
+	    	 this.primaryKey = primaryKey;
+	    	 this.isAotuIn = isAotuIn;
+	    	 this.isAllowNull = isAllowNull;
+	    }
+	}
+	public Object[] getDBMapping(String filedName){
+		for(DBMaping d:DBMaping.values()){
+			if(d.toString().equals(filedName)){
+				DBMaping dbMaping = DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
+				return values;
+			}
+		}
+		return null;
+	}
+	public static class TUserKeepRowMapper implements RowMapper<TUserKeep> {  
+        @Override  
+        public TUserKeep mapRow(ResultSet rs, int rowNum) throws SQLException {  
+
+			TUserKeep tUserKeep = new TUserKeep();
+			tUserKeep.setId(rs.getInt("id"));
+			tUserKeep.setUserId(rs.getInt("user_id"));
+			tUserKeep.setObjId(rs.getInt("obj_id"));
+			tUserKeep.setObjType(rs.getInt("obj_type"));
+			tUserKeep.setObjTypeName(rs.getString("obj_type_name"));
+			tUserKeep.setType(rs.getInt("type"));
+			tUserKeep.setName(rs.getString("name"));
+			tUserKeep.setImgUrl(rs.getString("img_url"));
+			tUserKeep.setPrice(rs.getBigDecimal("price"));
+			tUserKeep.setCreateTime(rs.getTimestamp("create_time"));
+			tUserKeep.setUpdateTime(rs.getTimestamp("update_time"));
+			return tUserKeep; 
+        }  
+          
+    }
 }

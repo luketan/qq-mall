@@ -2,7 +2,7 @@ package com.honglinktech.zbgj.dao.self;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.common.Response;
@@ -12,13 +12,13 @@ import com.honglinktech.zbgj.entity.TUser;
 /**
  *
  */
-@Component
+@Service("userDao")
 public class UserDao extends TUserDao {
 
 	public Response<TUser> login(String account, String password) {
-		List<TUser> users = findByWhere("Where ("+DBMaping.account.getDbName()+"='"+account+"' OR "+DBMaping.email.getDbName()+"='"+account+"' OR "+DBMaping.phone+"='"+account+"') AND "
+		List<TUser> users = findByWhere("Where ("+TUser.DBMaping.account.getDbName()+"='"+account+"' OR "+TUser.DBMaping.email.getDbName()+"='"+account+"' OR "+TUser.DBMaping.phone+"='"+account+"') AND "
 				
-				+DBMaping.password.getDbName()+" = '" +password+"'");
+				+TUser.DBMaping.password.getDbName()+" = '" +password+"'");
 		
 		if(users == null || users.size() == 0){
 			return Result.fail(ExceptionEnum.USER_PASSWORD_ERROR.getRetCode(),ExceptionEnum.USER_PASSWORD_ERROR.getRetString());

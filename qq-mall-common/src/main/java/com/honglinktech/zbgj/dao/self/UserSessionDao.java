@@ -1,6 +1,6 @@
 package com.honglinktech.zbgj.dao.self;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
@@ -11,7 +11,7 @@ import com.honglinktech.zbgj.entity.TUserSession;
 /**
  *
  */
-@Component
+@Service
 public class UserSessionDao extends TUserSessionDao {
 	
 	public Response<String> loginout(Integer id) throws BaseException {

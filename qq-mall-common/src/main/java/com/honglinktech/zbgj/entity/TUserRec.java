@@ -1,5 +1,11 @@
 package com.honglinktech.zbgj.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
+import org.springframework.jdbc.core.RowMapper;
+
 import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
@@ -93,4 +99,68 @@ public class TUserRec extends BaseEntity implements Serializable{
 		  this.createTime = createTime; 
 	}
 
+	
+	public enum DBMaping{
+		tableName("t_user_rec",0,false,false,false),
+		id("id",Types.INTEGER,true,true,false),
+		userId("user_id",Types.INTEGER,false,false,false),
+		recUserId("rec_user_id",Types.INTEGER,false,false,false),
+		recUserName("rec_user_name",Types.VARCHAR,false,false,true),
+		awardType("award_type",Types.INTEGER,false,false,true),
+		awardNum("award_num",Types.INTEGER,false,false,true),
+		createTime("create_time",Types.TIMESTAMP,false,false,true);
+		private String dbName;
+		private int dbType;
+		private boolean primaryKey;
+		private boolean isAotuIn;
+		private boolean isAllowNull;
+	    public String getDbName(){
+	    	 return this.dbName;
+	    }
+	    public int getDbType(){
+	    	 return this.dbType;
+	    }
+	    public boolean getPrimaryKey(){
+	    	 return this.primaryKey;
+	    }
+	    public boolean isAotuIn(){
+	    	 return this.isAotuIn;
+	    }
+	    public boolean isAllowNull(){
+	    	 return this.isAllowNull;
+	    }
+	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
+	    	 this.dbName = dbName;
+	    	 this.dbType = dbType;
+	    	 this.primaryKey = primaryKey;
+	    	 this.isAotuIn = isAotuIn;
+	    	 this.isAllowNull = isAllowNull;
+	    }
+	}
+	public Object[] getDBMapping(String filedName){
+		for(DBMaping d:DBMaping.values()){
+			if(d.toString().equals(filedName)){
+				DBMaping dbMaping = DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
+				return values;
+			}
+		}
+		return null;
+	}
+	public static class TUserRecRowMapper implements RowMapper<TUserRec> {  
+        @Override  
+        public TUserRec mapRow(ResultSet rs, int rowNum) throws SQLException {  
+
+			TUserRec tUserRec = new TUserRec();
+			tUserRec.setId(rs.getInt("id"));
+			tUserRec.setUserId(rs.getInt("user_id"));
+			tUserRec.setRecUserId(rs.getInt("rec_user_id"));
+			tUserRec.setRecUserName(rs.getString("rec_user_name"));
+			tUserRec.setAwardType(rs.getInt("award_type"));
+			tUserRec.setAwardNum(rs.getInt("award_num"));
+			tUserRec.setCreateTime(rs.getTimestamp("create_time"));
+			return tUserRec; 
+        }  
+          
+    }
 }

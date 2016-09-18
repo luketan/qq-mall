@@ -1,5 +1,11 @@
 package com.honglinktech.zbgj.entity;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+
+import org.springframework.jdbc.core.RowMapper;
+
 import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
@@ -15,8 +21,8 @@ public class TSocietySub extends BaseEntity implements Serializable{
 	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "name",length = 50,allowNull=true)
 	private String name=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "icon",length = 50,allowNull=true)
-	private String icon=null;
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "image",length = 128,allowNull=true)
+	private String image=null;
 	@FieldMeta(primaryKey = false,fieldName = "简介",dbName = "synopsis",length = 225,allowNull=true)
 	private String synopsis=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型",dbName = "type",length = 10,allowNull=true)
@@ -43,10 +49,10 @@ public class TSocietySub extends BaseEntity implements Serializable{
 	
 	public TSocietySub(){
  	}
- 	public TSocietySub(Integer id,String name,String icon,String synopsis,Integer type,Integer status,Integer sort,Integer hotNum,Integer awardType,Integer awardNum){
+ 	public TSocietySub(Integer id,String name,String image,String synopsis,Integer type,Integer status,Integer sort,Integer hotNum,Integer awardType,Integer awardNum){
  		this.id = id;
 		this.name = name;
-		this.icon = icon;
+		this.image = image;
 		this.synopsis = synopsis;
 		this.type = type;
 		this.status = status;
@@ -72,11 +78,11 @@ public class TSocietySub extends BaseEntity implements Serializable{
 		  this.name = name; 
 	}
 	/**/
-	public String getIcon(){
-		 return this.icon; 
+	public String getImage(){
+		 return this.image; 
 	}
-	public void setIcon(String icon){
-		  this.icon = icon; 
+	public void setImage(String image){
+		  this.image = image; 
 	}
 	/*简介*/
 	public String getSynopsis(){
@@ -142,4 +148,78 @@ public class TSocietySub extends BaseEntity implements Serializable{
 		  this.updateTime = updateTime; 
 	}
 
+	
+	public enum DBMaping{
+		tableName("t_society_sub",0,false,false,false),
+		id("id",Types.INTEGER,true,true,false),
+		name("name",Types.VARCHAR,false,false,true),
+		image("image",Types.VARCHAR,false,false,true),
+		synopsis("synopsis",Types.VARCHAR,false,false,true),
+		type("type",Types.INTEGER,false,false,true),
+		status("status",Types.INTEGER,false,false,true),
+		sort("sort",Types.INTEGER,false,false,true),
+		hotNum("hot_num",Types.INTEGER,false,false,true),
+		awardType("award_type",Types.INTEGER,false,false,true),
+		awardNum("award_num",Types.INTEGER,false,false,true),
+		createTime("create_time",Types.TIMESTAMP,false,false,true),
+		updateTime("update_time",Types.TIMESTAMP,false,false,true);
+		private String dbName;
+		private int dbType;
+		private boolean primaryKey;
+		private boolean isAotuIn;
+		private boolean isAllowNull;
+	    public String getDbName(){
+	    	 return this.dbName;
+	    }
+	    public int getDbType(){
+	    	 return this.dbType;
+	    }
+	    public boolean getPrimaryKey(){
+	    	 return this.primaryKey;
+	    }
+	    public boolean isAotuIn(){
+	    	 return this.isAotuIn;
+	    }
+	    public boolean isAllowNull(){
+	    	 return this.isAllowNull;
+	    }
+	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
+	    	 this.dbName = dbName;
+	    	 this.dbType = dbType;
+	    	 this.primaryKey = primaryKey;
+	    	 this.isAotuIn = isAotuIn;
+	    	 this.isAllowNull = isAllowNull;
+	    }
+	}
+	public Object[] getDBMapping(String filedName){
+		for(DBMaping d:DBMaping.values()){
+			if(d.toString().equals(filedName)){
+				DBMaping dbMaping = DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
+				return values;
+			}
+		}
+		return null;
+	}
+	public static class TSocietySubRowMapper implements RowMapper<TSocietySub> {  
+        @Override  
+        public TSocietySub mapRow(ResultSet rs, int rowNum) throws SQLException {  
+
+			TSocietySub tSocietySub = new TSocietySub();
+			tSocietySub.setId(rs.getInt("id"));
+			tSocietySub.setName(rs.getString("name"));
+			tSocietySub.setImage(rs.getString("image"));
+			tSocietySub.setSynopsis(rs.getString("synopsis"));
+			tSocietySub.setType(rs.getInt("type"));
+			tSocietySub.setStatus(rs.getInt("status"));
+			tSocietySub.setSort(rs.getInt("sort"));
+			tSocietySub.setHotNum(rs.getInt("hot_num"));
+			tSocietySub.setAwardType(rs.getInt("award_type"));
+			tSocietySub.setAwardNum(rs.getInt("award_num"));
+			tSocietySub.setCreateTime(rs.getTimestamp("create_time"));
+			tSocietySub.setUpdateTime(rs.getTimestamp("update_time"));
+			return tSocietySub; 
+        }  
+          
+    }
 }

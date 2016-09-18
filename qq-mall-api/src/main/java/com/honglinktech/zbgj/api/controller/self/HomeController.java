@@ -32,7 +32,7 @@ public class HomeController extends BaseApiController {
 	@ResponseBody
 	public Response<List<HomeBean>> findGoodsBean() throws BaseException{
 		Map<String,String[]> where = new HashMap<String, String[]>();
-		where.put(TModuleDao.DBMaping.mainType.getDbName(), new String[]{"1"});
+		where.put(TModule.DBMaping.mainType.getDbName(), new String[]{"1"});
 		List<TModule> modules = tModuleService.findByWhere(where);
 		List<HomeBean> homeBeans = new LinkedList<HomeBean>();
 		for(TModule module:modules){

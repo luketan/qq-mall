@@ -1,5 +1,7 @@
 package com.honglinktech.zbgj.base;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class BaseEntity {
 	private int index;
 	private int size;

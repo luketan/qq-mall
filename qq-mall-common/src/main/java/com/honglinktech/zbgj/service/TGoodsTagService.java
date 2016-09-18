@@ -9,7 +9,7 @@ import com.honglinktech.zbgj.base.BaseService;
 import com.honglinktech.zbgj.entity.TGoodsTag;
 
 /**
-*商品表情业务
+*商品活动业务
 **/
 @Component
 public class TGoodsTagService extends BaseService<TGoodsTag> {

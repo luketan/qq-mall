@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.common.Page;
-import com.honglinktech.zbgj.dao.CAdminRoleDao;
 import com.honglinktech.zbgj.dao.helper.QueryHelper;
 import com.honglinktech.zbgj.entity.CAdmin;
 import com.honglinktech.zbgj.entity.CAdminRole;
@@ -69,7 +68,7 @@ public class AdminController extends BaseController {
        	List<CRole> roles = croleService.findAll();
     	model.addAttribute("roles", roles);
     	Map<String,String[]> adminRoleMap = new HashMap<String, String[]>();
-    	adminRoleMap.put(CAdminRoleDao.DBMaping.adminId.getDbName(), new String[]{id+""});
+    	adminRoleMap.put(CAdminRole.DBMaping.adminId.getDbName(), new String[]{id+""});
     	List<CAdminRole> adminRoles = cadminRoleService.findByWhere(adminRoleMap);
     	model.addAttribute("adminRoles", adminRoles);
     	CAdmin cadmin = cadminService.findById(id);
