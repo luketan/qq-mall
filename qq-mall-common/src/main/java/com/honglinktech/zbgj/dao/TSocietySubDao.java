@@ -35,4 +35,5 @@ public class TSocietySubDao extends BaseDao<TSocietySub>{
 	protected RowMapper<TSocietySub> getRowMapper() {
 		return new TSocietySub.TSocietySubRowMapper();
 	}
+	
 }

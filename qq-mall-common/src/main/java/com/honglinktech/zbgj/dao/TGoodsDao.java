@@ -35,4 +35,5 @@ public class TGoodsDao extends BaseDao<TGoods>{
 	protected RowMapper<TGoods> getRowMapper() {
 		return new TGoods.TGoodsRowMapper();
 	}
+	
 }

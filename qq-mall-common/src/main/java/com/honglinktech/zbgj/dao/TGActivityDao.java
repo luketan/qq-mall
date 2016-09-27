@@ -35,4 +35,5 @@ public class TGActivityDao extends BaseDao<TGActivity>{
 	protected RowMapper<TGActivity> getRowMapper() {
 		return new TGActivity.TGActivityRowMapper();
 	}
+	
 }

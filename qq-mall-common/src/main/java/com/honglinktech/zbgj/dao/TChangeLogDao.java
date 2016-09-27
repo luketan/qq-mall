@@ -35,4 +35,5 @@ public class TChangeLogDao extends BaseDao<TChangeLog>{
 	protected RowMapper<TChangeLog> getRowMapper() {
 		return new TChangeLog.TChangeLogRowMapper();
 	}
+	
 }

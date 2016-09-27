@@ -35,4 +35,5 @@ public class TPicDao extends BaseDao<TPic>{
 	protected RowMapper<TPic> getRowMapper() {
 		return new TPic.TPicRowMapper();
 	}
+	
 }

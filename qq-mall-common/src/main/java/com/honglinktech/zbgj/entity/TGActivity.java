@@ -143,8 +143,10 @@ public class TGActivity extends BaseEntity implements Serializable{
 		tableName("t_g_activity",0,false,false,false),
 		id("id",Types.INTEGER,true,true,false),
 		name("name",Types.VARCHAR,false,false,false),
+		type("type",Types.INTEGER,false,false,true),
 		args("args",Types.VARCHAR,false,false,true),
 		detail("detail",Types.VARCHAR,false,false,true),
+		available("available",Types.INTEGER,false,false,true),
 		startTime("start_time",Types.TIMESTAMP,false,false,true),
 		endTime("end_time",Types.TIMESTAMP,false,false,true),
 		status("status",Types.INTEGER,false,false,true),
@@ -195,8 +197,10 @@ public class TGActivity extends BaseEntity implements Serializable{
 			TGActivity tGActivity = new TGActivity();
 			tGActivity.setId(rs.getInt("id"));
 			tGActivity.setName(rs.getString("name"));
+			tGActivity.setType(rs.getInt("type"));
 			tGActivity.setArgs(rs.getString("args"));
 			tGActivity.setDetail(rs.getString("detail"));
+			tGActivity.setAvailable(rs.getInt("available"));
 			tGActivity.setStartTime(rs.getTimestamp("start_time"));
 			tGActivity.setEndTime(rs.getTimestamp("end_time"));
 			tGActivity.setStatus(rs.getInt("status"));

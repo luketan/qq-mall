@@ -6,17 +6,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.honglinktech.zbgj.base.BaseDao;
-import com.honglinktech.zbgj.entity.TUserAddress;
+import com.honglinktech.zbgj.entity.TPostDetail;
 /**
-*用户地址Dao
+*快递单详情表Dao
 **/
 @Component
-public class TUserAddressDao extends BaseDao<TUserAddress>{
+public class TPostDetailDao extends BaseDao<TPostDetail>{
 	
 	public Object[] getDBMapping(String filedName){
-		for(TUserAddress.DBMaping d:TUserAddress.DBMaping.values()){
+		for(TPostDetail.DBMaping d:TPostDetail.DBMaping.values()){
 			if(d.toString().equals(filedName)){
-				TUserAddress.DBMaping dbMaping = TUserAddress.DBMaping.valueOf(filedName);
+				TPostDetail.DBMaping dbMaping = TPostDetail.DBMaping.valueOf(filedName);
 				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
 				return values;
 			}
@@ -32,8 +32,8 @@ public class TUserAddressDao extends BaseDao<TUserAddress>{
 	}
 	 
 	@Override
-	protected RowMapper<TUserAddress> getRowMapper() {
-		return new TUserAddress.TUserAddressRowMapper();
+	protected RowMapper<TPostDetail> getRowMapper() {
+		return new TPostDetail.TPostDetailRowMapper();
 	}
 	
 }

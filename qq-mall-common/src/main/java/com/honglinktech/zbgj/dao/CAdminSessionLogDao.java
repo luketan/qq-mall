@@ -35,4 +35,5 @@ public class CAdminSessionLogDao extends BaseDao<CAdminSessionLog>{
 	protected RowMapper<CAdminSessionLog> getRowMapper() {
 		return new CAdminSessionLog.CAdminSessionLogRowMapper();
 	}
+	
 }

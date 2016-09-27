@@ -35,4 +35,5 @@ public class TOrderDao extends BaseDao<TOrder>{
 	protected RowMapper<TOrder> getRowMapper() {
 		return new TOrder.TOrderRowMapper();
 	}
+	
 }

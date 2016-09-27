@@ -35,4 +35,5 @@ public class TModuleDao extends BaseDao<TModule>{
 	protected RowMapper<TModule> getRowMapper() {
 		return new TModule.TModuleRowMapper();
 	}
+	
 }

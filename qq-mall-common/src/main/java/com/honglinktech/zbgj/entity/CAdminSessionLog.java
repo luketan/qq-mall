@@ -117,6 +117,7 @@ public class CAdminSessionLog extends BaseEntity implements Serializable{
 		token("token",Types.VARCHAR,false,false,false),
 		loginIp("login_ip",Types.VARCHAR,false,false,true),
 		form("form",Types.INTEGER,false,false,true),
+		type("type",Types.INTEGER,false,false,true),
 		unique("unique",Types.VARCHAR,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -167,6 +168,7 @@ public class CAdminSessionLog extends BaseEntity implements Serializable{
 			cAdminSessionLog.setToken(rs.getString("token"));
 			cAdminSessionLog.setLoginIp(rs.getString("login_ip"));
 			cAdminSessionLog.setForm(rs.getInt("form"));
+			cAdminSessionLog.setType(rs.getInt("type"));
 			cAdminSessionLog.setUnique(rs.getString("unique"));
 			cAdminSessionLog.setCreateTime(rs.getTimestamp("create_time"));
 			return cAdminSessionLog; 

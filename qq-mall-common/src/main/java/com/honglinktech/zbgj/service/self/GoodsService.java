@@ -43,6 +43,7 @@ public class GoodsService extends TGoodsService {
 	
 	public GoodsBean findGoodsInfo(int id) throws BaseException{
 		TGoods tgoods = tgoodsDao.findById(id);
+		System.out.println("tgoods.price"+tgoods.getPrice());
 		GoodsBean gb = new GoodsBean(tgoods);
 		List<TGActivity> tgActivityList = tgActivityDao.find("select act.* from t_goods_activity ga join t_g_activity act on ga.activity_id = act.id  where ga.goods_id = "+tgoods.getId());
 		List<TGFormat> tgFormatList = tgFormatDao.find("select format.* from t_goods_format gf join t_g_format format on gf.format_id = format.id  where gf.goods_id = "+tgoods.getId());

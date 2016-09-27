@@ -35,4 +35,5 @@ public class CAdminRoleDao extends BaseDao<CAdminRole>{
 	protected RowMapper<CAdminRole> getRowMapper() {
 		return new CAdminRole.CAdminRoleRowMapper();
 	}
+	
 }

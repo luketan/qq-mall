@@ -35,4 +35,5 @@ public class TSystemMsgDao extends BaseDao<TSystemMsg>{
 	protected RowMapper<TSystemMsg> getRowMapper() {
 		return new TSystemMsg.TSystemMsgRowMapper();
 	}
+	
 }

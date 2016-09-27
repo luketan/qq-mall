@@ -35,4 +35,5 @@ public class TUserAtteDao extends BaseDao<TUserAtte>{
 	protected RowMapper<TUserAtte> getRowMapper() {
 		return new TUserAtte.TUserAtteRowMapper();
 	}
+	
 }

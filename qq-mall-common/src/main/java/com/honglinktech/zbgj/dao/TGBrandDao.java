@@ -35,4 +35,5 @@ public class TGBrandDao extends BaseDao<TGBrand>{
 	protected RowMapper<TGBrand> getRowMapper() {
 		return new TGBrand.TGBrandRowMapper();
 	}
+	
 }

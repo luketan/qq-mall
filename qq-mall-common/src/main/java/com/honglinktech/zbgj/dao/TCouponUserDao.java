@@ -35,4 +35,5 @@ public class TCouponUserDao extends BaseDao<TCouponUser>{
 	protected RowMapper<TCouponUser> getRowMapper() {
 		return new TCouponUser.TCouponUserRowMapper();
 	}
+	
 }

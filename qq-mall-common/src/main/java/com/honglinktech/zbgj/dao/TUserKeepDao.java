@@ -35,4 +35,5 @@ public class TUserKeepDao extends BaseDao<TUserKeep>{
 	protected RowMapper<TUserKeep> getRowMapper() {
 		return new TUserKeep.TUserKeepRowMapper();
 	}
+	
 }

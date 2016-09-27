@@ -35,4 +35,5 @@ public class TUserMsgDao extends BaseDao<TUserMsg>{
 	protected RowMapper<TUserMsg> getRowMapper() {
 		return new TUserMsg.TUserMsgRowMapper();
 	}
+	
 }

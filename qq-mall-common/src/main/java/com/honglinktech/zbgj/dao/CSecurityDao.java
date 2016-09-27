@@ -35,4 +35,5 @@ public class CSecurityDao extends BaseDao<CSecurity>{
 	protected RowMapper<CSecurity> getRowMapper() {
 		return new CSecurity.CSecurityRowMapper();
 	}
+	
 }

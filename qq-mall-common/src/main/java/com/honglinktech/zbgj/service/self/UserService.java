@@ -60,7 +60,7 @@ public class UserService extends TUserService {
 		//登录成功
 		if(rsponse.getCode().equals(ExceptionEnum.COMMON_SUCCESS.getRetCode())){
 			Map<String,String[]> userSeesionMap = new HashMap<String,String[]>();
-			userSeesionMap.put(TUserSession.DBMaping.userId.getDbName(), new String[]{String.valueOf(rsponse.getResult().getId())});
+			userSeesionMap.put(TUserSession.DBMaping.userId.name(), new String[]{String.valueOf(rsponse.getResult().getId())});
 			List<TUserSession> userSessions = userSessionDao.findByWhere(userSeesionMap);
 			String token = TokenProcessor.getInstance().generateToken(String.valueOf(rsponse.getResult().getId()), true);
 			if(userSessions!=null && userSessions.size()>0){//update token
@@ -99,8 +99,8 @@ public class UserService extends TUserService {
 	public Response<List<TUserKeep>> findKeepPage(Integer userId,Integer type,Integer index,Integer size) throws BaseException{
 		
 		Map<String,String[]> whereMap = new HashMap<String, String[]>();
-		whereMap.put(TUserKeep.DBMaping.userId.getDbName(), new String[]{String.valueOf(userId)});
-		whereMap.put(TUserKeep.DBMaping.type.getDbName(), new String[]{String.valueOf(type)});
+		whereMap.put(TUserKeep.DBMaping.userId.name(), new String[]{String.valueOf(userId)});
+		whereMap.put(TUserKeep.DBMaping.type.name(), new String[]{String.valueOf(type)});
 		QueryHelper<TUserKeep> qh = new QueryHelper<TUserKeep>(whereMap);
 		qh.setIndex(index);
 		qh.setSize(size);
@@ -138,7 +138,7 @@ public class UserService extends TUserService {
 	public Response<List<TUserAddress>> findAddressPage(Integer userId,Integer index,Integer size) throws BaseException{
 		
 		Map<String,String[]> whereMap = new HashMap<String, String[]>();
-		whereMap.put(TUserKeep.DBMaping.userId.getDbName(), new String[]{String.valueOf(userId)});
+		whereMap.put(TUserKeep.DBMaping.userId.name(), new String[]{String.valueOf(userId)});
 		QueryHelper<TUserAddress> qh = new QueryHelper<TUserAddress>(whereMap);
 		qh.setIndex(index);
 		qh.setSize(size);

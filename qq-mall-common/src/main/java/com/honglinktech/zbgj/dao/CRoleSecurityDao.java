@@ -35,4 +35,5 @@ public class CRoleSecurityDao extends BaseDao<CRoleSecurity>{
 	protected RowMapper<CRoleSecurity> getRowMapper() {
 		return new CRoleSecurity.CRoleSecurityRowMapper();
 	}
+	
 }

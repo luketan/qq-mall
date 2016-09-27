@@ -297,7 +297,15 @@ public class TGoods extends BaseEntity implements Serializable{
 		name("name",Types.VARCHAR,false,false,false),
 		subName("sub_name",Types.VARCHAR,false,false,true),
 		detail("detail",Types.LONGVARCHAR,false,false,true),
+		salesNum("sales_num",Types.INTEGER,false,false,true),
+		keepNum("keep_num",Types.INTEGER,false,false,true),
+		markPrice("mark_price",Types.DECIMAL,false,false,true),
+		formerPrice("former_price",Types.DECIMAL,false,false,true),
+		price("price",Types.DECIMAL,false,false,true),
+		discussNum("discuss_num",Types.INTEGER,false,false,true),
 		promoName("promo_name",Types.VARCHAR,false,false,true),
+		promoPrice("promo_price",Types.FLOAT,false,false,true),
+		promoIs("promo_is",Types.INTEGER,false,false,true),
 		hotIs("hot_is",Types.INTEGER,false,false,true),
 		giftsIs("gifts_is",Types.INTEGER,false,false,true),
 		brandId("brand_id",Types.INTEGER,false,false,true),
@@ -358,7 +366,15 @@ public class TGoods extends BaseEntity implements Serializable{
 			tGoods.setName(rs.getString("name"));
 			tGoods.setSubName(rs.getString("sub_name"));
 			tGoods.setDetail(rs.getString("detail"));
+			tGoods.setSalesNum(rs.getInt("sales_num"));
+			tGoods.setKeepNum(rs.getInt("keep_num"));
+			tGoods.setMarkPrice(rs.getBigDecimal("mark_price"));
+			tGoods.setFormerPrice(rs.getBigDecimal("former_price"));
+			tGoods.setPrice(rs.getBigDecimal("price"));
+			tGoods.setDiscussNum(rs.getInt("discuss_num"));
 			tGoods.setPromoName(rs.getString("promo_name"));
+			tGoods.setPromoPrice(rs.getFloat("promo_price"));
+			tGoods.setPromoIs(rs.getInt("promo_is"));
 			tGoods.setHotIs(rs.getInt("hot_is"));
 			tGoods.setGiftsIs(rs.getInt("gifts_is"));
 			tGoods.setBrandId(rs.getInt("brand_id"));

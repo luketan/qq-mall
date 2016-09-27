@@ -35,4 +35,5 @@ public class TGStyleDao extends BaseDao<TGStyle>{
 	protected RowMapper<TGStyle> getRowMapper() {
 		return new TGStyle.TGStyleRowMapper();
 	}
+	
 }

@@ -78,6 +78,10 @@ public class QueryHelper<T> {
 		this.size = size;
 		this.whereMap = whereMap;
 	}
+	/**
+	 * whereMap key is 是枚举名称
+	 * @param whereMap
+	 */
 	public QueryHelper(Map<String, String[]> whereMap){
 		this.whereMap = whereMap;
 	}

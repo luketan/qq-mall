@@ -35,4 +35,5 @@ public class TUserFriendDao extends BaseDao<TUserFriend>{
 	protected RowMapper<TUserFriend> getRowMapper() {
 		return new TUserFriend.TUserFriendRowMapper();
 	}
+	
 }

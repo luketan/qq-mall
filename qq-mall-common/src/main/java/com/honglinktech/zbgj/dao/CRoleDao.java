@@ -35,4 +35,5 @@ public class CRoleDao extends BaseDao<CRole>{
 	protected RowMapper<CRole> getRowMapper() {
 		return new CRole.CRoleRowMapper();
 	}
+	
 }

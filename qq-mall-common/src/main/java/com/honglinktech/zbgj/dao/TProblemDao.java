@@ -35,4 +35,5 @@ public class TProblemDao extends BaseDao<TProblem>{
 	protected RowMapper<TProblem> getRowMapper() {
 		return new TProblem.TProblemRowMapper();
 	}
+	
 }

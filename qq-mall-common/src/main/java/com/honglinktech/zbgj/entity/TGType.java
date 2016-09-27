@@ -19,16 +19,18 @@ public class TGType extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
 	private Integer id=null;
-	@FieldMeta(primaryKey = false,fieldName = "类别名称",dbName = "name",length = 200,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "类别名称",dbName = "name",length = 64,allowNull=false)
 	private String name=null;
-	@FieldMeta(primaryKey = false,fieldName = "类型图标",dbName = "ico",length = 100,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "类型图标",dbName = "ico",length = 128,allowNull=true)
 	private String ico=null;
-	@FieldMeta(primaryKey = false,fieldName = "类型图片",dbName = "img",length = 100,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "类型图片",dbName = "img",length = 128,allowNull=true)
 	private String img=null;
-	@FieldMeta(primaryKey = false,fieldName = "是否首页l栏(0不是，1是)",dbName = "top_is",length = 10,allowNull=true)
-	private Integer topIs=null;
-	@FieldMeta(primaryKey = false,fieldName = "状态(1正常，2删除，3下架)",dbName = "status",length = 10,allowNull=true)
-	private Integer status=null;
+	@FieldMeta(primaryKey = false,fieldName = "排序",dbName = "sort",length = 10,allowNull=true)
+	private Integer sort=null;
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "summary",length = 128,allowNull=true)
+	private String summary=null;
+	@FieldMeta(primaryKey = false,fieldName = "状态(0正常，1删除)",dbName = "delete_tag",length = 10,allowNull=true)
+	private Integer deleteTag=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "create_time",length = 19,allowNull=true)
@@ -41,13 +43,14 @@ public class TGType extends BaseEntity implements Serializable{
 	
 	public TGType(){
  	}
- 	public TGType(Integer id,String name,String ico,String img,Integer topIs,Integer status){
+ 	public TGType(Integer id,String name,String ico,String img,Integer sort,String summary,Integer deleteTag){
  		this.id = id;
 		this.name = name;
 		this.ico = ico;
 		this.img = img;
-		this.topIs = topIs;
-		this.status = status;
+		this.sort = sort;
+		this.summary = summary;
+		this.deleteTag = deleteTag;
 		
  	}
  	
@@ -79,19 +82,26 @@ public class TGType extends BaseEntity implements Serializable{
 	public void setImg(String img){
 		  this.img = img; 
 	}
-	/*是否首页l栏(0不是，1是)*/
-	public Integer getTopIs(){
-		 return this.topIs; 
+	/*排序*/
+	public Integer getSort(){
+		 return this.sort; 
 	}
-	public void setTopIs(Integer topIs){
-		  this.topIs = topIs; 
+	public void setSort(Integer sort){
+		  this.sort = sort; 
 	}
-	/*状态(1正常，2删除，3下架)*/
-	public Integer getStatus(){
-		 return this.status; 
+	/**/
+	public String getSummary(){
+		 return this.summary; 
 	}
-	public void setStatus(Integer status){
-		  this.status = status; 
+	public void setSummary(String summary){
+		  this.summary = summary; 
+	}
+	/*状态(0正常，1删除)*/
+	public Integer getDeleteTag(){
+		 return this.deleteTag; 
+	}
+	public void setDeleteTag(Integer deleteTag){
+		  this.deleteTag = deleteTag; 
 	}
 	/**/
 	public Date getUpdateTime(){
@@ -115,8 +125,9 @@ public class TGType extends BaseEntity implements Serializable{
 		name("name",Types.VARCHAR,false,false,false),
 		ico("ico",Types.VARCHAR,false,false,true),
 		img("img",Types.VARCHAR,false,false,true),
-		topIs("top_is",Types.INTEGER,false,false,true),
-		status("status",Types.INTEGER,false,false,true),
+		sort("sort",Types.INTEGER,false,false,true),
+		summary("summary",Types.VARCHAR,false,false,true),
+		deleteTag("delete_tag",Types.INTEGER,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -166,8 +177,9 @@ public class TGType extends BaseEntity implements Serializable{
 			tGType.setName(rs.getString("name"));
 			tGType.setIco(rs.getString("ico"));
 			tGType.setImg(rs.getString("img"));
-			tGType.setTopIs(rs.getInt("top_is"));
-			tGType.setStatus(rs.getInt("status"));
+			tGType.setSort(rs.getInt("sort"));
+			tGType.setSummary(rs.getString("summary"));
+			tGType.setDeleteTag(rs.getInt("delete_tag"));
 			tGType.setUpdateTime(rs.getTimestamp("update_time"));
 			tGType.setCreateTime(rs.getTimestamp("create_time"));
 			return tGType; 

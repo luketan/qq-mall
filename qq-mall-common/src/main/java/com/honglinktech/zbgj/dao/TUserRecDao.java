@@ -35,4 +35,5 @@ public class TUserRecDao extends BaseDao<TUserRec>{
 	protected RowMapper<TUserRec> getRowMapper() {
 		return new TUserRec.TUserRecRowMapper();
 	}
+	
 }

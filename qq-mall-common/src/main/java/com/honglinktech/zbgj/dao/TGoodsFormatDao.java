@@ -35,4 +35,5 @@ public class TGoodsFormatDao extends BaseDao<TGoodsFormat>{
 	protected RowMapper<TGoodsFormat> getRowMapper() {
 		return new TGoodsFormat.TGoodsFormatRowMapper();
 	}
+	
 }

@@ -35,4 +35,5 @@ public class TGFormatDao extends BaseDao<TGFormat>{
 	protected RowMapper<TGFormat> getRowMapper() {
 		return new TGFormat.TGFormatRowMapper();
 	}
+	
 }

@@ -1,10 +1,8 @@
 package com.honglinktech.zbgj.dao;
 
 import javax.annotation.Resource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.honglinktech.zbgj.base.BaseDao;
@@ -36,4 +34,5 @@ public class TUserSessionDao extends BaseDao<TUserSession>{
 	protected RowMapper<TUserSession> getRowMapper() {
 		return new TUserSession.TUserSessionRowMapper();
 	}
+	
 }

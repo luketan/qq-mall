@@ -35,4 +35,5 @@ public class TGTagDao extends BaseDao<TGTag>{
 	protected RowMapper<TGTag> getRowMapper() {
 		return new TGTag.TGTagRowMapper();
 	}
+	
 }

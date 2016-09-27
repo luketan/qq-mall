@@ -48,7 +48,7 @@ public class UserController extends BaseApiController {
 	        	
 	    String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode)){
-			Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
 		Response<String> resp = userService.loginout(Integer.valueOf(userCode));
 
@@ -60,8 +60,9 @@ public class UserController extends BaseApiController {
 	public Response<List<TUserKeep>> findKeepPage(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
 	        	
 	    String userCode =  headers.getFirst("userId");
+	    System.out.println("userCode==="+userCode);
 		if(StringUtils.isEmpty(userCode)){
-			Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
 		Integer index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
 		Integer size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
@@ -80,7 +81,7 @@ public class UserController extends BaseApiController {
 		String userCode =  headers.getFirst("userId");
 	     
 		if(StringUtils.isEmpty(userCode)){
-			Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
 		tuserKeep.setUserId(Integer.valueOf(userCode));
 		Response<String> resp = userService.saveOrUpdateKeep(tuserKeep);
@@ -93,7 +94,7 @@ public class UserController extends BaseApiController {
 	        	
 	    String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode)){
-			Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
 		
 		if(req.get("id")==null){
@@ -110,7 +111,7 @@ public class UserController extends BaseApiController {
 	        	
 	    String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode)){
-			Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
 		Integer index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
 		Integer size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
@@ -125,7 +126,7 @@ public class UserController extends BaseApiController {
 		String userCode =  headers.getFirst("userId");
 	     
 		if(StringUtils.isEmpty(userCode)){
-			Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
 		tuserAddress.setUserId(Integer.valueOf(userCode));
 		Response<String> resp = userService.updateAddressDefault(tuserAddress);

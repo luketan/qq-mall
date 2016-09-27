@@ -121,8 +121,12 @@ public class TUserFriend extends BaseEntity implements Serializable{
 	
 	public enum DBMaping{
 		tableName("t_user_friend",0,false,false,false),
+		userId("user_id",Types.INTEGER,true,false,false),
+		friendUserId("friend_user_id",Types.INTEGER,true,false,false),
+		type("type",Types.INTEGER,false,false,false),
 		friendUserName("friend_user_name",Types.VARCHAR,false,false,true),
 		friendUserHead("friend_user_head",Types.VARCHAR,false,false,true),
+		friendUserLevel("friend_user_level",Types.INTEGER,false,false,true),
 		friendMoney("friend_money",Types.INTEGER,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
@@ -169,8 +173,12 @@ public class TUserFriend extends BaseEntity implements Serializable{
         public TUserFriend mapRow(ResultSet rs, int rowNum) throws SQLException {  
 
 			TUserFriend tUserFriend = new TUserFriend();
+			tUserFriend.setUserId(rs.getInt("user_id"));
+			tUserFriend.setFriendUserId(rs.getInt("friend_user_id"));
+			tUserFriend.setType(rs.getInt("type"));
 			tUserFriend.setFriendUserName(rs.getString("friend_user_name"));
 			tUserFriend.setFriendUserHead(rs.getString("friend_user_head"));
+			tUserFriend.setFriendUserLevel(rs.getInt("friend_user_level"));
 			tUserFriend.setFriendMoney(rs.getInt("friend_money"));
 			tUserFriend.setUpdateTime(rs.getTimestamp("update_time"));
 			tUserFriend.setCreateTime(rs.getTimestamp("create_time"));

@@ -35,4 +35,5 @@ public class TRegionDao extends BaseDao<TRegion>{
 	protected RowMapper<TRegion> getRowMapper() {
 		return new TRegion.TRegionRowMapper();
 	}
+	
 }

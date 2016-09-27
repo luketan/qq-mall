@@ -117,6 +117,7 @@ public class TUserSessionLog extends BaseEntity implements Serializable{
 		token("token",Types.VARCHAR,false,false,false),
 		loginIp("login_ip",Types.VARCHAR,false,false,true),
 		form("form",Types.INTEGER,false,false,true),
+		type("type",Types.INTEGER,false,false,true),
 		unique("unique",Types.VARCHAR,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -167,6 +168,7 @@ public class TUserSessionLog extends BaseEntity implements Serializable{
 			tUserSessionLog.setToken(rs.getString("token"));
 			tUserSessionLog.setLoginIp(rs.getString("login_ip"));
 			tUserSessionLog.setForm(rs.getInt("form"));
+			tUserSessionLog.setType(rs.getInt("type"));
 			tUserSessionLog.setUnique(rs.getString("unique"));
 			tUserSessionLog.setCreateTime(rs.getTimestamp("create_time"));
 			return tUserSessionLog; 

@@ -121,8 +121,12 @@ public class TUserAtte extends BaseEntity implements Serializable{
 	
 	public enum DBMaping{
 		tableName("t_user_atte",0,false,false,false),
+		userId("user_id",Types.INTEGER,true,false,false),
+		atteUserId("atte_user_id",Types.INTEGER,true,false,false),
+		type("type",Types.INTEGER,false,false,false),
 		atteUserName("atte_user_name",Types.VARCHAR,false,false,true),
 		atteUserHead("atte_user_head",Types.VARCHAR,false,false,true),
+		atteUserLevel("atte_user_level",Types.INTEGER,false,false,true),
 		atteMoney("atte_money",Types.INTEGER,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
@@ -169,8 +173,12 @@ public class TUserAtte extends BaseEntity implements Serializable{
         public TUserAtte mapRow(ResultSet rs, int rowNum) throws SQLException {  
 
 			TUserAtte tUserAtte = new TUserAtte();
+			tUserAtte.setUserId(rs.getInt("user_id"));
+			tUserAtte.setAtteUserId(rs.getInt("atte_user_id"));
+			tUserAtte.setType(rs.getInt("type"));
 			tUserAtte.setAtteUserName(rs.getString("atte_user_name"));
 			tUserAtte.setAtteUserHead(rs.getString("atte_user_head"));
+			tUserAtte.setAtteUserLevel(rs.getInt("atte_user_level"));
 			tUserAtte.setAtteMoney(rs.getInt("atte_money"));
 			tUserAtte.setUpdateTime(rs.getTimestamp("update_time"));
 			tUserAtte.setCreateTime(rs.getTimestamp("create_time"));

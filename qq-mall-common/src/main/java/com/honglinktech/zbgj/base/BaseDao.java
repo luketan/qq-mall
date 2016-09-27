@@ -161,9 +161,15 @@ public abstract class BaseDao<T>{
         return jdbcTemplate.query(sql, getRowMapper(), id).get(0);  
     }  
    
+    /**
+     * whereMap key是枚举名称
+     * @param map
+     * @return
+     */
     public List<T> findByWhere(Map<String, String[]> map) {
         String sql = "SELECT * FROM " + getDBMapping(TABLENAME)[0]+" "+makeWhereByMapArr(map); 
         logger.info("[sql-findByWhere]->"+sql);
+        System.out.println("[sql-findByWhere]->"+sql);
         return jdbcTemplate.query(sql, getRowMapper());  
     }
     
@@ -211,19 +217,14 @@ public abstract class BaseDao<T>{
             if (queryHelper.getWhereMap() != null && queryHelper.getWhereMap().size() > 0) {
             	sqlWhere.append(makeWhereByMapArr(queryHelper.getWhereMap()));
             }  
-            if (queryHelper.getOrderBy() != null && queryHelper.getOrderBy().size() > 0) {        	
-            	sqlOrderBy.append(" ORDER BY ");  
-                for (Map.Entry<String, String> me : queryHelper.getOrderBy().entrySet()) {  
-                    String columnName = me.getKey();  
-                    String columnValue = me.getValue();  
-                    sqlOrderBy.append(columnName).append(" ").append(columnValue).append(",");  
-                }  
-                sqlOrderBy = sqlOrderBy.deleteCharAt(sqlOrderBy.length() - 1);  
-            }  
         }
+        if (queryHelper.getOrderBy() != null && queryHelper.getOrderBy().size() > 0) {        	
+        	sqlOrderBy.append(makeOrderByMap(queryHelper.getOrderBy()));
+        }  
         sql.append(sqlWhere).append(sqlOrderBy);
         sql.append(" limit ?,? ");  
         logger.info("[sql-findByQueryHelper]->"+sql);
+        System.out.println("[sql-findByQueryHelper]->"+sql);
         Object[] args = { (queryHelper.getIndex()-1) * queryHelper.getSize(), queryHelper.getSize() };  
 //        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);  
         queryHelper.setResultList(jdbcTemplate.query(sql.toString(), args, getRowMapper()));
@@ -265,6 +266,23 @@ public abstract class BaseDao<T>{
             }
         }  
     	return sqlWhere.toString();
+    }
+    private String makeOrderByMap(Map<String, String> map){
+    	StringBuffer sqlOrderBy = new StringBuffer();
+        if (map != null && map.size() > 0) {
+        	sqlOrderBy.append(" ORDER BY ");
+            for (Map.Entry<String, String> me : map.entrySet()) {  
+                String columnName = me.getKey();  
+                Object[] objs = getDBMapping(columnName);
+                if(null!=objs){
+	                String orderValue = me.getValue();
+	                orderValue = StringUtils.isEmpty(orderValue)?"ASC":orderValue;
+	                sqlOrderBy.append(objs[0]).append(" ").append(orderValue).append(",");  
+                }
+            }
+        }  
+        sqlOrderBy = sqlOrderBy.deleteCharAt(sqlOrderBy.length() - 1);  
+    	return sqlOrderBy.toString();
     }
     @SuppressWarnings("unused")
 	private String makeWhereByMap(Map<String, String> map){

@@ -142,7 +142,15 @@ public class TChangeLog extends BaseEntity implements Serializable{
 	
 	public enum DBMaping{
 		tableName("t_change_log",0,false,false,false),
+		id("id",Types.INTEGER,true,true,false),
+		userId("user_id",Types.INTEGER,false,false,false),
+		objectId("object_id",Types.INTEGER,false,false,false),
+		type("type",Types.INTEGER,false,false,false),
+		logType("log_type",Types.INTEGER,false,false,false),
+		beforeNum("before_num",Types.INTEGER,false,false,false),
 		num("num",Types.INTEGER,false,false,false),
+		currNum("curr_num",Types.INTEGER,false,false,false),
+		level("level",Types.INTEGER,false,false,false),
 		comments("comments",Types.VARCHAR,false,false,false),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -188,7 +196,15 @@ public class TChangeLog extends BaseEntity implements Serializable{
         public TChangeLog mapRow(ResultSet rs, int rowNum) throws SQLException {  
 
 			TChangeLog tChangeLog = new TChangeLog();
+			tChangeLog.setId(rs.getInt("id"));
+			tChangeLog.setUserId(rs.getInt("user_id"));
+			tChangeLog.setObjectId(rs.getInt("object_id"));
+			tChangeLog.setType(rs.getInt("type"));
+			tChangeLog.setLogType(rs.getInt("log_type"));
+			tChangeLog.setBeforeNum(rs.getInt("before_num"));
 			tChangeLog.setNum(rs.getInt("num"));
+			tChangeLog.setCurrNum(rs.getInt("curr_num"));
+			tChangeLog.setLevel(rs.getInt("level"));
 			tChangeLog.setComments(rs.getString("comments"));
 			tChangeLog.setCreateTime(rs.getTimestamp("create_time"));
 			return tChangeLog; 

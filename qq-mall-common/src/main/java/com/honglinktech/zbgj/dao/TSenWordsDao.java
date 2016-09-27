@@ -35,4 +35,5 @@ public class TSenWordsDao extends BaseDao<TSenWords>{
 	protected RowMapper<TSenWords> getRowMapper() {
 		return new TSenWords.TSenWordsRowMapper();
 	}
+	
 }

@@ -35,4 +35,5 @@ public class TShoppingCartDao extends BaseDao<TShoppingCart>{
 	protected RowMapper<TShoppingCart> getRowMapper() {
 		return new TShoppingCart.TShoppingCartRowMapper();
 	}
+	
 }

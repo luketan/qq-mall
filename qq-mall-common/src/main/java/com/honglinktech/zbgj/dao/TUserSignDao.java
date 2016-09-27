@@ -35,4 +35,5 @@ public class TUserSignDao extends BaseDao<TUserSign>{
 	protected RowMapper<TUserSign> getRowMapper() {
 		return new TUserSign.TUserSignRowMapper();
 	}
+	
 }

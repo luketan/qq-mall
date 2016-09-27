@@ -35,4 +35,5 @@ public class THintDao extends BaseDao<THint>{
 	protected RowMapper<THint> getRowMapper() {
 		return new THint.THintRowMapper();
 	}
+	
 }

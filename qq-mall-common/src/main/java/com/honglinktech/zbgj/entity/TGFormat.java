@@ -125,6 +125,7 @@ public class TGFormat extends BaseEntity implements Serializable{
 		name("name",Types.VARCHAR,false,false,false),
 		goodsType("goods_type",Types.INTEGER,false,false,true),
 		typeName("type_name",Types.VARCHAR,false,false,true),
+		type("type",Types.INTEGER,false,false,true),
 		args("args",Types.VARCHAR,false,false,true),
 		status("status",Types.INTEGER,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true),
@@ -176,6 +177,7 @@ public class TGFormat extends BaseEntity implements Serializable{
 			tGFormat.setName(rs.getString("name"));
 			tGFormat.setGoodsType(rs.getInt("goods_type"));
 			tGFormat.setTypeName(rs.getString("type_name"));
+			tGFormat.setType(rs.getInt("type"));
 			tGFormat.setArgs(rs.getString("args"));
 			tGFormat.setStatus(rs.getInt("status"));
 			tGFormat.setCreateTime(rs.getTimestamp("create_time"));

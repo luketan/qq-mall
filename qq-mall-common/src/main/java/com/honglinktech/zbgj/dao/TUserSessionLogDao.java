@@ -35,4 +35,5 @@ public class TUserSessionLogDao extends BaseDao<TUserSessionLog>{
 	protected RowMapper<TUserSessionLog> getRowMapper() {
 		return new TUserSessionLog.TUserSessionLogRowMapper();
 	}
+	
 }
