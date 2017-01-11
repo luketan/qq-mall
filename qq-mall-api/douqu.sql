@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50536
 File Encoding         : 65001
 
-Date: 2016-09-27 15:10:55
+Date: 2017-01-11 23:57:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -288,22 +288,47 @@ DROP TABLE IF EXISTS `t_change_log`;
 CREATE TABLE `t_change_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `object_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '记录对象Id[商品Id，帖子Id]',
-  `type` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '记录类型',
-  `log_type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '日志类型',
+  `object_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '记录对象Id(商品Id，帖子Id)',
+  `type` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '记录类型(1:币,2:红包,3:积分)',
+  `log_type` int(10) unsigned NOT NULL DEFAULT '1' COMMENT '日志类型()',
   `before_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '变更前的数量',
   `num` int(10) NOT NULL DEFAULT '0' COMMENT '变更数量数目',
   `curr_num` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '变更后的数量',
-  `level` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '记录时经理的级别',
   `comments` varchar(500) NOT NULL DEFAULT '' COMMENT '变更批注',
   `create_time` timestamp NULL DEFAULT '1970-01-01 12:00:00' COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `idx_team_id` (`user_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='变更变更日志[逗比、经验、vip]  注意分表';
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='变更变更日志[逗比、经验、vip]  注意分表';
 
 -- ----------------------------
 -- Records of t_change_log
 -- ----------------------------
+INSERT INTO `t_change_log` VALUES ('1', '1', '0', '2', '2', '20', '-10', '10', '论坛帖子置顶', '2016-10-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('2', '1', '0', '2', '2', '10', '1', '11', '论坛帖子点赞', '2016-10-02 12:00:00');
+INSERT INTO `t_change_log` VALUES ('3', '1', '0', '2', '2', '11', '1', '12', '论坛帖子点赞', '2016-10-03 12:00:00');
+INSERT INTO `t_change_log` VALUES ('4', '1', '0', '2', '2', '12', '1', '13', '论坛帖子点赞', '2016-10-04 12:00:00');
+INSERT INTO `t_change_log` VALUES ('5', '1', '0', '2', '2', '13', '1', '14', '论坛帖子点赞', '2016-10-05 12:00:00');
+INSERT INTO `t_change_log` VALUES ('6', '1', '0', '2', '2', '14', '1', '15', '论坛帖子点赞', '2016-10-06 12:00:00');
+INSERT INTO `t_change_log` VALUES ('7', '1', '0', '2', '2', '15', '1', '16', '论坛帖子点赞', '2016-10-07 12:00:00');
+INSERT INTO `t_change_log` VALUES ('8', '1', '0', '2', '2', '16', '1', '17', '论坛帖子点赞', '2016-10-08 12:00:00');
+INSERT INTO `t_change_log` VALUES ('9', '1', '0', '2', '2', '17', '1', '18', '论坛帖子点赞', '2016-10-09 12:00:00');
+INSERT INTO `t_change_log` VALUES ('10', '1', '0', '2', '2', '18', '1', '19', '论坛帖子点赞', '2016-10-10 12:00:00');
+INSERT INTO `t_change_log` VALUES ('11', '1', '0', '2', '2', '19', '1', '20', '论坛帖子点赞', '2016-10-11 12:00:00');
+INSERT INTO `t_change_log` VALUES ('12', '1', '0', '2', '2', '20', '1', '21', '论坛帖子点赞', '2016-10-12 12:00:00');
+INSERT INTO `t_change_log` VALUES ('13', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('14', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('15', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('16', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('17', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('18', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('19', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('20', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('21', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('22', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('23', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('24', '1', '0', '2', '0', '0', '0', '0', '', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('25', '1', '0', '1', '1', '2', '5', '6', '充值', '1970-01-01 12:00:00');
+INSERT INTO `t_change_log` VALUES ('26', '1', '0', '3', '1', '1', '4', '5', '积分赚了', '1970-01-01 12:00:00');
 
 -- ----------------------------
 -- Table structure for `t_coupon`
@@ -312,19 +337,26 @@ DROP TABLE IF EXISTS `t_coupon`;
 CREATE TABLE `t_coupon` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(50) DEFAULT NULL COMMENT '名称',
-  `type` int(1) DEFAULT '1' COMMENT '类型(1优惠券，2红包红包可兑换社区币）',
+  `condition` varchar(255) DEFAULT NULL COMMENT '条件文本',
+  `detail` varchar(255) DEFAULT NULL COMMENT '详情',
+  `type` int(1) DEFAULT '0' COMMENT '条件商品类型ID',
+  `type_name` varchar(128) DEFAULT NULL COMMENT '商品类型名称',
+  `max` int(11) DEFAULT '0' COMMENT '条件满多少可以用',
   `value` int(10) DEFAULT '0',
-  `status` int(1) DEFAULT '1' COMMENT '1正常',
-  `start_date` timestamp NULL DEFAULT NULL COMMENT '开始时间',
-  `end_date` timestamp NULL DEFAULT NULL COMMENT '结束时间',
+  `start_date` date DEFAULT NULL COMMENT '开始时间',
+  `end_date` date DEFAULT NULL COMMENT '结束时间',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='优惠券';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='优惠券';
 
 -- ----------------------------
 -- Records of t_coupon
 -- ----------------------------
+INSERT INTO `t_coupon` VALUES ('1', '女用玩具专用', '满99元可以用', null, '1003', '女用玩具', '99', '10', '2016-10-09', '2016-12-30', '2016-10-10 20:35:18', '2016-11-20 16:20:45');
+INSERT INTO `t_coupon` VALUES ('2', '全场适用', '无门槛券', null, '0', null, '0', '5', '2016-09-22', '2016-12-31', '2016-10-10 20:35:52', '2016-11-20 16:20:58');
+INSERT INTO `t_coupon` VALUES ('3', '女用玩具专用', '满99元可以用', null, '1003', '女用玩具', '99', '10', '2016-09-01', '2016-10-01', '1979-01-01 01:00:00', '2016-11-20 16:21:11');
+INSERT INTO `t_coupon` VALUES ('4', '全场适用', '无门槛券', null, '0', null, '0', '8', '2016-11-03', '2016-11-26', '1979-01-01 01:00:00', '2016-11-20 16:21:00');
 
 -- ----------------------------
 -- Table structure for `t_coupon_user`
@@ -332,27 +364,153 @@ CREATE TABLE `t_coupon` (
 DROP TABLE IF EXISTS `t_coupon_user`;
 CREATE TABLE `t_coupon_user` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `coupon_id` int(10) NOT NULL,
-  `coupon_name` varchar(128) DEFAULT NULL,
-  `value` int(10) DEFAULT '0',
-  `status` int(1) DEFAULT '1' COMMENT '1正常',
-  `start_date` timestamp NULL DEFAULT NULL,
-  `end_date` timestamp NULL DEFAULT NULL,
-  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `coupon_id` int(10) NOT NULL COMMENT '券ID',
+  `checked` int(1) DEFAULT '0' COMMENT '是否已经选中',
+  `code` varchar(255) DEFAULT NULL COMMENT '唯一识别码',
+  `status` int(1) DEFAULT '0' COMMENT '状态(0未使用，1是已使用)',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_coupon_user
 -- ----------------------------
+INSERT INTO `t_coupon_user` VALUES ('1', '1', '1', null, null, '0', '2016-10-10 21:00:00');
+INSERT INTO `t_coupon_user` VALUES ('4', '1', '4', null, null, '1', '1979-01-01 01:00:00');
+INSERT INTO `t_coupon_user` VALUES ('5', '1', '2', null, null, '0', '1979-01-01 01:00:00');
+INSERT INTO `t_coupon_user` VALUES ('6', '1', '3', null, null, '0', '1979-01-01 01:00:00');
+
+-- ----------------------------
+-- Table structure for `t_feed_back`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_feed_back`;
+CREATE TABLE `t_feed_back` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '反馈ID',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `detail` text COMMENT '反馈详情',
+  `reply` text COMMENT '系统回复',
+  `reply_time` timestamp NULL DEFAULT NULL COMMENT '回复时间',
+  `read_is` int(1) DEFAULT '0' COMMENT '是否已读',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户反馈表';
+
+-- ----------------------------
+-- Records of t_feed_back
+-- ----------------------------
+INSERT INTO `t_feed_back` VALUES ('1', '1', '粉红色的粉红色的发送看见对方好几十块地方', '就复读阿女分局后发货死哦答复哦is大姐夫史蒂芬交水电费说的飞', '2016-10-14 00:15:22', '0', '2016-10-16 01:58:23', '2016-10-13 23:32:34');
+INSERT INTO `t_feed_back` VALUES ('2', '1', '东方雨虹是丢放烟花', null, null, '0', '2016-10-16 01:57:56', '2016-10-14 23:32:34');
+INSERT INTO `t_feed_back` VALUES ('3', '1', '欧hi偶然菩提突然', null, null, '0', '2016-10-16 01:57:59', '2016-10-14 01:55:47');
+INSERT INTO `t_feed_back` VALUES ('4', '1', '个囧耳朵内部分都不叫偶if都不记得发金币欧迪芬', null, null, '0', '2016-10-16 01:58:12', '2016-10-15 06:25:35');
+
+-- ----------------------------
+-- Table structure for `t_format`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_format`;
+CREATE TABLE `t_format` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(12) DEFAULT NULL COMMENT '产品ID',
+  `name` varchar(64) DEFAULT NULL COMMENT '名称',
+  `need_price` int(2) DEFAULT '0' COMMENT '是否可选样式价格',
+  `sort` int(6) DEFAULT NULL COMMENT '排序',
+  `delete_flag` tinyint(2) DEFAULT '0',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='产品款式';
+
+-- ----------------------------
+-- Records of t_format
+-- ----------------------------
+INSERT INTO `t_format` VALUES ('16', '10001', '工艺', '1', null, '0', '1979-01-01 01:00:00', '2016-11-02 00:30:49');
+INSERT INTO `t_format` VALUES ('17', '10001', '材质', '0', null, '0', '1979-01-01 01:00:00', '2016-11-01 22:19:43');
+INSERT INTO `t_format` VALUES ('18', '10001', '成色', '0', null, '0', '1979-01-01 01:00:00', '2016-10-27 01:37:21');
+INSERT INTO `t_format` VALUES ('19', '10001', '规格', '0', null, '0', '1979-01-01 01:00:00', '2016-10-26 22:55:19');
+INSERT INTO `t_format` VALUES ('20', '10001', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('21', '10002', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('22', '10017', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('23', '10018', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('24', '10019', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('25', '10020', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('26', '10021', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('27', '10022', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('28', '10024', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('29', '10025', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('30', '10026', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('31', '10027', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('32', '10028', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('33', '10030', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('34', '10031', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('35', '10031', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('36', '10032', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('37', '10032', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('38', '10033', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+INSERT INTO `t_format` VALUES ('39', '10034', '规格', '0', null, '0', '2016-11-01 23:26:13', '2016-11-01 23:26:13');
+
+-- ----------------------------
+-- Table structure for `t_format_sub`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_format_sub`;
+CREATE TABLE `t_format_sub` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `format_id` int(12) NOT NULL COMMENT '规格ID',
+  `format_name` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `price` decimal(10,2) DEFAULT '0.00' COMMENT '费用',
+  `vip_price` decimal(10,2) DEFAULT '0.00' COMMENT 'vip费用',
+  `select` int(2) DEFAULT '1' COMMENT '是否可选',
+  `args` varchar(128) DEFAULT NULL COMMENT '系数',
+  `delete_flag` int(2) DEFAULT '0' COMMENT '删除标志',
+  `sort` int(6) DEFAULT NULL COMMENT '排序',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COMMENT='规格种类';
+
+-- ----------------------------
+-- Records of t_format_sub
+-- ----------------------------
+INSERT INTO `t_format_sub` VALUES ('31', '16', null, '光滑', '12.00', '0.00', '0', null, '1', null, '1979-01-01 01:00:00', '2016-11-02 00:31:03');
+INSERT INTO `t_format_sub` VALUES ('32', '16', null, '抛光', '14.00', '0.00', '1', null, '1', null, '1979-01-01 01:00:00', '2016-11-02 00:31:04');
+INSERT INTO `t_format_sub` VALUES ('33', '16', null, '磨砂', '17.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-02 00:31:06');
+INSERT INTO `t_format_sub` VALUES ('34', '17', null, 'AU999', '1.50', '1.20', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('35', '17', null, 'AU9999', '1.80', '1.50', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 22:19:50');
+INSERT INTO `t_format_sub` VALUES ('36', '18', null, '红色', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('37', '18', null, '黑色', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('38', '18', null, '褐色', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('39', '19', null, '玫红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:37:51');
+INSERT INTO `t_format_sub` VALUES ('40', '19', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('41', '20', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:32:15');
+INSERT INTO `t_format_sub` VALUES ('42', '21', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:33:14');
+INSERT INTO `t_format_sub` VALUES ('43', '22', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:33:37');
+INSERT INTO `t_format_sub` VALUES ('44', '23', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:34:11');
+INSERT INTO `t_format_sub` VALUES ('45', '24', null, '2件特惠（黑色+紫色）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:35:36');
+INSERT INTO `t_format_sub` VALUES ('46', '25', null, '2件特惠（黑色+紫色）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('47', '26', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('48', '27', null, '玫红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('49', '28', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:36:43');
+INSERT INTO `t_format_sub` VALUES ('50', '29', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('51', '30', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('52', '31', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:37:36');
+INSERT INTO `t_format_sub` VALUES ('53', '32', null, '大红色（肚兜+系带T裤）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('54', '33', null, '黑色', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:38:40');
+INSERT INTO `t_format_sub` VALUES ('55', '34', null, '黑色', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('56', '35', null, '加1元送白色网衣', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('57', '36', null, '四合一+珍珠内裤', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('58', '37', null, '经典四合一24只', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('59', '38', null, '12只（热感）', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_format_sub` VALUES ('60', '39', null, 'BKK智能飞机杯', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:41:04');
+INSERT INTO `t_format_sub` VALUES ('61', '39', null, '加12元购220ML润滑油', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:44:29');
+INSERT INTO `t_format_sub` VALUES ('62', '39', null, '加15元购冈本套7只装', '0.00', '0.00', '1', null, '0', null, '1979-01-01 01:00:00', '2016-11-01 23:44:31');
 
 -- ----------------------------
 -- Table structure for `t_goods`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods`;
 CREATE TABLE `t_goods` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '商品名称',
   `sub_name` varchar(255) DEFAULT NULL COMMENT '子标题（提醒）',
   `detail` text COMMENT '商品详情',
@@ -363,19 +521,20 @@ CREATE TABLE `t_goods` (
   `price` decimal(10,2) unsigned DEFAULT '0.00' COMMENT '现在价格',
   `discuss_num` int(10) unsigned DEFAULT '0' COMMENT '评论数量',
   `promo_name` varchar(225) DEFAULT NULL COMMENT '促销名字',
-  `promo_price` float(10,2) unsigned zerofill DEFAULT NULL COMMENT '促销价',
+  `promo_price` decimal(10,2) unsigned zerofill DEFAULT NULL COMMENT '促销价',
   `promo_is` int(1) unsigned zerofill DEFAULT '0' COMMENT '是否促销',
   `hot_is` int(1) DEFAULT '0' COMMENT '是否热卖',
   `gifts_is` int(1) DEFAULT '0' COMMENT '是否是精品',
   `brand_id` int(10) DEFAULT NULL COMMENT '品牌ID',
   `brand_name` varchar(128) DEFAULT NULL COMMENT '品牌名称',
-  `type_id` int(10) DEFAULT NULL,
-  `type_name` varchar(128) DEFAULT NULL,
-  `style_id` int(10) DEFAULT NULL,
-  `style_name` varchar(128) DEFAULT NULL,
+  `type_id` int(10) DEFAULT NULL COMMENT '类别ID',
+  `type_name` varchar(128) DEFAULT NULL COMMENT '类别名称',
+  `type_sub_id` int(10) DEFAULT NULL COMMENT '子类别(款式)ID',
+  `type_sub_name` varchar(128) DEFAULT NULL COMMENT '子类别(款式)名称',
   `collect_num` int(10) DEFAULT '0' COMMENT '收藏数量',
   `status` int(11) DEFAULT '1' COMMENT '商品状态（1正常,2已售完，3已下架,4删除，5待审核）',
   `img_url` varchar(225) DEFAULT NULL COMMENT '主图路径',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   PRIMARY KEY (`id`)
@@ -384,32 +543,32 @@ CREATE TABLE `t_goods` (
 -- ----------------------------
 -- Records of t_goods
 -- ----------------------------
-INSERT INTO `t_goods` VALUES ('10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', '456', '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/30978ef34c830ae7a2f514818ff39873.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/529f24aa8f4dc9e9b9b6a603534c1679.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/502ef6601f8fed8d47b3381dac4e83b8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/c757d94279f0ef334f5a5628c25807b8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4d342531d5cfd0a84037dd68fab7994b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/8929b706b50aa7689ccdab526a96286d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/3698d54a0ac0972c0ed0a61272205186.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/5b663be08086739652110c355bf1d7de.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/f67315463609cff0d824037a62997916.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/0b80314b4ec2a3778e89d664193928e8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/2c1a527a8dc13543791c5876820da7d4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/cbee8f76129bd2864bc9b1b6033afdf8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/c83af12aa518e3458b5b966fbcecb6f6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/337d135ca3004acca5e3b29b0a746117.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a7010bd95e93fd228c108666b72fe1eb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/1823cc84d955735d580756c2974f60a2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/68c7f047ba2e3aaa87c33fcb5610dec5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/08f91a6b6558b635a760ff2c26b5f510.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/427d623f8a251cd45798b7c4fb4db938.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/d4acf8310ee439ba321182cdfa3ffd3e.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '100', '100', '49.00', '29.00', '19.00', '449', null, '0000000.00', '0', '1', '1', '37', 'Selebritee', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-01-19 01:16:08');
-INSERT INTO `t_goods` VALUES ('10010', '久慕雅黛 古典复古和服风深V开衩短裙日式情趣内衣', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3c21b28b145f9f75930c07a706e410ec.jpg\" /><img alt=\"短裙内衣\" src=\"http://mallimg01.touchcdn.com/third/a0c038062b1f0cd334bcbea2a793f940.jpg\" /><img alt=\"浪漫和服 \" src=\"http://mallimg01.touchcdn.com/third/36a667d64f5182364cc7eec413f98ff2.jpg\" /><img alt=\"复古新娘装\" src=\"http://mallimg01.touchcdn.com/third/c760dd96d0e7429396ce38bb69a59585.jpg\" /><img alt=\"久慕雅黛\" src=\"http://mallimg01.touchcdn.com/third/0f085cc3b4dfacbdedc72d0986073f1d.jpg\" /><img alt=\"情趣内衣\" src=\"http://mallimg01.touchcdn.com/third/e9ae674ee2dc503b5f042ac5cc191830.jpg\" /><img alt=\"性感睡衣\" src=\"http://mallimg01.touchcdn.com/third/73c8e278c3a2b34952702a554f686328.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/086450a388991fad49a671a0aadf52eb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/139d6862fa4ac3b87ddfff50dd383691.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1612b50e644a4df41e30868dbce98dcc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a4ae87dd19b5114208fc8cc49ea35664.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2a254cf19836d40b75634d218a4b3968.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cf56b29c96530b23c02100ac751b9590.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f359a59179ddcd9c3bde365363fde85f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b652ebc3be6bea72c3daa75207b0da1b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f90ad29c9b3ed3d4b626b7f891e3120b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a85354059037746f46b57cd9ebefe835.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6d585819e426680a9cfb5c983a38a7e9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3f7d95dbc4dbfbbb2c67042d4ca58d0d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7dbd40818c6b12fbcfc3519b1528ed72.jpg\" /></p>\n\n<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d99cf42792b27ba11e9165cbd4477c3f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a0f87d0c46189ac066f0e2c6a1a76d9a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c4968a5dc192b332b31228aa2d4fe79b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/94f8b70efb9ff55223679bbd13ca7398.jpg\" /></p>\n\n<p><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '129.00', '129.00', '59.00', '0', null, '0000000.00', '0', '1', '1', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/e2d09b3577f70bcbf769bca6666c3c43.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-03-20 01:55:40');
-INSERT INTO `t_goods` VALUES ('10011', '性感日式印花和服宽松深V蝴蝶结复古和服风东京美娘款', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/dda87a916a70d882f73c0f1995edfbab.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/d29a8661fce1859689e1b646c412fe01.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/09ed9425e95eb9e38f03ea4218582d9a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/1fb8fc4ee3b38520b4699665480ebf7b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/eb948b3099bb7d111e38b684ff3bf56b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/be67640335f0210db6532fd02cce0461.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/6ee1c1a4e4d400d60e97dad837f7cdaf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/079821295b34ec56f29b74ea338a954f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/9cde6ab5cd0705424dfb78a50b8ff3d0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/c282753da1abeb896b03ac9343dadbf2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/2799cc468f217be17e6f910fdc7f190f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/1a301f3784da16aaa44cdce60f0a5cff.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/b624163ec811fa7797f9a703a39ed378.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/cb962e4a086337474c5360cc9287511b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/411d050a060b9be745ae608c449f8aaa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/140014d065aabcb1aec370ffdcc558f4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/63c1518c9ac419246efdffa39ce04a58.jpg\" />&nbsp;<img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b544c73ac643d57db22b9462bbad978c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '59.00', '59.00', '29.00', '0', null, '0000000.00', '0', '1', '1', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/0e65fea48479e7da41432b9bb774bca0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-03-20 02:30:30');
-INSERT INTO `t_goods` VALUES ('10012', '古典高档绣花年年有鱼喜庆露乳性感肚兜 2件套', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f80377df6b74e46e88f35d8de7dbe309.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5588eb37e59db78062f4436a16381c65.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4789f149d74f757947df2865f1201bfc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/82cd5abe322061ee8bdadbe03d511fc6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/af949eebb80732705f1e402cd3ef69ea.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/766400e3288935c6c650a0a56f98593e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/76e5be5fc60eda488b7a4ea5d798fa5f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8e37815d9db14fe13ed83737904a2f00.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4b14ce102b33fb50d57bdc6f05eb17bf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b7a3f6da7a9c619c510fde0fb936364f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9b4d477a70d3eef24ca27e45dc1a5a06.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f35da9df32760bc5b6da629b8f6efaea.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/81d975ec635892486ecb86ff1cebf958.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f4a0353266229179ba3badb893e40ad2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/455aebe2c47462e1a55a4d59e7469322.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ad8b18217bb4b9dd0d4ccc8600a19708.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/eb280bd020e418e27ec31a33627d852b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/67904293019533ef199a4725b99d32fc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/603c36c4a79585db382569e231ad5ffb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/65bd39a45aa10c7dae69789f5122d9a9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/da00500dfce8832802399614ce41da2e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a5a8bfe161f2aa59a49ce3629df3f01b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5577748937897ab236b2b37f64c3d981.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f644f9d460f79c87327c51b59310b1c1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d6ddb238ca9bf123357c8fc9bf5e355d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ec85c75149c33a8a8639f297fe3b098c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '50.00', '50.00', '25.00', '0', null, '0000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/b75134196cccd1a6fc88c1bfe2627b43.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-03-20 02:51:35');
-INSERT INTO `t_goods` VALUES ('10013', '日式和服开襟三点式绑带缎面印花和服套装 3件套', null, '<p><strong>为了满足大家的需求，现在已经有升级版的出炉了哦~升级版和原版的款式是相同的，只是面料和做工上有比较大的提升！ 面料更柔软，印花更逼真，做工更精细！ 为了掳获那个他，喜欢的MM赶紧下手哦！</strong></p>\n\n<p>&nbsp;</p>\n\n<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/72ba3eb9110e7f1b5949969b95aa9f10.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/103a0b59d6abe848581bbc71e6c41595.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/13e498a85d70600bf4aafc48dbbabd51.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/3c9b43d50561f91997fc0984a4587103.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/bdd59995ad97f2cdcb2508d88ab59821.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/6b7cbe45697be1de8d92d1770b5afdde.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/ce353190ad1992dcdb14db4564610f5b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/53a292e6f9d1e8475701968242440656.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4ad70d216b0df841378173c898eb28dc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/e253fbcc3451dd08e09d4aa33cd184ed.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/3f256e640e61e9959dff42647b960067.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/ad0bf2bf310f502ea740ab3552e758a0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/ff7280f5528ff9661a48ceefd134e202.jpg\" /></p>\n\n<p><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '99.00', '99.00', '39.00', '0', null, '0000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/625edf645a7c9e04ff8ef24555eb3179.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-03-20 02:55:18');
-INSERT INTO `t_goods` VALUES ('10014', '制服诱惑日系和服性感开襟深V包臀蝴蝶结和服 3件套', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/345bb204c6aa2e4d0aab047e17f70ea6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/361fa9f35bee7e2f5db88ee113f4488e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/9ffdb6cbfc857e34e1999e95b0194461.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/70573f6663454c8bb15b9c616e10d20b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/022dbe7c5729d31ed819b2d38abc5931.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/277401776bb6d3f006422c97c361677c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a74360d8a03366f94a6783b6aed60b29.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/67cea5648ea32fe673f92482af6521bf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/32cc6ebe77014cdc6e969cb92297ed23.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/2a0c8e6876ef4cfcc8c8716bd8703dd2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/0d8526da1274883071cc739469ada733.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '59.00', '59.00', '29.00', '0', null, '0000000.00', '0', '1', '1', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/c1db41303a5eee78c6a162907b7abbbb.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-03-20 02:57:58');
-INSERT INTO `t_goods` VALUES ('10015', 'EVO二代加温火焰无线充电遥控加热恒温跳蛋', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/28650c1bfe62bd77b57315d1e6a79316.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/73f2f542232f4ba9a22497bb51799d7c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/82eaba9b2563253b70a68dbd2ef3aa91.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ef572892b959210a50b15406e72739c8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/317e457d5c3349b48227d85859c0f193.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2c39b4c22f1c9c32730f597c47a02d59.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/39bc2f1c2866fbaa513072700194db83.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b4607a420a1fc3ac77d468c866552f65.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2b9204cddbb27ac37391c8a40cd28e31.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ddd929b6e4e8d844b68fcf971bd42cfb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a07395801eee186d2da17bc99bbdf482.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e05b63961f044d473022671ca8c61c25.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d6ed133567e6c59e1d136bad6e57fa46.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d6e8073975504621d787237537b72e16.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cec3b7e00495582d4e8d4b99359677fb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4fda4228a953fd742548081aeac319a3.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/dc4fbed539d0cd4e5726d82290b09ff6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e84878c70cb093299d788532dde20c5f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6ad05c99ba90bd4a57157e16225606d6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/34e616a50af6034eef332d101ba956ae.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/04638d7256e22c0d4b60c5927b6211c6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/445987bf80d7e15726b43812498ca4f7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5d56e623c09462cf4633bace18f024e8.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '280.00', '280.00', '168.00', '0', null, '0000000.00', '0', '0', '0', '36', '维多利亚的秘密', '1003', '女用玩具', '22', '情趣跳蛋', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/cb5c8464c08fea2958a9a44fb6378585.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-03-20 11:55:06');
-INSERT INTO `t_goods` VALUES ('10016', '【包邮】雷霆炫动AV震动棒 女性G点刺激', null, '<p><img alt=\"雷霆炫动AV震动棒产品简介\" src=\"http://mallimg01.touchcdn.com/third/8a6f7b3e256a2ce0d654eafa6fb4377b.jpg\" /><img alt=\"产品特点解析\" src=\"http://mallimg01.touchcdn.com/third/5286498f09b3a82ae727ead74345cbed.jpg\" /><img alt=\"市面上代表性产品比较\" src=\"http://mallimg01.touchcdn.com/third/9ac7c7dbbe5aeee0e3e51328be58896a.jpg\" /><img alt=\"最好玩的AV棒之100种玩法\" src=\"http://mallimg01.touchcdn.com/third/bdb4a55cb5cf5d0e8605644b7b5bef3c.jpg\" /><img alt=\"最好玩的AV棒之1.6倍强劲动力\" src=\"http://mallimg01.touchcdn.com/third/68e91c0c88229e7cde1be7bae1ae0d3e.jpg\" /><img alt=\"最好玩的AV棒之专用百变头套\" src=\"http://mallimg01.touchcdn.com/third/43ac46b94a686defeda7cc49accb1834.jpg\" /><img alt=\"最好玩的AV棒之全防水\" src=\"http://mallimg01.touchcdn.com/third/08db274200a66608036159f14e1aeaad.jpg\" /><img alt=\"最好玩的AV棒之时尚造型\" src=\"http://mallimg01.touchcdn.com/third/1d8671cc20d24279a8acec3995ba0fac.jpg\" /><img alt=\"最好玩的AV棒之不震手人AV棒\" src=\"http://mallimg01.touchcdn.com/third/17e4b43a9eb9bfa13a7b86afeedb2893.jpg\" /><img alt=\"实拍细节展示\" src=\"http://mallimg01.touchcdn.com/third/1daf3f848694b817146234dcf55c9c90.jpg\" /><img alt=\"三种颜色可选\" src=\"http://mallimg01.touchcdn.com/third/8a93c558b54fff150195afc60e1e863f.jpg\" /><img alt=\"实拍细节展示1\" src=\"http://mallimg01.touchcdn.com/third/516bd02b4a082b1f7bf53928a9311093.jpg\" /><img alt=\"实拍细节展示2\" src=\"http://mallimg01.touchcdn.com/third/2ba6b9b8fd6fa7d5ac8ade3dc80a194b.jpg\" /><img alt=\"实拍细节展示3\" src=\"http://mallimg01.touchcdn.com/third/ae50272327be004549d01c8d49a74f42.jpg\" /><img alt=\"实拍细节展示4\" src=\"http://mallimg01.touchcdn.com/third/2fde337fb1c38762650e2655b498cd9d.jpg\" /><img alt=\"包装和颜色\" src=\"http://mallimg01.touchcdn.com/third/54b4107d213289981aa8e9ae0821385c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ebfa401d8101c8753952dc949f5e44bf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b080c164325d505dcead3cfe485977b6.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '158.00', '158.00', '79.00', '0', null, '0000000.00', '0', '0', '0', '36', '维多利亚的秘密', '1003', '女用玩具', '19', 'AV棒', '0', '1', 'http://mallimg01.touchcdn.com/gallery/TB2RsohcFXXXXakXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-03-20 11:57:52');
-INSERT INTO `t_goods` VALUES ('10017', '【包邮】品色伸缩转珠震动按摩AV棒', '女主播倾力推荐，最好玩的AV棒！', '<p><img alt=\"雷霆炫动AV震动棒产品简介\" src=\"http://mallimg01.touchcdn.com/third/8a6f7b3e256a2ce0d654eafa6fb4377b.jpg\" /><img alt=\"产品特点解析\" src=\"http://mallimg01.touchcdn.com/third/5286498f09b3a82ae727ead74345cbed.jpg\" /><img alt=\"市面上代表性产品比较\" src=\"http://mallimg01.touchcdn.com/third/9ac7c7dbbe5aeee0e3e51328be58896a.jpg\" /><img alt=\"最好玩的AV棒之100种玩法\" src=\"http://mallimg01.touchcdn.com/third/bdb4a55cb5cf5d0e8605644b7b5bef3c.jpg\" /><img alt=\"最好玩的AV棒之1.6倍强劲动力\" src=\"http://mallimg01.touchcdn.com/third/68e91c0c88229e7cde1be7bae1ae0d3e.jpg\" /><img alt=\"最好玩的AV棒之专用百变头套\" src=\"http://mallimg01.touchcdn.com/third/43ac46b94a686defeda7cc49accb1834.jpg\" /><img alt=\"最好玩的AV棒之全防水\" src=\"http://mallimg01.touchcdn.com/third/08db274200a66608036159f14e1aeaad.jpg\" /><img alt=\"最好玩的AV棒之时尚造型\" src=\"http://mallimg01.touchcdn.com/third/1d8671cc20d24279a8acec3995ba0fac.jpg\" /><img alt=\"最好玩的AV棒之不震手人AV棒\" src=\"http://mallimg01.touchcdn.com/third/17e4b43a9eb9bfa13a7b86afeedb2893.jpg\" /><img alt=\"实拍细节展示\" src=\"http://mallimg01.touchcdn.com/third/1daf3f848694b817146234dcf55c9c90.jpg\" /><img alt=\"三种颜色可选\" src=\"http://mallimg01.touchcdn.com/third/8a93c558b54fff150195afc60e1e863f.jpg\" /><img alt=\"实拍细节展示1\" src=\"http://mallimg01.touchcdn.com/third/516bd02b4a082b1f7bf53928a9311093.jpg\" /><img alt=\"实拍细节展示2\" src=\"http://mallimg01.touchcdn.com/third/2ba6b9b8fd6fa7d5ac8ade3dc80a194b.jpg\" /><img alt=\"实拍细节展示3\" src=\"http://mallimg01.touchcdn.com/third/ae50272327be004549d01c8d49a74f42.jpg\" /><img alt=\"实拍细节展示4\" src=\"http://mallimg01.touchcdn.com/third/2fde337fb1c38762650e2655b498cd9d.jpg\" /><img alt=\"包装和颜色\" src=\"http://mallimg01.touchcdn.com/third/54b4107d213289981aa8e9ae0821385c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ebfa401d8101c8753952dc949f5e44bf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b080c164325d505dcead3cfe485977b6.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '148.00', '148.00', '79.00', '0', null, '0000000.00', '0', '0', '0', '36', '维多利亚的秘密', '1003', '女用玩具', '21', '转珠棒', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/0ff07592e560f8d86f35486eeda10e63.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-03-20 12:00:37');
-INSERT INTO `t_goods` VALUES ('10018', '阿芙拉G点妖精10变频模式震动棒', null, '<p><img alt=\"精准刺激G点妖精30度棒头弯曲轻而易举的集中G点\" src=\"http://mallimg01.touchcdn.com/third/82d9e70f11ddca11c20e2675c462b1ce.jpg\" /><img alt=\"女人最爱时尚妖精\" src=\"http://mallimg01.touchcdn.com/third/b62a5c642493070e7d4b93bee5088ab2.jpg\" /><img alt=\"精准刺激G点冲击\" src=\"http://mallimg01.touchcdn.com/third/4b0c49d7782a7fcd55b31512875bc8ca.jpg\" /><img alt=\"十段变频丰富刺激\" src=\"http://mallimg01.touchcdn.com/third/e0425cbee22b58cef6813bbe66fc019a.jpg\" /><img alt=\"G点妖精振动棒带来狂潮激越的超HIGH体验\" src=\"http://mallimg01.touchcdn.com/third/4bdbca3fa4e688fb4d668b43569b63b9.jpg\" /><img alt=\"小巧玲珑的娇美身段多重流行元素融入外形设计\" src=\"http://mallimg01.touchcdn.com/third/4796d0c8fa847ae756f7e5117ec6f217.jpg\" /><img alt=\"拥有时而激越轻柔急促迟缓灵动变幻的\" src=\"http://mallimg01.touchcdn.com/third/564c36b0f647cc11b0d1cd66a38d4ff0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6d62ba33cea49ca422ef29942c83d052.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3a2e4f187fce53820545009b822d5105.jpg\" /><img alt=\"超低静音静在快乐深处\" src=\"http://mallimg01.touchcdn.com/third/20dd466d0636de990ccdeb1a40f42a8d.jpg\" /><img alt=\"亲肤纯厚硅胶柔滑舒适\" src=\"http://mallimg01.touchcdn.com/third/1add8307f15adc4d90553911bdd153d7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7b35f17eba809035faf3053f45c7e636.jpg\" /><img alt=\"强劲动力轻松锁定G点高潮\" src=\"http://mallimg01.touchcdn.com/third/1df4097603ca02e0f13adb325af5d6d1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/15e30e4e4f0fbd3ce990944405452369.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4772f721da7867dbb9f1e78285000a28.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cc9d27faf3af294aca71db9cb10c6738.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3e8d1ef7194a72707972fabed315fa08.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4d21a363caf3dc1f7361fb8ba6a94310.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d8595e99139e2cd08714b72c365e74ad.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4fc1f6fad55dc8460f26f1ffacf18ff5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8fbc036abe0c6d96e8b1bcec61f59c3b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5057938529a56f6a37e06feb6ff8b7e5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e994017b6fafd44b94895b4f90eaaae4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ed6dc9c105079d95eb2034fd90a3f587.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/706d2508c6d5c4dfb3b65c4fd6c18ce2.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '69.00', '108.00', '69.00', '0', null, '0000000.00', '0', '0', '0', '0', '', '1003', '女用玩具', '20', 'G点刺激', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-03-20 12:04:00');
-INSERT INTO `t_goods` VALUES ('10019', '【买1送2】纯情女仆女佣装分体露乳制服 3件套', '【制服有礼·特惠活动】爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '<p><img alt=\"体验师\" src=\"http://mallimg01.touchcdn.com/goods/fa4fefe552ecde1d8c361b0a694bd5db.jpg\" /><img alt=\"导购秀\" src=\"http://mallimg01.touchcdn.com/intro/TB2.6aLcpXXXXXjXpXXXXXXXXXX468359490.jpg\" /><img alt=\"产品信息\" src=\"http://mallimg01.touchcdn.com/intro/TB2pog.bVXXXXaBXpXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c647b8ae1cd639695dd86a113a046c45.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7266c8c1f6613616754a2bcbb485dd68.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c5d30a6e1735458c13854099e99e6712.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/756b7136fc43bff24d3996f3e3343066.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f57fd844862f91139f5cd54073166c9b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9d0ec369d3417d4272d59c3a623bc22a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3b9a7eacbcd991d75f1e540ea06bd3df.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f7757db0e743da2455d6ea136035bcc5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/15b659cb034cdba9364c02c7dc42c021.jpg\" /><img alt=\"女仆女佣装制服分体露乳\" src=\"http://mallimg01.touchcdn.com/third/e22d51c98f2a452dfcb434d478aed039.jpg\" /><img alt=\"纯情四件装 蓝粉两色 霏慕\" src=\"http://mallimg01.touchcdn.com/third/5d5c21ec19a7bf64509623d55d2e206e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/28e34d92824b27fe9124948d52db54c0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/fb0151712497d9c5d9f812dccdcd6124.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7652d5d5194f90a6168b2e947767a007.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/fea036bf5feb3a92f99682323b176d74.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cf982978666040680af607c833b8d266.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/16ec482ae39dc363dae8baab770655e3.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/24f60a90d2fdb212d2f668e6b210f558.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bfc33802751cc9d7f58555e2c9c245bc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bfe7c974496fdc131da1b8127ede11b0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1d8f6c161fd842fdfd8e3f6e68c30e05.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0762c5e40a54c6a31ddafa46168f5a77.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e3c0c2c8c979ff79579a0cc77e690122.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/23768724228f4b77d68d5312e9d9b228.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5ef73bae2d931407654c245ac6db4c51.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/89f5acd5ff1a4b37b799bb68c812fdae.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1e8ff5687e35433ae5e91c4cd145ebb9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/177a4c08bf313546644521202e315e23.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c9e2ee3bafb0d9a426f426c19a3ff246.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2.Y4ecXXXXXbHXXXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2XoBgcXXXXXaXXXXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2SwJbcXXXXXcQXXXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2eRRhcXXXXXXEXXXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2AxAbVXXXXa2XpXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '89.00', '89.00', '35.00', '0', null, '0000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '2', '制服扮演', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-03-20 12:05:41');
-INSERT INTO `t_goods` VALUES ('10020', '印花豹纹无痕冰丝一片式性感防走光舒适透气情趣内裤', null, '<p><img alt=\"印花豹纹无痕\" src=\"http://mallimg01.touchcdn.com/third/fd3227902ced5dc98ef1bcc4cc1717cc.jpg\" /><img alt=\"冰丝一片式\" src=\"http://mallimg01.touchcdn.com/third/d4e1347462d1e7501fbd4cfb9fa7f682.jpg\" /><img alt=\"性感防走光\" src=\"http://mallimg01.touchcdn.com/third/3a70c937cdfab41a7559df4cfe8fe8f6.jpg\" /><img alt=\"舒适透气情趣内裤\" src=\"http://mallimg01.touchcdn.com/third/d4ac7bdcd8256aa4c3a818ad6be69384.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/227d25fd5daffd6a7e59b9fa74c219e7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/88d95285d570010b16f67d879137a6db.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e7789610ebd5c4a971aef64ff34f49eb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/322623905be45e833a0ff83635ba3074.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7698a7b0ce1be093f31266aba1a46b80.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/86495455d1070111be41abb19de1a55e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0be7eca92b7dfe4ef923829a31eb396a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/39437ebadbd0bddb08d04764f6e01aa2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d7b618e3c4a0cf68ab5f58389eedc62c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/88dcfcc3d2246be946b9dcd68fe5f07b.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '58.00', '58.00', '29.00', '0', null, '0000000.00', '0', '0', '0', '0', '', '1001', '情趣内衣', '6', '女士内裤', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/fad231cc46a6370394305b348f90cb81.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-03-20 12:07:54');
-INSERT INTO `t_goods` VALUES ('10021', '【买1送2】护士装 深V紧身性感大露背小护士装制服扮演', '【制服有礼·特惠活动】爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '<p><img alt=\"深V紧身后格挖空露背\" src=\"http://mallimg01.touchcdn.com/third/4195830ccb1a7e67ae459acdbb4bf8f1.jpg\" /><img alt=\"角色扮演小护士装\" src=\"http://mallimg01.touchcdn.com/third/a0d93dda73e0675fad0bf79b48ee127a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5fab0a0b3ef93e311dc2ceeee0563868.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a9b57654dffd67dde034b00a09e7d1c8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9c0747ecd4daa0433861ec7e747b2423.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a873f888464f53e2cabb3fe2cf418805.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d27877e0c39cff97b18bcfa52796fc09.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/abd5da6ab4207ddf622a31cbf8217911.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2a43f43f009ed8e79bf075ca98fc6792.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2369fc619af34a3fca4d47a12aca8a5a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/771d3e3aeb30184103e91d19d42969c4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8b19190b747eab676f8891341a563c63.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/339df1aab0b8aabf929e3fcde5a76d21.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ba7675024969bf8fc8c584030e74a9ea.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/51783266e3bf0ac5c1fa8bf7159a281d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1ba61108a7e1ac85eebdc801ed5ec452.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7809274a29bb7e21028b2bb66ec771b3.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '49.00', '49.00', '19.00', '0', null, '0000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '2', '制服扮演', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/c60834843534de6135db5dd35caf4366.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-03-20 12:10:41');
-INSERT INTO `t_goods` VALUES ('10022', '【买1送2】中国风古典蕾丝柔纱透明旗袍 新婚制服扮演性感睡衣', '【制服有礼·特惠活动】爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/774010328347bf9ddea8d692b2529109.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/ebc63085358374abe7b41eb866231213.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/8458aac11f474d452a98e68e5fc1acfe.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/e28c4d0b046fecfa2783990b65449547.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/7de7aefaed09164b7d5841779d9f4a96.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/8d2922859920c235fb4ec4d8640b51bc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/e489b61eba4f67107578baf3a2b624d1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/276c9748c65224d673be234f4e7a8063.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a6f4c7b5d26bb826c143150791f35ec9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/d895a0ffa6e18e4ee424967954f584e0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/071ec0feaf97e487a42ef5a17502272a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/63487333ded1eec71820d2514a83c986.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/eb7762f3a0697659e1e38282ba38103e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/043a8e78d032d804bf53718448c5f0cc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/013c52967fbc04b7d2602c785b1b6065.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/26251d0cd8f14ea753ab2d0ddfc0fb2a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a59d284b979da3decf3f5261e02d5413.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/9b75fd5593e65175e6a91eb07fd75f00.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4b99c8af22ea9959b1cadb1c57bdfd7b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/f70608de2292ef51333342201b2e07d0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/bc754c30b7d6bd62726a020bbaccdfe6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/69366358f225bf034da32d8bede50498.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/94780a703ec3091f2c5116a1df38b6f5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/345252bebd83398a6b48430f902e5cb7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/efb9bc4ce5abcf03c7fe8ff52fcc16a8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/37a879ea98aec10d79932202672f5f3f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/da5567667d5fbe56fe789b91d9dd6ed7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/21737d09bb37d39c3a6e6c978b3057fd.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/764e2fd913e5d38aa383dda638ea629c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/1aacc98afd0507ba785fd10dad802e28.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/56a27125c3e07b5e9d54c1f4a078c7fe.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/98db9c003e4fb2ac0a72411b247b34ef.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/7b1755a9959c688b732f2b8ac5e5b08c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '59.00', '59.00', '29.00', '0', null, '0000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '2', '制服扮演', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/73688eac2b67ef212af124bf52bcbbf4.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-03-20 12:13:11');
-INSERT INTO `t_goods` VALUES ('10023', '【包邮】私享玩趣 桑巴丽影 强力变频防水静音跳蛋', '10种变频，精致小巧，双重震动', '<p>&nbsp;</p>\n\n<p><img alt=\"似梦如幻，让我们一起舞动霓虹\" src=\"http://mallimg01.touchcdn.com/third/5f74dea06f7a23f4998127c07a45fc8a.jpg\" /><img alt=\"私享玩趣 桑巴丽影 强力变频防水静音跳蛋产品参数\" src=\"http://mallimg01.touchcdn.com/third/59dafbfbfc0a4c86fa43c78a379934d4.jpg\" /><img alt=\"设计理念\" src=\"http://mallimg01.touchcdn.com/third/089154b34a9f8cca7328706f8a7887ea.jpg\" /><img alt=\"专为东方女性设计，满足身体的各种愉悦需求\" src=\"http://mallimg01.touchcdn.com/third/fe3f4b1782dded03c127ef24d1e3e7c0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4f0bc7fe86017153070dcc369495b560.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8ba0d988718ea87edcb02dd00339d23e.jpg\" /><img alt=\"台湾情趣热风登陆大陆彼岸\" src=\"http://mallimg01.touchcdn.com/third/7f3fcde247c3e1e309e30672a41f6583.jpg\" /><img alt=\"起源于巴西的桑巴，音乐热情奔放，姿态富有动感舞步，深受人们的钟爱\" src=\"http://mallimg01.touchcdn.com/third/4b2b0d0ef4070b804deb3732c7fc2fa7.jpg\" /><img alt=\"小身材，大作用\" src=\"http://mallimg01.touchcdn.com/third/2faa5b9065222352450546dc1a6fb07f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a471b2404bb76f84e1f0f79d995d9cc0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6a18670644ab00e5af9304d9226b60fd.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/56ab5f97a9ff32dd5277169aed2cdf54.jpg\" /><img alt=\"全身心投入，想按哪就按哪\" src=\"http://mallimg01.touchcdn.com/third/82cdb9fe855d09c7c4205fcab20a266a.jpg\" /><img alt=\"携带方便\" src=\"http://mallimg01.touchcdn.com/third/b7fd57f86ce42d32081161390396191c.jpg\" /><img alt=\"安全材质\" src=\"http://mallimg01.touchcdn.com/third/d92ee5d5e53e0e9a977464eed67e49d2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/11c1a6721049af210eab4a1a05e84416.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7e22f1684de926d056fb433789121e8b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/dabb1fcbe4a279182bd5d4d7d42e4934.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/649ae726c6444e77eee2642766c336bb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ccf43ce3808fd5dc733bb5d7a869c7a6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c882b34593649c3961e2f13483f2d9a1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f5b32d81689e7fbd6963dbbf6261af1d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f32dd8f0bdb456e312f9d00f52efd3d2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d722a56e1b63a251dce7dad755dccda3.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /></p>\n', '0', '100', '99.00', '99.00', '65.00', '0', null, '0000000.00', '0', '0', '0', '30', '尚牌', '1003', '女用玩具', '22', '情趣跳蛋', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/22c56205dc707ef0c4d5505dddc07f79.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-03-20 12:17:22');
-INSERT INTO `t_goods` VALUES ('10024', '诺兰摇情AV棒 高潮静音震动按摩振动棒充电款', '完美尺寸专为东方女性身材打造 随意旋转', '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/22c922132c97398cc84a153b29732935.jpg\" /><img alt=\"摇情震动棒让女人欲罢不能的秘密武器\" src=\"http://mallimg01.touchcdn.com/third/b1b62affcd77928ccc9baf9ebec1f4f0.jpg\" /><img alt=\"女性寂寞诉以谁知\" src=\"http://mallimg01.touchcdn.com/third/b39d9db62705917c34aa721638f800f9.jpg\" /><img alt=\"性爱生活还是那么无趣吗\" src=\"http://mallimg01.touchcdn.com/third/d819dd0e66abd84aee01a37c6602eb22.jpg\" /><img alt=\"简单粗暴没前戏性爱生活毫无情趣\" src=\"http://mallimg01.touchcdn.com/third/57dd4e1e43e46523765def31c6d80e2e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6994c036d317c313bf17368ccf19087c.jpg\" /><img alt=\"一体式设计可探入体内\" src=\"http://mallimg01.touchcdn.com/third/1b2cbbbd24cecc5c6f8d194ead1f5f86.jpg\" /><img alt=\"强震马达引爆高潮\" src=\"http://mallimg01.touchcdn.com/third/f8d12a3071ef47a76d2f413c99cf2e80.jpg\" /><img alt=\"智能7频震动模式\" src=\"http://mallimg01.touchcdn.com/third/21919fc036c6a4ec3b2bcc8a3b29189c.jpg\" /><img alt=\"全面防水设计充电孔亦防水\" src=\"http://mallimg01.touchcdn.com/third/55a83a413c83f9dabdbd312a9d8d1ce3.jpg\" /><img alt=\"超静音更安心\" src=\"http://mallimg01.touchcdn.com/third/457dc5226e161fe3945caed8fb4e32a4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/de388b4e126debe13a57fc99574f480e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2f78bd14ec6a9f18758240f7dea75035.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d55bab586a9f97bdcafda5e382fc8264.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cfe6b12ad70b8d40f28da0bb5af1c6bc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cabaf1381178f4629a9523b9a5bfacaa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/aa1e9f1ac50ca6a78cf4aae7ffaf1233.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/813ae4c7b172548bae4b88a70f7c58ba.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e211efb135414aaedb623c181ae59c94.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/778a266caaeab73ddc7495fc75419d3b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/940e3e57ef4b16f2050f28a281babeeb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6bf5e219d5865446b477acd897ed2145.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/02f2d77c65ed4546e101a165df68b54d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/51a30be7dc6eea53c0c0b332d95d5211.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/839c9805ee1d7fdd41298a4fef096efa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2ebbe16ef109b8e6439fa7929ce62686.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/37f6d4a36d327e6266297819243d3824.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n\n<ul>\n	<li><a href=\"javascript:void(0);\">购物车0</a></li>\n	<li><a href=\"javascript:easemobIM();\">在线客服</a></li>\n	<li>&nbsp;</li>\n	<li>&nbsp;</li>\n	<li>&nbsp;</li>\n</ul>\n', '0', '100', '178.00', '398.00', '178.00', '0', null, '0000000.00', '0', '0', '0', '35', '史黛丝', '1003', '女用玩具', '19', 'AV棒', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/89ba5d2dd2fa7cadf603db8feb06a79b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-03-20 12:25:33');
-INSERT INTO `t_goods` VALUES ('10025', '艾丝葵 甜蜜习惯 蕾丝刺绣透明网眼丁字开档绑带T裤内裤', null, '<p><img alt=\"艾丝葵 甜蜜习惯\" src=\"http://mallimg01.touchcdn.com/third/25325cd9cd066884541004a4948deac0.jpg\" /><img alt=\" 蕾丝刺绣透明网眼\" src=\"http://mallimg01.touchcdn.com/third/1a5515156c86f4cc87f546000d718d59.jpg\" /><img alt=\"丁字开档绑带T裤内裤\" src=\"http://mallimg01.touchcdn.com/third/b55ffc92f2ef8d990f0111b41cddaad1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/fb28d00b0cafa8f24092aaee244cdba8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/32f1321067bdff21b1a7e608e66de33b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b35852c52343b43024fe0007378cb177.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e428e44786cca82d53659984b29042cc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9f97c4d9fdd5a4e0c3a1d57f08b71c81.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/351fcf38137df1e36283f796217baffa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5e43bbb2c5945ff295ae21afc61f4eeb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c07f62193b050115e739e42d4f29de03.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0af3b1d0d4c372c791ab570bff07a7db.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9a2ee8849769ad43e31ee65375820eea.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '59.00', '59.00', '29.00', '0', null, '0000000.00', '0', '0', '0', '34', '好奇蜜斯', '1001', '情趣内衣', '6', '女士内裤', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/130b27b5d38de9d9c1017ed56d02dae7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-03-20 12:31:43');
-INSERT INTO `t_goods` VALUES ('10026', '针筒式灌肠器 肛门灌肠清洗器 SM调教后庭用品', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5006113e7f9e0ac729d9cab4bea47031.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f84dd10ba46d587dc2ff7e5bae968292.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2dfcd9291133df82f710f26d541388fb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8e845709b2e73154784f60d23a64194e.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '19.00', '29.00', '19.00', '0', null, '0000000.00', '0', '0', '0', '38', '大象', '1007', 'SM玩具', '54', '口塞/肛塞', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/c294f52da9a6e0340fa7b5b867bd717b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:50:02', '2016-03-20 12:35:01');
-INSERT INTO `t_goods` VALUES ('10027', '荷兰COB女优签名版震动飞机杯', null, '<p><img alt=\"三维女神娇软来袭\" src=\"http://mallimg01.touchcdn.com/third/4964fe91942d99f5a89cd36c076d81dd.jpg\" /><img alt=\"荷兰COB女优签名版震动飞机杯\" src=\"http://mallimg01.touchcdn.com/third/074e8bb1cb1d4df79d7ce8173cdac814.jpg\" /><img alt=\"小鲜肉混血女优\" src=\"http://mallimg01.touchcdn.com/third/32375b9939b030a58df67d1773ac0438.jpg\" /><img alt=\"女王级混血女优\" src=\"http://mallimg01.touchcdn.com/third/6dc0ceffcc646b2ab55e8bf1384f80b8.jpg\" /><img alt=\"臣服吧男人们\" src=\"http://mallimg01.touchcdn.com/third/5287d554fd5e0d1101ca490cfcbbf8e4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1356cef552e0c2992e8f483fb8bda37f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1199a6b1facf9bc6cf26edc434b0ea5b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8150c9f27e406e7183cf2035a3e25c23.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4bf56f146cad637717f866f66c591054.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/664580be6aec35a20409feff44d33649.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e2c4f7ce46c5f554bfb1c38bbafc6da6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e2624f366eb00be43934af045760c0db.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6b767f9755adc5c70a20e6d5322efd4c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a24b8181dd6635d32eae78364014e955.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9de5766abed76430541f288b77230fb7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/640f3ba075630bcdebfbf046b94d2c3c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/49521744d74d465b4ec57644f730955e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/41da80419d764617cf0306fa086f0d21.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b38929651d4a60d5226e7ee2f3c9fdd0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b58d5d4fc7ce6f3ce86c6a1dbc2fa287.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bd34ff2d8419f1de652e69b599ddf08a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/de0c9c6fb9992e076f9ae1b957a8555f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bce6955c868f37ae5680180da55c3188.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/071590d6a20279c1acb36f165e5779fe.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '99.00', '199.00', '99.00', '0', null, '0000000.00', '0', '0', '0', '35', '史黛丝', '1002', '男用玩具', '0', null, '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-03-20 13:09:19');
-INSERT INTO `t_goods` VALUES ('10028', '诺兰美人鱼蓝牙智能语音震动深喉飞机杯口交版', null, '<p><img alt=\"男用玩具诺兰美人鱼蓝牙智能语音震动深喉飞机杯\" src=\"http://mallimg01.touchcdn.com/third/78a499a0ff8c195d707bcc003dfca042.jpg\" /><img alt=\"美人鱼口爆神器飞机杯\" src=\"http://mallimg01.touchcdn.com/third/a85c2c7b733e249ab2d8abad5b80b6c2.jpg\" /><img alt=\"蓝牙延时专业设计气囊夹吸\" src=\"http://mallimg01.touchcdn.com/third/75deedc7e439d798729a06473b806c4b.jpg\" /><img alt=\"飞机杯强劲多频震动\" src=\"http://mallimg01.touchcdn.com/third/a52cbfd2c7a458a9d86db4365f48d521.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5f4237b9d8f4fd89776ca1180c5e2979.jpg\" /><img alt=\"延时训练飞机杯\" src=\"http://mallimg01.touchcdn.com/third/5942dff8fa5cc73b5f53c2cb698bce35.jpg\" /><img alt=\"体验真人快感飞机杯\" src=\"http://mallimg01.touchcdn.com/third/1f75bc2c1abf05e6ab28b922906a0470.jpg\" /><img alt=\"模拟真人飞机杯\" src=\"http://mallimg01.touchcdn.com/third/0d949fefcddc6e06190c4ee551019653.jpg\" /><img alt=\"蓝牙互动情趣\" src=\"http://mallimg01.touchcdn.com/third/8b64fe36d59b88fae663756826850f23.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9ebcb8977fdf139d07a506b734abb7f3.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c0e7a2c423325cdc7030781b9b2b7342.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3fba776f605b5cc6b56cd15af946c0da.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f04da4ed06fbd5e71933693ac27de0ac.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2f01db24cd4537d7d07109a6460e6a19.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5f4614d9e00d606288c3e15ddcff35e6.jpg\" /><img alt=\"深喉口交飞机杯\" src=\"http://mallimg01.touchcdn.com/third/a9ddf7e2df5dc0ab9a0cec1fc0c4a805.gif\" /><img alt=\"强劲多频震动情趣撸\" src=\"http://mallimg01.touchcdn.com/third/1ffc931eb212b31d62a2c8eb50ba5d1c.gif\" /><img alt=\"蓝牙互动\" src=\"http://mallimg01.touchcdn.com/third/4d4a5ac25ff3eace7f82828304220a02.gif\" /><img alt=\"气囊夹吸\" src=\"http://mallimg01.touchcdn.com/third/00f12d4ce64df6650cae42ab4652a0db.gif\" /><img alt=\"纯硅胶男用\" src=\"http://mallimg01.touchcdn.com/third/0c70a56d4ed2325b3ac47c1057384d45.gif\" /><img alt=\"使用便捷的飞机杯\" src=\"http://mallimg01.touchcdn.com/third/06cc784add5437d96f038350fafd3bf3.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/921b4eae6460485431d6cfe4369dc8d9.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/63b791c84bba4141e919e71f9648ea15.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/dc521e3c64cff8ca0520a18c23b77ff5.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5139f2c5b50cbfe6c9575292a2fd1287.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bcd7511ce10fa2d0eaa1e419f051e2b2.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3da5c672b41bb1d52533e04b092870be.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5edde0bde9f54184e70bb70175e9a304.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9ef10ae7c15c2b7e840b8ee3fc95993a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0e624afdc2f8efcc858741c365abf60f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c5652cd978942650f4c79572501e71da.jpg\" /><img alt=\"性感粉色入口\" src=\"http://mallimg01.touchcdn.com/third/6e2351530a6f0b93d9d45bc6dbb4d065.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/98e352d769cbc62660761dc5df2a756d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/74074629dc11637e1219efe93ce7dd63.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/98b40e744a8d4a22574f1a201f560aad.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e47c2b88be100a7741527dbe206548ae.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f62ba35588e9543cded043ed27f107ec.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cfd279045b7fc8733e986fc27881a9bb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ea0a34183879722098f2e1f2753d7bdf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ed48abeca091bd17fa49dde62a2a1fe4.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '836.00', '836.00', '499.00', '0', null, null, '0', '0', '0', '0', null, '1002', '男用玩具', '10', '电动飞机杯', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/4704fb20bc7dae5fe74a1e063fca4556.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-03-20 15:08:24');
-INSERT INTO `t_goods` VALUES ('10029', 'AV女优17岁少女小萝莉双姐妹名器倒模', null, '<p><img alt=\"AV女优17岁少女小萝莉双姐妹名器倒模\" src=\"http://mallimg01.touchcdn.com/third/7f4ed81bddc9851101bc0b739175ceae.jpg\" /><img alt=\"上付熟女名器\" src=\"http://mallimg01.touchcdn.com/third/3f2650583d6cb43e757ebe95c073f918.jpg\" /><img alt=\"下付处女名器\" src=\"http://mallimg01.touchcdn.com/third/9209a5c1c87600b5392f3b017eca691b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/79d0672331f6aec8c94ec93ecfdf75cb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0e3b06a8563f9c08b42a049b15dfcf16.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c9dfafc11b222ebb54f5663d5c3b6634.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/37412c82615b896fd1ab4856e69a7584.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '88.00', '88.00', '39.00', '0', null, null, '0', '0', '0', '30', '尚牌', '1002', '男用玩具', '12', '名器倒模', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/2bb05b248e64ce3c79d3537bba3f26e3.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:10:17', '2016-03-20 15:10:17');
-INSERT INTO `t_goods` VALUES ('10030', '性感露乳露背 网纱透明裸色花仙子女仆装', null, '<p><img alt=\"均码裸色100%聚酯纤维\" src=\"http://mallimg01.touchcdn.com/third/a95ebdaf4956bbef4d0fa235da59b222.jpg\" /><img alt=\"露背网纱透明\" src=\"http://mallimg01.touchcdn.com/third/0cb2e1a0d50d98517992b3e0fdf89a8e.jpg\" /><img alt=\"裸色花仙子大码女仆装\" src=\"http://mallimg01.touchcdn.com/third/832f72f587fa84b9f6d888df34ddc865.jpg\" /><img alt=\"私诱\" src=\"http://mallimg01.touchcdn.com/third/952d88fa5832a23696830eecd63c3d46.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0455e0089761f8a9141732a40aef7c3d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8ab1c323ca70bad762a696e1d7305833.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e3a5e1b0d8650c96cccce9f6c551953f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f164bba300ac404949e3b3d6170713a7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c5427ff371d86d6d0b79403d0176471f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d01ddecb0428360704d5f8a43bb3376f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/80371b67419b96abaa5aa9e44a841e7b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d3bd8b58e3a983d0f854ada3f4722246.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3dce330e6b7ee4caeaedcc7377777f0a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0c7aa8192bc3c52559a6134545523478.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c22bf41861974ad1080d628cea6b9897.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/990d6aa4423d46995edaa705a3682992.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/411d050a060b9be745ae608c449f8aaa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/140014d065aabcb1aec370ffdcc558f4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/63c1518c9ac419246efdffa39ce04a58.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b544c73ac643d57db22b9462bbad978c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '129.00', '129.00', '59.00', '0', null, null, '0', '0', '0', '35', '史黛丝', '1001', '情趣内衣', '2', '制服扮演', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-03-20 20:01:28');
-INSERT INTO `t_goods` VALUES ('10031', '丝质格纹开档提花连身袜 两色 selebritee', null, '<p><img alt=\"单间开档连身袜，基本信息\" src=\"http://mallimg01.touchcdn.com/third/b9415740385eaa237920f0e9f4c6a8fb.jpg\" /><img alt=\"性感神秘，是多数人都青眯颜色，总能最融洽地配合，简洁之至，却极具诱惑力\" src=\"http://mallimg01.touchcdn.com/third/163b6d8c4e050e4060a75bc8ce2feecf.jpg\" /><img alt=\"菱格显瘦设计，精美细节，品质生活\" src=\"http://mallimg01.touchcdn.com/third/7cc9bce87eaa6e1961700891727cf46e.jpg\" /><img alt=\"玫瑰花朵设计\" src=\"http://mallimg01.touchcdn.com/third/8f14e998bdb009a062f9e02c48d758cd.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6864aba6a7253c9e7b0193466ae4c907.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/df2c84496fdabd207ae0676656651575.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2ab83503a1b9bdc9c442be9a7d0068c8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d5e0edc5f43ed91c711808c5dd408748.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ecc9babd135fafd6bc106d71da1c7834.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7f646343479bd1208c9e49df6c8f150d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7abaf290de8205d032aa75370332b92f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9fd7fda33d604f4e11191bf5cf98c7a9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8b6652dca552d334a466a9102ea4ec24.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6735fcbdf8accb0afbc6aa32535371e9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a613577175836068bfb40cc050d68ea4.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '119.00', '119.00', '49.00', '0', null, null, '0', '0', '0', '0', null, '1001', '情趣内衣', '0', null, '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/02f98b01062aeab43ed3016039ca578c.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-03-20 20:14:30');
-INSERT INTO `t_goods` VALUES ('10032', '【包邮】杜蕾斯经典四合一 24只装避孕套', '2015年度爆款情趣套套，年度最强爆款！加10元得珍珠内裤需拍下对应款式！！！', '<p><img alt=\"1次选择4种享受\" src=\"http://mallimg01.touchcdn.com/third/9aadae02b56a96682e5540fe2dd3f89f.jpg\" /><img alt=\"杜蕾斯只为追求性福的你\" src=\"http://mallimg01.touchcdn.com/third/0a8d3f490045a887794861f68de0a74a.jpg\" /><img alt=\"经典设计和谐自然\" src=\"http://mallimg01.touchcdn.com/third/b509efe8ef0b2f17add82981480dca46.jpg\" /><img alt=\"润滑避孕安全呵护\" src=\"http://mallimg01.touchcdn.com/third/427425370f924b498f21fa3af0093eea.jpg\" /><img alt=\"卓越品质优质可靠\" src=\"http://mallimg01.touchcdn.com/third/c39c49a865eccb94f45004192b5614d4.jpg\" /><img alt=\"产品质量好是基础性价比高才是王道\" src=\"http://mallimg01.touchcdn.com/third/d87d7a463ea98abbe9c4ee2e337e1a7c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/42276d0b4b9da71841321cbc831b31bb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/562ae04678bdfc71c346863612ee1f16.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/710dfaa491899fcc4237874df2f9ef3b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a02c0586b2b9a0e973d483d694c5cdab.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3d64a13dc6c4df93227ca3da166199eb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/854b5ca17adf0f7c3308638fe23a648f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/eb568eacd57739eeb54c68addcc8954d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b2e63eb922f1b97e8d5fa12886e72b0c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6e840e6d7f67e896a7a736b9a829ce20.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c13f0c82f44860df22204a72d41e8150.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/453fae04898229ea5c0fb1adc9d27e0b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d9a447dc143a8e06e35726f5191ffc9c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '69.00', '69.00', '39.00', '0', null, null, '0', '0', '0', '0', null, '1004', '避孕套', '32', '超值组合', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/be760b80bcd4067931b8ce7d4f5430f9.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-03-20 20:29:18');
-INSERT INTO `t_goods` VALUES ('10033', '【新品】LULU 噜噜 003超薄避孕套 热感激情装12只', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/680e729aa81e4e14919731feb6e96fc0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/481a6b12c00b3ee5a798a37c788a80c5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/90c363ba4de9591cdad294ea9d02599e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/97479f888733f9d24c2ca4e414187a5c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/5c2da0cec9b2af0e5668b8e2f23e3e54.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/621d03dfba9d9ebf95ab082913cb743b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/16ecce11c7f6edd372aaf090ce233b51.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/14328bbc40518f7737489aac93829598.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/5cc6e6bbd0f8d767b35c89dfc67121ac.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/587eb76faea5cf97b95388aa67e48364.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/b8cb350468ef1f5c72bf7e1c221a48a1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/6f437716b903a80bb6d218563c6e2497.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/32fabafda6a6d51e74e7e17745811790.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/5a17573c0bca40240bdeca4068cb094f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/b5e7caba0d2a16df3a0a9b33628f842a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/f2270f5f12dc7b716f5a41228f50f2b6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/85a08463e1358971dfffe7fc99a41557.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4183d9dd33413e9e3981095f9af83316.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/82f4b9fe7ca29422f65099721bc5ce85.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/3908e426453796684c6d8d8c8cc851a3.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/24f593691338d2776c93a1e9193a813c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4bd4d82edc6585632159fd6ab0fd9c92.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a8db30bd3e899bc85969114a50f13210.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/7b6bdf3eb45b0b72b20ddf14ff0d2b4d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/e8f66cbb86a4d7504119c3663b3e4342.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/604315bf645a46abbbd0bee1e545daea.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '41.00', '41.00', '29.00', '0', null, '0000000.00', '0', '0', '0', '28', '杜蕾斯', '1004', '避孕套', '32', '超值组合', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/f6031e0efdb9d15cbacb07b572a77073.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:40:58', '2016-03-20 20:33:42');
-INSERT INTO `t_goods` VALUES ('10034', 'BKK智能飞机杯智能人机互动自慰杯虚拟现实3D场景', null, '<p><img alt=\"倍克贝克虚拟现实飞机杯\" src=\"http://mallimg01.touchcdn.com/third/80e53113aff2c16e8553b88a626adaa3.jpg\" /><img alt=\"颠覆性科技\" src=\"http://mallimg01.touchcdn.com/third/550b9fbeefc89d0631937b75651fad42.jpg\" /><img alt=\"科技改变生活\" src=\"http://mallimg01.touchcdn.com/third/ee667451f169409346f5dbefeb8a0a0a.jpg\" /><img alt=\"VR虚拟现实眼睛\" src=\"http://mallimg01.touchcdn.com/third/b869ff767f479b09b15160791652f955.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/72eac5da1eb0f7c10030a38403449203.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/adb0283361456b20c583d78d4a894d44.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/20e32fe0eec74738ac8c9c718eb80437.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a0bcb8482e36152ade5af526f8427e47.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/68d0865818a9cb2c44b241962cf324e2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0a755055dda38662db0527bef973b198.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/18ef5b075423382cc218ea9289431535.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/db19a2305acad0a32c12931dc2926c2d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c05658941075d2e3fffb6a11cefc02e0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b0818fd0f81fbce7a6395d0d325519f9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e5e652d162c6f7f320b45cbb4dde10c8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5ff4c6bef28d70e122cf79fb25331104.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/885a09fa9d0a3a27cad5b964c1f9f6ad.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0512de638ff772f7b7e46c78761aa025.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/99abef260e7e9525389c88ec6e5a86f0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/65c8391cd1c212ba88764a25d64f47d1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ca9fdaa6a79ffd558f76a1c9d90ab23a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/473ac676fbfa877464893e5f960e360b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/96a99093f66d0e02927b560407246e7f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/97d0e10bb492a4a035ca0f5025fc8195.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/582d4d7e494c39fe63268c74e21e647a.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n\n<ul>\n	<li><a href=\"javascript:void(0);\">购物车0</a></li>\n	<li><a href=\"javascript:easemobIM();\">在线客服</a></li>\n	<li>&nbsp;</li>\n	<li>&nbsp;</li>\n	<li>&nbsp;</li>\n</ul>\n', '0', '100', '998.00', '998.00', '599.00', '0', null, '0000000.00', '0', '0', '0', '32', '进口品牌', '1002', '男用玩具', '10', '电动飞机杯', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/fd944f54b22da916e62a79af9d455ab7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-03-20 20:40:41');
+INSERT INTO `t_goods` VALUES ('10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', '456', '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/30978ef34c830ae7a2f514818ff39873.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/529f24aa8f4dc9e9b9b6a603534c1679.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/502ef6601f8fed8d47b3381dac4e83b8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/c757d94279f0ef334f5a5628c25807b8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4d342531d5cfd0a84037dd68fab7994b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/8929b706b50aa7689ccdab526a96286d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/3698d54a0ac0972c0ed0a61272205186.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/5b663be08086739652110c355bf1d7de.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/f67315463609cff0d824037a62997916.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/0b80314b4ec2a3778e89d664193928e8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/2c1a527a8dc13543791c5876820da7d4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/cbee8f76129bd2864bc9b1b6033afdf8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/c83af12aa518e3458b5b966fbcecb6f6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/337d135ca3004acca5e3b29b0a746117.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a7010bd95e93fd228c108666b72fe1eb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/1823cc84d955735d580756c2974f60a2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/68c7f047ba2e3aaa87c33fcb5610dec5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/08f91a6b6558b635a760ff2c26b5f510.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/427d623f8a251cd45798b7c4fb4db938.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/d4acf8310ee439ba321182cdfa3ffd3e.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '100', '100', '49.00', '29.00', '19.00', '449', null, '00000000.00', '0', '1', '1', '37', 'Selebritee', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 16:25:44', '2016-01-19 01:16:08');
+INSERT INTO `t_goods` VALUES ('10010', '久慕雅黛 古典复古和服风深V开衩短裙日式情趣内衣', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3c21b28b145f9f75930c07a706e410ec.jpg\" /><img alt=\"短裙内衣\" src=\"http://mallimg01.touchcdn.com/third/a0c038062b1f0cd334bcbea2a793f940.jpg\" /><img alt=\"浪漫和服 \" src=\"http://mallimg01.touchcdn.com/third/36a667d64f5182364cc7eec413f98ff2.jpg\" /><img alt=\"复古新娘装\" src=\"http://mallimg01.touchcdn.com/third/c760dd96d0e7429396ce38bb69a59585.jpg\" /><img alt=\"久慕雅黛\" src=\"http://mallimg01.touchcdn.com/third/0f085cc3b4dfacbdedc72d0986073f1d.jpg\" /><img alt=\"情趣内衣\" src=\"http://mallimg01.touchcdn.com/third/e9ae674ee2dc503b5f042ac5cc191830.jpg\" /><img alt=\"性感睡衣\" src=\"http://mallimg01.touchcdn.com/third/73c8e278c3a2b34952702a554f686328.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/086450a388991fad49a671a0aadf52eb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/139d6862fa4ac3b87ddfff50dd383691.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1612b50e644a4df41e30868dbce98dcc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a4ae87dd19b5114208fc8cc49ea35664.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2a254cf19836d40b75634d218a4b3968.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cf56b29c96530b23c02100ac751b9590.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f359a59179ddcd9c3bde365363fde85f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b652ebc3be6bea72c3daa75207b0da1b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f90ad29c9b3ed3d4b626b7f891e3120b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a85354059037746f46b57cd9ebefe835.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6d585819e426680a9cfb5c983a38a7e9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3f7d95dbc4dbfbbb2c67042d4ca58d0d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7dbd40818c6b12fbcfc3519b1528ed72.jpg\" /></p>\n\n<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d99cf42792b27ba11e9165cbd4477c3f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a0f87d0c46189ac066f0e2c6a1a76d9a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c4968a5dc192b332b31228aa2d4fe79b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/94f8b70efb9ff55223679bbd13ca7398.jpg\" /></p>\n\n<p><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '129.00', '129.00', '59.00', '0', null, '00000000.00', '0', '1', '1', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/e2d09b3577f70bcbf769bca6666c3c43.jpg?imageView/2/w/416/interlace/1', '1', '2016-10-21 02:18:35', '2016-03-20 01:55:40');
+INSERT INTO `t_goods` VALUES ('10011', '性感日式印花和服宽松深V蝴蝶结复古和服风东京美娘款', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/dda87a916a70d882f73c0f1995edfbab.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/d29a8661fce1859689e1b646c412fe01.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/09ed9425e95eb9e38f03ea4218582d9a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/1fb8fc4ee3b38520b4699665480ebf7b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/eb948b3099bb7d111e38b684ff3bf56b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/be67640335f0210db6532fd02cce0461.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/6ee1c1a4e4d400d60e97dad837f7cdaf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/079821295b34ec56f29b74ea338a954f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/9cde6ab5cd0705424dfb78a50b8ff3d0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/c282753da1abeb896b03ac9343dadbf2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/2799cc468f217be17e6f910fdc7f190f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/1a301f3784da16aaa44cdce60f0a5cff.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/b624163ec811fa7797f9a703a39ed378.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/cb962e4a086337474c5360cc9287511b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/411d050a060b9be745ae608c449f8aaa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/140014d065aabcb1aec370ffdcc558f4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/63c1518c9ac419246efdffa39ce04a58.jpg\" />&nbsp;<img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b544c73ac643d57db22b9462bbad978c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '59.00', '59.00', '29.00', '0', null, '00000000.00', '0', '1', '1', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/0e65fea48479e7da41432b9bb774bca0.jpg?imageView/2/w/416/interlace/1', '2', '2016-10-21 02:18:36', '2016-03-20 02:30:30');
+INSERT INTO `t_goods` VALUES ('10012', '古典高档绣花年年有鱼喜庆露乳性感肚兜 2件套', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f80377df6b74e46e88f35d8de7dbe309.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5588eb37e59db78062f4436a16381c65.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4789f149d74f757947df2865f1201bfc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/82cd5abe322061ee8bdadbe03d511fc6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/af949eebb80732705f1e402cd3ef69ea.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/766400e3288935c6c650a0a56f98593e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/76e5be5fc60eda488b7a4ea5d798fa5f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8e37815d9db14fe13ed83737904a2f00.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4b14ce102b33fb50d57bdc6f05eb17bf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b7a3f6da7a9c619c510fde0fb936364f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9b4d477a70d3eef24ca27e45dc1a5a06.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f35da9df32760bc5b6da629b8f6efaea.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/81d975ec635892486ecb86ff1cebf958.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f4a0353266229179ba3badb893e40ad2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/455aebe2c47462e1a55a4d59e7469322.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ad8b18217bb4b9dd0d4ccc8600a19708.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/eb280bd020e418e27ec31a33627d852b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/67904293019533ef199a4725b99d32fc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/603c36c4a79585db382569e231ad5ffb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/65bd39a45aa10c7dae69789f5122d9a9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/da00500dfce8832802399614ce41da2e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a5a8bfe161f2aa59a49ce3629df3f01b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5577748937897ab236b2b37f64c3d981.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f644f9d460f79c87327c51b59310b1c1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d6ddb238ca9bf123357c8fc9bf5e355d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ec85c75149c33a8a8639f297fe3b098c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '50.00', '50.00', '25.00', '0', null, '00000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/b75134196cccd1a6fc88c1bfe2627b43.jpg?imageView/2/w/416/interlace/1', '3', '2016-10-21 02:18:38', '2016-03-20 02:51:35');
+INSERT INTO `t_goods` VALUES ('10013', '日式和服开襟三点式绑带缎面印花和服套装 3件套', null, '<p><strong>为了满足大家的需求，现在已经有升级版的出炉了哦~升级版和原版的款式是相同的，只是面料和做工上有比较大的提升！ 面料更柔软，印花更逼真，做工更精细！ 为了掳获那个他，喜欢的MM赶紧下手哦！</strong></p>\n\n<p>&nbsp;</p>\n\n<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/72ba3eb9110e7f1b5949969b95aa9f10.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/103a0b59d6abe848581bbc71e6c41595.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/13e498a85d70600bf4aafc48dbbabd51.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/3c9b43d50561f91997fc0984a4587103.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/bdd59995ad97f2cdcb2508d88ab59821.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/6b7cbe45697be1de8d92d1770b5afdde.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/ce353190ad1992dcdb14db4564610f5b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/53a292e6f9d1e8475701968242440656.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4ad70d216b0df841378173c898eb28dc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/e253fbcc3451dd08e09d4aa33cd184ed.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/3f256e640e61e9959dff42647b960067.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/ad0bf2bf310f502ea740ab3552e758a0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/ff7280f5528ff9661a48ceefd134e202.jpg\" /></p>\n\n<p><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '99.00', '99.00', '39.00', '0', null, '00000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/625edf645a7c9e04ff8ef24555eb3179.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 15:23:44', '2016-03-20 02:55:18');
+INSERT INTO `t_goods` VALUES ('10014', '制服诱惑日系和服性感开襟深V包臀蝴蝶结和服 3件套', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/345bb204c6aa2e4d0aab047e17f70ea6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/361fa9f35bee7e2f5db88ee113f4488e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/9ffdb6cbfc857e34e1999e95b0194461.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/70573f6663454c8bb15b9c616e10d20b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/022dbe7c5729d31ed819b2d38abc5931.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/277401776bb6d3f006422c97c361677c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a74360d8a03366f94a6783b6aed60b29.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/67cea5648ea32fe673f92482af6521bf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/32cc6ebe77014cdc6e969cb92297ed23.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/2a0c8e6876ef4cfcc8c8716bd8703dd2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/0d8526da1274883071cc739469ada733.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '59.00', '59.00', '29.00', '0', null, '00000000.00', '0', '1', '1', '33', '久慕雅黛', '1001', '情趣内衣', '1', '睡裙睡袍', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/c1db41303a5eee78c6a162907b7abbbb.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 02:59:14', '2016-03-20 02:57:58');
+INSERT INTO `t_goods` VALUES ('10015', 'EVO二代加温火焰无线充电遥控加热恒温跳蛋', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/28650c1bfe62bd77b57315d1e6a79316.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/73f2f542232f4ba9a22497bb51799d7c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/82eaba9b2563253b70a68dbd2ef3aa91.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ef572892b959210a50b15406e72739c8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/317e457d5c3349b48227d85859c0f193.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2c39b4c22f1c9c32730f597c47a02d59.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/39bc2f1c2866fbaa513072700194db83.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b4607a420a1fc3ac77d468c866552f65.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2b9204cddbb27ac37391c8a40cd28e31.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ddd929b6e4e8d844b68fcf971bd42cfb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a07395801eee186d2da17bc99bbdf482.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e05b63961f044d473022671ca8c61c25.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d6ed133567e6c59e1d136bad6e57fa46.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d6e8073975504621d787237537b72e16.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cec3b7e00495582d4e8d4b99359677fb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4fda4228a953fd742548081aeac319a3.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/dc4fbed539d0cd4e5726d82290b09ff6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e84878c70cb093299d788532dde20c5f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6ad05c99ba90bd4a57157e16225606d6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/34e616a50af6034eef332d101ba956ae.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/04638d7256e22c0d4b60c5927b6211c6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/445987bf80d7e15726b43812498ca4f7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5d56e623c09462cf4633bace18f024e8.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '280.00', '280.00', '168.00', '0', null, '00000000.00', '0', '0', '0', '36', '维多利亚的秘密', '1003', '女用玩具', '22', '情趣跳蛋', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/cb5c8464c08fea2958a9a44fb6378585.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 15:24:05', '2016-03-20 11:55:06');
+INSERT INTO `t_goods` VALUES ('10016', '【包邮】雷霆炫动AV震动棒 女性G点刺激', null, '<p><img alt=\"雷霆炫动AV震动棒产品简介\" src=\"http://mallimg01.touchcdn.com/third/8a6f7b3e256a2ce0d654eafa6fb4377b.jpg\" /><img alt=\"产品特点解析\" src=\"http://mallimg01.touchcdn.com/third/5286498f09b3a82ae727ead74345cbed.jpg\" /><img alt=\"市面上代表性产品比较\" src=\"http://mallimg01.touchcdn.com/third/9ac7c7dbbe5aeee0e3e51328be58896a.jpg\" /><img alt=\"最好玩的AV棒之100种玩法\" src=\"http://mallimg01.touchcdn.com/third/bdb4a55cb5cf5d0e8605644b7b5bef3c.jpg\" /><img alt=\"最好玩的AV棒之1.6倍强劲动力\" src=\"http://mallimg01.touchcdn.com/third/68e91c0c88229e7cde1be7bae1ae0d3e.jpg\" /><img alt=\"最好玩的AV棒之专用百变头套\" src=\"http://mallimg01.touchcdn.com/third/43ac46b94a686defeda7cc49accb1834.jpg\" /><img alt=\"最好玩的AV棒之全防水\" src=\"http://mallimg01.touchcdn.com/third/08db274200a66608036159f14e1aeaad.jpg\" /><img alt=\"最好玩的AV棒之时尚造型\" src=\"http://mallimg01.touchcdn.com/third/1d8671cc20d24279a8acec3995ba0fac.jpg\" /><img alt=\"最好玩的AV棒之不震手人AV棒\" src=\"http://mallimg01.touchcdn.com/third/17e4b43a9eb9bfa13a7b86afeedb2893.jpg\" /><img alt=\"实拍细节展示\" src=\"http://mallimg01.touchcdn.com/third/1daf3f848694b817146234dcf55c9c90.jpg\" /><img alt=\"三种颜色可选\" src=\"http://mallimg01.touchcdn.com/third/8a93c558b54fff150195afc60e1e863f.jpg\" /><img alt=\"实拍细节展示1\" src=\"http://mallimg01.touchcdn.com/third/516bd02b4a082b1f7bf53928a9311093.jpg\" /><img alt=\"实拍细节展示2\" src=\"http://mallimg01.touchcdn.com/third/2ba6b9b8fd6fa7d5ac8ade3dc80a194b.jpg\" /><img alt=\"实拍细节展示3\" src=\"http://mallimg01.touchcdn.com/third/ae50272327be004549d01c8d49a74f42.jpg\" /><img alt=\"实拍细节展示4\" src=\"http://mallimg01.touchcdn.com/third/2fde337fb1c38762650e2655b498cd9d.jpg\" /><img alt=\"包装和颜色\" src=\"http://mallimg01.touchcdn.com/third/54b4107d213289981aa8e9ae0821385c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ebfa401d8101c8753952dc949f5e44bf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b080c164325d505dcead3cfe485977b6.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '158.00', '158.00', '79.00', '0', null, '00000000.00', '0', '0', '0', '36', '维多利亚的秘密', '1003', '女用玩具', '19', 'AV棒', '0', '1', 'http://mallimg01.touchcdn.com/gallery/TB2RsohcFXXXXakXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 15:25:47', '2016-03-20 11:57:52');
+INSERT INTO `t_goods` VALUES ('10017', '【包邮】品色伸缩转珠震动按摩AV棒', '女主播倾力推荐，最好玩的AV棒！', '<p><img alt=\"雷霆炫动AV震动棒产品简介\" src=\"http://mallimg01.touchcdn.com/third/8a6f7b3e256a2ce0d654eafa6fb4377b.jpg\" /><img alt=\"产品特点解析\" src=\"http://mallimg01.touchcdn.com/third/5286498f09b3a82ae727ead74345cbed.jpg\" /><img alt=\"市面上代表性产品比较\" src=\"http://mallimg01.touchcdn.com/third/9ac7c7dbbe5aeee0e3e51328be58896a.jpg\" /><img alt=\"最好玩的AV棒之100种玩法\" src=\"http://mallimg01.touchcdn.com/third/bdb4a55cb5cf5d0e8605644b7b5bef3c.jpg\" /><img alt=\"最好玩的AV棒之1.6倍强劲动力\" src=\"http://mallimg01.touchcdn.com/third/68e91c0c88229e7cde1be7bae1ae0d3e.jpg\" /><img alt=\"最好玩的AV棒之专用百变头套\" src=\"http://mallimg01.touchcdn.com/third/43ac46b94a686defeda7cc49accb1834.jpg\" /><img alt=\"最好玩的AV棒之全防水\" src=\"http://mallimg01.touchcdn.com/third/08db274200a66608036159f14e1aeaad.jpg\" /><img alt=\"最好玩的AV棒之时尚造型\" src=\"http://mallimg01.touchcdn.com/third/1d8671cc20d24279a8acec3995ba0fac.jpg\" /><img alt=\"最好玩的AV棒之不震手人AV棒\" src=\"http://mallimg01.touchcdn.com/third/17e4b43a9eb9bfa13a7b86afeedb2893.jpg\" /><img alt=\"实拍细节展示\" src=\"http://mallimg01.touchcdn.com/third/1daf3f848694b817146234dcf55c9c90.jpg\" /><img alt=\"三种颜色可选\" src=\"http://mallimg01.touchcdn.com/third/8a93c558b54fff150195afc60e1e863f.jpg\" /><img alt=\"实拍细节展示1\" src=\"http://mallimg01.touchcdn.com/third/516bd02b4a082b1f7bf53928a9311093.jpg\" /><img alt=\"实拍细节展示2\" src=\"http://mallimg01.touchcdn.com/third/2ba6b9b8fd6fa7d5ac8ade3dc80a194b.jpg\" /><img alt=\"实拍细节展示3\" src=\"http://mallimg01.touchcdn.com/third/ae50272327be004549d01c8d49a74f42.jpg\" /><img alt=\"实拍细节展示4\" src=\"http://mallimg01.touchcdn.com/third/2fde337fb1c38762650e2655b498cd9d.jpg\" /><img alt=\"包装和颜色\" src=\"http://mallimg01.touchcdn.com/third/54b4107d213289981aa8e9ae0821385c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ebfa401d8101c8753952dc949f5e44bf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b080c164325d505dcead3cfe485977b6.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '148.00', '148.00', '79.00', '0', null, '00000000.00', '0', '0', '0', '36', '维多利亚的秘密', '1003', '女用玩具', '21', '转珠棒', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/0ff07592e560f8d86f35486eeda10e63.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 12:00:53', '2016-03-20 12:00:37');
+INSERT INTO `t_goods` VALUES ('10018', '阿芙拉G点妖精10变频模式震动棒', null, '<p><img alt=\"精准刺激G点妖精30度棒头弯曲轻而易举的集中G点\" src=\"http://mallimg01.touchcdn.com/third/82d9e70f11ddca11c20e2675c462b1ce.jpg\" /><img alt=\"女人最爱时尚妖精\" src=\"http://mallimg01.touchcdn.com/third/b62a5c642493070e7d4b93bee5088ab2.jpg\" /><img alt=\"精准刺激G点冲击\" src=\"http://mallimg01.touchcdn.com/third/4b0c49d7782a7fcd55b31512875bc8ca.jpg\" /><img alt=\"十段变频丰富刺激\" src=\"http://mallimg01.touchcdn.com/third/e0425cbee22b58cef6813bbe66fc019a.jpg\" /><img alt=\"G点妖精振动棒带来狂潮激越的超HIGH体验\" src=\"http://mallimg01.touchcdn.com/third/4bdbca3fa4e688fb4d668b43569b63b9.jpg\" /><img alt=\"小巧玲珑的娇美身段多重流行元素融入外形设计\" src=\"http://mallimg01.touchcdn.com/third/4796d0c8fa847ae756f7e5117ec6f217.jpg\" /><img alt=\"拥有时而激越轻柔急促迟缓灵动变幻的\" src=\"http://mallimg01.touchcdn.com/third/564c36b0f647cc11b0d1cd66a38d4ff0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6d62ba33cea49ca422ef29942c83d052.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3a2e4f187fce53820545009b822d5105.jpg\" /><img alt=\"超低静音静在快乐深处\" src=\"http://mallimg01.touchcdn.com/third/20dd466d0636de990ccdeb1a40f42a8d.jpg\" /><img alt=\"亲肤纯厚硅胶柔滑舒适\" src=\"http://mallimg01.touchcdn.com/third/1add8307f15adc4d90553911bdd153d7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7b35f17eba809035faf3053f45c7e636.jpg\" /><img alt=\"强劲动力轻松锁定G点高潮\" src=\"http://mallimg01.touchcdn.com/third/1df4097603ca02e0f13adb325af5d6d1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/15e30e4e4f0fbd3ce990944405452369.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4772f721da7867dbb9f1e78285000a28.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cc9d27faf3af294aca71db9cb10c6738.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3e8d1ef7194a72707972fabed315fa08.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4d21a363caf3dc1f7361fb8ba6a94310.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d8595e99139e2cd08714b72c365e74ad.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4fc1f6fad55dc8460f26f1ffacf18ff5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8fbc036abe0c6d96e8b1bcec61f59c3b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5057938529a56f6a37e06feb6ff8b7e5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e994017b6fafd44b94895b4f90eaaae4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ed6dc9c105079d95eb2034fd90a3f587.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/706d2508c6d5c4dfb3b65c4fd6c18ce2.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '69.00', '108.00', '69.00', '0', null, '00000000.00', '0', '0', '0', '0', '', '1003', '女用玩具', '20', 'G点刺激', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 12:20:53', '2016-03-20 12:04:00');
+INSERT INTO `t_goods` VALUES ('10019', '【买1送2】纯情女仆女佣装分体露乳制服 3件套', '【制服有礼·特惠活动】爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '<p><img alt=\"体验师\" src=\"http://mallimg01.touchcdn.com/goods/fa4fefe552ecde1d8c361b0a694bd5db.jpg\" /><img alt=\"导购秀\" src=\"http://mallimg01.touchcdn.com/intro/TB2.6aLcpXXXXXjXpXXXXXXXXXX468359490.jpg\" /><img alt=\"产品信息\" src=\"http://mallimg01.touchcdn.com/intro/TB2pog.bVXXXXaBXpXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c647b8ae1cd639695dd86a113a046c45.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7266c8c1f6613616754a2bcbb485dd68.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c5d30a6e1735458c13854099e99e6712.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/756b7136fc43bff24d3996f3e3343066.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f57fd844862f91139f5cd54073166c9b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9d0ec369d3417d4272d59c3a623bc22a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3b9a7eacbcd991d75f1e540ea06bd3df.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f7757db0e743da2455d6ea136035bcc5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/15b659cb034cdba9364c02c7dc42c021.jpg\" /><img alt=\"女仆女佣装制服分体露乳\" src=\"http://mallimg01.touchcdn.com/third/e22d51c98f2a452dfcb434d478aed039.jpg\" /><img alt=\"纯情四件装 蓝粉两色 霏慕\" src=\"http://mallimg01.touchcdn.com/third/5d5c21ec19a7bf64509623d55d2e206e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/28e34d92824b27fe9124948d52db54c0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/fb0151712497d9c5d9f812dccdcd6124.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7652d5d5194f90a6168b2e947767a007.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/fea036bf5feb3a92f99682323b176d74.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cf982978666040680af607c833b8d266.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/16ec482ae39dc363dae8baab770655e3.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/24f60a90d2fdb212d2f668e6b210f558.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bfc33802751cc9d7f58555e2c9c245bc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bfe7c974496fdc131da1b8127ede11b0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1d8f6c161fd842fdfd8e3f6e68c30e05.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0762c5e40a54c6a31ddafa46168f5a77.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e3c0c2c8c979ff79579a0cc77e690122.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/23768724228f4b77d68d5312e9d9b228.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5ef73bae2d931407654c245ac6db4c51.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/89f5acd5ff1a4b37b799bb68c812fdae.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1e8ff5687e35433ae5e91c4cd145ebb9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/177a4c08bf313546644521202e315e23.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c9e2ee3bafb0d9a426f426c19a3ff246.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2.Y4ecXXXXXbHXXXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2XoBgcXXXXXaXXXXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2SwJbcXXXXXcQXXXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2eRRhcXXXXXXEXXXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/intro/TB2AxAbVXXXXa2XpXXXXXXXXXX468359490.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '89.00', '89.00', '35.00', '0', null, '00000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '2', '制服扮演', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 15:29:08', '2016-03-20 12:05:41');
+INSERT INTO `t_goods` VALUES ('10020', '印花豹纹无痕冰丝一片式性感防走光舒适透气情趣内裤', null, '<p><img alt=\"印花豹纹无痕\" src=\"http://mallimg01.touchcdn.com/third/fd3227902ced5dc98ef1bcc4cc1717cc.jpg\" /><img alt=\"冰丝一片式\" src=\"http://mallimg01.touchcdn.com/third/d4e1347462d1e7501fbd4cfb9fa7f682.jpg\" /><img alt=\"性感防走光\" src=\"http://mallimg01.touchcdn.com/third/3a70c937cdfab41a7559df4cfe8fe8f6.jpg\" /><img alt=\"舒适透气情趣内裤\" src=\"http://mallimg01.touchcdn.com/third/d4ac7bdcd8256aa4c3a818ad6be69384.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/227d25fd5daffd6a7e59b9fa74c219e7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/88d95285d570010b16f67d879137a6db.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e7789610ebd5c4a971aef64ff34f49eb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/322623905be45e833a0ff83635ba3074.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7698a7b0ce1be093f31266aba1a46b80.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/86495455d1070111be41abb19de1a55e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0be7eca92b7dfe4ef923829a31eb396a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/39437ebadbd0bddb08d04764f6e01aa2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d7b618e3c4a0cf68ab5f58389eedc62c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/88dcfcc3d2246be946b9dcd68fe5f07b.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '58.00', '58.00', '29.00', '0', null, '00000000.00', '0', '0', '0', '0', '', '1001', '情趣内衣', '6', '女士内裤', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/fad231cc46a6370394305b348f90cb81.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 12:20:05', '2016-03-20 12:07:54');
+INSERT INTO `t_goods` VALUES ('10021', '【买1送2】护士装 深V紧身性感大露背小护士装制服扮演', '【制服有礼·特惠活动】爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '<p><img alt=\"深V紧身后格挖空露背\" src=\"http://mallimg01.touchcdn.com/third/4195830ccb1a7e67ae459acdbb4bf8f1.jpg\" /><img alt=\"角色扮演小护士装\" src=\"http://mallimg01.touchcdn.com/third/a0d93dda73e0675fad0bf79b48ee127a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5fab0a0b3ef93e311dc2ceeee0563868.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a9b57654dffd67dde034b00a09e7d1c8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9c0747ecd4daa0433861ec7e747b2423.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a873f888464f53e2cabb3fe2cf418805.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d27877e0c39cff97b18bcfa52796fc09.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/abd5da6ab4207ddf622a31cbf8217911.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2a43f43f009ed8e79bf075ca98fc6792.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2369fc619af34a3fca4d47a12aca8a5a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/771d3e3aeb30184103e91d19d42969c4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8b19190b747eab676f8891341a563c63.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/339df1aab0b8aabf929e3fcde5a76d21.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ba7675024969bf8fc8c584030e74a9ea.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/51783266e3bf0ac5c1fa8bf7159a281d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1ba61108a7e1ac85eebdc801ed5ec452.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7809274a29bb7e21028b2bb66ec771b3.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '49.00', '49.00', '19.00', '0', null, '00000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '2', '制服扮演', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/c60834843534de6135db5dd35caf4366.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 15:32:40', '2016-03-20 12:10:41');
+INSERT INTO `t_goods` VALUES ('10022', '【买1送2】中国风古典蕾丝柔纱透明旗袍 新婚制服扮演性感睡衣', '【制服有礼·特惠活动】爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/774010328347bf9ddea8d692b2529109.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/ebc63085358374abe7b41eb866231213.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/8458aac11f474d452a98e68e5fc1acfe.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/e28c4d0b046fecfa2783990b65449547.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/7de7aefaed09164b7d5841779d9f4a96.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/8d2922859920c235fb4ec4d8640b51bc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/e489b61eba4f67107578baf3a2b624d1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/276c9748c65224d673be234f4e7a8063.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a6f4c7b5d26bb826c143150791f35ec9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/d895a0ffa6e18e4ee424967954f584e0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/071ec0feaf97e487a42ef5a17502272a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/63487333ded1eec71820d2514a83c986.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/eb7762f3a0697659e1e38282ba38103e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/043a8e78d032d804bf53718448c5f0cc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/013c52967fbc04b7d2602c785b1b6065.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/26251d0cd8f14ea753ab2d0ddfc0fb2a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a59d284b979da3decf3f5261e02d5413.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/9b75fd5593e65175e6a91eb07fd75f00.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4b99c8af22ea9959b1cadb1c57bdfd7b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/f70608de2292ef51333342201b2e07d0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/bc754c30b7d6bd62726a020bbaccdfe6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/69366358f225bf034da32d8bede50498.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/94780a703ec3091f2c5116a1df38b6f5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/345252bebd83398a6b48430f902e5cb7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/efb9bc4ce5abcf03c7fe8ff52fcc16a8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/37a879ea98aec10d79932202672f5f3f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/da5567667d5fbe56fe789b91d9dd6ed7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/21737d09bb37d39c3a6e6c978b3057fd.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/764e2fd913e5d38aa383dda638ea629c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/1aacc98afd0507ba785fd10dad802e28.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/56a27125c3e07b5e9d54c1f4a078c7fe.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/98db9c003e4fb2ac0a72411b247b34ef.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/7b1755a9959c688b732f2b8ac5e5b08c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '59.00', '59.00', '29.00', '0', null, '00000000.00', '0', '0', '0', '33', '久慕雅黛', '1001', '情趣内衣', '2', '制服扮演', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/73688eac2b67ef212af124bf52bcbbf4.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 12:19:22', '2016-03-20 12:13:11');
+INSERT INTO `t_goods` VALUES ('10023', '【包邮】私享玩趣 桑巴丽影 强力变频防水静音跳蛋', '10种变频，精致小巧，双重震动', '<p>&nbsp;</p>\n\n<p><img alt=\"似梦如幻，让我们一起舞动霓虹\" src=\"http://mallimg01.touchcdn.com/third/5f74dea06f7a23f4998127c07a45fc8a.jpg\" /><img alt=\"私享玩趣 桑巴丽影 强力变频防水静音跳蛋产品参数\" src=\"http://mallimg01.touchcdn.com/third/59dafbfbfc0a4c86fa43c78a379934d4.jpg\" /><img alt=\"设计理念\" src=\"http://mallimg01.touchcdn.com/third/089154b34a9f8cca7328706f8a7887ea.jpg\" /><img alt=\"专为东方女性设计，满足身体的各种愉悦需求\" src=\"http://mallimg01.touchcdn.com/third/fe3f4b1782dded03c127ef24d1e3e7c0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4f0bc7fe86017153070dcc369495b560.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8ba0d988718ea87edcb02dd00339d23e.jpg\" /><img alt=\"台湾情趣热风登陆大陆彼岸\" src=\"http://mallimg01.touchcdn.com/third/7f3fcde247c3e1e309e30672a41f6583.jpg\" /><img alt=\"起源于巴西的桑巴，音乐热情奔放，姿态富有动感舞步，深受人们的钟爱\" src=\"http://mallimg01.touchcdn.com/third/4b2b0d0ef4070b804deb3732c7fc2fa7.jpg\" /><img alt=\"小身材，大作用\" src=\"http://mallimg01.touchcdn.com/third/2faa5b9065222352450546dc1a6fb07f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a471b2404bb76f84e1f0f79d995d9cc0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6a18670644ab00e5af9304d9226b60fd.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/56ab5f97a9ff32dd5277169aed2cdf54.jpg\" /><img alt=\"全身心投入，想按哪就按哪\" src=\"http://mallimg01.touchcdn.com/third/82cdb9fe855d09c7c4205fcab20a266a.jpg\" /><img alt=\"携带方便\" src=\"http://mallimg01.touchcdn.com/third/b7fd57f86ce42d32081161390396191c.jpg\" /><img alt=\"安全材质\" src=\"http://mallimg01.touchcdn.com/third/d92ee5d5e53e0e9a977464eed67e49d2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/11c1a6721049af210eab4a1a05e84416.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7e22f1684de926d056fb433789121e8b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/dabb1fcbe4a279182bd5d4d7d42e4934.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/649ae726c6444e77eee2642766c336bb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ccf43ce3808fd5dc733bb5d7a869c7a6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c882b34593649c3961e2f13483f2d9a1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f5b32d81689e7fbd6963dbbf6261af1d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f32dd8f0bdb456e312f9d00f52efd3d2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d722a56e1b63a251dce7dad755dccda3.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /></p>\n', '0', '100', '99.00', '99.00', '65.00', '0', null, '00000000.00', '0', '0', '0', '30', '尚牌', '1003', '女用玩具', '22', '情趣跳蛋', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/22c56205dc707ef0c4d5505dddc07f79.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 12:17:38', '2016-03-20 12:17:22');
+INSERT INTO `t_goods` VALUES ('10024', '诺兰摇情AV棒 高潮静音震动按摩振动棒充电款', '完美尺寸专为东方女性身材打造 随意旋转', '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/22c922132c97398cc84a153b29732935.jpg\" /><img alt=\"摇情震动棒让女人欲罢不能的秘密武器\" src=\"http://mallimg01.touchcdn.com/third/b1b62affcd77928ccc9baf9ebec1f4f0.jpg\" /><img alt=\"女性寂寞诉以谁知\" src=\"http://mallimg01.touchcdn.com/third/b39d9db62705917c34aa721638f800f9.jpg\" /><img alt=\"性爱生活还是那么无趣吗\" src=\"http://mallimg01.touchcdn.com/third/d819dd0e66abd84aee01a37c6602eb22.jpg\" /><img alt=\"简单粗暴没前戏性爱生活毫无情趣\" src=\"http://mallimg01.touchcdn.com/third/57dd4e1e43e46523765def31c6d80e2e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6994c036d317c313bf17368ccf19087c.jpg\" /><img alt=\"一体式设计可探入体内\" src=\"http://mallimg01.touchcdn.com/third/1b2cbbbd24cecc5c6f8d194ead1f5f86.jpg\" /><img alt=\"强震马达引爆高潮\" src=\"http://mallimg01.touchcdn.com/third/f8d12a3071ef47a76d2f413c99cf2e80.jpg\" /><img alt=\"智能7频震动模式\" src=\"http://mallimg01.touchcdn.com/third/21919fc036c6a4ec3b2bcc8a3b29189c.jpg\" /><img alt=\"全面防水设计充电孔亦防水\" src=\"http://mallimg01.touchcdn.com/third/55a83a413c83f9dabdbd312a9d8d1ce3.jpg\" /><img alt=\"超静音更安心\" src=\"http://mallimg01.touchcdn.com/third/457dc5226e161fe3945caed8fb4e32a4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/de388b4e126debe13a57fc99574f480e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2f78bd14ec6a9f18758240f7dea75035.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d55bab586a9f97bdcafda5e382fc8264.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cfe6b12ad70b8d40f28da0bb5af1c6bc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cabaf1381178f4629a9523b9a5bfacaa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/aa1e9f1ac50ca6a78cf4aae7ffaf1233.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/813ae4c7b172548bae4b88a70f7c58ba.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e211efb135414aaedb623c181ae59c94.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/778a266caaeab73ddc7495fc75419d3b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/940e3e57ef4b16f2050f28a281babeeb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6bf5e219d5865446b477acd897ed2145.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/02f2d77c65ed4546e101a165df68b54d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/51a30be7dc6eea53c0c0b332d95d5211.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/839c9805ee1d7fdd41298a4fef096efa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2ebbe16ef109b8e6439fa7929ce62686.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/37f6d4a36d327e6266297819243d3824.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n\n<ul>\n	<li><a href=\"javascript:void(0);\">购物车0</a></li>\n	<li><a href=\"javascript:easemobIM();\">在线客服</a></li>\n	<li>&nbsp;</li>\n	<li>&nbsp;</li>\n	<li>&nbsp;</li>\n</ul>\n', '0', '100', '178.00', '398.00', '178.00', '0', null, '00000000.00', '0', '0', '0', '35', '史黛丝', '1003', '女用玩具', '19', 'AV棒', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/89ba5d2dd2fa7cadf603db8feb06a79b.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 12:28:52', '2016-03-20 12:25:33');
+INSERT INTO `t_goods` VALUES ('10025', '艾丝葵 甜蜜习惯 蕾丝刺绣透明网眼丁字开档绑带T裤内裤', null, '<p><img alt=\"艾丝葵 甜蜜习惯\" src=\"http://mallimg01.touchcdn.com/third/25325cd9cd066884541004a4948deac0.jpg\" /><img alt=\" 蕾丝刺绣透明网眼\" src=\"http://mallimg01.touchcdn.com/third/1a5515156c86f4cc87f546000d718d59.jpg\" /><img alt=\"丁字开档绑带T裤内裤\" src=\"http://mallimg01.touchcdn.com/third/b55ffc92f2ef8d990f0111b41cddaad1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/fb28d00b0cafa8f24092aaee244cdba8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/32f1321067bdff21b1a7e608e66de33b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b35852c52343b43024fe0007378cb177.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e428e44786cca82d53659984b29042cc.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9f97c4d9fdd5a4e0c3a1d57f08b71c81.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/351fcf38137df1e36283f796217baffa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5e43bbb2c5945ff295ae21afc61f4eeb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c07f62193b050115e739e42d4f29de03.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0af3b1d0d4c372c791ab570bff07a7db.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9a2ee8849769ad43e31ee65375820eea.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '59.00', '59.00', '29.00', '0', null, '00000000.00', '0', '0', '0', '34', '好奇蜜斯', '1001', '情趣内衣', '6', '女士内裤', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/130b27b5d38de9d9c1017ed56d02dae7.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 15:33:33', '2016-03-20 12:31:43');
+INSERT INTO `t_goods` VALUES ('10026', '针筒式灌肠器 肛门灌肠清洗器 SM调教后庭用品', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5006113e7f9e0ac729d9cab4bea47031.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f84dd10ba46d587dc2ff7e5bae968292.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2dfcd9291133df82f710f26d541388fb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8e845709b2e73154784f60d23a64194e.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '19.00', '29.00', '19.00', '0', null, '00000000.00', '0', '0', '0', '38', '大象', '1007', 'SM玩具', '54', '口塞/肛塞', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/c294f52da9a6e0340fa7b5b867bd717b.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 20:50:02', '2016-03-20 12:35:01');
+INSERT INTO `t_goods` VALUES ('10027', '荷兰COB女优签名版震动飞机杯', null, '<p><img alt=\"三维女神娇软来袭\" src=\"http://mallimg01.touchcdn.com/third/4964fe91942d99f5a89cd36c076d81dd.jpg\" /><img alt=\"荷兰COB女优签名版震动飞机杯\" src=\"http://mallimg01.touchcdn.com/third/074e8bb1cb1d4df79d7ce8173cdac814.jpg\" /><img alt=\"小鲜肉混血女优\" src=\"http://mallimg01.touchcdn.com/third/32375b9939b030a58df67d1773ac0438.jpg\" /><img alt=\"女王级混血女优\" src=\"http://mallimg01.touchcdn.com/third/6dc0ceffcc646b2ab55e8bf1384f80b8.jpg\" /><img alt=\"臣服吧男人们\" src=\"http://mallimg01.touchcdn.com/third/5287d554fd5e0d1101ca490cfcbbf8e4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1356cef552e0c2992e8f483fb8bda37f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/1199a6b1facf9bc6cf26edc434b0ea5b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8150c9f27e406e7183cf2035a3e25c23.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/4bf56f146cad637717f866f66c591054.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/664580be6aec35a20409feff44d33649.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e2c4f7ce46c5f554bfb1c38bbafc6da6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e2624f366eb00be43934af045760c0db.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6b767f9755adc5c70a20e6d5322efd4c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a24b8181dd6635d32eae78364014e955.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9de5766abed76430541f288b77230fb7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/640f3ba075630bcdebfbf046b94d2c3c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/49521744d74d465b4ec57644f730955e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/41da80419d764617cf0306fa086f0d21.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b38929651d4a60d5226e7ee2f3c9fdd0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b58d5d4fc7ce6f3ce86c6a1dbc2fa287.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bd34ff2d8419f1de652e69b599ddf08a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/de0c9c6fb9992e076f9ae1b957a8555f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bce6955c868f37ae5680180da55c3188.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/071590d6a20279c1acb36f165e5779fe.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '99.00', '199.00', '99.00', '0', null, '00000000.00', '0', '0', '0', '35', '史黛丝', '1002', '男用玩具', '0', null, '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 13:09:35', '2016-03-20 13:09:19');
+INSERT INTO `t_goods` VALUES ('10028', '诺兰美人鱼蓝牙智能语音震动深喉飞机杯口交版', null, '<p><img alt=\"男用玩具诺兰美人鱼蓝牙智能语音震动深喉飞机杯\" src=\"http://mallimg01.touchcdn.com/third/78a499a0ff8c195d707bcc003dfca042.jpg\" /><img alt=\"美人鱼口爆神器飞机杯\" src=\"http://mallimg01.touchcdn.com/third/a85c2c7b733e249ab2d8abad5b80b6c2.jpg\" /><img alt=\"蓝牙延时专业设计气囊夹吸\" src=\"http://mallimg01.touchcdn.com/third/75deedc7e439d798729a06473b806c4b.jpg\" /><img alt=\"飞机杯强劲多频震动\" src=\"http://mallimg01.touchcdn.com/third/a52cbfd2c7a458a9d86db4365f48d521.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5f4237b9d8f4fd89776ca1180c5e2979.jpg\" /><img alt=\"延时训练飞机杯\" src=\"http://mallimg01.touchcdn.com/third/5942dff8fa5cc73b5f53c2cb698bce35.jpg\" /><img alt=\"体验真人快感飞机杯\" src=\"http://mallimg01.touchcdn.com/third/1f75bc2c1abf05e6ab28b922906a0470.jpg\" /><img alt=\"模拟真人飞机杯\" src=\"http://mallimg01.touchcdn.com/third/0d949fefcddc6e06190c4ee551019653.jpg\" /><img alt=\"蓝牙互动情趣\" src=\"http://mallimg01.touchcdn.com/third/8b64fe36d59b88fae663756826850f23.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9ebcb8977fdf139d07a506b734abb7f3.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c0e7a2c423325cdc7030781b9b2b7342.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3fba776f605b5cc6b56cd15af946c0da.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f04da4ed06fbd5e71933693ac27de0ac.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2f01db24cd4537d7d07109a6460e6a19.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5f4614d9e00d606288c3e15ddcff35e6.jpg\" /><img alt=\"深喉口交飞机杯\" src=\"http://mallimg01.touchcdn.com/third/a9ddf7e2df5dc0ab9a0cec1fc0c4a805.gif\" /><img alt=\"强劲多频震动情趣撸\" src=\"http://mallimg01.touchcdn.com/third/1ffc931eb212b31d62a2c8eb50ba5d1c.gif\" /><img alt=\"蓝牙互动\" src=\"http://mallimg01.touchcdn.com/third/4d4a5ac25ff3eace7f82828304220a02.gif\" /><img alt=\"气囊夹吸\" src=\"http://mallimg01.touchcdn.com/third/00f12d4ce64df6650cae42ab4652a0db.gif\" /><img alt=\"纯硅胶男用\" src=\"http://mallimg01.touchcdn.com/third/0c70a56d4ed2325b3ac47c1057384d45.gif\" /><img alt=\"使用便捷的飞机杯\" src=\"http://mallimg01.touchcdn.com/third/06cc784add5437d96f038350fafd3bf3.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/921b4eae6460485431d6cfe4369dc8d9.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/63b791c84bba4141e919e71f9648ea15.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/dc521e3c64cff8ca0520a18c23b77ff5.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5139f2c5b50cbfe6c9575292a2fd1287.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/bcd7511ce10fa2d0eaa1e419f051e2b2.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3da5c672b41bb1d52533e04b092870be.gif\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5edde0bde9f54184e70bb70175e9a304.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9ef10ae7c15c2b7e840b8ee3fc95993a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0e624afdc2f8efcc858741c365abf60f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c5652cd978942650f4c79572501e71da.jpg\" /><img alt=\"性感粉色入口\" src=\"http://mallimg01.touchcdn.com/third/6e2351530a6f0b93d9d45bc6dbb4d065.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/98e352d769cbc62660761dc5df2a756d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/74074629dc11637e1219efe93ce7dd63.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/98b40e744a8d4a22574f1a201f560aad.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e47c2b88be100a7741527dbe206548ae.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f62ba35588e9543cded043ed27f107ec.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/cfd279045b7fc8733e986fc27881a9bb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ea0a34183879722098f2e1f2753d7bdf.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ed48abeca091bd17fa49dde62a2a1fe4.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '836.00', '836.00', '499.00', '0', null, null, '0', '0', '0', '0', null, '1002', '男用玩具', '10', '电动飞机杯', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/4704fb20bc7dae5fe74a1e063fca4556.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 15:08:24', '2016-03-20 15:08:24');
+INSERT INTO `t_goods` VALUES ('10029', 'AV女优17岁少女小萝莉双姐妹名器倒模', null, '<p><img alt=\"AV女优17岁少女小萝莉双姐妹名器倒模\" src=\"http://mallimg01.touchcdn.com/third/7f4ed81bddc9851101bc0b739175ceae.jpg\" /><img alt=\"上付熟女名器\" src=\"http://mallimg01.touchcdn.com/third/3f2650583d6cb43e757ebe95c073f918.jpg\" /><img alt=\"下付处女名器\" src=\"http://mallimg01.touchcdn.com/third/9209a5c1c87600b5392f3b017eca691b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/79d0672331f6aec8c94ec93ecfdf75cb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0e3b06a8563f9c08b42a049b15dfcf16.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c9dfafc11b222ebb54f5663d5c3b6634.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/37412c82615b896fd1ab4856e69a7584.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '88.00', '88.00', '39.00', '0', null, null, '0', '0', '0', '30', '尚牌', '1002', '男用玩具', '12', '名器倒模', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/2bb05b248e64ce3c79d3537bba3f26e3.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 15:10:17', '2016-03-20 15:10:17');
+INSERT INTO `t_goods` VALUES ('10030', '性感露乳露背 网纱透明裸色花仙子女仆装', null, '<p><img alt=\"均码裸色100%聚酯纤维\" src=\"http://mallimg01.touchcdn.com/third/a95ebdaf4956bbef4d0fa235da59b222.jpg\" /><img alt=\"露背网纱透明\" src=\"http://mallimg01.touchcdn.com/third/0cb2e1a0d50d98517992b3e0fdf89a8e.jpg\" /><img alt=\"裸色花仙子大码女仆装\" src=\"http://mallimg01.touchcdn.com/third/832f72f587fa84b9f6d888df34ddc865.jpg\" /><img alt=\"私诱\" src=\"http://mallimg01.touchcdn.com/third/952d88fa5832a23696830eecd63c3d46.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0455e0089761f8a9141732a40aef7c3d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8ab1c323ca70bad762a696e1d7305833.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e3a5e1b0d8650c96cccce9f6c551953f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/f164bba300ac404949e3b3d6170713a7.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c5427ff371d86d6d0b79403d0176471f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d01ddecb0428360704d5f8a43bb3376f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/80371b67419b96abaa5aa9e44a841e7b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d3bd8b58e3a983d0f854ada3f4722246.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3dce330e6b7ee4caeaedcc7377777f0a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0c7aa8192bc3c52559a6134545523478.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c22bf41861974ad1080d628cea6b9897.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/990d6aa4423d46995edaa705a3682992.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/411d050a060b9be745ae608c449f8aaa.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/140014d065aabcb1aec370ffdcc558f4.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/63c1518c9ac419246efdffa39ce04a58.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b544c73ac643d57db22b9462bbad978c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '129.00', '129.00', '59.00', '0', null, null, '0', '0', '0', '35', '史黛丝', '1001', '情趣内衣', '2', '制服扮演', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 20:01:28', '2016-03-20 20:01:28');
+INSERT INTO `t_goods` VALUES ('10031', '丝质格纹开档提花连身袜 两色 selebritee', null, '<p><img alt=\"单间开档连身袜，基本信息\" src=\"http://mallimg01.touchcdn.com/third/b9415740385eaa237920f0e9f4c6a8fb.jpg\" /><img alt=\"性感神秘，是多数人都青眯颜色，总能最融洽地配合，简洁之至，却极具诱惑力\" src=\"http://mallimg01.touchcdn.com/third/163b6d8c4e050e4060a75bc8ce2feecf.jpg\" /><img alt=\"菱格显瘦设计，精美细节，品质生活\" src=\"http://mallimg01.touchcdn.com/third/7cc9bce87eaa6e1961700891727cf46e.jpg\" /><img alt=\"玫瑰花朵设计\" src=\"http://mallimg01.touchcdn.com/third/8f14e998bdb009a062f9e02c48d758cd.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6864aba6a7253c9e7b0193466ae4c907.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/df2c84496fdabd207ae0676656651575.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/2ab83503a1b9bdc9c442be9a7d0068c8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d5e0edc5f43ed91c711808c5dd408748.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ecc9babd135fafd6bc106d71da1c7834.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7f646343479bd1208c9e49df6c8f150d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/7abaf290de8205d032aa75370332b92f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/9fd7fda33d604f4e11191bf5cf98c7a9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/8b6652dca552d334a466a9102ea4ec24.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6735fcbdf8accb0afbc6aa32535371e9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a613577175836068bfb40cc050d68ea4.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '119.00', '119.00', '49.00', '0', null, null, '0', '0', '0', '0', null, '1001', '情趣内衣', '0', null, '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/02f98b01062aeab43ed3016039ca578c.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 20:14:30', '2016-03-20 20:14:30');
+INSERT INTO `t_goods` VALUES ('10032', '【包邮】杜蕾斯经典四合一 24只装避孕套', '2015年度爆款情趣套套，年度最强爆款！加10元得珍珠内裤需拍下对应款式！！！', '<p><img alt=\"1次选择4种享受\" src=\"http://mallimg01.touchcdn.com/third/9aadae02b56a96682e5540fe2dd3f89f.jpg\" /><img alt=\"杜蕾斯只为追求性福的你\" src=\"http://mallimg01.touchcdn.com/third/0a8d3f490045a887794861f68de0a74a.jpg\" /><img alt=\"经典设计和谐自然\" src=\"http://mallimg01.touchcdn.com/third/b509efe8ef0b2f17add82981480dca46.jpg\" /><img alt=\"润滑避孕安全呵护\" src=\"http://mallimg01.touchcdn.com/third/427425370f924b498f21fa3af0093eea.jpg\" /><img alt=\"卓越品质优质可靠\" src=\"http://mallimg01.touchcdn.com/third/c39c49a865eccb94f45004192b5614d4.jpg\" /><img alt=\"产品质量好是基础性价比高才是王道\" src=\"http://mallimg01.touchcdn.com/third/d87d7a463ea98abbe9c4ee2e337e1a7c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/42276d0b4b9da71841321cbc831b31bb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/562ae04678bdfc71c346863612ee1f16.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/710dfaa491899fcc4237874df2f9ef3b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a02c0586b2b9a0e973d483d694c5cdab.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/3d64a13dc6c4df93227ca3da166199eb.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/854b5ca17adf0f7c3308638fe23a648f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/eb568eacd57739eeb54c68addcc8954d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b2e63eb922f1b97e8d5fa12886e72b0c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/6e840e6d7f67e896a7a736b9a829ce20.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c13f0c82f44860df22204a72d41e8150.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/453fae04898229ea5c0fb1adc9d27e0b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/d9a447dc143a8e06e35726f5191ffc9c.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '69.00', '69.00', '39.00', '0', null, null, '0', '0', '0', '0', null, '1004', '避孕套', '32', '超值组合', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/be760b80bcd4067931b8ce7d4f5430f9.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 20:29:18', '2016-03-20 20:29:18');
+INSERT INTO `t_goods` VALUES ('10033', '【新品】LULU 噜噜 003超薄避孕套 热感激情装12只', null, '<p><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/680e729aa81e4e14919731feb6e96fc0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/481a6b12c00b3ee5a798a37c788a80c5.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/90c363ba4de9591cdad294ea9d02599e.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/97479f888733f9d24c2ca4e414187a5c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/5c2da0cec9b2af0e5668b8e2f23e3e54.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/621d03dfba9d9ebf95ab082913cb743b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/16ecce11c7f6edd372aaf090ce233b51.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/14328bbc40518f7737489aac93829598.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/5cc6e6bbd0f8d767b35c89dfc67121ac.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/587eb76faea5cf97b95388aa67e48364.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/b8cb350468ef1f5c72bf7e1c221a48a1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/6f437716b903a80bb6d218563c6e2497.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/32fabafda6a6d51e74e7e17745811790.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/5a17573c0bca40240bdeca4068cb094f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/b5e7caba0d2a16df3a0a9b33628f842a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/f2270f5f12dc7b716f5a41228f50f2b6.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/85a08463e1358971dfffe7fc99a41557.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4183d9dd33413e9e3981095f9af83316.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/82f4b9fe7ca29422f65099721bc5ce85.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/3908e426453796684c6d8d8c8cc851a3.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/24f593691338d2776c93a1e9193a813c.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/4bd4d82edc6585632159fd6ab0fd9c92.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/a8db30bd3e899bc85969114a50f13210.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/7b6bdf3eb45b0b72b20ddf14ff0d2b4d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/e8f66cbb86a4d7504119c3663b3e4342.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/goods/604315bf645a46abbbd0bee1e545daea.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n', '0', '100', '41.00', '41.00', '29.00', '0', null, '00000000.00', '0', '0', '0', '28', '杜蕾斯', '1004', '避孕套', '32', '超值组合', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/f6031e0efdb9d15cbacb07b572a77073.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 20:40:58', '2016-03-20 20:33:42');
+INSERT INTO `t_goods` VALUES ('10034', 'BKK智能飞机杯智能人机互动自慰杯虚拟现实3D场景', null, '<p><img alt=\"倍克贝克虚拟现实飞机杯\" src=\"http://mallimg01.touchcdn.com/third/80e53113aff2c16e8553b88a626adaa3.jpg\" /><img alt=\"颠覆性科技\" src=\"http://mallimg01.touchcdn.com/third/550b9fbeefc89d0631937b75651fad42.jpg\" /><img alt=\"科技改变生活\" src=\"http://mallimg01.touchcdn.com/third/ee667451f169409346f5dbefeb8a0a0a.jpg\" /><img alt=\"VR虚拟现实眼睛\" src=\"http://mallimg01.touchcdn.com/third/b869ff767f479b09b15160791652f955.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/72eac5da1eb0f7c10030a38403449203.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/adb0283361456b20c583d78d4a894d44.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/20e32fe0eec74738ac8c9c718eb80437.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/a0bcb8482e36152ade5af526f8427e47.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/68d0865818a9cb2c44b241962cf324e2.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0a755055dda38662db0527bef973b198.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/18ef5b075423382cc218ea9289431535.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/db19a2305acad0a32c12931dc2926c2d.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/c05658941075d2e3fffb6a11cefc02e0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/b0818fd0f81fbce7a6395d0d325519f9.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/e5e652d162c6f7f320b45cbb4dde10c8.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/5ff4c6bef28d70e122cf79fb25331104.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/885a09fa9d0a3a27cad5b964c1f9f6ad.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/0512de638ff772f7b7e46c78761aa025.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/99abef260e7e9525389c88ec6e5a86f0.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/65c8391cd1c212ba88764a25d64f47d1.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/ca9fdaa6a79ffd558f76a1c9d90ab23a.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/473ac676fbfa877464893e5f960e360b.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/96a99093f66d0e02927b560407246e7f.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/97d0e10bb492a4a035ca0f5025fc8195.jpg\" /><img alt=\"\" src=\"http://mallimg01.touchcdn.com/third/582d4d7e494c39fe63268c74e21e647a.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/privacy.jpg\" /><img alt=\"\" src=\"http://static.taqu.cn/img/custom-service.jpg\" /></p>\n\n<ul>\n	<li><a href=\"javascript:void(0);\">购物车0</a></li>\n	<li><a href=\"javascript:easemobIM();\">在线客服</a></li>\n	<li>&nbsp;</li>\n	<li>&nbsp;</li>\n	<li>&nbsp;</li>\n</ul>\n', '0', '100', '998.00', '998.00', '599.00', '0', null, '00000000.00', '0', '0', '0', '32', '进口品牌', '1002', '男用玩具', '10', '电动飞机杯', '0', '1', 'http://mallimg01.touchcdn.com/goods-gallery/fd944f54b22da916e62a79af9d455ab7.jpg?imageView/2/w/416/interlace/1', null, '2016-03-20 20:42:24', '2016-03-20 20:40:41');
 
 -- ----------------------------
 -- Table structure for `t_goods_activity`
@@ -428,8 +587,11 @@ CREATE TABLE `t_goods_activity` (
 -- ----------------------------
 INSERT INTO `t_goods_activity` VALUES ('10001', '1', '2016-03-20 16:25:44', '2016-03-20 16:25:44');
 INSERT INTO `t_goods_activity` VALUES ('10001', '2', '2016-03-20 16:25:44', '2016-03-20 16:25:44');
-INSERT INTO `t_goods_activity` VALUES ('10010', '1', '2016-03-20 15:22:59', '2016-03-20 15:22:59');
-INSERT INTO `t_goods_activity` VALUES ('10010', '4', '2016-03-20 15:22:59', '2016-03-20 15:22:59');
+INSERT INTO `t_goods_activity` VALUES ('10001', '3', '2016-03-20 15:22:59', '2016-10-26 23:41:04');
+INSERT INTO `t_goods_activity` VALUES ('10001', '4', '2016-03-20 15:22:59', '2016-10-26 23:41:06');
+INSERT INTO `t_goods_activity` VALUES ('10001', '6', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_goods_activity` VALUES ('10001', '7', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_goods_activity` VALUES ('10001', '8', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_goods_activity` VALUES ('10011', '4', '2016-03-20 15:23:21', '2016-03-20 15:23:21');
 INSERT INTO `t_goods_activity` VALUES ('10012', '1', '2016-03-20 02:52:34', '2016-03-20 02:52:34');
 INSERT INTO `t_goods_activity` VALUES ('10012', '4', '2016-03-20 02:52:34', '2016-03-20 02:52:34');
@@ -462,6 +624,68 @@ INSERT INTO `t_goods_activity` VALUES ('10033', '3', '2016-03-20 20:40:58', '201
 INSERT INTO `t_goods_activity` VALUES ('10034', '3', '2016-03-20 20:42:24', '2016-03-20 20:42:24');
 
 -- ----------------------------
+-- Table structure for `t_goods_brand`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_brand`;
+CREATE TABLE `t_goods_brand` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '品牌ID',
+  `name` varchar(225) DEFAULT NULL COMMENT '品牌名称',
+  `goods_type` int(10) DEFAULT NULL COMMENT '商品类型',
+  `type_name` varchar(50) DEFAULT NULL COMMENT '类型名称',
+  `status` int(1) DEFAULT '1' COMMENT '状态(1正常，2删除)',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COMMENT='商品品牌';
+
+-- ----------------------------
+-- Records of t_goods_brand
+-- ----------------------------
+INSERT INTO `t_goods_brand` VALUES ('28', '杜蕾斯', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('29', '冈本', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('30', '尚牌', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('31', '杰士邦', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('32', '进口品牌', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('33', '久慕雅黛', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('34', '好奇蜜斯', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('35', '史黛丝', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('36', '维多利亚的秘密', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('37', 'Selebritee', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('27', '大象', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('26', '名流', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('40', '日本NPG', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('41', 'TENGA', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('42', 'Leten', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('43', '香港诺兰', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('44', '迪梦姿', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('45', 'EVO', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('46', 'NANO', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('47', 'LELO', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('48', '夏奇', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('49', '蒂贝', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('50', '爱巢取悦', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('51', '雷霆', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('52', '私享玩趣', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('53', '品色', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('54', 'NANO', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('55', '耐氏', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('56', '藏帝', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('57', 'ZINI', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('58', 'MOVO', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('59', 'KEY', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('60', 'MOVO', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('61', 'EROS', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('62', '阿芙拉', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('63', 'ZINI', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('64', '骇客', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('65', 'EOL', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('66', 'PJUR', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('67', '皮克朋', '1007', 'SM玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('68', '云曼', '1007', 'SM玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('69', '阿芙拉', '1007', 'SM玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_goods_brand` VALUES ('70', 'TOUGHAGE骇客', '1007', 'SM玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+
+-- ----------------------------
 -- Table structure for `t_goods_dis`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_goods_dis`;
@@ -473,16 +697,40 @@ CREATE TABLE `t_goods_dis` (
   `goods_format_id` int(10) DEFAULT NULL COMMENT '商品规格ID',
   `goods_format` varchar(50) DEFAULT NULL COMMENT '商品规格',
   `content` varchar(225) DEFAULT NULL COMMENT '评价内容',
+  `reply_time` timestamp NULL DEFAULT NULL COMMENT '回复时间',
+  `reply` text COMMENT '系统回复',
   `type_value` varchar(5) DEFAULT '00000' COMMENT '评论值(掩码处理：物流，客服，质量）',
-  `discuss_value` int(1) DEFAULT NULL COMMENT '评论值(1满意，2一般，3不满意)',
+  `dis_value` int(1) DEFAULT NULL COMMENT '评论值(1满意，2一般，4不满意,8，16)',
+  `img` int(1) DEFAULT '0' COMMENT '是否有图片',
+  `good` int(10) DEFAULT '0' COMMENT '点赞',
+  `low` int(10) DEFAULT '0' COMMENT '低级评论',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品评论表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='商品评论表';
 
 -- ----------------------------
 -- Records of t_goods_dis
 -- ----------------------------
+INSERT INTO `t_goods_dis` VALUES ('1', '10001', '1', 'luke', '16', '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', '2016-10-27 23:31:54', '谢谢评价', '00000', '5', '1', '0', '0', '2016-10-27 23:31:54', '2016-10-28 00:05:21');
+INSERT INTO `t_goods_dis` VALUES ('2', '10001', '2', 'master', null, '规格:玫红色（肚兜+系带T裤）', '数据库里大放送', null, null, '00000', '1', '1', '0', '0', '2016-10-27 23:31:54', '2016-10-28 00:05:23');
+INSERT INTO `t_goods_dis` VALUES ('3', '10001', '3', 'test1', null, '规格:玫红色（肚兜+系带T裤）', '不错v欧派红包熔点高', null, null, '00000', '3', '0', '0', '0', '2016-10-27 23:31:54', '2016-10-28 02:26:59');
+INSERT INTO `t_goods_dis` VALUES ('4', '10001', '4', 'test2', null, '规格:玫红色（肚兜+系带T裤）', '很难说好', null, null, '00000', '4', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-28 00:02:40');
+INSERT INTO `t_goods_dis` VALUES ('5', '10001', '5', 'test3', null, '规格:玫红色（肚兜+系带T裤）', '一把爸爸', null, null, '00000', '3', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-28 00:03:31');
+INSERT INTO `t_goods_dis` VALUES ('6', '10001', '5', 'sdfsd', null, '规格:玫红色（肚兜+系带T裤）', '如何能遇见你', null, null, '00000', '7', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:39:08');
+INSERT INTO `t_goods_dis` VALUES ('7', '10001', '6', 'sdfsd', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:11');
+INSERT INTO `t_goods_dis` VALUES ('8', '10001', '7', 'fghfrtgh', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:13');
+INSERT INTO `t_goods_dis` VALUES ('9', '10001', '8', 'hrtyh', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:15');
+INSERT INTO `t_goods_dis` VALUES ('10', '10001', '9', 'bnfgherh', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:17');
+INSERT INTO `t_goods_dis` VALUES ('11', '10001', '10', 'gdfger', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:18');
+INSERT INTO `t_goods_dis` VALUES ('12', '10001', '11', 'w43rtsgf', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:20');
+INSERT INTO `t_goods_dis` VALUES ('13', '10001', '12', 'segewrger', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:22');
+INSERT INTO `t_goods_dis` VALUES ('14', '10001', '13', '65u76', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:27');
+INSERT INTO `t_goods_dis` VALUES ('15', '10001', '14', 'v34yt54', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:29');
+INSERT INTO `t_goods_dis` VALUES ('16', '10001', '15', 'g45y', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:31');
+INSERT INTO `t_goods_dis` VALUES ('17', '10001', '16', 'h4yu', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:32');
+INSERT INTO `t_goods_dis` VALUES ('18', '10001', '17', 'h45yr', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:33');
+INSERT INTO `t_goods_dis` VALUES ('19', '10001', '18', 'yh56uy65', null, '规格:玫红色（肚兜+系带T裤）', '挺好的真的很好', null, null, '00000', '5', '0', '0', '0', '1979-01-01 01:00:00', '2016-10-29 02:38:36');
 
 -- ----------------------------
 -- Table structure for `t_goods_format`
@@ -573,94 +821,139 @@ INSERT INTO `t_goods_tag` VALUES ('10033', '3', '2016-03-20 20:40:58', '2016-03-
 INSERT INTO `t_goods_tag` VALUES ('10034', '3', '2016-03-20 20:42:24', '2016-03-20 20:42:24');
 
 -- ----------------------------
+-- Table structure for `t_goods_type`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_type`;
+CREATE TABLE `t_goods_type` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL COMMENT '类别名称',
+  `ico` varchar(32) DEFAULT NULL COMMENT '类型图标',
+  `img` varchar(128) DEFAULT NULL COMMENT '类型图片',
+  `sort` int(2) DEFAULT '0' COMMENT '排序',
+  `summary` varchar(128) DEFAULT NULL,
+  `search` varchar(225) DEFAULT NULL,
+  `delete_flag` int(1) DEFAULT '0' COMMENT '状态(0正常，1删除)',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1008 DEFAULT CHARSET=utf8 COMMENT='商品类别表';
+
+-- ----------------------------
+-- Records of t_goods_type
+-- ----------------------------
+INSERT INTO `t_goods_type` VALUES ('1001', '情趣服饰', '&#xe624;', null, '0', '睡裙/制服/网衣/T裤/黑丝/三点式', '[\'1-30\',\'30-60\',\'60-100\',\'100+\']', '0', '2016-10-22 02:54:34', '2016-01-19 00:11:14');
+INSERT INTO `t_goods_type` VALUES ('1002', '男用玩具', '&#xe623;', null, '0', '持久锻炼/前列腺/包茎纠正/娃娃', '[\'1-30\',\'30-60\',\'60-100\',\'100+\']', '0', '2016-10-22 02:54:41', '2016-01-19 00:11:12');
+INSERT INTO `t_goods_type` VALUES ('1003', '女用玩具', '&#xe605;', null, '0', '跳蚤/缩阴/后庭/三点式', '[\'1-30\',\'30-60\',\'60-100\',\'100+\']', '0', '2016-10-22 02:54:54', '2016-01-19 00:11:12');
+INSERT INTO `t_goods_type` VALUES ('1004', '避孕套', '&#xe61d;', null, '0', '杜蕾斯/冈本/超薄/持久/颗粒', '[\'1-30\',\'30-60\',\'60-100\',\'100+\']', '0', '2016-10-22 02:54:58', '2016-01-19 00:13:01');
+INSERT INTO `t_goods_type` VALUES ('1005', '延时催情', '&#xe609;', null, '0', '喷剂/私处养护/助情/女同', '[\'1-30\',\'30-60\',\'60-100\',\'100+\']', '0', '2016-10-22 02:55:04', '2016-01-19 00:13:01');
+INSERT INTO `t_goods_type` VALUES ('1006', '调情助兴', '&#xe621;', null, '0', '润滑/香水/男同/情趣家具', '[\'1-30\',\'30-60\',\'60-100\',\'100+\']', '0', '2016-10-22 02:55:09', '2016-01-19 00:13:01');
+INSERT INTO `t_goods_type` VALUES ('1007', '调教道具', '&#xe622;', null, '0', '套装/捆绑束缚/眼罩/肛塞', '[\'1-30\',\'30-60\',\'60-100\',\'100+\']', '0', '2016-10-22 02:55:19', '2016-01-19 00:13:01');
+
+-- ----------------------------
+-- Table structure for `t_goods_type_sub`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_goods_type_sub`;
+CREATE TABLE `t_goods_type_sub` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(225) NOT NULL COMMENT '类型名称',
+  `goods_type` int(10) DEFAULT NULL COMMENT '商品类型',
+  `type_name` varchar(50) DEFAULT NULL COMMENT '类型名称',
+  `delete_flag` int(1) DEFAULT '0' COMMENT '删除标志',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='商品款式';
+
+-- ----------------------------
+-- Records of t_goods_type_sub
+-- ----------------------------
+INSERT INTO `t_goods_type_sub` VALUES ('1', '睡裙睡袍', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('2', '制服扮演', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('3', '网衣/连身袜', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('4', '三点/连体衣', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('5', '丝袜吊带袜', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('6', '女士内裤', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('7', '男士内裤', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('8', '马甲束腰', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('9', '情趣配件', '1001', '情趣内衣', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('10', '电动飞机杯', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('11', '手动飞机杯', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('12', '名器倒模', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('13', '增大助勃器', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('14', '水晶套', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('15', '缩精环', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('16', '前列腺按摩', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('17', '包茎矫正', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('18', '充气娃娃', '1002', '男用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('19', 'AV棒', '1003', '女用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('20', 'G点刺激', '1003', '女用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('21', '转珠棒', '1003', '女用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('22', '情趣跳蛋', '1003', '女用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('23', '仿真阳具', '1003', '女用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('24', '后庭玩具', '1003', '女用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('25', '缩阴丰胸', '1003', '女用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('26', '女同拉拉', '1003', '女用玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('28', '极致超薄', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('29', '持久紧绷', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('30', '加倍润滑', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('31', '螺纹颗粒', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('32', '超值组合', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('33', '原装进口', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('34', '芳香果味', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('35', '女性专用', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('36', '创意套套', '1004', '避孕套', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('37', '延时喷剂', '1005', '延时催情', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('38', '延时湿巾', '1005', '延时催情', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('39', '女用催情', '1005', '延时催情', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('40', '私处养护', '1005', '延时催情', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('41', '消毒清洗', '1005', '延时催情', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('42', '人体润滑液', '1006', '调情助兴', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('43', '口交润滑液', '1006', '调情助兴', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('44', '后庭润滑液', '1006', '调情助兴', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('45', '调情香水', '1006', '调情助兴', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('46', '性爱家具', '1006', '调情助兴', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('47', '个护修养', '1006', '调情助兴', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('48', '情趣礼盒', '1006', '调情助兴', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('49', '调教用具', '1007', 'SM玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('50', 'SM套装', '1007', 'SM玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('51', '捆绑束缚', '1007', 'SM玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('52', '羽毛棒/手拍', '1007', 'SM玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('53', '眼罩', '1007', 'SM玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+INSERT INTO `t_goods_type_sub` VALUES ('54', '口塞/肛塞', '1007', 'SM玩具', '0', '2016-01-23 18:55:28', '2016-10-22 03:54:49');
+
+-- ----------------------------
 -- Table structure for `t_g_activity`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_g_activity`;
 CREATE TABLE `t_g_activity` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '活动ID',
   `name` varchar(225) NOT NULL COMMENT '活动名称',
-  `type` int(10) unsigned zerofill DEFAULT NULL COMMENT '活动类型(1打折,2包邮,3赠送)',
+  `type` int(10) unsigned zerofill DEFAULT NULL COMMENT '活动类型(1打折,2包邮,3赠送,4满减)',
   `args` varchar(225) DEFAULT NULL COMMENT '活动系数',
+  `max` int(11) DEFAULT '0' COMMENT '活动条件满多少可以用',
+  `value` int(10) DEFAULT '0' COMMENT '活动值',
+  `url` varchar(255) DEFAULT NULL COMMENT '活动链接地址',
   `detail` varchar(225) DEFAULT NULL COMMENT '活动详情',
-  `available` int(1) unsigned zerofill DEFAULT '0' COMMENT '是否有时效(0无时效，1有时效)',
+  `available` int(1) unsigned zerofill DEFAULT '1' COMMENT '是否有时效(0无时效，1有时效)',
   `start_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '开始时间',
   `end_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '结束时间',
-  `status` int(1) DEFAULT '1' COMMENT '状态(1正常，2删除，3下架)',
+  `status` int(1) NOT NULL DEFAULT '1' COMMENT '状态(1正常，2删除)',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='活动';
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='活动';
 
 -- ----------------------------
 -- Records of t_g_activity
 -- ----------------------------
-INSERT INTO `t_g_activity` VALUES ('1', '情趣色子骰子筛子SM用品2粒夫妻情侣游戏惩罚纸牌扑克', '0000000003', null, null, '1', '2016-08-01 23:53:30', '2016-04-11 23:53:30', '1', '2016-03-11 23:53:30', '2016-03-12 16:47:35');
-INSERT INTO `t_g_activity` VALUES ('2', '备年货满88元包邮', '0000000002', null, null, '1', '2016-02-01 23:53:30', '2016-02-11 23:53:30', '1', '2016-03-11 23:53:30', '2016-03-12 16:32:23');
-INSERT INTO `t_g_activity` VALUES ('3', '包邮\r\n包邮\r\n包邮', '0000000002', null, null, '1', '2016-03-11 23:52:34', '2019-12-31 23:52:37', '1', '2016-03-11 23:53:30', '2016-03-12 16:32:24');
-INSERT INTO `t_g_activity` VALUES ('4', '满99包邮', '0000000002', null, null, '0', '2016-08-01 23:53:30', '2016-04-11 23:53:30', '1', '1979-01-01 01:00:00', '2016-03-12 16:32:25');
-INSERT INTO `t_g_activity` VALUES ('5', '制服有礼·特惠活动', '0000000003', null, '爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '1', '1979-01-01 01:00:00', '1979-01-01 01:00:00', '1', '2016-03-20 02:34:45', '2016-03-20 02:36:41');
-
--- ----------------------------
--- Table structure for `t_g_brand`
--- ----------------------------
-DROP TABLE IF EXISTS `t_g_brand`;
-CREATE TABLE `t_g_brand` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '品牌ID',
-  `name` varchar(225) DEFAULT NULL COMMENT '品牌名称',
-  `goods_type` int(10) DEFAULT NULL COMMENT '商品类型',
-  `type_name` varchar(50) DEFAULT NULL COMMENT '类型名称',
-  `status` int(1) DEFAULT '1' COMMENT '状态(1正常，2删除)',
-  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
-  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COMMENT='商品品牌';
-
--- ----------------------------
--- Records of t_g_brand
--- ----------------------------
-INSERT INTO `t_g_brand` VALUES ('28', '杜蕾斯', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('29', '冈本', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('30', '尚牌', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('31', '杰士邦', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('32', '进口品牌', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('33', '久慕雅黛', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('34', '好奇蜜斯', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('35', '史黛丝', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('36', '维多利亚的秘密', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('37', 'Selebritee', '1001', '情趣内衣', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('27', '大象', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('26', '名流', '1004', '避孕套', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('40', '日本NPG', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('41', 'TENGA', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('42', 'Leten', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('43', '香港诺兰', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('44', '迪梦姿', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('45', 'EVO', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('46', 'NANO', '1002', '男用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('47', 'LELO', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('48', '夏奇', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('49', '蒂贝', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('50', '爱巢取悦', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('51', '雷霆', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('52', '私享玩趣', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('53', '品色', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('54', 'NANO', '1003', '女用玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('55', '耐氏', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('56', '藏帝', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('57', 'ZINI', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('58', 'MOVO', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('59', 'KEY', '1005', '延时催情', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('60', 'MOVO', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('61', 'EROS', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('62', '阿芙拉', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('63', 'ZINI', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('64', '骇客', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('65', 'EOL', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('66', 'PJUR', '1006', '调情助兴', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('67', '皮克朋', '1007', 'SM玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('68', '云曼', '1007', 'SM玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('69', '阿芙拉', '1007', 'SM玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
-INSERT INTO `t_g_brand` VALUES ('70', 'TOUGHAGE骇客', '1007', 'SM玩具', '1', '2016-03-20 23:03:09', '2016-03-20 23:03:09');
+INSERT INTO `t_g_activity` VALUES ('1', '情趣色子骰子筛子SM用品2粒夫妻情侣游戏惩罚纸牌扑克', '0000000003', null, '0', '0', null, null, '1', '2016-08-01 23:53:30', '2017-01-06 23:53:30', '1', '2016-03-11 23:53:30', '2016-11-08 01:06:34');
+INSERT INTO `t_g_activity` VALUES ('2', '备年货满88元包邮', '0000000002', null, '88', '0', null, null, '1', '2016-02-01 23:53:30', '2017-01-06 23:53:30', '1', '2016-03-11 23:53:30', '2016-11-19 03:36:40');
+INSERT INTO `t_g_activity` VALUES ('3', '包邮', '0000000002', null, '0', '0', null, null, '1', '2016-03-11 23:52:34', '2017-01-06 23:53:30', '0', '2016-03-11 23:53:30', '2016-11-08 01:06:38');
+INSERT INTO `t_g_activity` VALUES ('4', '满99包邮', '0000000002', null, '99', '0', null, null, '0', '2016-08-01 23:53:30', '2017-01-06 23:53:30', '1', '1979-01-01 01:00:00', '2016-11-19 03:37:26');
+INSERT INTO `t_g_activity` VALUES ('5', '制服有礼·特惠活动', '0000000003', null, '0', '0', null, '爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '1', '2016-10-01 01:00:00', '2017-01-06 23:53:30', '1', '2016-03-20 02:34:45', '2016-11-08 01:06:42');
+INSERT INTO `t_g_activity` VALUES ('6', '满59减5', '0000000004', null, '59', '5', null, null, '0', '1979-01-01 01:00:00', '2017-01-06 23:53:30', '1', '1979-01-01 01:00:00', '2016-11-19 03:36:52');
+INSERT INTO `t_g_activity` VALUES ('7', '满99减10', '0000000004', null, '99', '10', null, null, '0', '1979-01-01 01:00:00', '2017-01-06 23:53:30', '1', '1979-01-01 01:00:00', '2016-11-19 03:36:57');
+INSERT INTO `t_g_activity` VALUES ('8', '满199减20', '0000000004', null, '199', '20', null, null, '0', '1979-01-01 01:00:00', '2017-01-06 23:53:30', '1', '1979-01-01 01:00:00', '2016-11-19 03:37:03');
 
 -- ----------------------------
 -- Table structure for `t_g_format`
@@ -697,78 +990,6 @@ INSERT INTO `t_g_format` VALUES ('12', '加12元购220ML润滑油', '1002', '男
 INSERT INTO `t_g_format` VALUES ('13', '加15元购冈本套7只装', '1004', '避孕套', '0000000001', null, '1', '2016-03-20 20:36:20', '2016-03-20 20:36:20');
 
 -- ----------------------------
--- Table structure for `t_g_style`
--- ----------------------------
-DROP TABLE IF EXISTS `t_g_style`;
-CREATE TABLE `t_g_style` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(225) NOT NULL COMMENT '规格名称',
-  `goods_type` int(10) DEFAULT NULL COMMENT '商品类型',
-  `type_name` varchar(50) DEFAULT NULL COMMENT '类型名称',
-  `status` int(1) DEFAULT '1' COMMENT '状态(1正常，2删除）',
-  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
-  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='商品款式';
-
--- ----------------------------
--- Records of t_g_style
--- ----------------------------
-INSERT INTO `t_g_style` VALUES ('1', '睡裙睡袍', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('2', '制服扮演', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('3', '网衣/连身袜', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('4', '三点/连体衣', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('5', '丝袜吊带袜', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('6', '女士内裤', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('7', '男士内裤', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('8', '马甲束腰', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('9', '情趣配件', '1001', '情趣内衣', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('10', '电动飞机杯', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('11', '手动飞机杯', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('12', '名器倒模', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('13', '增大助勃器', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('14', '水晶套', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('15', '缩精环', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('16', '前列腺按摩', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('17', '包茎矫正', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('18', '充气娃娃', '1002', '男用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('19', 'AV棒', '1003', '女用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 23:08:09');
-INSERT INTO `t_g_style` VALUES ('20', 'G点刺激', '1003', '女用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('21', '转珠棒', '1003', '女用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('22', '情趣跳蛋', '1003', '女用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('23', '仿真阳具', '1003', '女用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('24', '后庭玩具', '1003', '女用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('25', '缩阴丰胸', '1003', '女用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('26', '女同拉拉', '1003', '女用玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('28', '极致超薄', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('29', '持久紧绷', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('30', '加倍润滑', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('31', '螺纹颗粒', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('32', '超值组合', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('33', '原装进口', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('34', '芳香果味', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('35', '女性专用', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('36', '创意套套', '1004', '避孕套', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('37', '延时喷剂', '1005', '延时催情', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('38', '延时湿巾', '1005', '延时催情', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('39', '女用催情', '1005', '延时催情', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('40', '私处养护', '1005', '延时催情', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('41', '消毒清洗', '1005', '延时催情', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('42', '人体润滑液', '1006', '调情助兴', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('43', '口交润滑液', '1006', '调情助兴', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('44', '后庭润滑液', '1006', '调情助兴', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('45', '调情香水', '1006', '调情助兴', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('46', '性爱家具', '1006', '调情助兴', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('47', '个护修养', '1006', '调情助兴', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('48', '情趣礼盒', '1006', '调情助兴', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('49', '调教用具', '1007', 'SM玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('50', 'SM套装', '1007', 'SM玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('51', '捆绑束缚', '1007', 'SM玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('52', '羽毛棒/手拍', '1007', 'SM玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('53', '眼罩', '1007', 'SM玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:23:54');
-INSERT INTO `t_g_style` VALUES ('54', '口塞/肛塞', '1007', 'SM玩具', '1', '2016-01-23 18:55:28', '2016-03-12 22:22:09');
-
--- ----------------------------
 -- Table structure for `t_g_tag`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_g_tag`;
@@ -790,34 +1011,6 @@ CREATE TABLE `t_g_tag` (
 -- Records of t_g_tag
 -- ----------------------------
 INSERT INTO `t_g_tag` VALUES ('1', '豹纹', '1', null, null, null, null, null, '2016-09-16 23:23:33', '1979-01-01 01:00:00');
-
--- ----------------------------
--- Table structure for `t_g_type`
--- ----------------------------
-DROP TABLE IF EXISTS `t_g_type`;
-CREATE TABLE `t_g_type` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) NOT NULL COMMENT '类别名称',
-  `ico` varchar(128) DEFAULT NULL COMMENT '类型图标',
-  `img` varchar(128) DEFAULT NULL COMMENT '类型图片',
-  `sort` int(2) DEFAULT '0' COMMENT '排序',
-  `summary` varchar(128) DEFAULT NULL,
-  `delete_tag` int(1) DEFAULT '0' COMMENT '状态(0正常，1删除)',
-  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1008 DEFAULT CHARSET=utf8 COMMENT='商品类别表';
-
--- ----------------------------
--- Records of t_g_type
--- ----------------------------
-INSERT INTO `t_g_type` VALUES ('1001', '情趣服饰', '&#xe624;', null, '0', '睡裙/制服/网衣/T裤/黑丝/三点式', '0', '2016-09-20 00:18:45', '2016-01-19 00:11:14');
-INSERT INTO `t_g_type` VALUES ('1002', '男用玩具', '&#xe623;', null, '0', '持久锻炼/前列腺/包茎纠正/娃娃', '0', '2016-09-20 00:18:53', '2016-01-19 00:11:12');
-INSERT INTO `t_g_type` VALUES ('1003', '女用玩具', '&#xe605;', null, '0', '跳蚤/缩阴/后庭/三点式', '0', '2016-09-20 00:18:59', '2016-01-19 00:11:12');
-INSERT INTO `t_g_type` VALUES ('1004', '避孕套', '&#xe61d;', null, '0', '杜蕾斯/冈本/超薄/持久/颗粒', '0', '2016-09-20 00:18:24', '2016-01-19 00:13:01');
-INSERT INTO `t_g_type` VALUES ('1005', '延时催情', '&#xe609;', null, '0', '喷剂/私处养护/助情/女同', '0', '2016-09-20 00:19:06', '2016-01-19 00:13:01');
-INSERT INTO `t_g_type` VALUES ('1006', '调情助兴', '&#xe621;', null, '0', '润滑/香水/男同/情趣家具', '0', '2016-09-20 00:19:17', '2016-01-19 00:13:01');
-INSERT INTO `t_g_type` VALUES ('1007', '调教道具', '&#xe622;', null, '0', '套装/捆绑束缚/眼罩/肛塞', '0', '2016-09-20 00:19:29', '2016-01-19 00:13:01');
 
 -- ----------------------------
 -- Table structure for `t_hint`
@@ -893,24 +1086,27 @@ CREATE TABLE `t_module` (
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `delete_flag` int(1) DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`id`),
   UNIQUE KEY `tb_security_id_uindex` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COMMENT='api端模块管理';
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COMMENT='api端模块管理';
 
 -- ----------------------------
 -- Records of t_module
 -- ----------------------------
-INSERT INTO `t_module` VALUES ('45', '轮播图', '', null, '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_societyItem?id=10\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10015\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/c0941c32bab2a063fd94ce1fcd710e89.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10016\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9298f2101fb7d8423ea1d7443ebac2d1.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10017\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/96c858c99f4b116e9c85aabc7a0baa3e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10018\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ]\r\n}', '1', '1', '1', '', '1979-01-01 01:00:00', '2016-09-11 06:53:52');
-INSERT INTO `t_module` VALUES ('46', '类别', null, null, '{\r\n  subs: [\r\n    [\r\n      {\r\n        title: \"安全避孕\", \r\n        imgUrl: \"img/ico/174-condom (4).png\", \r\n        url: \"#/tab/main_goodsList?typeId=1004&title=安全避孕\"\r\n      }, \r\n      {\r\n        title: \"女人玩具\", \r\n        imgUrl: \"img/ico/sexy_girl.png\", \r\n        url: \"#/tab/main_goodsList?typeId=1003&title=女人玩具\"\r\n      }, \r\n      {\r\n        title: \"情趣内衣\", \r\n        imgUrl: \"img/ico/196-bra (5).png\", \r\n        url: \"#/tab/main_goodsList?typeId=1001&title=情趣内衣\"\r\n      }, \r\n      {\r\n        title: \"男人玩具\", \r\n        imgUrl: \"img/ico/star_wars.png\", \r\n        url: \"#/tab/main_goodsList?typeId=1002&title=男人玩具\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        title: \"延时助情\", \r\n        imgUrl: \"img/ico/34-time-machine (2).png\", \r\n        url: \"#/tab/main_goodsList?typeId=1005&title=延时助情\"\r\n      }, \r\n      {\r\n        title: \"调情润滑\", \r\n        imgUrl: \"img/ico/spiral.png\", \r\n        url: \"#/tab/main_goodsList?typeId=1006&title=调情润滑\"\r\n      }, \r\n      {\r\n        title: \"更多\", \r\n        imgUrl: \"img/ico/index_all.png\", \r\n        url: \"#/tab/main_goodsType?title=更多\"\r\n      }\r\n    ]\r\n  ]\r\n}', '2', '1', '2', null, '1979-01-01 01:00:00', '2016-09-11 06:53:52');
-INSERT INTO `t_module` VALUES ('47', '广播', null, null, '{\r\n  imgs: [\r\n    {\r\n      title: \"制服诱惑日系和服\", \r\n      url: \"#/tab/main_goodsItem?id=10011\"\r\n    }, \r\n    {\r\n      title: \"制服<span style=\'color:red\'>诱惑</span>日系和服\", \r\n      url: \"#/tab/main_goodsItem?id=10011\"\r\n    }, \r\n    {\r\n      title: \"制服诱惑日系和服\", \r\n      url: \"#/tab/main_goodsItem?id=10015\"\r\n    }, \r\n    {\r\n      title: \"制服诱惑日系和服论坛\", \r\n      url: \"#/tab/main_societyItem?id=11\"\r\n    }, \r\n    {\r\n      title: \"制服诱惑日系和服\", \r\n      url: \"#/tab/main_goodsItem?id=10011\"\r\n    }\r\n  ]\r\n}', '3', '1', '3', null, '1979-01-01 01:00:00', '2016-09-11 06:53:53');
-INSERT INTO `t_module` VALUES ('48', '热门', null, null, '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"<span style=\'color:red\'>诱惑</span>轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '4', null, '1979-01-01 01:00:00', '2016-09-11 07:02:16');
-INSERT INTO `t_module` VALUES ('49', '1元购', '1元购', '#/tab/gou', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"<span style=\'color:red\'>诱惑</span>轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '5', null, '1979-01-01 01:00:00', '2016-09-11 06:53:54');
-INSERT INTO `t_module` VALUES ('50', '情趣服饰', '情趣服饰', '#/tab/main_goodsList?typeId=1001&title=情趣服饰', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"<span style=\'color:red\'>诱惑</span>轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '6', null, '1979-01-01 01:00:00', '2016-09-11 06:53:55');
-INSERT INTO `t_module` VALUES ('51', '套套', '套套天堂', '#/tab/main_goodsList?typeId=1004&title=套套天堂', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/tt/tt120160403171019.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"精致铁盒\", \r\n        itemDesc: \"芳香果味\", \r\n        col: \"66\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tt/tt220160403171126.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"精致铁盒\", \r\n        itemDesc: \"芳香果味\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/tt/tt320160403171234.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"小号紧型\", \r\n        itemDesc: \"持久不泄\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tt/tt420160403170815.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"有型有色\", \r\n        itemDesc: \"颗粒香味套\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tt/tt520160403171400.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"薄若无物\", \r\n        itemDesc: \"零距离感受\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '7', null, '1979-01-01 01:00:00', '2016-09-11 06:53:55');
-INSERT INTO `t_module` VALUES ('52', '女用玩具', '女用玩具', '#/tab/main_goodsList?typeId=1003&title=女用玩具', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/ny/ny120160403165811.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"拍打式AV棒\", \r\n        itemDesc: \"比震动更疯狂\", \r\n        col: \"66\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/ny/ny220160403165912.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"诺兰摇情\", \r\n        itemDesc: \"一键潮湿\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/ny/ny320160403170431.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"转珠之王\", \r\n        itemDesc: \"次次爽翻天\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/ny/ny420160403170505.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"双头共震\", \r\n        itemDesc: \"任性不止一面\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/ny/ny520160403170603.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"时尚双震棒\", \r\n        itemDesc: \"30种变频\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '8', null, '1979-01-01 01:00:00', '2016-09-16 22:06:58');
-INSERT INTO `t_module` VALUES ('53', '男用玩具', '男用玩具', '#/tab/main_goodsList?typeId=1002&title=男用玩具', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/nan/nan120160403173103.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"震动吸允\", \r\n        itemDesc: \"充电电动杯\", \r\n        col: \"66\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/nan/nan220160403173157.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"名模露露\", \r\n        itemDesc: \"真人倒模\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/nan/nan320160403173350.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"萌女名器\", \r\n        itemDesc: \"蜀黍的嫩模\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/nan/nan420160403173453.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"谜姬美臀\", \r\n        itemDesc: \"双面双穴\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/nan/nan520160403173535.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"深喉的快感\", \r\n        itemDesc: \"香唇的畅享\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '9', null, '1979-01-01 01:00:00', '2016-09-16 22:07:01');
-INSERT INTO `t_module` VALUES ('54', '调情助兴', '调情助兴', '#/tab/main_goodsList?typeId=1002&title=调情助兴', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/tqzx/tq120160403174909.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"坚持不泄\", \r\n        itemDesc: \"持久加倍\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tqzx/tq220160403175009.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"快速点燃\", \r\n        itemDesc: \"让她颤抖\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tqzx/tq320160403175102.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"冰雪交融\", \r\n        itemDesc: \"滑向巅峰\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '10', null, '1979-01-01 01:00:00', '2016-09-16 22:07:05');
-INSERT INTO `t_module` VALUES ('55', '推荐', '推荐', null, null, '5', '1', '11', null, '1979-01-01 01:00:00', '2016-09-16 22:07:07');
+INSERT INTO `t_module` VALUES ('45', '轮播图', '', null, '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_societyItem?id=10\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10015\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/c0941c32bab2a063fd94ce1fcd710e89.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10016\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9298f2101fb7d8423ea1d7443ebac2d1.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10017\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/96c858c99f4b116e9c85aabc7a0baa3e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10018\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ]\r\n}', '1', '1', '1', '', '1979-01-01 01:00:00', '2016-11-30 00:51:52', '0');
+INSERT INTO `t_module` VALUES ('46', '类别', null, null, '{\r\n  subs: [\r\n    [\r\n      {\r\n        title: \"安全避孕\", \r\n        imgUrl: \"img/ico/174-condom (4).png\", \r\n        url: \"#/tab/main_goodsList?typeId=1004&title=安全避孕\"\r\n      }, \r\n      {\r\n        title: \"女人玩具\", \r\n        imgUrl: \"img/ico/sexy_girl.png\", \r\n        url: \"#/tab/main_goodsList?typeId=1003&title=女人玩具\"\r\n      }, \r\n      {\r\n        title: \"情趣内衣\", \r\n        imgUrl: \"img/ico/196-bra (5).png\", \r\n        url: \"#/tab/main_goodsList?typeId=1001&title=情趣内衣\"\r\n      }, \r\n      {\r\n        title: \"男人玩具\", \r\n        imgUrl: \"img/ico/star_wars.png\", \r\n        url: \"#/tab/main_goodsList?typeId=1002&title=男人玩具\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        title: \"延时助情\", \r\n        imgUrl: \"img/ico/34-time-machine (2).png\", \r\n        url: \"#/tab/main_goodsList?typeId=1005&title=延时助情\"\r\n      }, \r\n      {\r\n        title: \"调情润滑\", \r\n        imgUrl: \"img/ico/spiral.png\", \r\n        url: \"#/tab/main_goodsList?typeId=1006&title=调情润滑\"\r\n      }, \r\n      {\r\n        title: \"更多\", \r\n        imgUrl: \"img/ico/index_all.png\", \r\n        url: \"#/tab/main_goodsType?title=更多\"\r\n      }\r\n    ]\r\n  ]\r\n}', '2', '1', '2', null, '1979-01-01 01:00:00', '2016-11-30 00:51:53', '0');
+INSERT INTO `t_module` VALUES ('47', '广播', null, null, '{\r\n  imgs: [\r\n    {\r\n      title: \"制服诱惑日系和服\", \r\n      url: \"#/tab/main_goodsItem?id=10011\"\r\n    }, \r\n    {\r\n      title: \"制服<span style=\'color:red\'>诱惑</span>日系和服\", \r\n      url: \"#/tab/main_goodsItem?id=10011\"\r\n    }, \r\n    {\r\n      title: \"制服诱惑日系和服\", \r\n      url: \"#/tab/main_goodsItem?id=10015\"\r\n    }, \r\n    {\r\n      title: \"制服诱惑日系和服论坛\", \r\n      url: \"#/tab/main_societyItem?id=11\"\r\n    }, \r\n    {\r\n      title: \"制服诱惑日系和服\", \r\n      url: \"#/tab/main_goodsItem?id=10011\"\r\n    }\r\n  ]\r\n}', '3', '1', '3', null, '1979-01-01 01:00:00', '2016-11-30 00:51:54', '0');
+INSERT INTO `t_module` VALUES ('48', '热门', null, null, '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"<span style=\'color:red\'>诱惑</span>轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '4', null, '1979-01-01 01:00:00', '2016-11-30 00:51:54', '0');
+INSERT INTO `t_module` VALUES ('49', '1元购', '1元购', '#/tab/gou', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"<span style=\'color:red\'>诱惑</span>轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '5', null, '1979-01-01 01:00:00', '2016-11-30 00:51:55', '0');
+INSERT INTO `t_module` VALUES ('50', '情趣服饰', '情趣服饰', '#/tab/main_goodsList?typeId=1001&title=情趣服饰', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"<span style=\'color:red\'>诱惑</span>轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/qq/qq320160403172032.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"轻解罗裳\", \r\n        itemDesc: \"良宵一刻\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq420160403172127.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"听话女仆\", \r\n        itemDesc: \"会暖床会伺候\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/qq/qq520160403172156.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"性感T裤\", \r\n        itemDesc: \"下半身的诱惑\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '6', null, '1979-01-01 01:00:00', '2016-11-30 00:51:56', '0');
+INSERT INTO `t_module` VALUES ('51', '套套', '套套天堂', '#/tab/main_goodsList?typeId=1004&title=套套天堂', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/tt/tt120160403171019.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"精致铁盒\", \r\n        itemDesc: \"芳香果味\", \r\n        col: \"66\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tt/tt220160403171126.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"精致铁盒\", \r\n        itemDesc: \"芳香果味\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/tt/tt320160403171234.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"小号紧型\", \r\n        itemDesc: \"持久不泄\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tt/tt420160403170815.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"有型有色\", \r\n        itemDesc: \"颗粒香味套\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tt/tt520160403171400.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"薄若无物\", \r\n        itemDesc: \"零距离感受\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '7', null, '1979-01-01 01:00:00', '2016-11-30 00:51:56', '0');
+INSERT INTO `t_module` VALUES ('52', '女用玩具', '女用玩具', '#/tab/main_goodsList?typeId=1003&title=女用玩具', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/ny/ny120160403165811.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"拍打式AV棒\", \r\n        itemDesc: \"比震动更疯狂\", \r\n        col: \"66\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/ny/ny220160403165912.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"诺兰摇情\", \r\n        itemDesc: \"一键潮湿\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/ny/ny320160403170431.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"转珠之王\", \r\n        itemDesc: \"次次爽翻天\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/ny/ny420160403170505.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"双头共震\", \r\n        itemDesc: \"任性不止一面\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/ny/ny520160403170603.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"时尚双震棒\", \r\n        itemDesc: \"30种变频\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '8', null, '1979-01-01 01:00:00', '2016-11-30 00:51:57', '0');
+INSERT INTO `t_module` VALUES ('53', '男用玩具', '男用玩具', '#/tab/main_goodsList?typeId=1002&title=男用玩具', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/nan/nan120160403173103.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"震动吸允\", \r\n        itemDesc: \"充电电动杯\", \r\n        col: \"66\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/nan/nan220160403173157.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"名模露露\", \r\n        itemDesc: \"真人倒模\"\r\n      }\r\n    ], \r\n    [\r\n      {\r\n        imgUrl: \"img/main/nan/nan320160403173350.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"萌女名器\", \r\n        itemDesc: \"蜀黍的嫩模\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/nan/nan420160403173453.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"谜姬美臀\", \r\n        itemDesc: \"双面双穴\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/nan/nan520160403173535.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"深喉的快感\", \r\n        itemDesc: \"香唇的畅享\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '9', null, '1979-01-01 01:00:00', '2016-11-30 00:51:58', '0');
+INSERT INTO `t_module` VALUES ('54', '调情助兴', '调情助兴', '#/tab/main_goodsList?typeId=1002&title=调情助兴', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/main_goodsItem?id=10019\"\r\n    }\r\n  ], \r\n  subs: [\r\n    [\r\n      {\r\n        imgUrl: \"img/main/tqzx/tq120160403174909.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"坚持不泄\", \r\n        itemDesc: \"持久加倍\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tqzx/tq220160403175009.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"快速点燃\", \r\n        itemDesc: \"让她颤抖\"\r\n      }, \r\n      {\r\n        imgUrl: \"img/main/tqzx/tq320160403175102.jpg\", \r\n        url: \"#/tab/main_goodsItem?id=10019\", \r\n        itemTitle: \"冰雪交融\", \r\n        itemDesc: \"滑向巅峰\"\r\n      }\r\n    ]\r\n  ]\r\n}', '4', '1', '10', null, '1979-01-01 01:00:00', '2016-11-30 00:51:58', '0');
+INSERT INTO `t_module` VALUES ('55', '推荐', '推荐', null, null, '5', '1', '11', null, '1979-01-01 01:00:00', '2016-11-30 00:51:59', '0');
+INSERT INTO `t_module` VALUES ('56', '社区轮播图', null, '', '{\r\n  imgs: [\r\n    {\r\n      imgUrl: \"img/main/39dc41f96634710a4c5c69e250b54257.jpg\", \r\n      url: \"#/tab/society_societyItem?id=10\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/a77f88d71a0ac277230d067da1be2b7e.jpg\", \r\n      url: \"#/tab/society_goodsItem?id=10015\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/c0941c32bab2a063fd94ce1fcd710e89.jpg\", \r\n      url: \"#/tab/society_goodsItem?id=10016\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9298f2101fb7d8423ea1d7443ebac2d1.jpg\", \r\n      url: \"#/tab/society_goodsItem?id=10017\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/96c858c99f4b116e9c85aabc7a0baa3e.jpg\", \r\n      url: \"#/tab/society_goodsItem?id=10018\"\r\n    }, \r\n    {\r\n      imgUrl: \"img/main/9bcce5cd870e95734441caf6d210a2ee.jpg\", \r\n      url: \"#/tab/society_goodsItem?id=10019\"\r\n    }\r\n  ]\r\n}', '1', '2', '1', null, '1979-01-01 01:00:00', '2016-11-30 01:40:10', '0');
+INSERT INTO `t_module` VALUES ('57', '社区副', null, null, '{\r\n  imgs: [\r\n    {\r\n      clazz:\"ion-cash\", \r\n			color:\"balanced\",\r\n			col:\"col-25\",\r\n      url:\"#/tab/society_tyrant\",\r\n			title:\"土豪榜\"\r\n    }, \r\n    {\r\n      clazz:\"ion-heart\", \r\n			color:\"assertive\",\r\n			col:\"col-25\",\r\n      url: \"#/tab/society_charm\",\r\n			title:\"魅力榜\"\r\n    }, \r\n    {\r\n      clazz:\"ion-social-bitcoin-outline\",\r\n			color:\"energized\", \r\n			col:\"col-25\",\r\n      url:\"#/tab/society_regal\",\r\n			title:\"大富翁\"\r\n    }, \r\n    {\r\n			clazz:\"ion-ios-people\",\r\n			color:\"energized\", \r\n			col:\"col-25\",\r\n      url:\"#/tab/society_hotUser\",\r\n			title:\"焦点人物\"\r\n    }\r\n  ]\r\n}', '2', '2', '2', null, '1979-01-01 01:00:00', '2016-11-30 02:06:52', '0');
 
 -- ----------------------------
 -- Table structure for `t_order`
@@ -920,12 +1116,12 @@ CREATE TABLE `t_order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(64) DEFAULT NULL COMMENT '订单编号',
   `user_id` int(11) NOT NULL,
-  `address_id` int(11) DEFAULT NULL,
   `money` decimal(10,2) DEFAULT '0.00' COMMENT '商品总价',
   `total_money` decimal(10,2) DEFAULT '0.00' COMMENT '订单总价',
-  `pay_type` int(1) DEFAULT '0' COMMENT '支付方式（1是支付宝支付，2是微信支付,3货到付款）',
+  `payment_Id` int(1) DEFAULT '0' COMMENT '支付方式（1是支付宝支付，2是微信支付,3货到付款）',
+  `payment_name` varchar(32) DEFAULT NULL,
   `pay_status` int(1) DEFAULT '0' COMMENT '订单状态(0未支付,1支付成功,2支付未成功)',
-  `status` int(1) DEFAULT '1' COMMENT '订单状态(1待确认，2待发货，3运送中，4已完成)',
+  `status` int(1) DEFAULT '1' COMMENT '订单状态(1待付款，2待发货，3运送中，4已完成)',
   `post_id` int(11) DEFAULT NULL COMMENT '快递公司ID',
   `post_name` varchar(50) DEFAULT NULL COMMENT '快递公司名称',
   `post_code` varchar(50) DEFAULT NULL COMMENT '快递单号',
@@ -934,22 +1130,62 @@ CREATE TABLE `t_order` (
   `lost_money` decimal(10,2) DEFAULT '0.00' COMMENT '优惠金额',
   `invoice_is` int(1) DEFAULT NULL COMMENT '是否需要发票',
   `invoice_head` varchar(128) DEFAULT NULL COMMENT '发票抬头',
+  `address_id` int(11) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL COMMENT '地址详细信息',
+  `coupon_id` int(11) DEFAULT NULL COMMENT '优惠券id',
+  `coupon` varchar(255) DEFAULT NULL COMMENT '优惠券信息',
   `push` int(1) DEFAULT '0' COMMENT '消息推送记录(0为推送，1已推送)',
   `read_is` int(1) DEFAULT '0' COMMENT '订单状态是否已读(0未读，1已读)',
   `delete_flag` int(1) DEFAULT '0' COMMENT '删除标志',
   `form` int(1) DEFAULT '1' COMMENT '订单来源(1直接购买,2社区赠送,3一元购)',
   `remark` varchar(225) DEFAULT NULL COMMENT '备注',
   `explain` varchar(225) DEFAULT NULL COMMENT '订单说明',
+  `activitys` text COMMENT '活动l列表',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='订单信息';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='订单信息';
 
 -- ----------------------------
 -- Records of t_order
 -- ----------------------------
-INSERT INTO `t_order` VALUES ('1', 'GD878439578493', '1', '1', '15.00', null, '1', '1', '1', '8', '韵达快递', '3101001894999', '8.00', null, null, null, null, '0', '0', '0', '1', '要红色要大红色', null, '2016-09-22 01:55:58', '2016-09-21 00:57:11');
-INSERT INTO `t_order` VALUES ('2', 'GD9598034589ig9034', '1', '1', '29.00', null, '1', '2', '2', '8', '韵达快递', '280415419409', '0.00', null, null, null, null, '0', '0', '0', '1', '速度要快', null, '2016-09-22 01:56:36', '2016-09-21 00:57:01');
+INSERT INTO `t_order` VALUES ('1', 'GD878439578493', '1', '15.00', null, '1', null, '1', '1', '8', '韵达快递', '3101001894999', '8.00', null, null, null, null, '1', null, null, null, '0', '0', '0', '1', '要红色要大红色', null, null, '2016-09-22 01:55:58', '2016-09-21 00:57:11');
+INSERT INTO `t_order` VALUES ('2', 'GD9598034589ig9034', '1', '29.00', null, '1', null, '2', '2', '8', '韵达快递', '280415419409', '0.00', null, null, null, null, '1', null, null, null, '0', '0', '0', '1', '速度要快', null, null, '2016-09-22 01:56:36', '2016-09-21 00:57:01');
+INSERT INTO `t_order` VALUES ('6', '201611190650138167', '1', '362.00', '334.00', '2', '微信支付', '0', '1', null, null, null, '8.00', '8.00', '20.00', null, null, '2', '湖南省株洲市攸县 菜花坪东南村', '4', null, '0', '0', '0', '1', 'null', null, '[{\"id\":1,\"name\":\"情趣色子骰子筛子SM用品2粒夫妻情侣游戏惩罚纸牌扑克\",\"type\":3,\"max\":0,\"value\":0},{\"id\":2,\"name\":\"备年货满88元包邮\",\"type\":2,\"max\":88,\"value\":0},{\"id\":4,\"name\":\"满99包邮\",\"type\":2,\"max\":99,\"value\":0},{\"id\":6,\"name\":\"满59减5\",\"type\":4,\"max\":59,\"value\":5},{\"id\":7,\"name\":\"满99减10\",\"type\":4,\"max\":99,\"value\":10},{\"id\":8,\"name\":\"满199减20\",\"type\":4,\"max\":199,\"value\":20}]', '2016-11-19 06:50:13', '2016-11-19 06:50:13');
+INSERT INTO `t_order` VALUES ('7', '201611201547068830', '1', '362.00', '342.00', '2', '微信支付', '0', '1', null, null, null, '8.00', '8.00', '20.00', null, null, '1', '广东省深圳市罗湖区 黄贝岭街道经二路龙景花园芳庭苑', null, null, '0', '0', '0', '1', 'null', null, '[{\"id\":1,\"name\":\"情趣色子骰子筛子SM用品2粒夫妻情侣游戏惩罚纸牌扑克\",\"type\":3,\"max\":0,\"value\":0},{\"id\":2,\"name\":\"备年货满88元包邮\",\"type\":2,\"max\":88,\"value\":0},{\"id\":4,\"name\":\"满99包邮\",\"type\":2,\"max\":99,\"value\":0},{\"id\":6,\"name\":\"满59减5\",\"type\":4,\"max\":59,\"value\":5},{\"id\":7,\"name\":\"满99减10\",\"type\":4,\"max\":99,\"value\":10},{\"id\":8,\"name\":\"满199减20\",\"type\":4,\"max\":199,\"value\":20}]', '2016-11-20 15:47:06', '2016-11-20 15:47:06');
+INSERT INTO `t_order` VALUES ('8', '201611212311150737', '1', '79.00', '79.00', '2', '微信支付', '0', '1', null, null, null, '8.00', '0.00', '0.00', null, null, '2', '湖南省株洲市攸县 菜花坪东南村', '4', null, '0', '0', '0', '1', 'null', null, '[{\"id\":1,\"name\":\"情趣色子骰子筛子SM用品2粒夫妻情侣游戏惩罚纸牌扑克\",\"type\":3,\"max\":0,\"value\":0},{\"id\":4,\"name\":\"满99包邮\",\"type\":2,\"max\":99,\"value\":0}]', '2016-11-21 23:11:15', '2016-11-21 23:11:15');
+INSERT INTO `t_order` VALUES ('9', '201611230003266547', '1', '138.00', '128.00', '2', '微信支付', '0', '1', null, null, null, '8.00', '8.00', '0.00', null, null, '2', '湖南省株洲市攸县 菜花坪东南村', '1', '女用玩具专用[满99元可以用]', '0', '0', '0', '1', 'null', null, '[{\"id\":4,\"name\":\"满99包邮\",\"type\":2,\"max\":99,\"value\":0}]', '2016-11-23 00:03:26', '2016-11-23 00:03:26');
+INSERT INTO `t_order` VALUES ('10', '201611230006320001', '1', '138.00', '128.00', '2', '微信支付', '0', '1', null, null, null, '8.00', '8.00', '0.00', null, null, '2', '湖南省株洲市攸县 菜花坪东南村', '1', '女用玩具专用[满99元可以用]', '0', '0', '0', '1', 'null', null, '[{\"id\":4,\"name\":\"满99包邮\",\"type\":2,\"max\":99,\"value\":0}]', '2016-11-23 00:06:32', '2016-11-23 00:06:32');
+INSERT INTO `t_order` VALUES ('11', '201611230006499426', '1', '69.00', '77.00', '2', '微信支付', '0', '1', null, null, null, '8.00', '0.00', '0.00', null, null, '2', '湖南省株洲市攸县 菜花坪东南村', null, null, '0', '0', '0', '1', '尔特让他', null, '[{\"id\":4,\"name\":\"满99包邮\",\"type\":2,\"max\":99,\"value\":0}]', '2016-11-23 00:06:49', '2016-11-23 00:06:49');
+INSERT INTO `t_order` VALUES ('12', '201611230006506212', '1', '69.00', '77.00', '2', '微信支付', '0', '1', null, null, null, '8.00', '0.00', '0.00', null, null, '2', '湖南省株洲市攸县 菜花坪东南村', null, null, '0', '0', '0', '1', '尔特让他', null, '[{\"id\":4,\"name\":\"满99包邮\",\"type\":2,\"max\":99,\"value\":0}]', '2016-11-23 00:06:50', '2016-11-23 00:06:50');
+INSERT INTO `t_order` VALUES ('14', '201611230212506029', '1', '348.00', '320.00', '2', '微信支付', '0', '1', null, null, null, '8.00', '8.00', '20.00', null, null, '2', '湖南省株洲市攸县 菜花坪东南村', '4', null, '0', '0', '0', '1', '我们爱你', null, '[{\"id\":1,\"name\":\"情趣色子骰子筛子SM用品2粒夫妻情侣游戏惩罚纸牌扑克\",\"type\":3,\"max\":0,\"value\":0},{\"id\":2,\"name\":\"备年货满88元包邮\",\"type\":2,\"max\":88,\"value\":0},{\"id\":4,\"name\":\"满99包邮\",\"type\":2,\"max\":99,\"value\":0},{\"id\":6,\"name\":\"满59减5\",\"type\":4,\"max\":59,\"value\":5},{\"id\":7,\"name\":\"满99减10\",\"type\":4,\"max\":99,\"value\":10},{\"id\":8,\"name\":\"满199减20\",\"type\":4,\"max\":199,\"value\":20}]', '2016-11-23 02:12:50', '2016-11-23 02:12:50');
+
+-- ----------------------------
+-- Table structure for `t_order_activity`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_order_activity`;
+CREATE TABLE `t_order_activity` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '活动ID',
+  `order_id` int(12) DEFAULT NULL COMMENT '订单ID',
+  `activity_id` int(12) DEFAULT NULL,
+  `name` varchar(225) DEFAULT NULL COMMENT '活动名称',
+  `url` varchar(255) DEFAULT NULL COMMENT '活动链接地址',
+  `detail` varchar(225) DEFAULT NULL COMMENT '活动详情',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='活动';
+
+-- ----------------------------
+-- Records of t_order_activity
+-- ----------------------------
+INSERT INTO `t_order_activity` VALUES ('1', null, null, '情趣色子骰子筛子SM用品2粒夫妻情侣游戏惩罚纸牌扑克', null, null, '2016-03-11 23:53:30');
+INSERT INTO `t_order_activity` VALUES ('2', null, null, '备年货满88元包邮', null, null, '2016-03-11 23:53:30');
+INSERT INTO `t_order_activity` VALUES ('3', null, null, '包邮', null, null, '2016-03-11 23:53:30');
+INSERT INTO `t_order_activity` VALUES ('4', null, null, '满99包邮', null, null, '1979-01-01 01:00:00');
+INSERT INTO `t_order_activity` VALUES ('5', null, null, '制服有礼·特惠活动', null, '爆款情趣制服限时送进口BK指甲油+陌陌水蜜桃味避孕套2只装！！活动时间：3.17-3.25！！礼品数量有限，送完即止哦~', '2016-03-20 02:34:45');
+INSERT INTO `t_order_activity` VALUES ('6', null, null, '满59减5', null, null, '1979-01-01 01:00:00');
+INSERT INTO `t_order_activity` VALUES ('7', null, null, '满99减10', null, null, '1979-01-01 01:00:00');
+INSERT INTO `t_order_activity` VALUES ('8', null, null, '满199减20', null, null, '1979-01-01 01:00:00');
 
 -- ----------------------------
 -- Table structure for `t_order_item`
@@ -961,9 +1197,9 @@ CREATE TABLE `t_order_item` (
   `goods_id` int(11) NOT NULL COMMENT '产品单品ID',
   `goods_name` varchar(64) NOT NULL COMMENT '单品名称',
   `goods_img` varchar(128) DEFAULT NULL,
-  `format_id` int(11) DEFAULT NULL COMMENT '规格ID',
-  `format_name` varchar(100) DEFAULT '' COMMENT '商品规格名称',
-  `number` int(11) DEFAULT '0' COMMENT '购买数量',
+  `formats` varchar(225) DEFAULT '' COMMENT '商品规格名称',
+  `activitys` varchar(255) DEFAULT NULL,
+  `num` int(11) DEFAULT '0' COMMENT '购买数量',
   `price` decimal(10,0) DEFAULT '0' COMMENT '成交价格',
   `market_price` decimal(10,0) DEFAULT '0' COMMENT '市场价格',
   `remark` varchar(225) DEFAULT NULL COMMENT '备注',
@@ -971,14 +1207,85 @@ CREATE TABLE `t_order_item` (
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='订单详情';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='订单详情';
 
 -- ----------------------------
 -- Records of t_order_item
 -- ----------------------------
-INSERT INTO `t_order_item` VALUES ('1', '1', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '2', '大红色（肚兜+系带T裤）', '2', '19', '29', '', '0', '2016-09-21 00:58:28', '1979-01-01 01:00:00');
-INSERT INTO `t_order_item` VALUES ('2', '1', '10010', '久慕雅黛 古典复古和服风深V开衩短裙日式情趣内衣', 'http://mallimg01.touchcdn.com/goods-gallery/e2d09b3577f70bcbf769bca6666c3c43.jpg?imageView/2/w/416/interlace/1', '2', '大红色（肚兜+系带T裤）', '2', '19', '29', null, '0', '2016-09-22 00:39:33', '1979-01-01 01:00:00');
-INSERT INTO `t_order_item` VALUES ('3', '2', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '2', '大红色（肚兜+系带T裤）', '4', '19', '29', null, '0', '2016-09-21 01:17:15', '1979-01-01 01:00:00');
+INSERT INTO `t_order_item` VALUES ('1', '1', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '2', '19', '29', '', '0', '2016-11-19 05:58:03', '1979-01-01 01:00:00');
+INSERT INTO `t_order_item` VALUES ('2', '1', '10010', '久慕雅黛 古典复古和服风深V开衩短裙日式情趣内衣', 'http://mallimg01.touchcdn.com/goods-gallery/e2d09b3577f70bcbf769bca6666c3c43.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '2', '19', '29', null, '0', '2016-11-19 05:58:19', '1979-01-01 01:00:00');
+INSERT INTO `t_order_item` VALUES ('3', '2', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '4', '19', '29', null, '0', '2016-11-19 05:58:22', '1979-01-01 01:00:00');
+INSERT INTO `t_order_item` VALUES ('6', '6', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '规格：磨砂AU9999褐色大红色（肚兜+系带T裤）', null, '3', '17', '49', null, '0', '2016-11-19 06:50:13', '2016-11-19 06:50:13');
+INSERT INTO `t_order_item` VALUES ('7', '6', '10027', '荷兰COB女优签名版震动飞机杯', 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '3', '99', '99', null, '0', '2016-11-19 06:50:13', '2016-11-19 06:50:13');
+INSERT INTO `t_order_item` VALUES ('8', '6', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '规格：抛光AU999黑色大红色（肚兜+系带T裤）大红色（肚兜+系带T裤）', null, '1', '14', '49', null, '0', '2016-11-19 06:50:13', '2016-11-19 06:50:13');
+INSERT INTO `t_order_item` VALUES ('9', '7', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '规格：磨砂AU9999褐色大红色（肚兜+系带T裤）', null, '3', '17', '49', null, '0', '2016-11-20 15:47:06', '2016-11-20 15:47:06');
+INSERT INTO `t_order_item` VALUES ('10', '7', '10027', '荷兰COB女优签名版震动飞机杯', 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '3', '99', '99', null, '0', '2016-11-20 15:47:06', '2016-11-20 15:47:06');
+INSERT INTO `t_order_item` VALUES ('11', '7', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '规格：抛光AU999黑色大红色（肚兜+系带T裤）大红色（肚兜+系带T裤）', null, '1', '14', '49', null, '0', '2016-11-20 15:47:06', '2016-11-20 15:47:06');
+INSERT INTO `t_order_item` VALUES ('12', '8', '10017', '【包邮】品色伸缩转珠震动按摩AV棒', 'http://mallimg01.touchcdn.com/goods-gallery/0ff07592e560f8d86f35486eeda10e63.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '1', '79', '148', null, '0', '2016-11-21 23:11:15', '2016-11-21 23:11:15');
+INSERT INTO `t_order_item` VALUES ('13', '9', '10018', '阿芙拉G点妖精10变频模式震动棒', 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '2', '69', '69', null, '0', '2016-11-23 00:03:26', '2016-11-23 00:03:26');
+INSERT INTO `t_order_item` VALUES ('14', '10', '10018', '阿芙拉G点妖精10变频模式震动棒', 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '2', '69', '69', null, '0', '2016-11-23 00:06:32', '2016-11-23 00:06:32');
+INSERT INTO `t_order_item` VALUES ('15', '11', '10018', '阿芙拉G点妖精10变频模式震动棒', 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '1', '69', '69', null, '0', '2016-11-23 00:06:49', '2016-11-23 00:06:49');
+INSERT INTO `t_order_item` VALUES ('16', '12', '10018', '阿芙拉G点妖精10变频模式震动棒', 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '1', '69', '69', null, '0', '2016-11-23 00:06:50', '2016-11-23 00:06:50');
+INSERT INTO `t_order_item` VALUES ('19', '14', '10001', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '规格：磨砂AU9999褐色大红色（肚兜+系带T裤）', null, '3', '17', '49', null, '0', '2016-11-23 02:12:50', '2016-11-23 02:12:50');
+INSERT INTO `t_order_item` VALUES ('20', '14', '10027', '荷兰COB女优签名版震动飞机杯', 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', '规格：大红色（肚兜+系带T裤）', null, '3', '99', '99', null, '0', '2016-11-23 02:12:50', '2016-11-23 02:12:50');
+
+-- ----------------------------
+-- Table structure for `t_order_item_format`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_order_item_format`;
+CREATE TABLE `t_order_item_format` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '订单项Id',
+  `order_item_id` int(11) NOT NULL COMMENT '主订单ID',
+  `format_sub_id` int(11) NOT NULL COMMENT '规格子类ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单商品的规格';
+
+-- ----------------------------
+-- Records of t_order_item_format
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_payment`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_payment`;
+CREATE TABLE `t_payment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `icon` varchar(32) DEFAULT NULL COMMENT '图标',
+  `name` varchar(32) DEFAULT NULL COMMENT '名称',
+  `type` int(1) DEFAULT '1' COMMENT '类型（2,余额支付）',
+  `rev_account` varchar(255) DEFAULT NULL COMMENT '接收账号',
+  `pay_url` varchar(255) DEFAULT NULL COMMENT '支付URL',
+  `check` int(1) DEFAULT '0' COMMENT '是否选中',
+  `delete_flag` int(1) DEFAULT '0' COMMENT '删除标志',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_payment
+-- ----------------------------
+INSERT INTO `t_payment` VALUES ('1', '&#xe61b;', '支付宝', '1', null, null, '0', '0', '2016-11-08 23:38:14', '2016-11-17 01:32:13');
+INSERT INTO `t_payment` VALUES ('2', '&#xe61c;', '微信支付', '1', null, null, '1', '0', '2016-11-08 23:38:14', '2016-11-16 01:39:14');
+INSERT INTO `t_payment` VALUES ('3', '', '使用余额支付', '2', null, null, '0', '0', '1979-01-01 01:00:00', '2016-11-16 01:39:17');
+
+-- ----------------------------
+-- Table structure for `t_payment_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_payment_user`;
+CREATE TABLE `t_payment_user` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `user_id` int(12) DEFAULT NULL COMMENT '用户ID',
+  `payment_id` int(12) DEFAULT NULL COMMENT '支付ID',
+  `checked` int(1) DEFAULT '0' COMMENT '是否选中',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 COMMENT='用户默认支付方式';
+
+-- ----------------------------
+-- Records of t_payment_user
+-- ----------------------------
+INSERT INTO `t_payment_user` VALUES ('79', '1', '2', '1', '2016-11-26 00:38:59');
 
 -- ----------------------------
 -- Table structure for `t_pic`
@@ -987,146 +1294,194 @@ DROP TABLE IF EXISTS `t_pic`;
 CREATE TABLE `t_pic` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `obj_id` int(10) DEFAULT NULL COMMENT '商品类型',
-  `type` int(10) DEFAULT NULL COMMENT '图片类型(1是商品图，10是评论图片,11是论坛评论图片)',
+  `type` int(5) DEFAULT NULL COMMENT '图片类型(1是商品图，2是商品评论图片,3是论坛评论图片,4意见反馈图)',
+  `url_type` int(1) DEFAULT '1' COMMENT '地址类型(1.完整，2.系统路径)',
   `pic_title` varchar(50) DEFAULT NULL COMMENT '图片标题',
-  `pic_url` varchar(225) DEFAULT NULL,
+  `pic_url` varchar(225) DEFAULT NULL COMMENT '图片地址',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=333 DEFAULT CHARSET=utf8 COMMENT='商品图片';
+) ENGINE=MyISAM AUTO_INCREMENT=380 DEFAULT CHARSET=utf8 COMMENT='商品图片';
 
 -- ----------------------------
 -- Records of t_pic
 -- ----------------------------
-INSERT INTO `t_pic` VALUES ('258', '10010', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/62c05f953f710e43b3b1e7fa96f32645.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-03-20 15:22:59');
-INSERT INTO `t_pic` VALUES ('257', '10010', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/196eec538da335c121a408aa6b467ef2.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-03-20 15:22:59');
-INSERT INTO `t_pic` VALUES ('256', '10010', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/36cb608bf41aa5ad4295695f1babf5f6.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-03-20 15:22:59');
-INSERT INTO `t_pic` VALUES ('306', '10001', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/5b108a2510375f01d43fe1dcd4e9eecd.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-03-20 16:25:44');
-INSERT INTO `t_pic` VALUES ('305', '10001', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/14e6793976be8ee85e9ef438d7938e3f.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-03-20 16:25:44');
-INSERT INTO `t_pic` VALUES ('304', '10001', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/9421a522eeac4883813867ccde5d1cb4.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-03-20 16:25:44');
-INSERT INTO `t_pic` VALUES ('303', '10001', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/64c68633df54140dbd09cd021ee9b5b9.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-03-20 16:25:44');
-INSERT INTO `t_pic` VALUES ('302', '10001', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/330f0592f39c14702da8f2fddc52a032.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-03-20 16:25:44');
-INSERT INTO `t_pic` VALUES ('301', '10001', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-03-20 16:25:44');
-INSERT INTO `t_pic` VALUES ('255', '10010', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/e2d09b3577f70bcbf769bca6666c3c43.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-03-20 15:22:59');
-INSERT INTO `t_pic` VALUES ('263', '10011', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/59918a6cf26d581a0735ab0528e85a55.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-03-20 15:23:21');
-INSERT INTO `t_pic` VALUES ('262', '10011', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/820a0c2e6837cc7902742ae06147d0d8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-03-20 15:23:21');
-INSERT INTO `t_pic` VALUES ('261', '10011', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/ac66b58dbe03cc7ad793b46301350334.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-03-20 15:23:21');
-INSERT INTO `t_pic` VALUES ('260', '10011', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/d62dd935bcd1961ab62d465682e457bb.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-03-20 15:23:21');
-INSERT INTO `t_pic` VALUES ('259', '10011', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0e65fea48479e7da41432b9bb774bca0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-03-20 15:23:21');
-INSERT INTO `t_pic` VALUES ('109', '10012', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/b75134196cccd1a6fc88c1bfe2627b43.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-03-20 02:52:34');
-INSERT INTO `t_pic` VALUES ('108', '10012', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/7dc328546712541f0febe4a4545ce145.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-03-20 02:52:34');
-INSERT INTO `t_pic` VALUES ('107', '10012', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f9cab1f105d6a9f58eeafcd9290bbfd7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-03-20 02:52:34');
-INSERT INTO `t_pic` VALUES ('106', '10012', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fdac73029cc79af334bf8b0640ee4bd8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-03-20 02:52:34');
-INSERT INTO `t_pic` VALUES ('105', '10012', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/14b0409f86e08e4753c34664a1086ca1.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-03-20 02:52:34');
-INSERT INTO `t_pic` VALUES ('269', '10013', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/4776a61e272714388dc7b065a3ceb39b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-03-20 15:23:44');
-INSERT INTO `t_pic` VALUES ('268', '10013', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2271392d21bdd999e6a3ea480b29aa9b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-03-20 15:23:44');
-INSERT INTO `t_pic` VALUES ('267', '10013', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c14e199c7e637d3154b91fbb54288a3f.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-03-20 15:23:44');
-INSERT INTO `t_pic` VALUES ('266', '10013', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/d00100bffed51b375b637692832c061d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-03-20 15:23:44');
-INSERT INTO `t_pic` VALUES ('265', '10013', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/cd45e792142d6258d7150949bac81365.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-03-20 15:23:44');
-INSERT INTO `t_pic` VALUES ('264', '10013', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/625edf645a7c9e04ff8ef24555eb3179.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-03-20 15:23:44');
-INSERT INTO `t_pic` VALUES ('139', '10014', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c1db41303a5eee78c6a162907b7abbbb.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-03-20 02:59:14');
-INSERT INTO `t_pic` VALUES ('138', '10014', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/65b373715dc92a9fea62d3fa5ccf0a61.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-03-20 02:59:14');
-INSERT INTO `t_pic` VALUES ('137', '10014', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/af9450deb5a36dc7b23dc3c30a2c74da.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-03-20 02:59:14');
-INSERT INTO `t_pic` VALUES ('136', '10014', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/65cad638981b745dc650721008a30cb6.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-03-20 02:59:14');
-INSERT INTO `t_pic` VALUES ('135', '10014', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fbad59b9eeaf23cc8abf49b0b7bd048f.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-03-20 02:59:14');
-INSERT INTO `t_pic` VALUES ('134', '10014', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2ad130751aaeff8423bf3d2e4733f10d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-03-20 02:59:14');
-INSERT INTO `t_pic` VALUES ('273', '10015', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/1e1092bb153104ceb46eb88ae13e8ea0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-03-20 15:24:05');
-INSERT INTO `t_pic` VALUES ('272', '10015', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/844e3fbdbf4b909d8bac331e2f40d923.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-03-20 15:24:05');
-INSERT INTO `t_pic` VALUES ('271', '10015', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/7e66f120c4225ed0de8312eb06692805.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-03-20 15:24:05');
-INSERT INTO `t_pic` VALUES ('270', '10015', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/cb5c8464c08fea2958a9a44fb6378585.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-03-20 15:24:05');
-INSERT INTO `t_pic` VALUES ('153', '10017', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0ff07592e560f8d86f35486eeda10e63.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-03-20 12:00:53');
-INSERT INTO `t_pic` VALUES ('152', '10017', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/bdb7240ed32d79b9516c29fdd5f57617.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-03-20 12:00:53');
-INSERT INTO `t_pic` VALUES ('151', '10017', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/7f0aea198c645bc806fc95aad92c32c7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-03-20 12:00:53');
-INSERT INTO `t_pic` VALUES ('150', '10017', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2Qg90cVXXXXcgXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-03-20 12:00:53');
-INSERT INTO `t_pic` VALUES ('149', '10017', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/aee42dacf63319a947e1795f4ffe4a5a.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-03-20 12:00:53');
-INSERT INTO `t_pic` VALUES ('212', '10018', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-03-20 12:20:53');
-INSERT INTO `t_pic` VALUES ('211', '10018', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a269f6556513e98e491c8f9eead13e8d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-03-20 12:20:53');
-INSERT INTO `t_pic` VALUES ('210', '10018', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB28jACaXXXXXbZXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-03-20 12:20:53');
-INSERT INTO `t_pic` VALUES ('209', '10018', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/d7e8d30814364036a2e194e9d4dc0be1.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-03-20 12:20:53');
-INSERT INTO `t_pic` VALUES ('208', '10020', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fad231cc46a6370394305b348f90cb81.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-03-20 12:20:05');
-INSERT INTO `t_pic` VALUES ('207', '10020', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/b29a40a3f583579fdf76be66c108e667.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-03-20 12:20:05');
-INSERT INTO `t_pic` VALUES ('206', '10020', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/781b0e3d85cbe3b456dc7b9d8c736aca.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-03-20 12:20:05');
-INSERT INTO `t_pic` VALUES ('205', '10020', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f0d8144291cf2cf8775dfe297d55e705.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-03-20 12:20:05');
-INSERT INTO `t_pic` VALUES ('204', '10020', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/09d7fcf1ba283ac6bec39b689c78a212.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-03-20 12:20:05');
-INSERT INTO `t_pic` VALUES ('294', '10021', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/780351631779514a70bae1fdf25c4139.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-03-20 15:32:40');
-INSERT INTO `t_pic` VALUES ('293', '10021', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/baada555e4e8aa0769b89bffeea9f6e8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-03-20 15:32:40');
-INSERT INTO `t_pic` VALUES ('292', '10021', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/ccdc66ca73bab2f4cb67b4c04ab51509.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-03-20 15:32:40');
-INSERT INTO `t_pic` VALUES ('291', '10021', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0fbc9429d5ccf0748ca5a5df7e48ea97.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-03-20 15:32:40');
-INSERT INTO `t_pic` VALUES ('290', '10021', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/7c2b63718f0408b5308439c6c14c3e31.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-03-20 15:32:40');
-INSERT INTO `t_pic` VALUES ('289', '10021', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/448a62f36833a1e51906e2aad40234a5.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-03-20 15:32:40');
-INSERT INTO `t_pic` VALUES ('288', '10021', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c60834843534de6135db5dd35caf4366.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-03-20 15:32:40');
-INSERT INTO `t_pic` VALUES ('191', '10023', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/22c56205dc707ef0c4d5505dddc07f79.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-03-20 12:17:38');
-INSERT INTO `t_pic` VALUES ('190', '10023', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/11e332376331ea716547af3ca572924b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-03-20 12:17:38');
-INSERT INTO `t_pic` VALUES ('189', '10023', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2ErHcVXXXXcfXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-03-20 12:17:38');
-INSERT INTO `t_pic` VALUES ('188', '10023', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2dQ5AcFXXXXXlXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-03-20 12:17:38');
-INSERT INTO `t_pic` VALUES ('187', '10023', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/87a645ff5692188338007c6747922a93.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-03-20 12:17:38');
-INSERT INTO `t_pic` VALUES ('203', '10022', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/73688eac2b67ef212af124bf52bcbbf4.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-03-20 12:19:22');
-INSERT INTO `t_pic` VALUES ('202', '10022', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/76257f616ac0935d8098786e8631aae5.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-03-20 12:19:22');
-INSERT INTO `t_pic` VALUES ('201', '10022', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c9ad8d6827eeb4a43b263547c3d81f3d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-03-20 12:19:22');
-INSERT INTO `t_pic` VALUES ('200', '10022', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/6889d3e74226cabc3cfcbb3305e59e3e.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-03-20 12:19:22');
-INSERT INTO `t_pic` VALUES ('199', '10022', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f7bd93f7b426875ab217edb7bcc19b52.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-03-20 12:19:22');
-INSERT INTO `t_pic` VALUES ('198', '10022', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/d7ed7e65c2012d4d2ccd18c261133f86.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-03-20 12:19:22');
-INSERT INTO `t_pic` VALUES ('222', '10024', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/89ba5d2dd2fa7cadf603db8feb06a79b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-03-20 12:28:52');
-INSERT INTO `t_pic` VALUES ('221', '10024', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2exwdXXXXXbHXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-03-20 12:28:52');
-INSERT INTO `t_pic` VALUES ('220', '10024', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2LP8AbXXXXXbuXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-03-20 12:28:52');
-INSERT INTO `t_pic` VALUES ('219', '10024', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2OXxDbXXXXXXBXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-03-20 12:28:52');
-INSERT INTO `t_pic` VALUES ('218', '10024', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2lihCdFXXXXX.XpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-03-20 12:28:52');
-INSERT INTO `t_pic` VALUES ('300', '10025', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2d9c7b0bf25022e69e9ebe1c169a5ea7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-03-20 15:33:33');
-INSERT INTO `t_pic` VALUES ('299', '10025', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0bf2de342ce2c3734b349a57e4078d15.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-03-20 15:33:33');
-INSERT INTO `t_pic` VALUES ('298', '10025', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/85992d96e74d4ec58f23e31759a454db.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-03-20 15:33:33');
-INSERT INTO `t_pic` VALUES ('297', '10025', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fb81fb9786ceeb66e1b0d5dc62991d23.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-03-20 15:33:33');
-INSERT INTO `t_pic` VALUES ('296', '10025', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/49578348f144fd8d914f155e25db57c0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-03-20 15:33:33');
-INSERT INTO `t_pic` VALUES ('295', '10025', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/130b27b5d38de9d9c1017ed56d02dae7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-03-20 15:33:33');
-INSERT INTO `t_pic` VALUES ('240', '10026', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/af4c84b6cba85c2008777d5993f901d8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:35:16', '2016-03-20 12:35:16');
-INSERT INTO `t_pic` VALUES ('239', '10026', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/322d6224f5ba4e438719a5fa4084c8a5.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:35:16', '2016-03-20 12:35:16');
-INSERT INTO `t_pic` VALUES ('238', '10026', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c294f52da9a6e0340fa7b5b867bd717b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:35:16', '2016-03-20 12:35:16');
-INSERT INTO `t_pic` VALUES ('248', '10027', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2vlMocVXXXXX6XXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-03-20 13:09:35');
-INSERT INTO `t_pic` VALUES ('247', '10027', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2P4wYcXXXXXblXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-03-20 13:09:35');
-INSERT INTO `t_pic` VALUES ('246', '10027', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2oyc0cXXXXXabXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-03-20 13:09:35');
-INSERT INTO `t_pic` VALUES ('245', '10027', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-03-20 13:09:35');
-INSERT INTO `t_pic` VALUES ('249', '10028', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/4704fb20bc7dae5fe74a1e063fca4556.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-03-20 15:08:24');
-INSERT INTO `t_pic` VALUES ('250', '10028', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2D.P3cVXXXXXoXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-03-20 15:08:24');
-INSERT INTO `t_pic` VALUES ('251', '10028', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB266f1cVXXXXXXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-03-20 15:08:24');
-INSERT INTO `t_pic` VALUES ('252', '10028', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2bhkdcVXXXXaUXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-03-20 15:08:24');
-INSERT INTO `t_pic` VALUES ('253', '10029', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2bb05b248e64ce3c79d3537bba3f26e3.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:10:17', '2016-03-20 15:10:17');
-INSERT INTO `t_pic` VALUES ('254', '10029', '1', null, 'http://mallimg01.touchcdn.com/gallery/T2ZVO3XepXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:10:17', '2016-03-20 15:10:17');
-INSERT INTO `t_pic` VALUES ('274', '10016', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2RsohcFXXXXakXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-03-20 15:25:47');
-INSERT INTO `t_pic` VALUES ('275', '10016', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/aee42dacf63319a947e1795f4ffe4a5a.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-03-20 15:25:47');
-INSERT INTO `t_pic` VALUES ('276', '10016', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB28ei4dFXXXXb1XpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-03-20 15:25:47');
-INSERT INTO `t_pic` VALUES ('277', '10016', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2NBfbdFXXXXXMXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-03-20 15:25:47');
-INSERT INTO `t_pic` VALUES ('278', '10016', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/74012b98652380535147cb4fba4570e2.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-03-20 15:25:47');
-INSERT INTO `t_pic` VALUES ('279', '10016', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c92001650e0ee58156361d6138ce9a40.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-03-20 15:25:47');
-INSERT INTO `t_pic` VALUES ('280', '10016', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/ee036ead0144bda69e833dfc38823314.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-03-20 15:25:47');
-INSERT INTO `t_pic` VALUES ('281', '10019', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-03-20 15:29:08');
-INSERT INTO `t_pic` VALUES ('282', '10019', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB20wxgcXXXXXakXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-03-20 15:29:08');
-INSERT INTO `t_pic` VALUES ('283', '10019', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2mZaHcpXXXXaeXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-03-20 15:29:08');
-INSERT INTO `t_pic` VALUES ('284', '10019', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2nHMxcpXXXXblXpXXXXXXXXXX468359490.png?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-03-20 15:29:08');
-INSERT INTO `t_pic` VALUES ('285', '10019', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2.mubdXXXXXXbXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-03-20 15:29:08');
-INSERT INTO `t_pic` VALUES ('286', '10019', '1', null, 'http://mallimg01.touchcdn.com/gallery/992d2130577d06950b6050727a7d2ad4.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-03-20 15:29:08');
-INSERT INTO `t_pic` VALUES ('287', '10019', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f10826828ce2688f6749ed0916987e1c.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-03-20 15:29:08');
-INSERT INTO `t_pic` VALUES ('307', '10030', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-03-20 20:01:28');
-INSERT INTO `t_pic` VALUES ('308', '10030', '1', null, 'http://mallimg01.touchcdn.com/gallery/00e263cb1ffd6b32177460c3aa670b37.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-03-20 20:01:28');
-INSERT INTO `t_pic` VALUES ('309', '10030', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c44ed5af3e70e1c9875aea82cc3eeaa3.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-03-20 20:01:28');
-INSERT INTO `t_pic` VALUES ('310', '10030', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/b3c1d614f4d8ce9b6eb8bd8671536a60.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-03-20 20:01:28');
-INSERT INTO `t_pic` VALUES ('311', '10031', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/02f98b01062aeab43ed3016039ca578c.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-03-20 20:14:30');
-INSERT INTO `t_pic` VALUES ('312', '10031', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2uXVWaVXXXXXkXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-03-20 20:14:30');
-INSERT INTO `t_pic` VALUES ('313', '10031', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/dfbdee83cd0a5f883e9e600be375587b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-03-20 20:14:30');
-INSERT INTO `t_pic` VALUES ('314', '10031', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/710ea84011e981257601d4e35447c0a2.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-03-20 20:14:30');
-INSERT INTO `t_pic` VALUES ('315', '10031', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a0402f7f10a0970e71423aeb7b0a5106.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-03-20 20:14:30');
-INSERT INTO `t_pic` VALUES ('316', '10032', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/be760b80bcd4067931b8ce7d4f5430f9.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-03-20 20:29:18');
-INSERT INTO `t_pic` VALUES ('317', '10032', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0a60c3e180b94f86ead9c20993b3ebff.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-03-20 20:29:18');
-INSERT INTO `t_pic` VALUES ('318', '10032', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2b62628cad1c183f1e1101ca9d0408b0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-03-20 20:29:18');
-INSERT INTO `t_pic` VALUES ('319', '10032', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/05c9b769dc0b02ec529b0a57d6815c14.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-03-20 20:29:18');
-INSERT INTO `t_pic` VALUES ('320', '10032', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-03-20 20:29:18');
-INSERT INTO `t_pic` VALUES ('321', '10032', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f1a1567080d6b06e96651ac87b91ce89.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-03-20 20:29:18');
-INSERT INTO `t_pic` VALUES ('327', '10033', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a53c917d0b68d4e9039e592198db1495.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:40:58', '2016-03-20 20:40:58');
-INSERT INTO `t_pic` VALUES ('326', '10033', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:40:58', '2016-03-20 20:40:58');
-INSERT INTO `t_pic` VALUES ('325', '10033', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f6031e0efdb9d15cbacb07b572a77073.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:40:58', '2016-03-20 20:40:58');
-INSERT INTO `t_pic` VALUES ('328', '10034', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fd944f54b22da916e62a79af9d455ab7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-03-20 20:42:24');
-INSERT INTO `t_pic` VALUES ('329', '10034', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/db8f022e18472b764f5d6d7fa3d1641c.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-03-20 20:42:24');
-INSERT INTO `t_pic` VALUES ('330', '10034', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/78023b2fe2c32dafe98335c73992cfe0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-03-20 20:42:24');
-INSERT INTO `t_pic` VALUES ('331', '10034', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/07ea462a5db849d6510faa2db5455358.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-03-20 20:42:24');
-INSERT INTO `t_pic` VALUES ('332', '10034', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/e1d3761ffeccceee9836f78a4ae0172d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-03-20 20:42:24');
+INSERT INTO `t_pic` VALUES ('258', '10010', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/62c05f953f710e43b3b1e7fa96f32645.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-10-14 00:53:56');
+INSERT INTO `t_pic` VALUES ('257', '10010', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/196eec538da335c121a408aa6b467ef2.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-10-14 00:53:59');
+INSERT INTO `t_pic` VALUES ('256', '10010', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/36cb608bf41aa5ad4295695f1babf5f6.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-10-14 00:54:00');
+INSERT INTO `t_pic` VALUES ('306', '10010', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/5b108a2510375f01d43fe1dcd4e9eecd.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-10-14 00:54:01');
+INSERT INTO `t_pic` VALUES ('305', '10001', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/14e6793976be8ee85e9ef438d7938e3f.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('304', '10001', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/9421a522eeac4883813867ccde5d1cb4.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('303', '10001', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/64c68633df54140dbd09cd021ee9b5b9.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('302', '10001', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/330f0592f39c14702da8f2fddc52a032.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('301', '10001', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '2016-03-20 16:25:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('255', '10010', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/e2d09b3577f70bcbf769bca6666c3c43.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:22:59', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('263', '10011', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/59918a6cf26d581a0735ab0528e85a55.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('262', '10011', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/820a0c2e6837cc7902742ae06147d0d8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('261', '10011', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/ac66b58dbe03cc7ad793b46301350334.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('260', '10011', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/d62dd935bcd1961ab62d465682e457bb.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('259', '10011', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0e65fea48479e7da41432b9bb774bca0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:21', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('109', '10012', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/b75134196cccd1a6fc88c1bfe2627b43.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('108', '10012', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/7dc328546712541f0febe4a4545ce145.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('107', '10012', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f9cab1f105d6a9f58eeafcd9290bbfd7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('106', '10012', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fdac73029cc79af334bf8b0640ee4bd8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('105', '10012', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/14b0409f86e08e4753c34664a1086ca1.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:52:34', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('269', '10013', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/4776a61e272714388dc7b065a3ceb39b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('268', '10013', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2271392d21bdd999e6a3ea480b29aa9b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('267', '10013', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c14e199c7e637d3154b91fbb54288a3f.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('266', '10013', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/d00100bffed51b375b637692832c061d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('265', '10013', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/cd45e792142d6258d7150949bac81365.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('264', '10013', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/625edf645a7c9e04ff8ef24555eb3179.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:23:44', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('139', '10014', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c1db41303a5eee78c6a162907b7abbbb.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('138', '10014', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/65b373715dc92a9fea62d3fa5ccf0a61.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('137', '10014', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/af9450deb5a36dc7b23dc3c30a2c74da.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('136', '10014', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/65cad638981b745dc650721008a30cb6.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('135', '10014', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fbad59b9eeaf23cc8abf49b0b7bd048f.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('134', '10014', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2ad130751aaeff8423bf3d2e4733f10d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 02:59:14', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('273', '10015', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/1e1092bb153104ceb46eb88ae13e8ea0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('272', '10015', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/844e3fbdbf4b909d8bac331e2f40d923.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('271', '10015', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/7e66f120c4225ed0de8312eb06692805.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('270', '10015', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/cb5c8464c08fea2958a9a44fb6378585.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:24:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('153', '10017', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0ff07592e560f8d86f35486eeda10e63.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('152', '10017', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/bdb7240ed32d79b9516c29fdd5f57617.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('151', '10017', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/7f0aea198c645bc806fc95aad92c32c7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('150', '10017', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2Qg90cVXXXXcgXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('149', '10017', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/aee42dacf63319a947e1795f4ffe4a5a.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:00:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('212', '10018', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('211', '10018', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a269f6556513e98e491c8f9eead13e8d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('210', '10018', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB28jACaXXXXXbZXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('209', '10018', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/d7e8d30814364036a2e194e9d4dc0be1.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:53', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('208', '10020', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fad231cc46a6370394305b348f90cb81.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('207', '10020', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/b29a40a3f583579fdf76be66c108e667.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('206', '10020', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/781b0e3d85cbe3b456dc7b9d8c736aca.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('205', '10020', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f0d8144291cf2cf8775dfe297d55e705.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('204', '10020', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/09d7fcf1ba283ac6bec39b689c78a212.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:20:05', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('294', '10021', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/780351631779514a70bae1fdf25c4139.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('293', '10021', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/baada555e4e8aa0769b89bffeea9f6e8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('292', '10021', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/ccdc66ca73bab2f4cb67b4c04ab51509.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('291', '10021', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0fbc9429d5ccf0748ca5a5df7e48ea97.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('290', '10021', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/7c2b63718f0408b5308439c6c14c3e31.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('289', '10021', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/448a62f36833a1e51906e2aad40234a5.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('288', '10021', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c60834843534de6135db5dd35caf4366.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:32:40', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('191', '10023', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/22c56205dc707ef0c4d5505dddc07f79.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('190', '10023', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/11e332376331ea716547af3ca572924b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('189', '10023', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2ErHcVXXXXcfXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('188', '10023', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2dQ5AcFXXXXXlXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('187', '10023', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/87a645ff5692188338007c6747922a93.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:17:38', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('203', '10022', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/73688eac2b67ef212af124bf52bcbbf4.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('202', '10022', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/76257f616ac0935d8098786e8631aae5.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('201', '10022', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c9ad8d6827eeb4a43b263547c3d81f3d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('200', '10022', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/6889d3e74226cabc3cfcbb3305e59e3e.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('199', '10022', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f7bd93f7b426875ab217edb7bcc19b52.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('198', '10022', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/d7ed7e65c2012d4d2ccd18c261133f86.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:19:22', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('222', '10024', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/89ba5d2dd2fa7cadf603db8feb06a79b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('221', '10024', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2exwdXXXXXbHXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('220', '10024', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2LP8AbXXXXXbuXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('219', '10024', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2OXxDbXXXXXXBXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('218', '10024', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2lihCdFXXXXX.XpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:28:52', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('300', '10025', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2d9c7b0bf25022e69e9ebe1c169a5ea7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('299', '10025', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0bf2de342ce2c3734b349a57e4078d15.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('298', '10025', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/85992d96e74d4ec58f23e31759a454db.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('297', '10025', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fb81fb9786ceeb66e1b0d5dc62991d23.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('296', '10025', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/49578348f144fd8d914f155e25db57c0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('295', '10025', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/130b27b5d38de9d9c1017ed56d02dae7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:33:33', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('240', '10026', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/af4c84b6cba85c2008777d5993f901d8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:35:16', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('239', '10026', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/322d6224f5ba4e438719a5fa4084c8a5.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:35:16', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('238', '10026', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c294f52da9a6e0340fa7b5b867bd717b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 12:35:16', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('248', '10027', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2vlMocVXXXXX6XXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('247', '10027', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2P4wYcXXXXXblXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('246', '10027', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2oyc0cXXXXXabXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('245', '10027', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', '2016-03-20 13:09:35', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('249', '10028', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/4704fb20bc7dae5fe74a1e063fca4556.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('250', '10028', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2D.P3cVXXXXXoXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('251', '10028', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB266f1cVXXXXXXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('252', '10028', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2bhkdcVXXXXaUXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:08:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('253', '10029', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2bb05b248e64ce3c79d3537bba3f26e3.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:10:17', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('254', '10029', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/T2ZVO3XepXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:10:17', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('274', '10016', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2RsohcFXXXXakXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('275', '10016', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/aee42dacf63319a947e1795f4ffe4a5a.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('276', '10016', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB28ei4dFXXXXb1XpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('277', '10016', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2NBfbdFXXXXXMXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('278', '10016', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/74012b98652380535147cb4fba4570e2.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('279', '10016', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c92001650e0ee58156361d6138ce9a40.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('280', '10016', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/ee036ead0144bda69e833dfc38823314.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:25:47', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('281', '10019', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('282', '10019', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB20wxgcXXXXXakXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('283', '10019', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2mZaHcpXXXXaeXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('284', '10019', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2nHMxcpXXXXblXpXXXXXXXXXX468359490.png?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('285', '10019', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2.mubdXXXXXXbXpXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('286', '10019', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/992d2130577d06950b6050727a7d2ad4.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('287', '10019', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f10826828ce2688f6749ed0916987e1c.jpg?imageView/2/w/416/interlace/1', '2016-03-20 15:29:08', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('307', '10030', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('308', '10030', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/00e263cb1ffd6b32177460c3aa670b37.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('309', '10030', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/c44ed5af3e70e1c9875aea82cc3eeaa3.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('310', '10030', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/b3c1d614f4d8ce9b6eb8bd8671536a60.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:01:28', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('311', '10031', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/02f98b01062aeab43ed3016039ca578c.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('312', '10031', '1', '1', null, 'http://mallimg01.touchcdn.com/gallery/TB2uXVWaVXXXXXkXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('313', '10031', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/dfbdee83cd0a5f883e9e600be375587b.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('314', '10031', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/710ea84011e981257601d4e35447c0a2.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('315', '10031', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a0402f7f10a0970e71423aeb7b0a5106.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:14:30', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('316', '10032', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/be760b80bcd4067931b8ce7d4f5430f9.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('317', '10032', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/0a60c3e180b94f86ead9c20993b3ebff.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('318', '10032', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2b62628cad1c183f1e1101ca9d0408b0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('319', '10032', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/05c9b769dc0b02ec529b0a57d6815c14.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('320', '10032', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('321', '10032', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f1a1567080d6b06e96651ac87b91ce89.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:29:18', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('327', '10033', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a53c917d0b68d4e9039e592198db1495.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:40:58', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('326', '10033', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:40:58', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('325', '10033', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f6031e0efdb9d15cbacb07b572a77073.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:40:58', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('328', '10034', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/fd944f54b22da916e62a79af9d455ab7.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('329', '10034', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/db8f022e18472b764f5d6d7fa3d1641c.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('330', '10034', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/78023b2fe2c32dafe98335c73992cfe0.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('331', '10034', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/07ea462a5db849d6510faa2db5455358.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('332', '10034', '1', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/e1d3761ffeccceee9836f78a4ae0172d.jpg?imageView/2/w/416/interlace/1', '2016-03-20 20:42:24', '2016-10-13 02:00:35');
+INSERT INTO `t_pic` VALUES ('333', '1', '5', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/07ea462a5db849d6510faa2db5455358.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 01:58:53');
+INSERT INTO `t_pic` VALUES ('334', '1', '5', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/dfbdee83cd0a5f883e9e600be375587b.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 01:58:53');
+INSERT INTO `t_pic` VALUES ('335', '1', '5', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2b62628cad1c183f1e1101ca9d0408b0.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 01:58:54');
+INSERT INTO `t_pic` VALUES ('336', '1', '5', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/05c9b769dc0b02ec529b0a57d6815c14.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 01:58:55');
+INSERT INTO `t_pic` VALUES ('337', '1', '5', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 01:58:56');
+INSERT INTO `t_pic` VALUES ('338', '2', '5', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/78023b2fe2c32dafe98335c73992cfe0.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 01:58:57');
+INSERT INTO `t_pic` VALUES ('339', '1', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:00:26');
+INSERT INTO `t_pic` VALUES ('340', '1', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/78023b2fe2c32dafe98335c73992cfe0.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:01:11');
+INSERT INTO `t_pic` VALUES ('341', '1', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:01:44');
+INSERT INTO `t_pic` VALUES ('342', '1', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/05c9b769dc0b02ec529b0a57d6815c14.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:02:27');
+INSERT INTO `t_pic` VALUES ('343', '2', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:02:55');
+INSERT INTO `t_pic` VALUES ('344', '2', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/f6031e0efdb9d15cbacb07b572a77073.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:03:24');
+INSERT INTO `t_pic` VALUES ('345', '2', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/07ea462a5db849d6510faa2db5455358.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:47');
+INSERT INTO `t_pic` VALUES ('346', '2', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2b62628cad1c183f1e1101ca9d0408b0.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:50');
+INSERT INTO `t_pic` VALUES ('347', '3', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:53');
+INSERT INTO `t_pic` VALUES ('348', '3', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:54');
+INSERT INTO `t_pic` VALUES ('349', '4', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:54');
+INSERT INTO `t_pic` VALUES ('350', '4', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:55');
+INSERT INTO `t_pic` VALUES ('351', '4', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:55');
+INSERT INTO `t_pic` VALUES ('352', '7', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:56');
+INSERT INTO `t_pic` VALUES ('353', '7', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:57');
+INSERT INTO `t_pic` VALUES ('354', '8', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:57');
+INSERT INTO `t_pic` VALUES ('355', '8', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:06:00');
+INSERT INTO `t_pic` VALUES ('356', '10', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:58');
+INSERT INTO `t_pic` VALUES ('357', '10', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:58');
+INSERT INTO `t_pic` VALUES ('358', '11', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:59');
+INSERT INTO `t_pic` VALUES ('359', '11', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:05:59');
+INSERT INTO `t_pic` VALUES ('360', '12', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:30');
+INSERT INTO `t_pic` VALUES ('361', '12', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:30');
+INSERT INTO `t_pic` VALUES ('362', '13', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:31');
+INSERT INTO `t_pic` VALUES ('363', '12', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:32');
+INSERT INTO `t_pic` VALUES ('364', '13', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:32');
+INSERT INTO `t_pic` VALUES ('365', '13', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:33');
+INSERT INTO `t_pic` VALUES ('366', '14', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:33');
+INSERT INTO `t_pic` VALUES ('367', '14', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:34');
+INSERT INTO `t_pic` VALUES ('368', '15', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:41');
+INSERT INTO `t_pic` VALUES ('369', '15', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/999ce53bd13ce4c0a34757cd21ed85e8.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:07:34');
+INSERT INTO `t_pic` VALUES ('370', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/a533a0600a8cb736c600e844a3f09e06.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:08:53');
+INSERT INTO `t_pic` VALUES ('371', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/05c9b769dc0b02ec529b0a57d6815c14.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:09:13');
+INSERT INTO `t_pic` VALUES ('372', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/07ea462a5db849d6510faa2db5455358.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:08:57');
+INSERT INTO `t_pic` VALUES ('373', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/78023b2fe2c32dafe98335c73992cfe0.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:09:13');
+INSERT INTO `t_pic` VALUES ('374', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/07ea462a5db849d6510faa2db5455358.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:09:13');
+INSERT INTO `t_pic` VALUES ('375', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/e1d3761ffeccceee9836f78a4ae0172d.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:09:13');
+INSERT INTO `t_pic` VALUES ('376', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/07ea462a5db849d6510faa2db5455358.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:09:13');
+INSERT INTO `t_pic` VALUES ('377', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/dfbdee83cd0a5f883e9e600be375587b.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:09:13');
+INSERT INTO `t_pic` VALUES ('378', '16', '3', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/2b62628cad1c183f1e1101ca9d0408b0.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2016-12-10 02:09:13');
+INSERT INTO `t_pic` VALUES ('379', '1', '4', '1', null, 'http://mallimg01.touchcdn.com/goods-gallery/dfbdee83cd0a5f883e9e600be375587b.jpg?imageView/2/w/416/interlace/1', '1979-01-01 01:00:00', '2017-01-05 00:20:49');
 
 -- ----------------------------
 -- Table structure for `t_post_company`
@@ -6778,24 +7133,55 @@ INSERT INTO `t_sen_words` VALUES ('1785', '裙中性运动', '10', '1');
 -- ----------------------------
 DROP TABLE IF EXISTS `t_shopping_cart`;
 CREATE TABLE `t_shopping_cart` (
-  `id` int(10) NOT NULL,
-  `user_id` int(10) DEFAULT NULL,
-  `goods_id` int(10) DEFAULT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL,
+  `goods_id` int(10) NOT NULL,
   `goods_name` varchar(225) DEFAULT NULL,
   `image_url` varchar(225) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `mark_price` decimal(10,2) DEFAULT NULL,
   `format_id` int(10) DEFAULT NULL COMMENT '商品规格id',
   `format_name` varchar(225) DEFAULT NULL COMMENT '商品规格名字',
-  `num` int(10) DEFAULT NULL,
+  `num` int(10) DEFAULT '0' COMMENT '数量',
+  `checkbox` int(1) DEFAULT '1' COMMENT '是否选中',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_shopping_cart
 -- ----------------------------
+INSERT INTO `t_shopping_cart` VALUES ('25', '1', '10001', null, null, null, null, null, null, '1', '1', '2016-11-02 00:00:19', '2016-11-23 02:13:04');
+INSERT INTO `t_shopping_cart` VALUES ('26', '1', '10011', null, null, null, null, null, null, '1', '1', '2016-11-02 23:23:23', '2016-11-24 01:17:36');
+INSERT INTO `t_shopping_cart` VALUES ('27', '1', '10032', null, null, null, null, null, null, '1', '1', '2017-01-05 01:23:20', '2017-01-05 01:23:20');
+
+-- ----------------------------
+-- Table structure for `t_shopping_cart_format`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_shopping_cart_format`;
+CREATE TABLE `t_shopping_cart_format` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shopping_cart_id` int(11) NOT NULL COMMENT '购物车ID',
+  `format_sub_id` int(11) NOT NULL COMMENT '规格子类ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='购物车规格中间表';
+
+-- ----------------------------
+-- Records of t_shopping_cart_format
+-- ----------------------------
+INSERT INTO `t_shopping_cart_format` VALUES ('33', '23', '33');
+INSERT INTO `t_shopping_cart_format` VALUES ('34', '23', '35');
+INSERT INTO `t_shopping_cart_format` VALUES ('35', '23', '38');
+INSERT INTO `t_shopping_cart_format` VALUES ('36', '23', '40');
+INSERT INTO `t_shopping_cart_format` VALUES ('37', '24', '52');
+INSERT INTO `t_shopping_cart_format` VALUES ('38', '25', '32');
+INSERT INTO `t_shopping_cart_format` VALUES ('39', '25', '34');
+INSERT INTO `t_shopping_cart_format` VALUES ('40', '25', '37');
+INSERT INTO `t_shopping_cart_format` VALUES ('41', '25', '40');
+INSERT INTO `t_shopping_cart_format` VALUES ('42', '25', '41');
+INSERT INTO `t_shopping_cart_format` VALUES ('43', '27', '57');
+INSERT INTO `t_shopping_cart_format` VALUES ('44', '27', '58');
 
 -- ----------------------------
 -- Table structure for `t_society_dis`
@@ -6806,25 +7192,84 @@ CREATE TABLE `t_society_dis` (
   `society_note_id` int(10) DEFAULT NULL,
   `user_id` int(10) DEFAULT NULL,
   `user_name` varchar(50) DEFAULT NULL,
-  `content` varchar(225) DEFAULT NULL,
-  `like_user` varchar(500) DEFAULT NULL COMMENT '评论被点赞用户',
-  `parent` int(10) DEFAULT NULL COMMENT '跟帖的上级（0表示回复帖子）',
-  `reply_user_id` int(10) DEFAULT NULL,
-  `reply_user_name` varchar(50) DEFAULT NULL,
-  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
-  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `content` varchar(225) DEFAULT NULL COMMENT '回复内容',
+  `img_is` int(1) DEFAULT '0' COMMENT '是否有图片0没有，1有',
+  `reply_is` int(1) DEFAULT '0' COMMENT '是否有回复,0没有，1有',
+  `good_num` int(10) DEFAULT '0' COMMENT '点赞数量',
+  `parent` int(10) DEFAULT '0' COMMENT '跟帖的上级（0表示回复帖子）',
+  `status` int(1) DEFAULT '0' COMMENT '0正常',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='回帖内容，根据帖子id，分表 注意分表';
 
 -- ----------------------------
 -- Records of t_society_dis
 -- ----------------------------
-INSERT INTO `t_society_dis` VALUES ('1', null, null, '性趣', null, null, null, null, null, '2016-01-23 00:21:05', '2016-01-23 00:22:27');
-INSERT INTO `t_society_dis` VALUES ('2', null, null, '情感', null, null, null, null, null, '2016-01-23 00:22:18', '2016-01-23 00:22:35');
-INSERT INTO `t_society_dis` VALUES ('3', null, null, '健康', null, null, null, null, null, '2016-01-23 00:24:59', '2016-01-23 00:25:16');
-INSERT INTO `t_society_dis` VALUES ('4', null, null, '生活', null, null, null, null, null, '2016-01-23 00:24:59', '2016-01-23 00:25:18');
-INSERT INTO `t_society_dis` VALUES ('5', null, null, '兴趣', null, null, null, null, null, '2016-01-23 00:24:59', '2016-01-23 00:25:18');
-INSERT INTO `t_society_dis` VALUES ('6', null, null, '自拍', null, null, null, null, null, '2016-01-23 00:24:59', '2016-01-23 00:25:19');
+INSERT INTO `t_society_dis` VALUES ('1', '2', '4', null, '怎么说呢，好多好多要说的', '1', '1', '1', '0', '0', '2017-01-05 00:23:03');
+INSERT INTO `t_society_dis` VALUES ('2', '2', '3', null, '电饭锅电饭锅电饭锅', '0', '1', '2', '0', '0', '2017-01-05 00:55:25');
+INSERT INTO `t_society_dis` VALUES ('3', '2', '4', null, '看了看空间看规划局', '0', '0', '0', '0', '0', '1979-01-01 01:00:00');
+INSERT INTO `t_society_dis` VALUES ('4', '2', '8', null, '纪念馆好几个号结构化', '0', '0', '0', '0', '0', '2017-01-04 00:38:27');
+INSERT INTO `t_society_dis` VALUES ('5', '2', '10', null, '个人通过后国的法国的飞', '0', '0', '0', '0', '0', '2017-01-04 00:38:41');
+INSERT INTO `t_society_dis` VALUES ('6', '2', '11', null, '不能发给你房管局南风过境你干嘛挂号费寂寞孤独还没那该多好没打过黑默丁格黑默丁格会很反感害死人挺好共和党人的风格大概大概大概', '0', '0', '0', '0', '0', '2017-01-04 00:39:26');
+
+-- ----------------------------
+-- Table structure for `t_society_dis_dis`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_society_dis_dis`;
+CREATE TABLE `t_society_dis_dis` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `society_dis_id` int(10) DEFAULT NULL COMMENT '评论ID',
+  `user_id` int(10) DEFAULT NULL,
+  `user_name` varchar(50) DEFAULT NULL,
+  `content` varchar(225) DEFAULT NULL COMMENT '回复内容',
+  `img_is` int(1) DEFAULT '0' COMMENT '是否有图片0没有，1有',
+  `parent` int(10) DEFAULT '0' COMMENT '跟帖的上级（0表示回复帖子）',
+  `good_num` int(50) DEFAULT '0' COMMENT '点赞数量',
+  `reply_user_id` int(10) DEFAULT NULL,
+  `reply_user_name` varchar(50) DEFAULT NULL,
+  `status` int(1) DEFAULT '0' COMMENT '0正常',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='回帖内容，根据帖子id，分表 注意分表';
+
+-- ----------------------------
+-- Records of t_society_dis_dis
+-- ----------------------------
+INSERT INTO `t_society_dis_dis` VALUES ('1', '1', '5', '', '这个回复好', '0', '0', '0', null, null, '0', '2017-01-04 01:03:44');
+INSERT INTO `t_society_dis_dis` VALUES ('2', '1', '6', null, '这个更加棒', '0', '0', '0', '5', null, '0', '2017-01-05 00:53:45');
+INSERT INTO `t_society_dis_dis` VALUES ('3', '2', '7', null, '心情不美丽', '0', '0', '0', null, null, '0', '1979-01-01 01:00:00');
+INSERT INTO `t_society_dis_dis` VALUES ('4', '2', '8', null, '我爱这个社会', '0', '0', '0', null, null, '0', '2017-01-05 00:54:13');
+
+-- ----------------------------
+-- Table structure for `t_society_dis_dis_like`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_society_dis_dis_like`;
+CREATE TABLE `t_society_dis_dis_like` (
+  `id` int(11) NOT NULL COMMENT 'ID(帖子ID,或者评论ID或者评论的评论ID）',
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='帖子和评论点赞';
+
+-- ----------------------------
+-- Records of t_society_dis_dis_like
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_society_dis_like`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_society_dis_like`;
+CREATE TABLE `t_society_dis_like` (
+  `id` int(11) NOT NULL COMMENT 'ID(帖子ID,或者评论ID或者评论的评论ID）',
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='帖子和评论点赞';
+
+-- ----------------------------
+-- Records of t_society_dis_like
+-- ----------------------------
+INSERT INTO `t_society_dis_like` VALUES ('1', '1', '1979-01-01 01:00:00');
 
 -- ----------------------------
 -- Table structure for `t_society_note`
@@ -6832,28 +7277,68 @@ INSERT INTO `t_society_dis` VALUES ('6', null, null, '自拍', null, null, null,
 DROP TABLE IF EXISTS `t_society_note`;
 CREATE TABLE `t_society_note` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `society_subject_id` int(10) NOT NULL COMMENT '社区主题id',
+  `society_sub_id` int(10) DEFAULT NULL COMMENT '社区主题id',
+  `society_sub_name` varchar(32) DEFAULT NULL COMMENT '帖子类型名称',
   `user_id` int(10) NOT NULL,
-  `user_name` varchar(50) DEFAULT NULL,
+  `nick_name` varchar(50) DEFAULT NULL COMMENT '用户昵称',
   `title` varchar(50) DEFAULT NULL COMMENT '标题',
   `detail` varchar(500) DEFAULT NULL COMMENT '帖子详情',
   `address` varchar(50) DEFAULT '' COMMENT '发表地址',
-  `look_num` int(10) DEFAULT '0' COMMENT '查看数量',
+  `ip` varchar(32) DEFAULT NULL COMMENT '发表的ip地址',
+  `good_num` int(10) DEFAULT '0' COMMENT '点赞数量',
   `dis_num` int(10) DEFAULT '0' COMMENT '评论数量',
-  `top_is` int(1) DEFAULT '0',
+  `top_is` int(1) DEFAULT '0' COMMENT '是否置顶',
   `rec_is` int(1) DEFAULT '0' COMMENT '是否推荐',
   `gifts_is` int(1) DEFAULT '0' COMMENT '是否是精品',
-  `type` int(1) DEFAULT '1' COMMENT '1是社区讨论帖子，2是体验贴',
+  `img_is` int(1) DEFAULT '0' COMMENT '是否有图片(0没有)',
+  `type` int(1) DEFAULT '1' COMMENT '0社区公告，1是社区讨论帖子，2是体验贴，',
+  `ano_is` int(1) DEFAULT '0' COMMENT '是否匿名发帖',
+  `ann_is` int(1) DEFAULT '0' COMMENT '是否是公告(0不是，1是)',
   `status` int(1) DEFAULT '1' COMMENT '1是待审核，2是已经审核通过',
+  `tags` varchar(225) DEFAULT NULL COMMENT '帖子标签',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='帖子';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='帖子';
 
 -- ----------------------------
 -- Records of t_society_note
 -- ----------------------------
-INSERT INTO `t_society_note` VALUES ('1', '7', '1', 'luke', '发上来的积分楼上的', '史蒂芬恐龙时代积分快乐圣诞节饭放电视剧看了个 ', '深圳', '12', '45', '0', '0', '0', '1', '1', '1979-01-01 01:00:00', '2016-09-18 01:11:57');
+INSERT INTO `t_society_note` VALUES ('1', '10', '我的羞羞日记', '1', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '12', '45', '0', '2', '0', '1', '1', '0', null, '2', null, '2016-12-10 22:05:25', '2017-01-02 01:44:16');
+INSERT INTO `t_society_note` VALUES ('2', '10', '我的羞羞日记', '3', '若放弃，请彻底', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '15', '34', '1', '0', '0', '1', '1', null, null, '2', null, '2015-12-11 22:05:25', '2017-01-02 01:44:18');
+INSERT INTO `t_society_note` VALUES ('3', '8', '内衣间的秘密', '3', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '1', '0', '0', '0', '1', '1', null, null, '2', null, '2016-10-11 22:05:25', '2017-01-02 01:58:09');
+INSERT INTO `t_society_note` VALUES ('4', '12', '超级性幻想', '4', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '3', '0', '0', '0', '1', '1', null, null, '2', null, '2013-12-11 22:05:25', '2017-01-02 01:58:11');
+INSERT INTO `t_society_note` VALUES ('5', '10', '我的羞羞日记', '5', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '23', '0', '0', '0', '1', '1', null, null, '2', null, '2016-12-11 11:05:25', '2017-01-02 01:58:10');
+INSERT INTO `t_society_note` VALUES ('6', '10', '我的羞羞日记', '6', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '4', '0', '0', '0', '1', '1', null, null, '2', null, '2016-12-11 20:05:25', '2017-01-02 01:58:11');
+INSERT INTO `t_society_note` VALUES ('7', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '3', '0', '0', '0', '1', '1', null, null, '2', null, '2016-11-11 15:05:25', '2017-01-02 01:58:17');
+INSERT INTO `t_society_note` VALUES ('8', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '8', '0', '0', '0', '1', '1', null, null, '2', null, '2016-10-11 22:05:25', '2017-01-02 01:58:18');
+INSERT INTO `t_society_note` VALUES ('9', '10', '我的羞羞日记', '8', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '2', '0', '0', '0', '1', '1', null, null, '2', null, '2016-08-11 22:05:25', '2017-01-02 01:58:19');
+INSERT INTO `t_society_note` VALUES ('10', '10', '我的羞羞日记', '9', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '4', '0', '0', '0', '1', '1', null, null, '2', null, '2016-07-11 22:05:25', '2017-01-02 01:58:21');
+INSERT INTO `t_society_note` VALUES ('11', '10', '我的羞羞日记', '1', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '34', '0', '0', '0', '1', '1', null, null, '2', null, '2016-07-10 22:05:25', '2017-01-02 01:58:20');
+INSERT INTO `t_society_note` VALUES ('12', '10', '我的羞羞日记', '3', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '3', '0', '0', '0', '1', '1', null, null, '2', null, '2016-09-11 22:05:25', '2017-01-02 01:58:22');
+INSERT INTO `t_society_note` VALUES ('13', '10', '我的羞羞日记', '4', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '5', '0', '0', '0', '1', '1', null, null, '2', null, '2016-11-23 22:05:25', '2017-01-02 01:58:23');
+INSERT INTO `t_society_note` VALUES ('14', '10', '我的羞羞日记', '5', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '6', '0', '0', '0', '1', '1', null, null, '2', null, '2016-11-12 22:05:25', '2017-01-02 01:58:24');
+INSERT INTO `t_society_note` VALUES ('15', '10', '我的羞羞日记', '6', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '7', '0', '0', '0', '1', '1', null, null, '2', null, '2016-12-11 22:05:25', '2017-01-02 01:58:24');
+INSERT INTO `t_society_note` VALUES ('16', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '11', '0', '0', '0', '1', '1', '1', null, '2', null, '2016-12-11 22:05:25', '2017-01-02 23:34:08');
+INSERT INTO `t_society_note` VALUES ('17', '10', '我的羞羞日记', '15', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '15', '0', '0', '0', '1', '1', null, null, '2', null, '2016-12-11 22:05:25', '2017-01-02 01:58:31');
+INSERT INTO `t_society_note` VALUES ('18', '10', '我的羞羞日记', '0', '系统', '公告', '这个是公告内容', '', null, '0', '8', '0', '0', '0', '1', '0', '0', '1', '2', null, '2016-12-11 22:05:25', '2017-01-02 23:34:05');
+INSERT INTO `t_society_note` VALUES ('19', '10', '我的羞羞日记', '0', '系统', '公告1', '这个是公告1内容', '', null, '0', '11', '0', '0', '0', '1', '0', null, '1', '2', null, '2016-12-11 22:05:25', '2017-01-02 01:58:35');
+
+-- ----------------------------
+-- Table structure for `t_society_note_like`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_society_note_like`;
+CREATE TABLE `t_society_note_like` (
+  `id` int(11) NOT NULL COMMENT 'ID(帖子ID,或者评论ID或者评论的评论ID）',
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='帖子和评论点赞';
+
+-- ----------------------------
+-- Records of t_society_note_like
+-- ----------------------------
+INSERT INTO `t_society_note_like` VALUES ('6', '1', '2017-01-02 01:23:06');
 
 -- ----------------------------
 -- Table structure for `t_society_reward`
@@ -6866,8 +7351,7 @@ CREATE TABLE `t_society_reward` (
   `bus_user_id` int(10) DEFAULT NULL COMMENT '出的',
   `type` int(4) DEFAULT NULL COMMENT '1打赏类型逗币，',
   `val_num` int(10) DEFAULT '0' COMMENT '价值数量',
-  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
-  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社区打赏';
 
@@ -6882,10 +7366,12 @@ DROP TABLE IF EXISTS `t_society_sub`;
 CREATE TABLE `t_society_sub` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT '',
+  `ico` varchar(16) DEFAULT NULL COMMENT '图标',
+  `ico_color` varchar(16) DEFAULT NULL COMMENT '图标颜色',
   `image` varchar(128) DEFAULT '',
   `synopsis` varchar(225) DEFAULT NULL COMMENT '简介',
   `type` int(1) DEFAULT NULL COMMENT '类型',
-  `status` int(1) DEFAULT '1' COMMENT '1正常',
+  `status` int(1) DEFAULT '0' COMMENT '0正常',
   `sort` int(2) DEFAULT '0',
   `hot_num` int(10) DEFAULT '0' COMMENT '热门度，就是帖子数',
   `award_type` int(1) DEFAULT '0' COMMENT '奖励类型，（0没有奖励，1奖励逗币，2奖励积分，3是逗币和积分）',
@@ -6898,82 +7384,87 @@ CREATE TABLE `t_society_sub` (
 -- ----------------------------
 -- Records of t_society_sub
 -- ----------------------------
-INSERT INTO `t_society_sub` VALUES ('7', '情趣研究所', '', '成人用品晒单', '1', '1', '1', '0', null, null, '2016-01-23 18:46:44', '2016-03-02 00:32:48');
-INSERT INTO `t_society_sub` VALUES ('8', '内衣间的秘密', '', '情趣内衣晒单，做不同的自己', '1', '1', '2', '0', null, null, '2016-01-23 18:46:44', '2016-03-02 00:32:47');
-INSERT INTO `t_society_sub` VALUES ('9', '蜡烛爱上鞭', '', '鞭笞我吧，我的女王sm爱好者', '1', '1', '3', '0', null, null, '2016-01-23 18:46:44', '2016-03-02 00:32:47');
-INSERT INTO `t_society_sub` VALUES ('10', '我的羞羞日记', '', '记录羞羞的故事，黄文滚出', '1', '1', '4', '0', null, null, '2016-01-23 18:46:44', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('11', 'what a funking day', '', '那些糟糕的性体验', '1', '1', '5', '0', null, null, '2016-01-23 18:46:44', '2016-03-02 00:32:45');
-INSERT INTO `t_society_sub` VALUES ('12', '超级性幻想', '', '说说那些不为人知的邪恶幻想', '1', '1', '6', '0', null, null, '2016-01-23 18:46:44', '2016-03-02 00:32:46');
-INSERT INTO `t_society_sub` VALUES ('13', '昨晚梦到啥', '', '你做梦我来答，周公是小徒郎', '1', '1', '7', '0', null, null, '2016-01-23 18:56:02', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('14', '奇怪性癖好', '', '恋毛暴露，粗口脏话可撒娇不可违规', '1', '1', '8', '0', null, null, '2016-01-23 19:07:47', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('15', '拒绝性骚扰', '', '我可以骚，你不可以扰，讲述你在各种场合碰到的性骚扰', '1', '1', '9', '0', null, null, '2016-01-23 19:07:47', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('16', '男男那些事', '', '好基友 一被子 不约炮 不骚扰', '1', '1', '10', '0', null, null, '2016-01-23 19:07:47', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('17', '拉拉后花园', '', '唯有女人更懂女人，LES天堂女女聚聚', '1', '1', '11', '0', null, null, '2016-01-23 19:07:47', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('27', '我们的故事', '', '你讲故事，我送逗币', '2', '1', '1', '0', null, null, '2016-01-23 19:22:43', '2016-01-23 19:24:45');
-INSERT INTO `t_society_sub` VALUES ('28', '谈谈情说说爱', '', '晒出爱情路上的点滴', '2', '1', '2', '0', null, null, '2016-01-23 19:22:43', '2016-01-23 19:24:46');
-INSERT INTO `t_society_sub` VALUES ('29', '分手的一万种理由', '', '奇葩分手理由征集', '2', '1', '3', '0', null, null, '2016-01-23 19:22:43', '2016-01-23 19:24:47');
-INSERT INTO `t_society_sub` VALUES ('30', '心情随笔', '', '记录生活的感悟', '2', '1', '4', '0', null, null, '2016-01-23 19:22:43', '2016-01-23 19:25:02');
-INSERT INTO `t_society_sub` VALUES ('31', '谁没爱过人渣', '', '那些条腿踏n条船的故事', '2', '1', '5', '0', null, null, '2016-01-23 19:19:00', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('32', '单身狗的日常', '', '单身狗集中营，记录你的日常点点滴滴', '2', '1', '6', '0', null, null, '2016-01-23 19:19:00', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('33', '泡学宝典', '', '泡妞追男秘籍，教你推女神、追男神', '2', '1', '7', '0', null, null, '2016-01-23 19:19:00', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('34', '男闺蜜女闺蜜', '', '友情幌子下的暧昧能忍多久', '2', '1', '8', '0', null, null, '2016-01-23 19:19:01', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('35', '异地恋', '', '爱是最大的救赎', '2', '1', '9', '0', null, null, '2016-01-23 19:19:01', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('36', '情感补习班', '', '女教师坐镇，解答你的情感疑问', '2', '1', '10', '0', null, null, '2016-01-23 19:19:01', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('37', '婚姻保卫战', '', '夫妻婆媳相处之道。绿帽小三攻防之战', '2', '1', '11', '0', null, null, '2016-01-23 19:19:01', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('38', '相亲那些个事', '', '分享各种有趣，甜蜜，奇葩的相亲遭遇', '2', '1', '12', '0', null, null, '2016-01-23 19:19:01', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('39', '闺蜜私房话', '', '聊一聊闺蜜想聊得话题', '2', '1', '13', '0', null, null, '2016-01-23 19:19:01', '2016-01-23 20:24:00');
-INSERT INTO `t_society_sub` VALUES ('40', '性性相吸', '', '最健康最好玩的性知识讨论圈', '3', '1', '0', '0', null, null, '2016-01-23 19:35:32', '2016-01-23 19:35:32');
-INSERT INTO `t_society_sub` VALUES ('41', '兽业解惑', '', '叫兽解答你对性的困扰以及日常问题', '3', '1', '0', '0', null, null, '2016-01-23 19:35:33', '2016-01-23 19:35:33');
-INSERT INTO `t_society_sub` VALUES ('42', '姨妈打卡区', '', '传闻发帖不痛经 欢迎男票来打卡', '3', '1', '0', '0', null, null, '2016-01-23 19:35:33', '2016-01-23 19:35:33');
-INSERT INTO `t_society_sub` VALUES ('43', '打灰机二三事', '', '大多数的时候人总要靠自己', '3', '1', '0', '0', null, null, '2016-01-23 19:35:33', '2016-01-23 19:35:33');
-INSERT INTO `t_society_sub` VALUES ('44', '丁丁历险记', '', '割包皮的小伙伴们体验交流解疑', '3', '1', '0', '0', null, null, '2016-01-23 19:35:33', '2016-01-23 19:35:33');
-INSERT INTO `t_society_sub` VALUES ('45', '青少年性教育', '', '青少年青春期的性教育', '3', '1', '0', '0', null, null, '2016-01-23 19:35:33', '2016-01-23 19:35:33');
-INSERT INTO `t_society_sub` VALUES ('46', '风流病防治中心', '', '性病可以治，不敢见医生，我们先聊聊', '3', '1', '0', '0', null, null, '2016-01-23 19:35:33', '2016-01-23 19:35:33');
-INSERT INTO `t_society_sub` VALUES ('47', '妇科保健院', '', '女人身边最好的健康生活指南', '3', '1', '0', '0', null, null, '2016-01-23 19:35:33', '2016-01-23 19:35:33');
-INSERT INTO `t_society_sub` VALUES ('48', '观日路技术讨论区', '', '网罗新鲜事儿 生活综合讨论 严肃带着幽默', '4', '1', '0', '0', null, null, '2016-01-23 19:58:15', '2016-01-23 19:58:15');
-INSERT INTO `t_society_sub` VALUES ('49', '这个点 你在做什么', '', '一句话分享你现在做的事', '4', '1', '0', '0', null, null, '2016-01-23 19:58:15', '2016-01-23 19:58:15');
-INSERT INTO `t_society_sub` VALUES ('50', '大学生了没', '', '大学生活真好', '4', '1', '0', '0', null, null, '2016-01-23 19:58:15', '2016-01-23 19:58:15');
-INSERT INTO `t_society_sub` VALUES ('51', '吐槽竞技场', '', '心中有槽，不吐不快！专业吐槽圣地', '4', '1', '0', '0', null, null, '2016-01-23 19:58:15', '2016-01-23 19:58:15');
-INSERT INTO `t_society_sub` VALUES ('52', '我要吹牛别拦着我', '', '大力吹，不要停', '4', '1', '0', '0', null, null, '2016-01-23 19:58:15', '2016-01-23 19:58:15');
-INSERT INTO `t_society_sub` VALUES ('53', '随手发帖升级区', '', '这是一个随便但是不约的版块', '4', '1', '0', '0', null, null, '2016-01-23 19:58:16', '2016-01-23 19:58:16');
-INSERT INTO `t_society_sub` VALUES ('54', '奇闻异事', '', '起源鬼斧神工，发展瞠目结舌', '4', '1', '0', '0', null, null, '2016-01-23 19:58:16', '2016-01-23 19:58:16');
-INSERT INTO `t_society_sub` VALUES ('55', '职场大家谈', '', '啪啪啪啪说一大堆关于职场的八卦', '4', '1', '0', '0', null, null, '2016-01-23 19:58:16', '2016-01-23 19:58:16');
-INSERT INTO `t_society_sub` VALUES ('56', '同城交友', '', '交友相亲 同城约会', '4', '1', '0', '0', null, null, '2016-01-23 19:58:16', '2016-01-23 19:58:16');
-INSERT INTO `t_society_sub` VALUES ('57', '优质生活指南', '', '体现你华丽逼格和生活品质的圈子', '4', '1', '0', '0', null, null, '2016-01-23 19:58:16', '2016-01-23 19:58:16');
-INSERT INTO `t_society_sub` VALUES ('58', '未来研究所', '', '一起来竞猜未来好玩的事', '5', '1', '0', '0', null, null, '2016-01-23 20:08:00', '2016-01-23 20:08:00');
-INSERT INTO `t_society_sub` VALUES ('59', '逗趣香蕉TV', '', '香蕉哥带你看好玩有趣的视频', '5', '1', '0', '0', null, null, '2016-01-23 20:08:00', '2016-01-23 20:08:00');
-INSERT INTO `t_society_sub` VALUES ('60', '路上的邂逅', '', '分享你的美丽旅程和浪漫艳遇', '5', '1', '0', '0', null, null, '2016-01-23 20:08:01', '2016-01-23 20:08:01');
-INSERT INTO `t_society_sub` VALUES ('61', '运动健身馆', '', '运动健身，塑造完美身材，减肥打卡互助', '5', '1', '0', '0', null, null, '2016-01-23 20:08:01', '2016-01-23 20:08:01');
-INSERT INTO `t_society_sub` VALUES ('62', '炮火中的游戏圈', '', '游戏中不止有WASD，还有啪啪啪', '5', '1', '0', '0', null, null, '2016-01-23 20:08:01', '2016-01-23 20:08:01');
-INSERT INTO `t_society_sub` VALUES ('63', '吃货的厨房', '', '唯美食和妹子不可辜负', '5', '1', '0', '0', null, null, '2016-01-23 20:08:01', '2016-01-23 20:08:01');
-INSERT INTO `t_society_sub` VALUES ('64', '逗聊星座', '', '星座速配，和ta一起做美妙的事', '5', '1', '0', '0', null, null, '2016-01-23 20:08:01', '2016-01-23 20:08:01');
-INSERT INTO `t_society_sub` VALUES ('65', '动漫宅基腐', '', '看动漫，享激情', '5', '1', '0', '0', null, null, '2016-01-23 20:08:01', '2016-01-23 20:08:01');
-INSERT INTO `t_society_sub` VALUES ('66', '娱乐八卦区', '', '扒内幕揭丑闻，我们越扒越爽', '5', '1', '0', '0', null, null, '2016-01-23 20:08:01', '2016-01-23 20:08:01');
-INSERT INTO `t_society_sub` VALUES ('67', '无节操放映社', '', '无任何节操的，为你带来好看的AVI', '5', '1', '0', '0', null, null, '2016-01-23 20:08:01', '2016-01-23 20:08:01');
-INSERT INTO `t_society_sub` VALUES ('68', '有图有金币', '', '只放ID照，有ID有逗币，没ID下边请', '6', '1', '0', '0', null, null, '2016-01-23 20:23:12', '2016-01-23 20:23:12');
-INSERT INTO `t_society_sub` VALUES ('69', '不帅你抽我', '', '型男自拍，达人点评，教你逆袭白富美', '6', '1', '0', '0', null, null, '2016-01-23 20:23:12', '2016-01-23 20:23:12');
-INSERT INTO `t_society_sub` VALUES ('70', '家有仙妻', '', '晒老婆 晒情人 秀恩爱 图说故事', '6', '1', '0', '0', null, null, '2016-01-23 20:23:12', '2016-01-23 20:23:12');
-INSERT INTO `t_society_sub` VALUES ('71', '晒美颜', '', '就是这莫美丽 就是这莫自信', '6', '1', '0', '0', null, null, '2016-01-23 20:23:12', '2016-01-23 20:23:12');
-INSERT INTO `t_society_sub` VALUES ('72', '没有沟不会火', '', '动如脱兔招架不住 波涛汹涌惊世骇俗', '6', '1', '0', '0', null, null, '2016-01-23 20:23:12', '2016-01-23 20:23:12');
-INSERT INTO `t_society_sub` VALUES ('73', '姐有大长腿', '', '晒美腿 晒高跟 晒没足', '6', '1', '0', '0', null, null, '2016-01-23 20:23:12', '2016-01-23 20:23:12');
+INSERT INTO `t_society_sub` VALUES ('7', '情趣研究所', '&#xe63d;', '#FFBBFF', '', '成人用品晒单', '1', '0', '1', '0', null, null, '2016-01-23 18:46:44', '2016-12-01 23:47:49');
+INSERT INTO `t_society_sub` VALUES ('8', '内衣间的秘密', '&#xe624;', '#FFBBFF', '', '情趣内衣晒单，做不同的自己', '1', '0', '2', '0', null, null, '2016-01-23 18:46:44', '2016-12-01 01:54:24');
+INSERT INTO `t_society_sub` VALUES ('9', '蜡烛爱上鞭', '&#xe64f;', '#FFBBFF', '', '鞭笞我吧，我的女王sm爱好者', '1', '0', '3', '0', null, null, '2016-01-23 18:46:44', '2016-12-01 01:54:25');
+INSERT INTO `t_society_sub` VALUES ('10', '我的羞羞日记', '&#xe711;', '#FFBBFF', '', '记录羞羞的故事，黄文滚出', '1', '0', '4', '0', null, null, '2016-01-23 18:46:44', '2016-12-01 01:54:28');
+INSERT INTO `t_society_sub` VALUES ('11', 'what a funking day', '&#xe655;', '#FFBBFF', '', '那些糟糕的性体验', '1', '0', '5', '0', null, null, '2016-01-23 18:46:44', '2016-12-01 01:57:17');
+INSERT INTO `t_society_sub` VALUES ('12', '超级性幻想', '&#xe61e;', '#FFBBFF', '', '说说那些不为人知的邪恶幻想', '1', '0', '6', '0', null, null, '2016-01-23 18:46:44', '2016-12-01 01:57:18');
+INSERT INTO `t_society_sub` VALUES ('13', '昨晚梦到啥', '&#xe628;', '#FFBBFF', '', '你做梦我来答，周公是小徒郎', '1', '0', '7', '0', null, null, '2016-01-23 18:56:02', '2016-12-01 01:57:19');
+INSERT INTO `t_society_sub` VALUES ('14', '奇怪性癖好', '&#xe627;', '#FFBBFF', '', '恋毛暴露，粗口脏话可撒娇不可违规', '1', '0', '8', '0', null, null, '2016-01-23 19:07:47', '2016-12-01 01:57:19');
+INSERT INTO `t_society_sub` VALUES ('15', '拒绝性骚扰', '&#xe625;', '#FFBBFF', '', '我可以骚，你不可以扰，讲述你在各种场合碰到的性骚扰', '1', '0', '9', '0', null, null, '2016-01-23 19:07:47', '2016-12-01 01:57:20');
+INSERT INTO `t_society_sub` VALUES ('16', '男男那些事', '&#xe646;', '#FFBBFF', '', '好基友 一被子 不约炮 不骚扰', '1', '0', '10', '0', null, null, '2016-01-23 19:07:47', '2016-12-01 01:57:20');
+INSERT INTO `t_society_sub` VALUES ('17', '拉拉后花园', '&#xe626;', '#FFBBFF', '', '唯有女人更懂女人，LES天堂女女聚聚', '1', '0', '11', '0', null, null, '2016-01-23 19:07:47', '2016-12-01 01:57:25');
+INSERT INTO `t_society_sub` VALUES ('27', '我们的故事', '&#xe633;', '#FFBBFF', '', '你讲故事，我送逗币', '2', '0', '1', '0', null, null, '2016-01-23 19:22:43', '2016-12-01 01:57:25');
+INSERT INTO `t_society_sub` VALUES ('28', '谈谈情说说爱', '&#xe6c4;', '#FFBBFF', '', '晒出爱情路上的点滴', '2', '0', '2', '0', null, null, '2016-01-23 19:22:43', '2016-12-01 01:57:26');
+INSERT INTO `t_society_sub` VALUES ('29', '分手的一万种理由', '&#xe7c4;', '#FFBBFF', '', '奇葩分手理由征集', '2', '0', '3', '0', null, null, '2016-01-23 19:22:43', '2016-12-01 01:57:26');
+INSERT INTO `t_society_sub` VALUES ('30', '心情随笔', '&#xe676;', '#FFBBFF', '', '记录生活的感悟', '2', '0', '4', '0', null, null, '2016-01-23 19:22:43', '2016-12-01 01:57:26');
+INSERT INTO `t_society_sub` VALUES ('31', '谁没爱过人渣', '&#xe629;', '#FFBBFF', '', '那些条腿踏n条船的故事', '2', '0', '5', '0', null, null, '2016-01-23 19:19:00', '2016-12-01 01:57:27');
+INSERT INTO `t_society_sub` VALUES ('32', '单身狗的日常', '&#xe62a;', '#FFBBFF', '', '单身狗集中营，记录你的日常点点滴滴', '2', '0', '6', '0', null, null, '2016-01-23 19:19:00', '2016-12-01 01:57:32');
+INSERT INTO `t_society_sub` VALUES ('33', '泡学宝典', '&#xe62b;', '#FFBBFF', '', '泡妞追男秘籍，教你推女神、追男神', '2', '0', '7', '0', null, null, '2016-01-23 19:19:00', '2016-12-01 01:57:33');
+INSERT INTO `t_society_sub` VALUES ('34', '男闺蜜女闺蜜', '&#xe6b7;', '#FFBBFF', '', '友情幌子下的暧昧能忍多久', '2', '0', '8', '0', null, null, '2016-01-23 19:19:01', '2016-12-01 01:57:33');
+INSERT INTO `t_society_sub` VALUES ('35', '异地恋', '&#xe848;', '#FFBBFF', '', '爱是最大的救赎', '2', '0', '9', '0', null, null, '2016-01-23 19:19:01', '2016-12-01 01:57:34');
+INSERT INTO `t_society_sub` VALUES ('36', '情感加油站', '&#xe62c;', '#FFBBFF', '', '女教师坐镇，解答你的情感疑问', '2', '0', '10', '0', null, null, '2016-01-23 19:19:01', '2016-12-01 01:57:34');
+INSERT INTO `t_society_sub` VALUES ('37', '婚姻保卫战', '&#xe659;', '#FFBBFF', '', '夫妻婆媳相处之道。绿帽小三攻防之战', '2', '0', '11', '0', null, null, '2016-01-23 19:19:01', '2016-12-01 01:57:35');
+INSERT INTO `t_society_sub` VALUES ('38', '相亲那些个事', '&#xe62e;', '#FFBBFF', '', '分享各种有趣，甜蜜，奇葩的相亲遭遇', '2', '0', '12', '0', null, null, '2016-01-23 19:19:01', '2016-12-01 01:57:36');
+INSERT INTO `t_society_sub` VALUES ('39', '闺蜜私房话', '&#xe64d;', '#FFBBFF', '', '聊一聊闺蜜想聊得话题', '2', '0', '13', '0', null, null, '2016-01-23 19:19:01', '2016-12-01 01:57:36');
+INSERT INTO `t_society_sub` VALUES ('40', '性性相吸', '&#xe705;', '#FFBBFF', '', '最健康最好玩的性知识讨论圈', '3', '0', '0', '0', null, null, '2016-01-23 19:35:32', '2016-12-01 01:57:37');
+INSERT INTO `t_society_sub` VALUES ('41', '兽业解惑', '&#xe68a;', '#FFBBFF', '', '叫兽解答你对性的困扰以及日常问题', '3', '0', '0', '0', null, null, '2016-01-23 19:35:33', '2016-12-01 01:57:43');
+INSERT INTO `t_society_sub` VALUES ('42', '姨妈打卡区', '&#xe66d;', '#FFBBFF', '', '传闻发帖不痛经 欢迎男票来打卡', '3', '0', '0', '0', null, null, '2016-01-23 19:35:33', '2016-12-01 01:57:44');
+INSERT INTO `t_society_sub` VALUES ('43', '打灰机二三事', '&#xe62f;', '#FFBBFF', '', '大多数的时候人总要靠自己', '3', '0', '0', '0', null, null, '2016-01-23 19:35:33', '2016-12-01 01:57:45');
+INSERT INTO `t_society_sub` VALUES ('44', '丁丁历险记', '&#xe6ee;', '#FFBBFF', '', '割包皮的小伙伴们体验交流解疑', '3', '0', '0', '0', null, null, '2016-01-23 19:35:33', '2016-12-01 01:57:45');
+INSERT INTO `t_society_sub` VALUES ('45', '青少年性教育', '&#xe6b5;', '#FFBBFF', '', '青少年青春期的性教育', '3', '0', '0', '0', null, null, '2016-01-23 19:35:33', '2016-12-01 01:57:46');
+INSERT INTO `t_society_sub` VALUES ('46', '风流病防治中心', '&#xe6cb;', '#FFBBFF', '', '性病可以治，不敢见医生，我们先聊聊', '3', '0', '0', '0', null, null, '2016-01-23 19:35:33', '2016-12-01 01:57:47');
+INSERT INTO `t_society_sub` VALUES ('47', '妇科保健院', '&#xe6f4;', '#FFBBFF', '', '女人身边最好的健康生活指南', '3', '0', '0', '0', null, null, '2016-01-23 19:35:33', '2016-12-01 01:57:47');
+INSERT INTO `t_society_sub` VALUES ('48', '观日路技术讨论区', '&#xe6b6;', '#FFBBFF', '', '网罗新鲜事儿 生活综合讨论 严肃带着幽默', '4', '0', '0', '0', null, null, '2016-01-23 19:58:15', '2016-12-01 01:57:40');
+INSERT INTO `t_society_sub` VALUES ('49', '这个点 你在做什么', '&#xe630;', '#FFBBFF', '', '一句话分享你现在做的事', '4', '0', '0', '0', null, null, '2016-01-23 19:58:15', '2016-12-01 01:57:39');
+INSERT INTO `t_society_sub` VALUES ('50', '大学生了没', '&#xe6c1;', '#FFBBFF', '', '大学生活真好', '4', '0', '0', '0', null, null, '2016-01-23 19:58:15', '2016-12-01 01:57:39');
+INSERT INTO `t_society_sub` VALUES ('51', '吐槽竞技场', '&#xe631;', '#FFBBFF', '', '心中有槽，不吐不快！专业吐槽圣地', '4', '0', '0', '0', null, null, '2016-01-23 19:58:15', '2016-12-01 01:57:29');
+INSERT INTO `t_society_sub` VALUES ('52', '我要吹牛别拦着我', '&#xe662;', '#FFBBFF', '', '大力吹，不要停', '4', '0', '0', '0', null, null, '2016-01-23 19:58:15', '2016-12-01 01:57:29');
+INSERT INTO `t_society_sub` VALUES ('53', '随手发帖升级区', '&#xe643;', '#FFBBFF', '', '这是一个随便但是不约的版块', '4', '0', '0', '0', null, null, '2016-01-23 19:58:16', '2016-12-01 01:57:22');
+INSERT INTO `t_society_sub` VALUES ('54', '奇闻异事', '&#xe6fd;', '#FFBBFF', '', '起源鬼斧神工，发展瞠目结舌', '4', '0', '0', '0', null, null, '2016-01-23 19:58:16', '2016-12-01 01:57:21');
+INSERT INTO `t_society_sub` VALUES ('55', '职场大家谈', '&#xe660;', '#FFBBFF', '', '啪啪啪啪说一大堆关于职场的八卦', '4', '0', '0', '0', null, null, '2016-01-23 19:58:16', '2016-12-01 01:57:37');
+INSERT INTO `t_society_sub` VALUES ('56', '同城交友', '&#xe65f;', '#FFBBFF', '', '交友相亲 同城约会', '4', '0', '0', '0', null, null, '2016-01-23 19:58:16', '2016-12-01 23:48:00');
+INSERT INTO `t_society_sub` VALUES ('57', '优质生活指南', '&#xe863;', '#FFBBFF', '', '体现你华丽逼格和生活品质的圈子', '4', '0', '0', '0', null, null, '2016-01-23 19:58:16', '2016-12-01 23:48:01');
+INSERT INTO `t_society_sub` VALUES ('58', '未来研究所', '&#xe63b;', '#FFBBFF', '', '一起来竞猜未来好玩的事', '5', '0', '0', '0', null, null, '2016-01-23 20:08:00', '2016-12-01 23:48:01');
+INSERT INTO `t_society_sub` VALUES ('59', '逗趣香蕉TV', '&#xe601;', '#FFBBFF', '', '香蕉哥带你看好玩有趣的视频', '5', '0', '0', '0', null, null, '2016-01-23 20:08:00', '2016-12-01 23:48:02');
+INSERT INTO `t_society_sub` VALUES ('60', '路上的邂逅', '&#xe632;', '#FFBBFF', '', '分享你的美丽旅程和浪漫艳遇', '5', '0', '0', '0', null, null, '2016-01-23 20:08:01', '2016-12-01 23:48:02');
+INSERT INTO `t_society_sub` VALUES ('61', '运动健身馆', '&#xe648;', '#FFBBFF', '', '运动健身，塑造完美身材，减肥打卡互助', '5', '0', '0', '0', null, null, '2016-01-23 20:08:01', '2016-12-01 23:48:03');
+INSERT INTO `t_society_sub` VALUES ('62', '炮火中的游戏圈', '&#xe634;', '#FFBBFF', '', '游戏中不止有WASD，还有啪啪啪', '5', '0', '0', '0', null, null, '2016-01-23 20:08:01', '2016-12-01 23:48:04');
+INSERT INTO `t_society_sub` VALUES ('63', '吃货的厨房', '&#xe635;', '#FFBBFF', '', '唯美食和妹子不可辜负', '5', '0', '0', '0', null, null, '2016-01-23 20:08:01', '2016-12-01 23:48:04');
+INSERT INTO `t_society_sub` VALUES ('64', '逗聊星座', '&#xe636;', '#FFBBFF', '', '星座速配，和ta一起做美妙的事', '5', '0', '0', '0', null, null, '2016-01-23 20:08:01', '2016-12-01 23:48:05');
+INSERT INTO `t_society_sub` VALUES ('65', '动漫宅基腐', '&#xe637;', '#FFBBFF', '', '看动漫，享激情', '5', '0', '0', '0', null, null, '2016-01-23 20:08:01', '2016-12-01 23:48:06');
+INSERT INTO `t_society_sub` VALUES ('66', '娱乐八卦区', '&#xe638;', '#FFBBFF', '', '扒内幕揭丑闻，我们越扒越爽', '5', '0', '0', '0', null, null, '2016-01-23 20:08:01', '2016-12-01 23:48:06');
+INSERT INTO `t_society_sub` VALUES ('67', '无节操放映社', '&#xe639;', '#FFBBFF', '', '无任何节操的，为你带来好看的AVI', '5', '0', '0', '0', null, null, '2016-01-23 20:08:01', '2016-12-01 23:48:07');
+INSERT INTO `t_society_sub` VALUES ('68', '有图有金币', '&#xe7df;', '#FFBBFF', '', '只放ID照，有ID有逗币，没ID下边请', '6', '0', '0', '0', null, null, '2016-01-23 20:23:12', '2016-12-01 23:48:08');
+INSERT INTO `t_society_sub` VALUES ('69', '不帅你抽我', '&#xe63a;', '#FFBBFF', '', '型男自拍，达人点评，教你逆袭白富美', '6', '0', '0', '0', null, null, '2016-01-23 20:23:12', '2016-12-01 23:48:08');
+INSERT INTO `t_society_sub` VALUES ('70', '家有仙妻', '&#xe716;', '#FFBBFF', '', '晒老婆 晒情人 秀恩爱 图说故事', '6', '0', '0', '0', null, null, '2016-01-23 20:23:12', '2016-12-01 23:48:09');
+INSERT INTO `t_society_sub` VALUES ('71', '晒美颜', '&#xe63c;', '#FFBBFF', '', '就是这莫美丽 就是这莫自信', '6', '0', '0', '0', null, null, '2016-01-23 20:23:12', '2016-12-01 23:48:10');
+INSERT INTO `t_society_sub` VALUES ('72', '没有沟不会火', '&#xe608;', '#FFBBFF', '', '动如脱兔招架不住 波涛汹涌惊世骇俗', '6', '0', '0', '0', null, null, '2016-01-23 20:23:12', '2016-12-01 23:48:11');
+INSERT INTO `t_society_sub` VALUES ('73', '姐有大长腿', '&#xe604;', '#FFBBFF', '', '晒美腿 晒高跟 晒没足', '6', '0', '0', '0', null, null, '2016-01-23 20:23:12', '2016-12-01 23:48:12');
 
 -- ----------------------------
 -- Table structure for `t_society_sub_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_society_sub_user`;
 CREATE TABLE `t_society_sub_user` (
-  `society_subject_id` int(10) NOT NULL AUTO_INCREMENT,
+  `society_sub_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
-  `val` int(10) DEFAULT '0' COMMENT '社区圈共享值',
+  `val` int(10) DEFAULT '0' COMMENT '社区圈贡献值',
   `type` int(1) DEFAULT '1' COMMENT '用在在板块的身份，1是正常，2是版主',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`society_subject_id`,`user_id`)
+  PRIMARY KEY (`society_sub_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户关注的主题';
 
 -- ----------------------------
 -- Records of t_society_sub_user
 -- ----------------------------
+INSERT INTO `t_society_sub_user` VALUES ('10', '1', '0', '1', '2016-12-18 03:17:34', '2016-12-18 03:17:34');
+INSERT INTO `t_society_sub_user` VALUES ('36', '1', '0', '1', '2016-12-22 23:27:18', '2016-12-22 23:27:18');
+INSERT INTO `t_society_sub_user` VALUES ('53', '1', '0', '1', '2016-12-18 02:32:20', '2016-12-18 02:32:20');
+INSERT INTO `t_society_sub_user` VALUES ('54', '1', '0', '1', '2016-12-18 02:32:23', '2016-12-18 02:32:23');
+INSERT INTO `t_society_sub_user` VALUES ('63', '1', '0', '1', '2016-12-18 02:32:29', '2016-12-18 02:32:29');
 
 -- ----------------------------
 -- Table structure for `t_society_type`
@@ -6983,7 +7474,7 @@ CREATE TABLE `t_society_type` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `sort` int(2) DEFAULT NULL,
-  `status` int(1) DEFAULT '1' COMMENT '1正常',
+  `status` int(1) DEFAULT '0' COMMENT '0正常',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
@@ -6992,12 +7483,38 @@ CREATE TABLE `t_society_type` (
 -- ----------------------------
 -- Records of t_society_type
 -- ----------------------------
-INSERT INTO `t_society_type` VALUES ('1', '性趣', null, '1', '2016-01-23 00:21:05', '2016-01-23 00:22:27');
-INSERT INTO `t_society_type` VALUES ('2', '情感', null, '1', '2016-01-23 00:22:18', '2016-01-23 00:22:35');
-INSERT INTO `t_society_type` VALUES ('3', '健康', null, '1', '2016-01-23 00:24:59', '2016-01-23 00:25:16');
-INSERT INTO `t_society_type` VALUES ('4', '生活', null, '1', '2016-01-23 00:24:59', '2016-01-23 00:25:18');
-INSERT INTO `t_society_type` VALUES ('5', '兴趣', null, '1', '2016-01-23 00:24:59', '2016-01-23 00:25:18');
-INSERT INTO `t_society_type` VALUES ('6', '自拍', null, '1', '2016-01-23 00:24:59', '2016-01-23 00:25:19');
+INSERT INTO `t_society_type` VALUES ('1', '性趣', '1', '0', '2016-01-23 00:21:05', '2016-12-08 01:06:35');
+INSERT INTO `t_society_type` VALUES ('2', '情感', '2', '0', '2016-01-23 00:22:18', '2016-12-08 01:06:36');
+INSERT INTO `t_society_type` VALUES ('3', '健康', '3', '0', '2016-01-23 00:24:59', '2016-12-08 01:06:37');
+INSERT INTO `t_society_type` VALUES ('4', '生活', '4', '0', '2016-01-23 00:24:59', '2016-12-08 01:06:38');
+INSERT INTO `t_society_type` VALUES ('5', '兴趣', '5', '0', '2016-01-23 00:24:59', '2016-12-08 01:06:39');
+INSERT INTO `t_society_type` VALUES ('6', '自拍', '6', '0', '2016-01-23 00:24:59', '2016-12-08 01:06:40');
+
+-- ----------------------------
+-- Table structure for `t_system_config`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_system_config`;
+CREATE TABLE `t_system_config` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) DEFAULT NULL COMMENT '参数名',
+  `code` varchar(128) DEFAULT NULL COMMENT '参数代码',
+  `val` text COMMENT '参数值',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='系统消息';
+
+-- ----------------------------
+-- Records of t_system_config
+-- ----------------------------
+INSERT INTO `t_system_config` VALUES ('1', '客服电话', 'customer_telephone', '400-8000000', null, '2016-10-11 23:22:52', '2016-11-18 00:34:42');
+INSERT INTO `t_system_config` VALUES ('2', '关于我们', 'about_us', '深圳技术股份有限公司，成立于2016年，是一家专业的互联网研发与运营创业公司。\r\n我们并不是简单地贩卖“成人玩具”，而是让情趣体验和感官享受到达全新的维度，以确保你的每一次情趣体验都能最大程度获得充盈的享受。我们乐于将这种情趣交到您的双手之中。\r\n将情趣脱离低俗品味，颠覆世俗偏见。我们开创一个更健康、更有趣的情趣世界。快感的种类与深浅时而千变万化，我们用玩具探索身体，用道具表达情趣。\r\n发展至今，App的激活用户超过 3000 万，除了致力于打造时尚情趣APP品牌外，他趣正为国人的两性文化而努力，每一次的深入浅出的两性对话，都能绵延至世界的尽头。未来邀你一起参与。\r\n		  ', null, '2016-10-11 23:22:52', '2016-10-15 04:59:45');
+INSERT INTO `t_system_config` VALUES ('3', '发送包裹', 'jpush_pack_running', '{0}云展厅通知：您的尾号{1}的账户，您的快递{2}{3}，请您查看包裹内货品详情并注意签收。如有疑问请致电400-8888-235', null, '2016-10-11 23:22:52', '2016-10-15 04:59:47');
+INSERT INTO `t_system_config` VALUES ('4', '客服中心', 'customer_center', '客服联系电话：400324324<br>客服QQ：787897979', null, '2016-10-11 23:22:52', '2016-10-15 04:59:49');
+INSERT INTO `t_system_config` VALUES ('5', '红包规则', 'red_money_rule', '使用说明：<br>红包规则', null, '2016-10-11 23:22:52', '2016-10-15 04:59:52');
+INSERT INTO `t_system_config` VALUES ('6', '系统货币规则', 'money_rule', '使用说明：<br>系统货币规则', null, '2016-10-11 23:22:52', '2016-10-15 04:59:51');
+INSERT INTO `t_system_config` VALUES ('7', '积分规则', 'point_rule', '使用说明：<br>积分规则', null, '1979-01-01 01:00:00', '2016-10-15 05:36:52');
 
 -- ----------------------------
 -- Table structure for `t_system_msg`
@@ -7032,14 +7549,14 @@ CREATE TABLE `t_user` (
   `virtual_money` decimal(10,2) DEFAULT '0.00' COMMENT '虚拟币(逗币)',
   `money` decimal(10,2) DEFAULT '0.00' COMMENT '账户余额',
   `point` int(10) DEFAULT NULL COMMENT '商城积分',
-  `exp` int(10) DEFAULT NULL COMMENT '社区经验',
-  `level` int(4) DEFAULT NULL COMMENT '社区级别',
+  `exp` int(10) DEFAULT '0' COMMENT '社区经验',
+  `level` int(4) DEFAULT '0' COMMENT '社区级别',
   `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
   `email_is` int(1) DEFAULT '0' COMMENT '是否已认证(0否,1是)',
   `phone` varchar(50) DEFAULT NULL COMMENT '手机号码',
   `phone_is` int(1) DEFAULT '0' COMMENT '是否已认证(0否,1是)',
   `age` varchar(12) DEFAULT NULL COMMENT '年龄（出生年月）',
-  `sex` int(1) DEFAULT NULL COMMENT '性别(1男，2女)',
+  `sex` int(1) DEFAULT '1' COMMENT '性别(1男，2女)',
   `sexu` int(1) DEFAULT NULL COMMENT '性取向(1爱好男，2爱好女，3双性恋，4无性恋，5保密)',
   `marr` int(1) DEFAULT NULL COMMENT '婚恋状态(1单身，2恋爱中，3已婚，4离异)',
   `try_is` int(1) DEFAULT '0' COMMENT '是否是体验师',
@@ -7052,13 +7569,27 @@ CREATE TABLE `t_user` (
   UNIQUE KEY `account` (`account`),
   UNIQUE KEY `email` (`email`) USING BTREE,
   UNIQUE KEY `phone` (`phone`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1', '物理王', 'luke', 'd9b1d7db4cd6e70935368a1efb10e377', '无知真理', 'http://ionicframework.com/img/docs/mcfly.jpg', '56.00', '12.00', '75', '32', '1', '361681251@qq.com', '0', '18666668629', '0', null, '2', '1', null, '0', '1', '1', null, '2016-09-13 01:06:50', '2015-12-25 00:56:16');
-INSERT INTO `t_user` VALUES ('2', '真爱', '345', '14e1b600b1fd579f47433b88e8d85291', '天大地大', 'http://ionicframework.com/img/docs/mcfly.jpg', '12.00', '87.00', '34', '65', '5', '15920579059@139.com', '0', '15920579059', '0', null, '1', '2', null, '0', '1', '1', null, '2016-09-13 01:07:49', '2015-12-25 00:56:16');
+INSERT INTO `t_user` VALUES ('1', '遗城落梦', 'luke', 'd9b1d7db4cd6e70935368a1efb10e377', '不要迷恋锅 、锅只是个炒饭的。', 'http://imgsrc.baidu.com/forum/w%3D580/sign=bff34c1e4990f60304b09c4f0913b370/d92ae7dde71190ef43b752f0cd1b9d16fdfa6074.jpg', '56.00', '12.00', '75', '32', '1', '361681251@qq.com', '0', '18666668629', '0', null, '2', '1', null, '0', '1', '1', null, '2016-12-10 00:47:07', '2015-12-25 00:56:16');
+INSERT INTO `t_user` VALUES ('2', '若放弃，请彻底', '345', '14e1b600b1fd579f47433b88e8d85291', '那个人，是我心中的一片海。', 'http://img3.duitang.com/uploads/item/201502/21/20150221162526_Krfzk.jpeg', '12.00', '87.00', '34', '65', '5', '15920579059@139.com', '0', '15920579059', '0', null, '1', '2', null, '0', '1', '1', null, '2016-12-10 00:36:52', '2015-12-25 00:56:16');
+INSERT INTO `t_user` VALUES ('3', '缘尽了′情淡了', 'kuke', 'd9b1d7db4cd6e70935368a1efb10e377', '时间永远不会停留，停留的只会是记忆 ', 'http://tupian.enterdesk.com/2014/mxy/11/2/1/12.jpg', '0.00', '0.00', '0', '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 00:36:58', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('4', '浅唱灬幸福', 'huangting', 'd9b1d7db4cd6e70935368a1efb10e377', '弱水三千只取一瓢  ||  世界之大只想要你', 'http://www.5hb.org/uploads/weichat/b8439dedd708f1017868cc3c9df51a59.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:11:37', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('5', '入她城、占她心', 'moren', 'd9b1d7db4cd6e70935368a1efb10e377', '装逼引领时尚，犯贱成就梦想', 'http://www.poluoluo.com/qq/UploadFiles_7828/201611/2016110420035680.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 00:37:36', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('6', '╰追忆°似水流年', 'jiandan', 'd9b1d7db4cd6e70935368a1efb10e377', '心脏，我跟她表白你激动个毛啊！', 'http://www.duoziwang.com/uploads/1512/1-15122H125160-L.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:11:28', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('7', '无爱无伤,无欲则刚', 'kele', 'd9b1d7db4cd6e70935368a1efb10e377', '人生没有彩排，每天都是直播，不仅收视率低，而且工资不高。', 'http://www.itouxiang.net/uploads/allimg/20151215/174558443123582.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 01:11:50', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('8', '爱是毒', 'moren1', 'd9b1d7db4cd6e70935368a1efb10e377', '沵可知道,沵的一举一动牵动着峩的心跳', 'http://tupian.qqjay.com/tou2/2016/0830/d5a4c03f3bb1d3b15a518ad69ea04394.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 00:38:04', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('9', '格桑花开', 'jiandan1', 'd9b1d7db4cd6e70935368a1efb10e377', '时钟走着走着的会累！何况是一颗心?', 'http://imgsrc.baidu.com/forum/w%3D580/sign=61aca80096cad1c8d0bbfc2f4f3f67c4/f8251d2442a7d93399775c5cae4bd11372f0015c.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 01:13:12', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('10', '胸小随我爸', 'kele1', 'd9b1d7db4cd6e70935368a1efb10e377', '我们现在的状态、是分手前的最后的矜持。', 'http://www.qqpk.cn/Article/UploadFiles/201501/20150113144930170.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:10:59', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('11', '吃樱桃的小丸子', 'moren2', 'd9b1d7db4cd6e70935368a1efb10e377', '你娶或不娶我我都在这里允你一生。  ||  你嫁或不嫁我我都在那里诺你一世。', 'http://img4.duitang.com/uploads/item/201307/16/20130716071650_3XTaE.thumb.200_0.jpeg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 01:11:09', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('12', '空人空心空回忆', 'jiandan2', 'd9b1d7db4cd6e70935368a1efb10e377', '明明知道你不爱我,可我却不顾一切的爱你***', 'http://up.qqjia.com/z/25/tu32716_7.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:11:16', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('13', '失心的骚年', 'kele2', 'd9b1d7db4cd6e70935368a1efb10e377', '十年前我们期待青春，现在，或许是我们致青春的时候了。\r\n', 'http://up.qqjia.com/z/12/tu14952_17.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 00:38:51', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('14', '似水流年', 'moren12', 'd9b1d7db4cd6e70935368a1efb10e377', '一句话唤起了我对你的全部思念，原来我还是如此懦弱。\r\n', 'http://up.qqjia.com/z/25/tu32718_18.png', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:12:05', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('15', '╰追忆°', 'jiandan12', 'd9b1d7db4cd6e70935368a1efb10e377', '    ', 'http://www.poluoluo.com/qq/UploadFiles_7828/201611/2016110701032147.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 01:18:01', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('16', '浅唱灬幸福', 'kele12', 'd9b1d7db4cd6e70935368a1efb10e377', '初一羡慕初二的旅游、初二羡慕初三的暑假、初三羡慕初一的青春。\r\n', 'http://tupian.qqjay.com/tou2/2016/0822/5c7597f0e8d860dfc80a92c2b6aa561f.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 00:39:12', '1979-01-01 01:00:00');
 
 -- ----------------------------
 -- Table structure for `t_user_address`
@@ -7087,8 +7618,8 @@ CREATE TABLE `t_user_address` (
 -- ----------------------------
 -- Records of t_user_address
 -- ----------------------------
-INSERT INTO `t_user_address` VALUES ('1', '1', '谭辉', '15920579059', '广东省', '440000', '深圳市', '440300', '440303', '罗湖区', '黄贝岭街道经二路龙景花园芳庭苑', '430223', '0', '1', '2016-09-20 02:02:49', '1979-01-01 01:00:00');
-INSERT INTO `t_user_address` VALUES ('2', '1', '青蛙王子', '18666668629', '湖南省', '430000', '株洲市', '430200', '430223', '攸县', '菜花坪东南村', '51800', '1', '1', '2016-09-20 02:02:49', '1979-01-01 01:00:00');
+INSERT INTO `t_user_address` VALUES ('1', '1', '谭辉', '15920579059', '广东省', '440000', '深圳市', '440300', '440303', '罗湖区', '黄贝岭街道经二路龙景花园芳庭苑', '430223', '1', '1', '2017-01-11 00:43:41', '1979-01-01 01:00:00');
+INSERT INTO `t_user_address` VALUES ('2', '1', '青蛙王子', '18666668629', '湖南省', '430000', '株洲市', '430200', '430223', '攸县', '菜花坪东南村', '51800', '0', '1', '2017-01-11 00:43:40', '1979-01-01 01:00:00');
 
 -- ----------------------------
 -- Table structure for `t_user_atte`
@@ -7097,12 +7628,6 @@ DROP TABLE IF EXISTS `t_user_atte`;
 CREATE TABLE `t_user_atte` (
   `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
   `atte_user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '好友ID',
-  `type` int(4) unsigned NOT NULL DEFAULT '0' COMMENT '类型（1好友申请，2好友，3陌生人）',
-  `atte_user_name` varchar(50) DEFAULT NULL COMMENT '好友名字',
-  `atte_user_head` varchar(300) DEFAULT NULL COMMENT '好友头像',
-  `atte_user_level` int(3) unsigned DEFAULT '0' COMMENT '好友等级',
-  `atte_money` int(10) DEFAULT NULL COMMENT '好友金额',
-  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   PRIMARY KEY (`user_id`,`atte_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户关注';
@@ -7110,6 +7635,143 @@ CREATE TABLE `t_user_atte` (
 -- ----------------------------
 -- Records of t_user_atte
 -- ----------------------------
+INSERT INTO `t_user_atte` VALUES ('1', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('1', '3', '2016-12-10 01:14:03');
+INSERT INTO `t_user_atte` VALUES ('1', '4', '2016-12-08 00:33:38');
+INSERT INTO `t_user_atte` VALUES ('1', '5', '2016-12-10 01:14:13');
+INSERT INTO `t_user_atte` VALUES ('1', '6', '2016-12-10 01:14:10');
+INSERT INTO `t_user_atte` VALUES ('1', '7', '2016-12-08 00:35:12');
+INSERT INTO `t_user_atte` VALUES ('1', '8', '2016-12-10 01:13:49');
+INSERT INTO `t_user_atte` VALUES ('1', '10', '2016-12-10 01:13:54');
+INSERT INTO `t_user_atte` VALUES ('1', '11', '2016-12-10 01:13:40');
+INSERT INTO `t_user_atte` VALUES ('1', '12', '2016-12-10 01:14:06');
+INSERT INTO `t_user_atte` VALUES ('1', '13', '2016-12-10 01:13:51');
+INSERT INTO `t_user_atte` VALUES ('1', '16', '2016-12-10 01:13:46');
+INSERT INTO `t_user_atte` VALUES ('2', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('2', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('3', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('3', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('5', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('5', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('5', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('5', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('5', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('5', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('5', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('5', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('6', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('6', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('6', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('6', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('6', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('6', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('6', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('6', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('7', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('7', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('7', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('7', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('7', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('7', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('7', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('7', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('8', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('8', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('8', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('8', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('8', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('8', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('8', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('8', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('9', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('9', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('9', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('9', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('9', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('9', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('9', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('9', '10', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('10', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('10', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('10', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('10', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('10', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('10', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('10', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('10', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('11', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('11', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('11', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('11', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('11', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('11', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('11', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('11', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('12', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('12', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('12', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('12', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('12', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('12', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('12', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('12', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('13', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('13', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('13', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('13', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('13', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('13', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('13', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('13', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '2', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '3', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '4', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '6', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '7', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '8', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '9', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '10', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '11', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '12', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '13', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '14', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '15', '1979-01-01 01:00:00');
+INSERT INTO `t_user_atte` VALUES ('14', '16', '1979-01-01 01:00:00');
+
+-- ----------------------------
+-- Table structure for `t_user_basis`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_basis`;
+CREATE TABLE `t_user_basis` (
+  `id` int(10) NOT NULL COMMENT '用户ID关联t_user.id',
+  `virtual_money` decimal(10,2) DEFAULT '0.00' COMMENT '虚拟币(逗币)',
+  `money` decimal(10,2) DEFAULT '0.00' COMMENT '账户余额',
+  `point` int(10) DEFAULT '0' COMMENT '商城积分',
+  `exp` int(10) DEFAULT '0' COMMENT '社区经验',
+  `level` int(4) DEFAULT '0' COMMENT '社区级别',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_user_basis
+-- ----------------------------
+INSERT INTO `t_user_basis` VALUES ('1', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('2', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('3', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('4', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('5', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('6', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('7', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('8', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('9', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('10', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('11', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('12', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('13', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('14', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('15', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('16', '0.00', '0.00', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for `t_user_friend`
@@ -7118,7 +7780,7 @@ DROP TABLE IF EXISTS `t_user_friend`;
 CREATE TABLE `t_user_friend` (
   `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
   `friend_user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '好友ID',
-  `type` int(4) unsigned NOT NULL DEFAULT '0' COMMENT '类型（1：好友申请，2：好友，3陌生人）',
+  `type` int(4) unsigned NOT NULL DEFAULT '1' COMMENT '类型（1：好友申请，2：好友，3陌生人）',
   `friend_user_name` varchar(50) DEFAULT NULL COMMENT '好友名字',
   `friend_user_head` varchar(300) DEFAULT NULL COMMENT '好友经理头像',
   `friend_user_level` int(3) unsigned DEFAULT '0' COMMENT '好友等级',
@@ -7131,6 +7793,98 @@ CREATE TABLE `t_user_friend` (
 -- ----------------------------
 -- Records of t_user_friend
 -- ----------------------------
+INSERT INTO `t_user_friend` VALUES ('1', '5', '2', null, null, '0', null, '2016-12-03 12:42:13', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('1', '6', '2', null, null, '0', null, '2016-12-03 12:45:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('2', '1', '2', null, null, '0', null, '2016-12-03 12:45:58', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('2', '3', '2', null, null, '0', null, '2016-12-03 12:46:01', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('2', '4', '2', null, null, '0', null, '2016-12-03 12:46:02', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('2', '5', '2', null, null, '0', null, '2016-12-03 12:46:04', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('2', '6', '2', null, null, '0', null, '2016-12-03 12:46:06', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('3', '1', '2', null, null, '0', null, '2016-12-03 12:45:55', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('5', '3', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('5', '4', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('5', '6', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('5', '7', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('5', '8', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('5', '9', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('6', '1', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('6', '2', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('6', '3', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('6', '4', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('6', '6', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('6', '7', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('6', '8', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('6', '9', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('7', '1', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('7', '2', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('7', '3', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('7', '4', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('7', '6', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('7', '7', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('7', '8', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('7', '9', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('8', '1', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('8', '2', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('8', '3', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('8', '4', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('8', '6', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('8', '7', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('8', '8', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('8', '9', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('9', '1', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('9', '2', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('9', '3', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('9', '4', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('9', '6', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('9', '7', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('9', '8', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('9', '10', '2', null, null, '0', null, '2016-12-03 13:02:23', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('10', '1', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('10', '2', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('10', '3', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('10', '4', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('10', '6', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('10', '7', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('10', '8', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('10', '9', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('11', '1', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('11', '2', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('11', '3', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('11', '4', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('11', '6', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('11', '7', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('11', '8', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('11', '9', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('12', '1', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('12', '2', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('12', '3', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('12', '4', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('12', '6', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('12', '7', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('12', '8', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('12', '9', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('13', '1', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('13', '2', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('13', '3', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('13', '4', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('13', '6', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('13', '7', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('13', '8', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('13', '9', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '1', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '2', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '3', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '4', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '6', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '7', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '8', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '9', '2', null, null, '0', null, '2016-12-03 13:03:53', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '10', '2', null, null, '0', null, '2016-12-04 15:12:45', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '11', '2', null, null, '0', null, '2016-12-04 15:12:46', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '12', '2', null, null, '0', null, '2016-12-04 15:12:46', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '13', '2', null, null, '0', null, '2016-12-04 15:12:47', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '15', '2', null, null, '0', null, '2016-12-04 15:12:48', '1979-01-01 01:00:00');
+INSERT INTO `t_user_friend` VALUES ('14', '16', '2', null, null, '0', null, '2016-12-04 15:12:49', '1979-01-01 01:00:00');
 
 -- ----------------------------
 -- Table structure for `t_user_keep`
@@ -7149,22 +7903,16 @@ CREATE TABLE `t_user_keep` (
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=153 DEFAULT CHARSET=utf8 COMMENT='用户的收藏';
+) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8 COMMENT='用户的收藏';
 
 -- ----------------------------
 -- Records of t_user_keep
 -- ----------------------------
-INSERT INTO `t_user_keep` VALUES ('126', '1', '10010', null, null, '1', '久慕雅黛 古典复古和服风深V开衩短裙日式情趣内衣', 'http://mallimg01.touchcdn.com/goods-gallery/e2d09b3577f70bcbf769bca6666c3c43.jpg?imageView/2/w/416/interlace/1', '59.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('127', '1', '10011', null, null, '1', '性感日式印花和服宽松深V蝴蝶结复古和服风东京美娘款', 'http://mallimg01.touchcdn.com/goods-gallery/0e65fea48479e7da41432b9bb774bca0.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('128', '1', '10012', null, null, '1', '古典高档绣花年年有鱼喜庆露乳性感肚兜 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/b75134196cccd1a6fc88c1bfe2627b43.jpg?imageView/2/w/416/interlace/1', '25.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('129', '1', '10013', null, null, '1', '日式和服开襟三点式绑带缎面印花和服套装 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/625edf645a7c9e04ff8ef24555eb3179.jpg?imageView/2/w/416/interlace/1', '39.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
-INSERT INTO `t_user_keep` VALUES ('130', '1', '10014', null, null, '1', '制服诱惑日系和服性感开襟深V包臀蝴蝶结和服 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/c1db41303a5eee78c6a162907b7abbbb.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('131', '1', '10015', null, null, '1', 'EVO二代加温火焰无线充电遥控加热恒温跳蛋', 'http://mallimg01.touchcdn.com/goods-gallery/cb5c8464c08fea2958a9a44fb6378585.jpg?imageView/2/w/416/interlace/1', '168.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
-INSERT INTO `t_user_keep` VALUES ('132', '1', '10016', null, null, '1', '【包邮】雷霆炫动AV震动棒 女性G点刺激', 'http://mallimg01.touchcdn.com/gallery/TB2RsohcFXXXXakXXXXXXXXXXXX468359490.jpg?imageView/2/w/416/interlace/1', '79.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('133', '1', '10017', null, null, '1', '【包邮】品色伸缩转珠震动按摩AV棒', 'http://mallimg01.touchcdn.com/goods-gallery/0ff07592e560f8d86f35486eeda10e63.jpg?imageView/2/w/416/interlace/1', '79.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
-INSERT INTO `t_user_keep` VALUES ('134', '1', '10018', null, null, '1', '阿芙拉G点妖精10变频模式震动棒', 'http://mallimg01.touchcdn.com/goods-gallery/284c2430c41f248460fe123125210438.jpg?imageView/2/w/416/interlace/1', '69.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
-INSERT INTO `t_user_keep` VALUES ('135', '1', '10019', null, null, '1', '【买1送2】纯情女仆女佣装分体露乳制服 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '35.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
-INSERT INTO `t_user_keep` VALUES ('136', '1', '10020', null, null, '1', '印花豹纹无痕冰丝一片式性感防走光舒适透气情趣内裤', 'http://mallimg01.touchcdn.com/goods-gallery/fad231cc46a6370394305b348f90cb81.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('137', '1', '10021', null, null, '1', '【买1送2】护士装 深V紧身性感大露背小护士装制服扮演', 'http://mallimg01.touchcdn.com/goods-gallery/c60834843534de6135db5dd35caf4366.jpg?imageView/2/w/416/interlace/1', '19.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('138', '1', '10022', null, null, '1', '【买1送2】中国风古典蕾丝柔纱透明旗袍 新婚制服扮演性感睡衣', 'http://mallimg01.touchcdn.com/goods-gallery/73688eac2b67ef212af124bf52bcbbf4.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('139', '1', '10023', null, null, '1', '【包邮】私享玩趣 桑巴丽影 强力变频防水静音跳蛋', 'http://mallimg01.touchcdn.com/goods-gallery/22c56205dc707ef0c4d5505dddc07f79.jpg?imageView/2/w/416/interlace/1', '65.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
@@ -7174,12 +7922,33 @@ INSERT INTO `t_user_keep` VALUES ('142', '1', '10026', null, null, '1', '针筒�
 INSERT INTO `t_user_keep` VALUES ('143', '1', '10027', null, null, '1', '荷兰COB女优签名版震动飞机杯', 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', '99.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('144', '1', '10028', null, null, '1', '诺兰美人鱼蓝牙智能语音震动深喉飞机杯口交版', 'http://mallimg01.touchcdn.com/goods-gallery/4704fb20bc7dae5fe74a1e063fca4556.jpg?imageView/2/w/416/interlace/1', '499.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('145', '1', '10029', null, null, '1', 'AV女优17岁少女小萝莉双姐妹名器倒模', 'http://mallimg01.touchcdn.com/goods-gallery/2bb05b248e64ce3c79d3537bba3f26e3.jpg?imageView/2/w/416/interlace/1', '39.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
-INSERT INTO `t_user_keep` VALUES ('146', '1', '10030', null, null, '1', '性感露乳露背 网纱透明裸色花仙子女仆装', 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', '59.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('147', '1', '10031', null, null, '1', '丝质格纹开档提花连身袜 两色 selebritee', 'http://mallimg01.touchcdn.com/goods-gallery/02f98b01062aeab43ed3016039ca578c.jpg?imageView/2/w/416/interlace/1', '49.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('148', '1', '10032', null, null, '1', '【包邮】杜蕾斯经典四合一 24只装避孕套', 'http://mallimg01.touchcdn.com/goods-gallery/be760b80bcd4067931b8ce7d4f5430f9.jpg?imageView/2/w/416/interlace/1', '39.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('149', '1', '10033', null, null, '1', '【新品】LULU 噜噜 003超薄避孕套 热感激情装12只', 'http://mallimg01.touchcdn.com/goods-gallery/f6031e0efdb9d15cbacb07b572a77073.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
-INSERT INTO `t_user_keep` VALUES ('150', '1', '10034', null, null, '1', 'BKK智能飞机杯智能人机互动自慰杯虚拟现实3D场景', 'http://mallimg01.touchcdn.com/goods-gallery/fd944f54b22da916e62a79af9d455ab7.jpg?imageView/2/w/416/interlace/1', '599.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('152', '1', '1', '7', '情趣研究所', '2', '发上来的积分楼上的', null, null, '1979-01-01 01:00:00', '2016-09-18 01:21:25');
+INSERT INTO `t_user_keep` VALUES ('155', '1', '10030', null, null, '1', '性感露乳露背 网纱透明裸色花仙子女仆装', 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', '59.00', '2016-10-25 01:19:54', '2016-10-25 01:19:54');
+INSERT INTO `t_user_keep` VALUES ('161', '1', '10001', null, null, '1', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '19.00', '2016-10-31 01:08:04', '2016-10-31 01:08:04');
+INSERT INTO `t_user_keep` VALUES ('164', '1', '10019', null, null, '1', '【买1送2】纯情女仆女佣装分体露乳制服 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '35.00', '2016-11-20 16:10:59', '2016-11-20 16:10:59');
+INSERT INTO `t_user_keep` VALUES ('165', '1', '10011', null, null, '1', '性感日式印花和服宽松深V蝴蝶结复古和服风东京美娘款', 'http://mallimg01.touchcdn.com/goods-gallery/0e65fea48479e7da41432b9bb774bca0.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('166', '1', '10012', null, null, '1', '古典高档绣花年年有鱼喜庆露乳性感肚兜 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/b75134196cccd1a6fc88c1bfe2627b43.jpg?imageView/2/w/416/interlace/1', '25.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('167', '1', '10013', null, null, '1', '日式和服开襟三点式绑带缎面印花和服套装 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/625edf645a7c9e04ff8ef24555eb3179.jpg?imageView/2/w/416/interlace/1', '39.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('168', '1', '10015', null, null, '1', 'EVO二代加温火焰无线充电遥控加热恒温跳蛋', 'http://mallimg01.touchcdn.com/goods-gallery/cb5c8464c08fea2958a9a44fb6378585.jpg?imageView/2/w/416/interlace/1', '168.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('169', '1', '10017', null, null, '1', '【包邮】品色伸缩转珠震动按摩AV棒', 'http://mallimg01.touchcdn.com/goods-gallery/0ff07592e560f8d86f35486eeda10e63.jpg?imageView/2/w/416/interlace/1', '79.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('170', '1', '10021', null, null, '1', '【买1送2】护士装 深V紧身性感大露背小护士装制服扮演', 'http://mallimg01.touchcdn.com/goods-gallery/c60834843534de6135db5dd35caf4366.jpg?imageView/2/w/416/interlace/1', '19.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('171', '1', '10022', null, null, '1', '【买1送2】中国风古典蕾丝柔纱透明旗袍 新婚制服扮演性感睡衣', 'http://mallimg01.touchcdn.com/goods-gallery/73688eac2b67ef212af124bf52bcbbf4.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('172', '1', '10023', null, null, '1', '【包邮】私享玩趣 桑巴丽影 强力变频防水静音跳蛋', 'http://mallimg01.touchcdn.com/goods-gallery/22c56205dc707ef0c4d5505dddc07f79.jpg?imageView/2/w/416/interlace/1', '65.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('173', '1', '10024', null, null, '1', '诺兰摇情AV棒 高潮静音震动按摩振动棒充电款', 'http://mallimg01.touchcdn.com/goods-gallery/89ba5d2dd2fa7cadf603db8feb06a79b.jpg?imageView/2/w/416/interlace/1', '178.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('174', '1', '10025', null, null, '1', '艾丝葵 甜蜜习惯 蕾丝刺绣透明网眼丁字开档绑带T裤内裤', 'http://mallimg01.touchcdn.com/goods-gallery/130b27b5d38de9d9c1017ed56d02dae7.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('175', '1', '10026', null, null, '1', '针筒式灌肠器 肛门灌肠清洗器 SM调教后庭用品', 'http://mallimg01.touchcdn.com/goods-gallery/c294f52da9a6e0340fa7b5b867bd717b.jpg?imageView/2/w/416/interlace/1', '19.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('176', '1', '10027', null, null, '1', '荷兰COB女优签名版震动飞机杯', 'http://mallimg01.touchcdn.com/goods-gallery/dbdbae49f7d87854578c4cf52f0e5ffd.jpg?imageView/2/w/416/interlace/1', '99.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('177', '1', '10028', null, null, '1', '诺兰美人鱼蓝牙智能语音震动深喉飞机杯口交版', 'http://mallimg01.touchcdn.com/goods-gallery/4704fb20bc7dae5fe74a1e063fca4556.jpg?imageView/2/w/416/interlace/1', '499.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('178', '1', '10029', null, null, '1', 'AV女优17岁少女小萝莉双姐妹名器倒模', 'http://mallimg01.touchcdn.com/goods-gallery/2bb05b248e64ce3c79d3537bba3f26e3.jpg?imageView/2/w/416/interlace/1', '39.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('179', '1', '10031', null, null, '1', '丝质格纹开档提花连身袜 两色 selebritee', 'http://mallimg01.touchcdn.com/goods-gallery/02f98b01062aeab43ed3016039ca578c.jpg?imageView/2/w/416/interlace/1', '49.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('180', '1', '10032', null, null, '1', '【包邮】杜蕾斯经典四合一 24只装避孕套', 'http://mallimg01.touchcdn.com/goods-gallery/be760b80bcd4067931b8ce7d4f5430f9.jpg?imageView/2/w/416/interlace/1', '39.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('181', '1', '10033', null, null, '1', '【新品】LULU 噜噜 003超薄避孕套 热感激情装12只', 'http://mallimg01.touchcdn.com/goods-gallery/f6031e0efdb9d15cbacb07b572a77073.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
+INSERT INTO `t_user_keep` VALUES ('182', '1', '10030', null, null, '1', '性感露乳露背 网纱透明裸色花仙子女仆装', 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', '59.00', '2016-10-25 01:19:54', '2016-10-25 01:19:54');
+INSERT INTO `t_user_keep` VALUES ('183', '1', '10001', null, null, '1', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '19.00', '2016-10-31 01:08:04', '2016-10-31 01:08:04');
+INSERT INTO `t_user_keep` VALUES ('185', '1', '10019', null, null, '1', '【买1送2】纯情女仆女佣装分体露乳制服 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '35.00', '2016-11-20 16:10:59', '2016-11-20 16:10:59');
 
 -- ----------------------------
 -- Table structure for `t_user_msg`
@@ -7201,6 +7970,41 @@ CREATE TABLE `t_user_msg` (
 -- ----------------------------
 -- Records of t_user_msg
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for `t_user_ranking`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_ranking`;
+CREATE TABLE `t_user_ranking` (
+  `id` int(10) NOT NULL COMMENT '用户ID关联t_user.id',
+  `play_reward` decimal(10,2) DEFAULT '0.00' COMMENT '打赏周',
+  `play_reward_total` decimal(10,2) DEFAULT '0.00' COMMENT '打赏总',
+  `play_reward_rank` int(10) DEFAULT '0' COMMENT '打赏排名',
+  `get_reward` decimal(10,2) DEFAULT '0.00' COMMENT '获得奖励总',
+  `get_reward_total` decimal(10,2) DEFAULT '0.00' COMMENT '账户余额',
+  `get_reward_rank` int(10) DEFAULT '0' COMMENT '商城积分',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_user_ranking
+-- ----------------------------
+INSERT INTO `t_user_ranking` VALUES ('1', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('2', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('3', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('4', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('5', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('6', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('7', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('8', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('9', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('10', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('11', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('12', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('13', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('14', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('15', '0.00', '0.00', '0', '0.00', '0.00', '0');
+INSERT INTO `t_user_ranking` VALUES ('16', '0.00', '0.00', '0', '0.00', '0.00', '0');
 
 -- ----------------------------
 -- Table structure for `t_user_rec`
@@ -7238,7 +8042,7 @@ CREATE TABLE `t_user_session` (
 -- ----------------------------
 -- Records of t_user_session
 -- ----------------------------
-INSERT INTO `t_user_session` VALUES ('1', '21dbc03e00605b01f9eef9ff2b1b27df', '2016-09-20 02:01:12', '2016-09-20 02:01:12');
+INSERT INTO `t_user_session` VALUES ('1', 'e99c449b590a9fd9de946486b2a83c09', '2016-10-19 00:18:20', '2016-10-19 00:18:20');
 
 -- ----------------------------
 -- Table structure for `t_user_session_log`

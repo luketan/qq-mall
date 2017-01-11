@@ -31,10 +31,20 @@ public class TGoodsDis extends BaseEntity implements Serializable{
 	private String goodsFormat=null;
 	@FieldMeta(primaryKey = false,fieldName = "评价内容",dbName = "content",length = 225,allowNull=true)
 	private String content=null;
+	@FieldMeta(primaryKey = false,fieldName = "回复时间",dbName = "reply_time",length = 19,allowNull=true)
+	private Date replyTime=null;
+	@FieldMeta(primaryKey = false,fieldName = "系统回复",dbName = "reply",length = 65535,allowNull=true)
+	private String reply=null;
 	@FieldMeta(primaryKey = false,fieldName = "评论值(掩码处理：物流，客服，质量）",dbName = "type_value",length = 5,allowNull=true)
 	private String typeValue=null;
-	@FieldMeta(primaryKey = false,fieldName = "评论值(1满意，2一般，3不满意)",dbName = "discuss_value",length = 10,allowNull=true)
-	private Integer discussValue=null;
+	@FieldMeta(primaryKey = false,fieldName = "评论值(1满意，2一般，4不满意,8，16)",dbName = "dis_value",length = 10,allowNull=true)
+	private Integer disValue=null;
+	@FieldMeta(primaryKey = false,fieldName = "是否有图片",dbName = "img",length = 10,allowNull=true)
+	private Integer img=null;
+	@FieldMeta(primaryKey = false,fieldName = "点赞",dbName = "good",length = 10,allowNull=true)
+	private Integer good=null;
+	@FieldMeta(primaryKey = false,fieldName = "低级评论",dbName = "low",length = 10,allowNull=true)
+	private Integer low=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
@@ -47,7 +57,7 @@ public class TGoodsDis extends BaseEntity implements Serializable{
 	
 	public TGoodsDis(){
  	}
- 	public TGoodsDis(Integer id,Integer goodsId,Integer userId,String userName,Integer goodsFormatId,String goodsFormat,String content,String typeValue,Integer discussValue){
+ 	public TGoodsDis(Integer id,Integer goodsId,Integer userId,String userName,Integer goodsFormatId,String goodsFormat,String content,Date replyTime,String reply,String typeValue,Integer disValue,Integer img,Integer good,Integer low){
  		this.id = id;
 		this.goodsId = goodsId;
 		this.userId = userId;
@@ -55,8 +65,13 @@ public class TGoodsDis extends BaseEntity implements Serializable{
 		this.goodsFormatId = goodsFormatId;
 		this.goodsFormat = goodsFormat;
 		this.content = content;
+		this.replyTime = replyTime;
+		this.reply = reply;
 		this.typeValue = typeValue;
-		this.discussValue = discussValue;
+		this.disValue = disValue;
+		this.img = img;
+		this.good = good;
+		this.low = low;
 		
  	}
  	
@@ -109,6 +124,20 @@ public class TGoodsDis extends BaseEntity implements Serializable{
 	public void setContent(String content){
 		  this.content = content; 
 	}
+	/*回复时间*/
+	public Date getReplyTime(){
+		 return this.replyTime; 
+	}
+	public void setReplyTime(Date replyTime){
+		  this.replyTime = replyTime; 
+	}
+	/*系统回复*/
+	public String getReply(){
+		 return this.reply; 
+	}
+	public void setReply(String reply){
+		  this.reply = reply; 
+	}
 	/*评论值(掩码处理：物流，客服，质量）*/
 	public String getTypeValue(){
 		 return this.typeValue; 
@@ -116,12 +145,33 @@ public class TGoodsDis extends BaseEntity implements Serializable{
 	public void setTypeValue(String typeValue){
 		  this.typeValue = typeValue; 
 	}
-	/*评论值(1满意，2一般，3不满意)*/
-	public Integer getDiscussValue(){
-		 return this.discussValue; 
+	/*评论值(1满意，2一般，4不满意,8，16)*/
+	public Integer getDisValue(){
+		 return this.disValue; 
 	}
-	public void setDiscussValue(Integer discussValue){
-		  this.discussValue = discussValue; 
+	public void setDisValue(Integer disValue){
+		  this.disValue = disValue; 
+	}
+	/*是否有图片*/
+	public Integer getImg(){
+		 return this.img; 
+	}
+	public void setImg(Integer img){
+		  this.img = img; 
+	}
+	/*点赞*/
+	public Integer getGood(){
+		 return this.good; 
+	}
+	public void setGood(Integer good){
+		  this.good = good; 
+	}
+	/*低级评论*/
+	public Integer getLow(){
+		 return this.low; 
+	}
+	public void setLow(Integer low){
+		  this.low = low; 
 	}
 	/*创建时间*/
 	public Date getCreateTime(){
@@ -148,8 +198,13 @@ public class TGoodsDis extends BaseEntity implements Serializable{
 		goodsFormatId("goods_format_id",Types.INTEGER,false,false,true),
 		goodsFormat("goods_format",Types.VARCHAR,false,false,true),
 		content("content",Types.VARCHAR,false,false,true),
+		replyTime("reply_time",Types.TIMESTAMP,false,false,true),
+		reply("reply",Types.LONGVARCHAR,false,false,true),
 		typeValue("type_value",Types.VARCHAR,false,false,true),
-		discussValue("discuss_value",Types.INTEGER,false,false,true),
+		disValue("dis_value",Types.INTEGER,false,false,true),
+		img("img",Types.INTEGER,false,false,true),
+		good("good",Types.INTEGER,false,false,true),
+		low("low",Types.INTEGER,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -202,8 +257,13 @@ public class TGoodsDis extends BaseEntity implements Serializable{
 			tGoodsDis.setGoodsFormatId(rs.getInt("goods_format_id"));
 			tGoodsDis.setGoodsFormat(rs.getString("goods_format"));
 			tGoodsDis.setContent(rs.getString("content"));
+			tGoodsDis.setReplyTime(rs.getTimestamp("reply_time"));
+			tGoodsDis.setReply(rs.getString("reply"));
 			tGoodsDis.setTypeValue(rs.getString("type_value"));
-			tGoodsDis.setDiscussValue(rs.getInt("discuss_value"));
+			tGoodsDis.setDisValue(rs.getInt("dis_value"));
+			tGoodsDis.setImg(rs.getInt("img"));
+			tGoodsDis.setGood(rs.getInt("good"));
+			tGoodsDis.setLow(rs.getInt("low"));
 			tGoodsDis.setCreateTime(rs.getTimestamp("create_time"));
 			tGoodsDis.setUpdateTime(rs.getTimestamp("update_time"));
 			return tGoodsDis; 

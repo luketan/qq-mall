@@ -21,11 +21,11 @@ public class TChangeLog extends BaseEntity implements Serializable{
 	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "用户ID",dbName = "user_id",length = 10,allowNull=false)
 	private Integer userId=null;
-	@FieldMeta(primaryKey = false,fieldName = "记录对象Id[商品Id，帖子Id]",dbName = "object_id",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "记录对象Id(商品Id，帖子Id)",dbName = "object_id",length = 10,allowNull=false)
 	private Integer objectId=null;
-	@FieldMeta(primaryKey = false,fieldName = "记录类型",dbName = "type",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "记录类型(1:币,2:红包,3:积分)",dbName = "type",length = 10,allowNull=false)
 	private Integer type=null;
-	@FieldMeta(primaryKey = false,fieldName = "日志类型",dbName = "log_type",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "日志类型()",dbName = "log_type",length = 10,allowNull=false)
 	private Integer logType=null;
 	@FieldMeta(primaryKey = false,fieldName = "变更前的数量",dbName = "before_num",length = 10,allowNull=false)
 	private Integer beforeNum=null;
@@ -33,8 +33,6 @@ public class TChangeLog extends BaseEntity implements Serializable{
 	private Integer num=null;
 	@FieldMeta(primaryKey = false,fieldName = "变更后的数量",dbName = "curr_num",length = 10,allowNull=false)
 	private Integer currNum=null;
-	@FieldMeta(primaryKey = false,fieldName = "记录时经理的级别",dbName = "level",length = 10,allowNull=false)
-	private Integer level=null;
 	@FieldMeta(primaryKey = false,fieldName = "变更批注",dbName = "comments",length = 500,allowNull=false)
 	private String comments=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
@@ -47,7 +45,7 @@ public class TChangeLog extends BaseEntity implements Serializable{
 	
 	public TChangeLog(){
  	}
- 	public TChangeLog(Integer id,Integer userId,Integer objectId,Integer type,Integer logType,Integer beforeNum,Integer num,Integer currNum,Integer level,String comments){
+ 	public TChangeLog(Integer id,Integer userId,Integer objectId,Integer type,Integer logType,Integer beforeNum,Integer num,Integer currNum,String comments){
  		this.id = id;
 		this.userId = userId;
 		this.objectId = objectId;
@@ -56,7 +54,6 @@ public class TChangeLog extends BaseEntity implements Serializable{
 		this.beforeNum = beforeNum;
 		this.num = num;
 		this.currNum = currNum;
-		this.level = level;
 		this.comments = comments;
 		
  	}
@@ -75,21 +72,21 @@ public class TChangeLog extends BaseEntity implements Serializable{
 	public void setUserId(Integer userId){
 		  this.userId = userId; 
 	}
-	/*记录对象Id[商品Id，帖子Id]*/
+	/*记录对象Id(商品Id，帖子Id)*/
 	public Integer getObjectId(){
 		 return this.objectId; 
 	}
 	public void setObjectId(Integer objectId){
 		  this.objectId = objectId; 
 	}
-	/*记录类型*/
+	/*记录类型(1:币,2:红包,3:积分)*/
 	public Integer getType(){
 		 return this.type; 
 	}
 	public void setType(Integer type){
 		  this.type = type; 
 	}
-	/*日志类型*/
+	/*日志类型()*/
 	public Integer getLogType(){
 		 return this.logType; 
 	}
@@ -117,13 +114,6 @@ public class TChangeLog extends BaseEntity implements Serializable{
 	public void setCurrNum(Integer currNum){
 		  this.currNum = currNum; 
 	}
-	/*记录时经理的级别*/
-	public Integer getLevel(){
-		 return this.level; 
-	}
-	public void setLevel(Integer level){
-		  this.level = level; 
-	}
 	/*变更批注*/
 	public String getComments(){
 		 return this.comments; 
@@ -150,7 +140,6 @@ public class TChangeLog extends BaseEntity implements Serializable{
 		beforeNum("before_num",Types.INTEGER,false,false,false),
 		num("num",Types.INTEGER,false,false,false),
 		currNum("curr_num",Types.INTEGER,false,false,false),
-		level("level",Types.INTEGER,false,false,false),
 		comments("comments",Types.VARCHAR,false,false,false),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -204,7 +193,6 @@ public class TChangeLog extends BaseEntity implements Serializable{
 			tChangeLog.setBeforeNum(rs.getInt("before_num"));
 			tChangeLog.setNum(rs.getInt("num"));
 			tChangeLog.setCurrNum(rs.getInt("curr_num"));
-			tChangeLog.setLevel(rs.getInt("level"));
 			tChangeLog.setComments(rs.getString("comments"));
 			tChangeLog.setCreateTime(rs.getTimestamp("create_time"));
 			return tChangeLog; 

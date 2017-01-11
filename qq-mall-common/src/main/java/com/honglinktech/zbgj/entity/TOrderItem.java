@@ -29,12 +29,12 @@ public class TOrderItem extends BaseEntity implements Serializable{
 	private String goodsName=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "goods_img",length = 128,allowNull=true)
 	private String goodsImg=null;
-	@FieldMeta(primaryKey = false,fieldName = "规格ID",dbName = "format_id",length = 10,allowNull=true)
-	private Integer formatId=null;
-	@FieldMeta(primaryKey = false,fieldName = "商品规格名称",dbName = "format_name",length = 100,allowNull=true)
-	private String formatName=null;
-	@FieldMeta(primaryKey = false,fieldName = "购买数量",dbName = "number",length = 10,allowNull=true)
-	private Integer number=null;
+	@FieldMeta(primaryKey = false,fieldName = "商品规格名称",dbName = "formats",length = 225,allowNull=true)
+	private String formats=null;
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "activitys",length = 255,allowNull=true)
+	private String activitys=null;
+	@FieldMeta(primaryKey = false,fieldName = "购买数量",dbName = "num",length = 10,allowNull=true)
+	private Integer num=null;
 	@FieldMeta(primaryKey = false,fieldName = "成交价格",dbName = "price",length = 10,allowNull=true)
 	private BigDecimal price=null;
 	@FieldMeta(primaryKey = false,fieldName = "市场价格",dbName = "market_price",length = 10,allowNull=true)
@@ -55,15 +55,15 @@ public class TOrderItem extends BaseEntity implements Serializable{
 	
 	public TOrderItem(){
  	}
- 	public TOrderItem(Integer id,Integer orderId,Integer goodsId,String goodsName,String goodsImg,Integer formatId,String formatName,Integer number,BigDecimal price,BigDecimal marketPrice,String remark,Integer disIs){
+ 	public TOrderItem(Integer id,Integer orderId,Integer goodsId,String goodsName,String goodsImg,String formats,String activitys,Integer num,BigDecimal price,BigDecimal marketPrice,String remark,Integer disIs){
  		this.id = id;
 		this.orderId = orderId;
 		this.goodsId = goodsId;
 		this.goodsName = goodsName;
 		this.goodsImg = goodsImg;
-		this.formatId = formatId;
-		this.formatName = formatName;
-		this.number = number;
+		this.formats = formats;
+		this.activitys = activitys;
+		this.num = num;
 		this.price = price;
 		this.marketPrice = marketPrice;
 		this.remark = remark;
@@ -106,26 +106,26 @@ public class TOrderItem extends BaseEntity implements Serializable{
 	public void setGoodsImg(String goodsImg){
 		  this.goodsImg = goodsImg; 
 	}
-	/*规格ID*/
-	public Integer getFormatId(){
-		 return this.formatId; 
-	}
-	public void setFormatId(Integer formatId){
-		  this.formatId = formatId; 
-	}
 	/*商品规格名称*/
-	public String getFormatName(){
-		 return this.formatName; 
+	public String getFormats(){
+		 return this.formats; 
 	}
-	public void setFormatName(String formatName){
-		  this.formatName = formatName; 
+	public void setFormats(String formats){
+		  this.formats = formats; 
+	}
+	/**/
+	public String getActivitys(){
+		 return this.activitys; 
+	}
+	public void setActivitys(String activitys){
+		  this.activitys = activitys; 
 	}
 	/*购买数量*/
-	public Integer getNumber(){
-		 return this.number; 
+	public Integer getNum(){
+		 return this.num; 
 	}
-	public void setNumber(Integer number){
-		  this.number = number; 
+	public void setNum(Integer num){
+		  this.num = num; 
 	}
 	/*成交价格*/
 	public BigDecimal getPrice(){
@@ -178,9 +178,9 @@ public class TOrderItem extends BaseEntity implements Serializable{
 		goodsId("goods_id",Types.INTEGER,false,false,false),
 		goodsName("goods_name",Types.VARCHAR,false,false,false),
 		goodsImg("goods_img",Types.VARCHAR,false,false,true),
-		formatId("format_id",Types.INTEGER,false,false,true),
-		formatName("format_name",Types.VARCHAR,false,false,true),
-		number("number",Types.INTEGER,false,false,true),
+		formats("formats",Types.VARCHAR,false,false,true),
+		activitys("activitys",Types.VARCHAR,false,false,true),
+		num("num",Types.INTEGER,false,false,true),
 		price("price",Types.DECIMAL,false,false,true),
 		marketPrice("market_price",Types.DECIMAL,false,false,true),
 		remark("remark",Types.VARCHAR,false,false,true),
@@ -235,9 +235,9 @@ public class TOrderItem extends BaseEntity implements Serializable{
 			tOrderItem.setGoodsId(rs.getInt("goods_id"));
 			tOrderItem.setGoodsName(rs.getString("goods_name"));
 			tOrderItem.setGoodsImg(rs.getString("goods_img"));
-			tOrderItem.setFormatId(rs.getInt("format_id"));
-			tOrderItem.setFormatName(rs.getString("format_name"));
-			tOrderItem.setNumber(rs.getInt("number"));
+			tOrderItem.setFormats(rs.getString("formats"));
+			tOrderItem.setActivitys(rs.getString("activitys"));
+			tOrderItem.setNum(rs.getInt("num"));
 			tOrderItem.setPrice(rs.getBigDecimal("price"));
 			tOrderItem.setMarketPrice(rs.getBigDecimal("market_price"));
 			tOrderItem.setRemark(rs.getString("remark"));

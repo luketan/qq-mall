@@ -39,6 +39,8 @@ public class TModule extends BaseEntity implements Serializable{
 	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime=null;
+	@FieldMeta(primaryKey = false,fieldName = "删除标记",dbName = "delete_flag",length = 10,allowNull=true)
+	private Integer deleteFlag=null;
 	
 	/**
 	 * 
@@ -47,7 +49,7 @@ public class TModule extends BaseEntity implements Serializable{
 	
 	public TModule(){
  	}
- 	public TModule(Integer id,String name,String title,String url,String content,Integer type,Integer mainType,Integer sort,String remark){
+ 	public TModule(Integer id,String name,String title,String url,String content,Integer type,Integer mainType,Integer sort,String remark,Integer deleteFlag){
  		this.id = id;
 		this.name = name;
 		this.title = title;
@@ -57,6 +59,7 @@ public class TModule extends BaseEntity implements Serializable{
 		this.mainType = mainType;
 		this.sort = sort;
 		this.remark = remark;
+		this.deleteFlag = deleteFlag;
 		
  	}
  	
@@ -137,6 +140,13 @@ public class TModule extends BaseEntity implements Serializable{
 	public void setUpdateTime(Date updateTime){
 		  this.updateTime = updateTime; 
 	}
+	/*删除标记*/
+	public Integer getDeleteFlag(){
+		 return this.deleteFlag; 
+	}
+	public void setDeleteFlag(Integer deleteFlag){
+		  this.deleteFlag = deleteFlag; 
+	}
 
 	
 	public enum DBMaping{
@@ -151,7 +161,8 @@ public class TModule extends BaseEntity implements Serializable{
 		sort("sort",Types.INTEGER,false,false,true),
 		remark("remark",Types.VARCHAR,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true),
-		updateTime("update_time",Types.TIMESTAMP,false,false,true);
+		updateTime("update_time",Types.TIMESTAMP,false,false,true),
+		deleteFlag("delete_flag",Types.INTEGER,false,false,true);
 		private String dbName;
 		private int dbType;
 		private boolean primaryKey;
@@ -206,6 +217,7 @@ public class TModule extends BaseEntity implements Serializable{
 			tModule.setRemark(rs.getString("remark"));
 			tModule.setCreateTime(rs.getTimestamp("create_time"));
 			tModule.setUpdateTime(rs.getTimestamp("update_time"));
+			tModule.setDeleteFlag(rs.getInt("delete_flag"));
 			return tModule; 
         }  
           

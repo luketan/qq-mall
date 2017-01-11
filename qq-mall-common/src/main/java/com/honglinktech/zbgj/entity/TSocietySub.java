@@ -21,13 +21,17 @@ public class TSocietySub extends BaseEntity implements Serializable{
 	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "name",length = 50,allowNull=true)
 	private String name=null;
+	@FieldMeta(primaryKey = false,fieldName = "图标",dbName = "ico",length = 16,allowNull=true)
+	private String ico=null;
+	@FieldMeta(primaryKey = false,fieldName = "图标颜色",dbName = "ico_color",length = 16,allowNull=true)
+	private String icoColor=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "image",length = 128,allowNull=true)
 	private String image=null;
 	@FieldMeta(primaryKey = false,fieldName = "简介",dbName = "synopsis",length = 225,allowNull=true)
 	private String synopsis=null;
 	@FieldMeta(primaryKey = false,fieldName = "类型",dbName = "type",length = 10,allowNull=true)
 	private Integer type=null;
-	@FieldMeta(primaryKey = false,fieldName = "1正常",dbName = "status",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "0正常",dbName = "status",length = 10,allowNull=true)
 	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "sort",length = 10,allowNull=true)
 	private Integer sort=null;
@@ -49,9 +53,11 @@ public class TSocietySub extends BaseEntity implements Serializable{
 	
 	public TSocietySub(){
  	}
- 	public TSocietySub(Integer id,String name,String image,String synopsis,Integer type,Integer status,Integer sort,Integer hotNum,Integer awardType,Integer awardNum){
+ 	public TSocietySub(Integer id,String name,String ico,String icoColor,String image,String synopsis,Integer type,Integer status,Integer sort,Integer hotNum,Integer awardType,Integer awardNum){
  		this.id = id;
 		this.name = name;
+		this.ico = ico;
+		this.icoColor = icoColor;
 		this.image = image;
 		this.synopsis = synopsis;
 		this.type = type;
@@ -77,6 +83,20 @@ public class TSocietySub extends BaseEntity implements Serializable{
 	public void setName(String name){
 		  this.name = name; 
 	}
+	/*图标*/
+	public String getIco(){
+		 return this.ico; 
+	}
+	public void setIco(String ico){
+		  this.ico = ico; 
+	}
+	/*图标颜色*/
+	public String getIcoColor(){
+		 return this.icoColor; 
+	}
+	public void setIcoColor(String icoColor){
+		  this.icoColor = icoColor; 
+	}
 	/**/
 	public String getImage(){
 		 return this.image; 
@@ -98,7 +118,7 @@ public class TSocietySub extends BaseEntity implements Serializable{
 	public void setType(Integer type){
 		  this.type = type; 
 	}
-	/*1正常*/
+	/*0正常*/
 	public Integer getStatus(){
 		 return this.status; 
 	}
@@ -153,6 +173,8 @@ public class TSocietySub extends BaseEntity implements Serializable{
 		tableName("t_society_sub",0,false,false,false),
 		id("id",Types.INTEGER,true,true,false),
 		name("name",Types.VARCHAR,false,false,true),
+		ico("ico",Types.VARCHAR,false,false,true),
+		icoColor("ico_color",Types.VARCHAR,false,false,true),
 		image("image",Types.VARCHAR,false,false,true),
 		synopsis("synopsis",Types.VARCHAR,false,false,true),
 		type("type",Types.INTEGER,false,false,true),
@@ -208,6 +230,8 @@ public class TSocietySub extends BaseEntity implements Serializable{
 			TSocietySub tSocietySub = new TSocietySub();
 			tSocietySub.setId(rs.getInt("id"));
 			tSocietySub.setName(rs.getString("name"));
+			tSocietySub.setIco(rs.getString("ico"));
+			tSocietySub.setIcoColor(rs.getString("ico_color"));
 			tSocietySub.setImage(rs.getString("image"));
 			tSocietySub.setSynopsis(rs.getString("synopsis"));
 			tSocietySub.setType(rs.getInt("type"));

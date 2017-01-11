@@ -31,8 +31,6 @@ public class TSocietyReward extends BaseEntity implements Serializable{
 	private Integer valNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime=null;
-	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime=null;
 	
 	/**
 	 * 
@@ -100,13 +98,6 @@ public class TSocietyReward extends BaseEntity implements Serializable{
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	/*修改时间*/
-	public Date getUpdateTime(){
-		 return this.updateTime; 
-	}
-	public void setUpdateTime(Date updateTime){
-		  this.updateTime = updateTime; 
-	}
 
 	
 	public enum DBMaping{
@@ -117,8 +108,7 @@ public class TSocietyReward extends BaseEntity implements Serializable{
 		busUserId("bus_user_id",Types.INTEGER,false,false,true),
 		type("type",Types.INTEGER,false,false,true),
 		valNum("val_num",Types.INTEGER,false,false,true),
-		createTime("create_time",Types.TIMESTAMP,false,false,true),
-		updateTime("update_time",Types.TIMESTAMP,false,false,true);
+		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
 		private int dbType;
 		private boolean primaryKey;
@@ -169,7 +159,6 @@ public class TSocietyReward extends BaseEntity implements Serializable{
 			tSocietyReward.setType(rs.getInt("type"));
 			tSocietyReward.setValNum(rs.getInt("val_num"));
 			tSocietyReward.setCreateTime(rs.getTimestamp("create_time"));
-			tSocietyReward.setUpdateTime(rs.getTimestamp("update_time"));
 			return tSocietyReward; 
         }  
           

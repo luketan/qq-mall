@@ -19,20 +19,16 @@ public class TCouponUser extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
 	private Integer id=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "coupon_id",length = 10,allowNull=false)
+	@FieldMeta(primaryKey = false,fieldName = "用户ID",dbName = "user_id",length = 10,allowNull=false)
+	private Integer userId=null;
+	@FieldMeta(primaryKey = false,fieldName = "券ID",dbName = "coupon_id",length = 10,allowNull=false)
 	private Integer couponId=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "coupon_name",length = 128,allowNull=true)
-	private String couponName=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "value",length = 10,allowNull=true)
-	private Integer value=null;
-	@FieldMeta(primaryKey = false,fieldName = "1正常",dbName = "status",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "是否已经选中",dbName = "checked",length = 10,allowNull=true)
+	private Integer checked=null;
+	@FieldMeta(primaryKey = false,fieldName = "唯一识别码",dbName = "code",length = 255,allowNull=true)
+	private String code=null;
+	@FieldMeta(primaryKey = false,fieldName = "状态(0未使用，1是已使用)",dbName = "status",length = 10,allowNull=true)
 	private Integer status=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "start_date",length = 19,allowNull=true)
-	private Date startDate=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "end_date",length = 19,allowNull=true)
-	private Date endDate=null;
-	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
-	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime=null;
 	
@@ -43,14 +39,13 @@ public class TCouponUser extends BaseEntity implements Serializable{
 	
 	public TCouponUser(){
  	}
- 	public TCouponUser(Integer id,Integer couponId,String couponName,Integer value,Integer status,Date startDate,Date endDate){
+ 	public TCouponUser(Integer id,Integer userId,Integer couponId,Integer checked,String code,Integer status){
  		this.id = id;
+		this.userId = userId;
 		this.couponId = couponId;
-		this.couponName = couponName;
-		this.value = value;
+		this.checked = checked;
+		this.code = code;
 		this.status = status;
-		this.startDate = startDate;
-		this.endDate = endDate;
 		
  	}
  	
@@ -61,54 +56,40 @@ public class TCouponUser extends BaseEntity implements Serializable{
 	public void setId(Integer id){
 		  this.id = id; 
 	}
-	/**/
+	/*用户ID*/
+	public Integer getUserId(){
+		 return this.userId; 
+	}
+	public void setUserId(Integer userId){
+		  this.userId = userId; 
+	}
+	/*券ID*/
 	public Integer getCouponId(){
 		 return this.couponId; 
 	}
 	public void setCouponId(Integer couponId){
 		  this.couponId = couponId; 
 	}
-	/**/
-	public String getCouponName(){
-		 return this.couponName; 
+	/*是否已经选中*/
+	public Integer getChecked(){
+		 return this.checked; 
 	}
-	public void setCouponName(String couponName){
-		  this.couponName = couponName; 
+	public void setChecked(Integer checked){
+		  this.checked = checked; 
 	}
-	/**/
-	public Integer getValue(){
-		 return this.value; 
+	/*唯一识别码*/
+	public String getCode(){
+		 return this.code; 
 	}
-	public void setValue(Integer value){
-		  this.value = value; 
+	public void setCode(String code){
+		  this.code = code; 
 	}
-	/*1正常*/
+	/*状态(0未使用，1是已使用)*/
 	public Integer getStatus(){
 		 return this.status; 
 	}
 	public void setStatus(Integer status){
 		  this.status = status; 
-	}
-	/**/
-	public Date getStartDate(){
-		 return this.startDate; 
-	}
-	public void setStartDate(Date startDate){
-		  this.startDate = startDate; 
-	}
-	/**/
-	public Date getEndDate(){
-		 return this.endDate; 
-	}
-	public void setEndDate(Date endDate){
-		  this.endDate = endDate; 
-	}
-	/*修改时间*/
-	public Date getUpdateTime(){
-		 return this.updateTime; 
-	}
-	public void setUpdateTime(Date updateTime){
-		  this.updateTime = updateTime; 
 	}
 	/*创建时间*/
 	public Date getCreateTime(){
@@ -122,13 +103,11 @@ public class TCouponUser extends BaseEntity implements Serializable{
 	public enum DBMaping{
 		tableName("t_coupon_user",0,false,false,false),
 		id("id",Types.INTEGER,true,true,false),
+		userId("user_id",Types.INTEGER,false,false,false),
 		couponId("coupon_id",Types.INTEGER,false,false,false),
-		couponName("coupon_name",Types.VARCHAR,false,false,true),
-		value("value",Types.INTEGER,false,false,true),
+		checked("checked",Types.INTEGER,false,false,true),
+		code("code",Types.VARCHAR,false,false,true),
 		status("status",Types.INTEGER,false,false,true),
-		startDate("start_date",Types.TIMESTAMP,false,false,true),
-		endDate("end_date",Types.TIMESTAMP,false,false,true),
-		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
 		private int dbType;
@@ -174,13 +153,11 @@ public class TCouponUser extends BaseEntity implements Serializable{
 
 			TCouponUser tCouponUser = new TCouponUser();
 			tCouponUser.setId(rs.getInt("id"));
+			tCouponUser.setUserId(rs.getInt("user_id"));
 			tCouponUser.setCouponId(rs.getInt("coupon_id"));
-			tCouponUser.setCouponName(rs.getString("coupon_name"));
-			tCouponUser.setValue(rs.getInt("value"));
+			tCouponUser.setChecked(rs.getInt("checked"));
+			tCouponUser.setCode(rs.getString("code"));
 			tCouponUser.setStatus(rs.getInt("status"));
-			tCouponUser.setStartDate(rs.getTimestamp("start_date"));
-			tCouponUser.setEndDate(rs.getTimestamp("end_date"));
-			tCouponUser.setUpdateTime(rs.getTimestamp("update_time"));
 			tCouponUser.setCreateTime(rs.getTimestamp("create_time"));
 			return tCouponUser; 
         }  

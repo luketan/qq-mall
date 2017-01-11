@@ -20,7 +20,8 @@ public class OrderBean {
 	private BigDecimal totalMoney=null;
 	private BigDecimal lostPostMoney=null;
 	private BigDecimal lostMoney=null;
-	private Integer payType=null;
+	private Integer paymentId=null;
+	private String paymentName = null;
 	private Integer payStatus=null;
 	private Integer status=null;
 	private Integer postId=null;
@@ -55,7 +56,8 @@ public class OrderBean {
 			this.addressId = torder.getAddressId();
 			this.money = torder.getMoney();
 			this.totalMoney = torder.getTotalMoney();
-			this.payType = torder.getPayType();
+			this.paymentId = torder.getPaymentId();
+			this.paymentName = torder.getPaymentName();
 			this.payStatus = torder.getPayStatus();
 			this.status = torder.getStatus();
 			this.postId = torder.getPostId();
@@ -110,16 +112,19 @@ public class OrderBean {
 		  this.money = money; 
 	}
 	/*支付方式（1是支付宝支付，2是微信支付,3货到付款）*/
-	public Integer getPayType(){
-		 return this.payType; 
-	}
-	public void setPayType(Integer payType){
-		  this.payType = payType; 
-	}
+	
 	/*订单状态(0未支付,1支付成功,2支付未成功)*/
 	public Integer getPayStatus(){
 		 return this.payStatus; 
 	}
+	public Integer getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(Integer paymentId) {
+		this.paymentId = paymentId;
+	}
+
 	public void setPayStatus(Integer payStatus){
 		  this.payStatus = payStatus; 
 	}
@@ -248,7 +253,7 @@ public class OrderBean {
 		String orderStatus = "";
 		switch (this.status.intValue()) {
 			case 1:
-				orderStatus = "待确认";
+				orderStatus = "待付款";
 				break;
 			case 2:
 				orderStatus = "待发货";
@@ -264,27 +269,13 @@ public class OrderBean {
 		}
 		return orderStatus;
 	}
-	//1是支付宝支付，2是微信支付,3货到付款,4银联支付
-	public String getPayMethed(){
-		String payMethed = "";
-		switch (this.status.intValue()) {
-			case 1:
-				payMethed = "支付宝支付";
-				break;
-			case 2:
-				payMethed = "微信支付";
-				break;
-			case 3:
-				payMethed = "货到付款";
-				break;
-			case 4:
-				payMethed = "银联支付";
-				break;
-			default:
-				break;
-		}
-		return payMethed;
+
+	public String getPaymentName() {
+		return paymentName;
 	}
-	
+
+	public void setPaymentName(String paymentName) {
+		this.paymentName = paymentName;
+	}
 	
 }

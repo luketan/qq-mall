@@ -101,6 +101,7 @@ public abstract class BaseDao<T>{
         Object[] args = this.setArgs(entity, SQL_DELETE);  
         int[] argTypes = this.setArgTypes(entity, SQL_DELETE);
         logger.info("[delete-sql]->"+sql);
+        System.out.println("[delete-sql]->"+sql);
         return jdbcTemplate.update(sql, args, argTypes);  
     }  
   
@@ -108,6 +109,7 @@ public abstract class BaseDao<T>{
     public int deleteById(Serializable id) {  
         String sql = " DELETE FROM " + getDBMapping(TABLENAME)[0] + " WHERE id=?";
         logger.info("[deleteById-sql]->"+sql);
+        System.out.println("[deleteById-sql]->"+sql);
         return jdbcTemplate.update(sql, id);  
     }  
   
@@ -123,15 +125,30 @@ public abstract class BaseDao<T>{
     	return jdbcTemplate.query(sql, getRowMapper());
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<T> find(String sql, RowMapper rowMapper){
-    	logger.info("[deleteAll-sql]->"+sql);
+    public Map<String, Object> findMap(String sql){
+    	logger.info("[findMap-sql]->"+sql);
+    	return jdbcTemplate.queryForMap(sql);
+    }
+    
+	public List<T> find(String sql, RowMapper<T> rowMapper){
+    	logger.info("[find-rowMapper-sql]->"+sql);
     	return jdbcTemplate.query(sql, rowMapper);
     }
     
-    public void updateExecute(String sql){
-    	logger.info("[Execute-sql]->"+sql);
-    	jdbcTemplate.execute(sql);
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public List findRowMapper(String sql, RowMapper rowMapper){
+    	logger.info("[findRowMapper-rowMapper-sql]->"+sql);
+    	return jdbcTemplate.query(sql, rowMapper);
+    }
+    
+    public int updateExecute(String sql){
+    	logger.info("[update Execute-sql]->"+sql);
+    	return jdbcTemplate.update(sql);
+    }
+    
+    public Map<String,Object> queryForMap(String sql){
+    	logger.info("[queryForMap-sql]->"+sql);
+    	return jdbcTemplate.queryForMap(sql);
     }
     /** 
      * 未完成 
@@ -156,9 +173,9 @@ public abstract class BaseDao<T>{
   
     public T findById(Serializable id) {  
         String sql = "SELECT * FROM " + getDBMapping(TABLENAME)[0] + " WHERE id=?"; 
-        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);
-//        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);  
-        return jdbcTemplate.query(sql, getRowMapper(), id).get(0);  
+//        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);
+        List<T> list = jdbcTemplate.query(sql, getRowMapper(), id);
+        return list!=null && list.size()>0?list.get(0):null;  
     }  
    
     /**
@@ -201,6 +218,7 @@ public abstract class BaseDao<T>{
         sql.append(sqlWhere).append(sqlOrderBy);
         sql.append(" limit ?,? ");  
         logger.info("[sql-findByQueryHelperNoCount]->"+sql);
+        System.out.println("[sql-findByQueryHelperNoCount]->"+sql);
         Object[] args = { (queryHelper.getIndex()-1) * queryHelper.getSize(), queryHelper.getSize() };  
 //        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);  
         queryHelper.setResultList(jdbcTemplate.query(sql.toString(), args, getRowMapper()));
@@ -250,16 +268,18 @@ public abstract class BaseDao<T>{
 	                		 }
 	                	 }
 	                }else if(columnValue!=null && columnValue.length>1){
-	                	 sqlWhere.append(" AND ( 1=1 ");
+	                	 StringBuffer sqlWhereFlag = new StringBuffer();
+	                	 sqlWhereFlag.append(" AND ( ");
 	                	 for(String cv:columnValue){
 	                		 if(!StringUtils.isEmpty(cv)){
 	                			 if(columnValue[0].indexOf("%")!=-1){
-	                				 sqlWhere.append(" OR ").append(objs[0]).append(" like ").append("'"+cv+"'");
+	                				 sqlWhereFlag.append(objs[0]).append(" like ").append("'"+cv+"'").append(" OR ");
 		                		 }else{
-		                			 sqlWhere.append(" OR ").append(objs[0]).append("=").append("'"+cv+"'");;
+		                			 sqlWhereFlag.append(objs[0]).append("=").append("'"+cv+"'").append(" OR ");
 		                		 }
 	                		 }
 	                	 }
+	                	 sqlWhere.append(sqlWhereFlag.substring(0, sqlWhereFlag.lastIndexOf("OR")));
 	                	 sqlWhere.append(")");
 	                }
                 }

@@ -21,11 +21,13 @@ public class TPic extends BaseEntity implements Serializable{
 	private Integer id=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品类型",dbName = "obj_id",length = 10,allowNull=true)
 	private Integer objId=null;
-	@FieldMeta(primaryKey = false,fieldName = "图片类型(1是商品图，10是评论图片,11是论坛评论图片)",dbName = "type",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "图片类型(1是商品图，2是商品评论图片,3是论坛评论图片,4意见反馈图)",dbName = "type",length = 10,allowNull=true)
 	private Integer type=null;
+	@FieldMeta(primaryKey = false,fieldName = "地址类型(1.完整，2.系统路径)",dbName = "url_type",length = 10,allowNull=true)
+	private Integer urlType=null;
 	@FieldMeta(primaryKey = false,fieldName = "图片标题",dbName = "pic_title",length = 50,allowNull=true)
 	private String picTitle=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "pic_url",length = 225,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "图片地址",dbName = "pic_url",length = 225,allowNull=true)
 	private String picUrl=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime=null;
@@ -39,10 +41,11 @@ public class TPic extends BaseEntity implements Serializable{
 	
 	public TPic(){
  	}
- 	public TPic(Integer id,Integer objId,Integer type,String picTitle,String picUrl){
+ 	public TPic(Integer id,Integer objId,Integer type,Integer urlType,String picTitle,String picUrl){
  		this.id = id;
 		this.objId = objId;
 		this.type = type;
+		this.urlType = urlType;
 		this.picTitle = picTitle;
 		this.picUrl = picUrl;
 		
@@ -62,12 +65,19 @@ public class TPic extends BaseEntity implements Serializable{
 	public void setObjId(Integer objId){
 		  this.objId = objId; 
 	}
-	/*图片类型(1是商品图，10是评论图片,11是论坛评论图片)*/
+	/*图片类型(1是商品图，2是商品评论图片,3是论坛评论图片,4意见反馈图)*/
 	public Integer getType(){
 		 return this.type; 
 	}
 	public void setType(Integer type){
 		  this.type = type; 
+	}
+	/*地址类型(1.完整，2.系统路径)*/
+	public Integer getUrlType(){
+		 return this.urlType; 
+	}
+	public void setUrlType(Integer urlType){
+		  this.urlType = urlType; 
 	}
 	/*图片标题*/
 	public String getPicTitle(){
@@ -76,7 +86,7 @@ public class TPic extends BaseEntity implements Serializable{
 	public void setPicTitle(String picTitle){
 		  this.picTitle = picTitle; 
 	}
-	/**/
+	/*图片地址*/
 	public String getPicUrl(){
 		 return this.picUrl; 
 	}
@@ -104,6 +114,7 @@ public class TPic extends BaseEntity implements Serializable{
 		id("id",Types.INTEGER,true,true,false),
 		objId("obj_id",Types.INTEGER,false,false,true),
 		type("type",Types.INTEGER,false,false,true),
+		urlType("url_type",Types.INTEGER,false,false,true),
 		picTitle("pic_title",Types.VARCHAR,false,false,true),
 		picUrl("pic_url",Types.VARCHAR,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true),
@@ -154,6 +165,7 @@ public class TPic extends BaseEntity implements Serializable{
 			tPic.setId(rs.getInt("id"));
 			tPic.setObjId(rs.getInt("obj_id"));
 			tPic.setType(rs.getInt("type"));
+			tPic.setUrlType(rs.getInt("url_type"));
 			tPic.setPicTitle(rs.getString("pic_title"));
 			tPic.setPicUrl(rs.getString("pic_url"));
 			tPic.setCreateTime(rs.getTimestamp("create_time"));

@@ -23,7 +23,7 @@ public class TSocietyType extends BaseEntity implements Serializable{
 	private String name=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "sort",length = 10,allowNull=true)
 	private Integer sort=null;
-	@FieldMeta(primaryKey = false,fieldName = "1正常",dbName = "status",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "0正常",dbName = "status",length = 10,allowNull=true)
 	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime=null;
@@ -66,7 +66,7 @@ public class TSocietyType extends BaseEntity implements Serializable{
 	public void setSort(Integer sort){
 		  this.sort = sort; 
 	}
-	/*1正常*/
+	/*0正常*/
 	public Integer getStatus(){
 		 return this.status; 
 	}

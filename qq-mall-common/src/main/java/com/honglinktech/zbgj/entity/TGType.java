@@ -29,6 +29,8 @@ public class TGType extends BaseEntity implements Serializable{
 	private Integer sort=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "summary",length = 128,allowNull=true)
 	private String summary=null;
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "search",length = 225,allowNull=true)
+	private String search=null;
 	@FieldMeta(primaryKey = false,fieldName = "状态(0正常，1删除)",dbName = "delete_tag",length = 10,allowNull=true)
 	private Integer deleteTag=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "update_time",length = 19,allowNull=true)
@@ -43,13 +45,14 @@ public class TGType extends BaseEntity implements Serializable{
 	
 	public TGType(){
  	}
- 	public TGType(Integer id,String name,String ico,String img,Integer sort,String summary,Integer deleteTag){
+ 	public TGType(Integer id,String name,String ico,String img,Integer sort,String summary,String search,Integer deleteTag){
  		this.id = id;
 		this.name = name;
 		this.ico = ico;
 		this.img = img;
 		this.sort = sort;
 		this.summary = summary;
+		this.search = search;
 		this.deleteTag = deleteTag;
 		
  	}
@@ -96,6 +99,13 @@ public class TGType extends BaseEntity implements Serializable{
 	public void setSummary(String summary){
 		  this.summary = summary; 
 	}
+	/**/
+	public String getSearch(){
+		 return this.search; 
+	}
+	public void setSearch(String search){
+		  this.search = search; 
+	}
 	/*状态(0正常，1删除)*/
 	public Integer getDeleteTag(){
 		 return this.deleteTag; 
@@ -127,6 +137,7 @@ public class TGType extends BaseEntity implements Serializable{
 		img("img",Types.VARCHAR,false,false,true),
 		sort("sort",Types.INTEGER,false,false,true),
 		summary("summary",Types.VARCHAR,false,false,true),
+		search("search",Types.VARCHAR,false,false,true),
 		deleteTag("delete_tag",Types.INTEGER,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
@@ -179,6 +190,7 @@ public class TGType extends BaseEntity implements Serializable{
 			tGType.setImg(rs.getString("img"));
 			tGType.setSort(rs.getInt("sort"));
 			tGType.setSummary(rs.getString("summary"));
+			tGType.setSearch(rs.getString("search"));
 			tGType.setDeleteTag(rs.getInt("delete_tag"));
 			tGType.setUpdateTime(rs.getTimestamp("update_time"));
 			tGType.setCreateTime(rs.getTimestamp("create_time"));

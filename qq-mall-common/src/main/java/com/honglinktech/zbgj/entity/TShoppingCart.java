@@ -21,9 +21,9 @@ public class TShoppingCart extends BaseEntity implements Serializable{
 
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "id",length = 10,allowNull=false)
 	private Integer id=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=false)
 	private Integer userId=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "goods_id",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "goods_id",length = 10,allowNull=false)
 	private Integer goodsId=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "goods_name",length = 225,allowNull=true)
 	private String goodsName=null;
@@ -37,8 +37,10 @@ public class TShoppingCart extends BaseEntity implements Serializable{
 	private Integer formatId=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品规格名字",dbName = "format_name",length = 225,allowNull=true)
 	private String formatName=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "num",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "数量",dbName = "num",length = 10,allowNull=true)
 	private Integer num=null;
+	@FieldMeta(primaryKey = false,fieldName = "是否选中",dbName = "checkbox",length = 10,allowNull=true)
+	private Integer checkbox=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
 	private Date createTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
@@ -51,7 +53,7 @@ public class TShoppingCart extends BaseEntity implements Serializable{
 	
 	public TShoppingCart(){
  	}
- 	public TShoppingCart(Integer id,Integer userId,Integer goodsId,String goodsName,String imageUrl,BigDecimal price,BigDecimal markPrice,Integer formatId,String formatName,Integer num){
+ 	public TShoppingCart(Integer id,Integer userId,Integer goodsId,String goodsName,String imageUrl,BigDecimal price,BigDecimal markPrice,Integer formatId,String formatName,Integer num,Integer checkbox){
  		this.id = id;
 		this.userId = userId;
 		this.goodsId = goodsId;
@@ -62,6 +64,7 @@ public class TShoppingCart extends BaseEntity implements Serializable{
 		this.formatId = formatId;
 		this.formatName = formatName;
 		this.num = num;
+		this.checkbox = checkbox;
 		
  	}
  	
@@ -128,12 +131,19 @@ public class TShoppingCart extends BaseEntity implements Serializable{
 	public void setFormatName(String formatName){
 		  this.formatName = formatName; 
 	}
-	/**/
+	/*数量*/
 	public Integer getNum(){
 		 return this.num; 
 	}
 	public void setNum(Integer num){
 		  this.num = num; 
+	}
+	/*是否选中*/
+	public Integer getCheckbox(){
+		 return this.checkbox; 
+	}
+	public void setCheckbox(Integer checkbox){
+		  this.checkbox = checkbox; 
 	}
 	/*创建时间*/
 	public Date getCreateTime(){
@@ -153,9 +163,9 @@ public class TShoppingCart extends BaseEntity implements Serializable{
 	
 	public enum DBMaping{
 		tableName("t_shopping_cart",0,false,false,false),
-		id("id",Types.INTEGER,true,false,false),
-		userId("user_id",Types.INTEGER,false,false,true),
-		goodsId("goods_id",Types.INTEGER,false,false,true),
+		id("id",Types.INTEGER,true,true,false),
+		userId("user_id",Types.INTEGER,false,false,false),
+		goodsId("goods_id",Types.INTEGER,false,false,false),
 		goodsName("goods_name",Types.VARCHAR,false,false,true),
 		imageUrl("image_url",Types.VARCHAR,false,false,true),
 		price("price",Types.DECIMAL,false,false,true),
@@ -163,6 +173,7 @@ public class TShoppingCart extends BaseEntity implements Serializable{
 		formatId("format_id",Types.INTEGER,false,false,true),
 		formatName("format_name",Types.VARCHAR,false,false,true),
 		num("num",Types.INTEGER,false,false,true),
+		checkbox("checkbox",Types.INTEGER,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -218,6 +229,7 @@ public class TShoppingCart extends BaseEntity implements Serializable{
 			tShoppingCart.setFormatId(rs.getInt("format_id"));
 			tShoppingCart.setFormatName(rs.getString("format_name"));
 			tShoppingCart.setNum(rs.getInt("num"));
+			tShoppingCart.setCheckbox(rs.getInt("checkbox"));
 			tShoppingCart.setCreateTime(rs.getTimestamp("create_time"));
 			tShoppingCart.setUpdateTime(rs.getTimestamp("update_time"));
 			return tShoppingCart; 

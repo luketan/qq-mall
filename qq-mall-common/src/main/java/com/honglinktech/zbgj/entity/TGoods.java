@@ -42,7 +42,7 @@ public class TGoods extends BaseEntity implements Serializable{
 	@FieldMeta(primaryKey = false,fieldName = "促销名字",dbName = "promo_name",length = 225,allowNull=true)
 	private String promoName=null;
 	@FieldMeta(primaryKey = false,fieldName = "促销价",dbName = "promo_price",length = 10,allowNull=true)
-	private Float promoPrice=null;
+	private BigDecimal promoPrice=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否促销",dbName = "promo_is",length = 10,allowNull=true)
 	private Integer promoIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否热卖",dbName = "hot_is",length = 10,allowNull=true)
@@ -53,20 +53,22 @@ public class TGoods extends BaseEntity implements Serializable{
 	private Integer brandId=null;
 	@FieldMeta(primaryKey = false,fieldName = "品牌名称",dbName = "brand_name",length = 128,allowNull=true)
 	private String brandName=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "type_id",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "类别ID",dbName = "type_id",length = 10,allowNull=true)
 	private Integer typeId=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "type_name",length = 128,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "类别名称",dbName = "type_name",length = 128,allowNull=true)
 	private String typeName=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "style_id",length = 10,allowNull=true)
-	private Integer styleId=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "style_name",length = 128,allowNull=true)
-	private String styleName=null;
+	@FieldMeta(primaryKey = false,fieldName = "子类别(款式)ID",dbName = "type_sub_id",length = 10,allowNull=true)
+	private Integer typeSubId=null;
+	@FieldMeta(primaryKey = false,fieldName = "子类别(款式)名称",dbName = "type_sub_name",length = 128,allowNull=true)
+	private String typeSubName=null;
 	@FieldMeta(primaryKey = false,fieldName = "收藏数量",dbName = "collect_num",length = 10,allowNull=true)
 	private Integer collectNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品状态（1正常,2已售完，3已下架,4删除，5待审核）",dbName = "status",length = 10,allowNull=true)
 	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "主图路径",dbName = "img_url",length = 225,allowNull=true)
 	private String imgUrl=null;
+	@FieldMeta(primaryKey = false,fieldName = "排序",dbName = "sort",length = 10,allowNull=true)
+	private Integer sort=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
@@ -79,7 +81,7 @@ public class TGoods extends BaseEntity implements Serializable{
 	
 	public TGoods(){
  	}
- 	public TGoods(Integer id,String name,String subName,String detail,Integer salesNum,Integer keepNum,BigDecimal markPrice,BigDecimal formerPrice,BigDecimal price,Integer discussNum,String promoName,Float promoPrice,Integer promoIs,Integer hotIs,Integer giftsIs,Integer brandId,String brandName,Integer typeId,String typeName,Integer styleId,String styleName,Integer collectNum,Integer status,String imgUrl){
+ 	public TGoods(Integer id,String name,String subName,String detail,Integer salesNum,Integer keepNum,BigDecimal markPrice,BigDecimal formerPrice,BigDecimal price,Integer discussNum,String promoName,BigDecimal promoPrice,Integer promoIs,Integer hotIs,Integer giftsIs,Integer brandId,String brandName,Integer typeId,String typeName,Integer typeSubId,String typeSubName,Integer collectNum,Integer status,String imgUrl,Integer sort){
  		this.id = id;
 		this.name = name;
 		this.subName = subName;
@@ -99,11 +101,12 @@ public class TGoods extends BaseEntity implements Serializable{
 		this.brandName = brandName;
 		this.typeId = typeId;
 		this.typeName = typeName;
-		this.styleId = styleId;
-		this.styleName = styleName;
+		this.typeSubId = typeSubId;
+		this.typeSubName = typeSubName;
 		this.collectNum = collectNum;
 		this.status = status;
 		this.imgUrl = imgUrl;
+		this.sort = sort;
 		
  	}
  	
@@ -185,10 +188,10 @@ public class TGoods extends BaseEntity implements Serializable{
 		  this.promoName = promoName; 
 	}
 	/*促销价*/
-	public Float getPromoPrice(){
+	public BigDecimal getPromoPrice(){
 		 return this.promoPrice; 
 	}
-	public void setPromoPrice(Float promoPrice){
+	public void setPromoPrice(BigDecimal promoPrice){
 		  this.promoPrice = promoPrice; 
 	}
 	/*是否促销*/
@@ -226,33 +229,33 @@ public class TGoods extends BaseEntity implements Serializable{
 	public void setBrandName(String brandName){
 		  this.brandName = brandName; 
 	}
-	/**/
+	/*类别ID*/
 	public Integer getTypeId(){
 		 return this.typeId; 
 	}
 	public void setTypeId(Integer typeId){
 		  this.typeId = typeId; 
 	}
-	/**/
+	/*类别名称*/
 	public String getTypeName(){
 		 return this.typeName; 
 	}
 	public void setTypeName(String typeName){
 		  this.typeName = typeName; 
 	}
-	/**/
-	public Integer getStyleId(){
-		 return this.styleId; 
+	/*子类别(款式)ID*/
+	public Integer getTypeSubId(){
+		 return this.typeSubId; 
 	}
-	public void setStyleId(Integer styleId){
-		  this.styleId = styleId; 
+	public void setTypeSubId(Integer typeSubId){
+		  this.typeSubId = typeSubId; 
 	}
-	/**/
-	public String getStyleName(){
-		 return this.styleName; 
+	/*子类别(款式)名称*/
+	public String getTypeSubName(){
+		 return this.typeSubName; 
 	}
-	public void setStyleName(String styleName){
-		  this.styleName = styleName; 
+	public void setTypeSubName(String typeSubName){
+		  this.typeSubName = typeSubName; 
 	}
 	/*收藏数量*/
 	public Integer getCollectNum(){
@@ -274,6 +277,13 @@ public class TGoods extends BaseEntity implements Serializable{
 	}
 	public void setImgUrl(String imgUrl){
 		  this.imgUrl = imgUrl; 
+	}
+	/*排序*/
+	public Integer getSort(){
+		 return this.sort; 
+	}
+	public void setSort(Integer sort){
+		  this.sort = sort; 
 	}
 	/*修改时间*/
 	public Date getUpdateTime(){
@@ -304,7 +314,7 @@ public class TGoods extends BaseEntity implements Serializable{
 		price("price",Types.DECIMAL,false,false,true),
 		discussNum("discuss_num",Types.INTEGER,false,false,true),
 		promoName("promo_name",Types.VARCHAR,false,false,true),
-		promoPrice("promo_price",Types.FLOAT,false,false,true),
+		promoPrice("promo_price",Types.DECIMAL,false,false,true),
 		promoIs("promo_is",Types.INTEGER,false,false,true),
 		hotIs("hot_is",Types.INTEGER,false,false,true),
 		giftsIs("gifts_is",Types.INTEGER,false,false,true),
@@ -312,11 +322,12 @@ public class TGoods extends BaseEntity implements Serializable{
 		brandName("brand_name",Types.VARCHAR,false,false,true),
 		typeId("type_id",Types.INTEGER,false,false,true),
 		typeName("type_name",Types.VARCHAR,false,false,true),
-		styleId("style_id",Types.INTEGER,false,false,true),
-		styleName("style_name",Types.VARCHAR,false,false,true),
+		typeSubId("type_sub_id",Types.INTEGER,false,false,true),
+		typeSubName("type_sub_name",Types.VARCHAR,false,false,true),
 		collectNum("collect_num",Types.INTEGER,false,false,true),
 		status("status",Types.INTEGER,false,false,true),
 		imgUrl("img_url",Types.VARCHAR,false,false,true),
+		sort("sort",Types.INTEGER,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -373,7 +384,7 @@ public class TGoods extends BaseEntity implements Serializable{
 			tGoods.setPrice(rs.getBigDecimal("price"));
 			tGoods.setDiscussNum(rs.getInt("discuss_num"));
 			tGoods.setPromoName(rs.getString("promo_name"));
-			tGoods.setPromoPrice(rs.getFloat("promo_price"));
+			tGoods.setPromoPrice(rs.getBigDecimal("promo_price"));
 			tGoods.setPromoIs(rs.getInt("promo_is"));
 			tGoods.setHotIs(rs.getInt("hot_is"));
 			tGoods.setGiftsIs(rs.getInt("gifts_is"));
@@ -381,11 +392,12 @@ public class TGoods extends BaseEntity implements Serializable{
 			tGoods.setBrandName(rs.getString("brand_name"));
 			tGoods.setTypeId(rs.getInt("type_id"));
 			tGoods.setTypeName(rs.getString("type_name"));
-			tGoods.setStyleId(rs.getInt("style_id"));
-			tGoods.setStyleName(rs.getString("style_name"));
+			tGoods.setTypeSubId(rs.getInt("type_sub_id"));
+			tGoods.setTypeSubName(rs.getString("type_sub_name"));
 			tGoods.setCollectNum(rs.getInt("collect_num"));
 			tGoods.setStatus(rs.getInt("status"));
 			tGoods.setImgUrl(rs.getString("img_url"));
+			tGoods.setSort(rs.getInt("sort"));
 			tGoods.setUpdateTime(rs.getTimestamp("update_time"));
 			tGoods.setCreateTime(rs.getTimestamp("create_time"));
 			return tGoods; 

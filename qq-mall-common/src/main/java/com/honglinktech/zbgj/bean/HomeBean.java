@@ -1,12 +1,9 @@
 package com.honglinktech.zbgj.bean;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.Gson;
 import com.honglinktech.zbgj.entity.TModule;
-
 @SuppressWarnings("unused")
 public class HomeBean {
 	private int type;
@@ -88,7 +85,10 @@ public class HomeBean {
 	}
 	
 	private class ResultItem{
-		private String imgUrl;
+		private String ico;//图标
+		private String clazz;//样式
+		private String imgUrl;//图片
+		private String color;//颜色
 		private String url;
 		private String title;
 		private String itemTitle;
@@ -130,5 +130,24 @@ public class HomeBean {
 		public void setCol(String col) {
 			this.col = col;
 		}
+		public String getIco() {
+			return ico;
+		}
+		public void setIco(String ico) {
+			this.ico = ico;
+		}
+		public String getClazz() {
+			return clazz;
+		}
+		public void setClazz(String clazz) {
+			this.clazz = clazz;
+		}
+		public String getColor() {
+			return color;
+		}
+		public void setColor(String color) {
+			this.color = color;
+		}
+		
 	}
 }

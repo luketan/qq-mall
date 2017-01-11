@@ -1,0 +1,39 @@
+package com.honglinktech.zbgj.dao;
+
+import javax.annotation.Resource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.jdbc.core.RowMapper;
+
+import com.honglinktech.zbgj.base.BaseDao;
+import com.honglinktech.zbgj.entity.TShoppingCartFormat;
+/**
+*购物车规格中间表Dao
+**/
+@Component
+public class TShoppingCartFormatDao extends BaseDao<TShoppingCartFormat>{
+	
+	public Object[] getDBMapping(String filedName){
+		for(TShoppingCartFormat.DBMaping d:TShoppingCartFormat.DBMaping.values()){
+			if(d.toString().equals(filedName)){
+				TShoppingCartFormat.DBMaping dbMaping = TShoppingCartFormat.DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
+				return values;
+			}
+		}
+		return null;
+	}
+	@Resource
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		super.jdbcTemplate = jdbcTemplate;
+	}
+	public JdbcTemplate jdbcTemplate(){
+		return jdbcTemplate;
+	}
+	 
+	@Override
+	protected RowMapper<TShoppingCartFormat> getRowMapper() {
+		return new TShoppingCartFormat.TShoppingCartFormatRowMapper();
+	}
+	
+}

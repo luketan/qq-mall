@@ -17,11 +17,11 @@ import java.util.Date;
 **/
 public class TSocietySubUser extends BaseEntity implements Serializable{
 
-	@FieldMeta(primaryKey = true,fieldName = "",dbName = "society_subject_id",length = 10,allowNull=false)
-	private Integer societySubjectId=null;
+	@FieldMeta(primaryKey = true,fieldName = "",dbName = "society_sub_id",length = 10,allowNull=false)
+	private Integer societySubId=null;
 	@FieldMeta(primaryKey = true,fieldName = "",dbName = "user_id",length = 10,allowNull=false)
 	private Integer userId=null;
-	@FieldMeta(primaryKey = false,fieldName = "社区圈共享值",dbName = "val",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "社区圈贡献值",dbName = "val",length = 10,allowNull=true)
 	private Integer val=null;
 	@FieldMeta(primaryKey = false,fieldName = "用在在板块的身份，1是正常，2是版主",dbName = "type",length = 10,allowNull=true)
 	private Integer type=null;
@@ -37,8 +37,8 @@ public class TSocietySubUser extends BaseEntity implements Serializable{
 	
 	public TSocietySubUser(){
  	}
- 	public TSocietySubUser(Integer societySubjectId,Integer userId,Integer val,Integer type){
- 		this.societySubjectId = societySubjectId;
+ 	public TSocietySubUser(Integer societySubId,Integer userId,Integer val,Integer type){
+ 		this.societySubId = societySubId;
 		this.userId = userId;
 		this.val = val;
 		this.type = type;
@@ -46,11 +46,11 @@ public class TSocietySubUser extends BaseEntity implements Serializable{
  	}
  	
 		/**/
-	public Integer getSocietySubjectId(){
-		 return this.societySubjectId; 
+	public Integer getSocietySubId(){
+		 return this.societySubId; 
 	}
-	public void setSocietySubjectId(Integer societySubjectId){
-		  this.societySubjectId = societySubjectId; 
+	public void setSocietySubId(Integer societySubId){
+		  this.societySubId = societySubId; 
 	}
 	/**/
 	public Integer getUserId(){
@@ -59,7 +59,7 @@ public class TSocietySubUser extends BaseEntity implements Serializable{
 	public void setUserId(Integer userId){
 		  this.userId = userId; 
 	}
-	/*社区圈共享值*/
+	/*社区圈贡献值*/
 	public Integer getVal(){
 		 return this.val; 
 	}
@@ -91,7 +91,7 @@ public class TSocietySubUser extends BaseEntity implements Serializable{
 	
 	public enum DBMaping{
 		tableName("t_society_sub_user",0,false,false,false),
-		societySubjectId("society_subject_id",Types.INTEGER,true,true,false),
+		societySubId("society_sub_id",Types.INTEGER,true,false,false),
 		userId("user_id",Types.INTEGER,true,false,false),
 		val("val",Types.INTEGER,false,false,true),
 		type("type",Types.INTEGER,false,false,true),
@@ -140,7 +140,7 @@ public class TSocietySubUser extends BaseEntity implements Serializable{
         public TSocietySubUser mapRow(ResultSet rs, int rowNum) throws SQLException {  
 
 			TSocietySubUser tSocietySubUser = new TSocietySubUser();
-			tSocietySubUser.setSocietySubjectId(rs.getInt("society_subject_id"));
+			tSocietySubUser.setSocietySubId(rs.getInt("society_sub_id"));
 			tSocietySubUser.setUserId(rs.getInt("user_id"));
 			tSocietySubUser.setVal(rs.getInt("val"));
 			tSocietySubUser.setType(rs.getInt("type"));

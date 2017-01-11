@@ -1,25 +1,33 @@
 package com.honglinktech.zbgj.api.init;
 
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+import com.honglinktech.zbgj.common.SystemArgsCache;
+import com.honglinktech.zbgj.dao.TSystemConfigDao;
+import com.honglinktech.zbgj.entity.TSystemConfig;
+
 /**
- * Created by Dayong on 16/2/15.
  */
 @Component
 public class InitService implements InitializingBean {
     private final Logger logger = LogManager.getLogger(getClass());
-
+    @Resource
+    private TSystemConfigDao tsystemConfigDao;
 
     @Override
     public void afterPropertiesSet() throws Exception {
-       /* List<Parameter> list = parameterDao.findAll();
-        for (Parameter parameter : list) {
-            SystemArgsCache.put(parameter.getCode(), parameter.getValue());
-        }*/
-        logger.info("Initializing Api System!!!");
+    	List<TSystemConfig> systemSetList = tsystemConfigDao.findAll();
+        for (TSystemConfig systemSet : systemSetList) {
+            SystemArgsCache.put(systemSet.getCode(), systemSet.getVal());
+        }
+        logger.info("Initializing Api System!!@@!");
     }
 }

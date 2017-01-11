@@ -25,17 +25,17 @@ public class TOrder extends BaseEntity implements Serializable{
 	private String orderCode=null;
 	@FieldMeta(primaryKey = false,fieldName = "",dbName = "user_id",length = 10,allowNull=false)
 	private Integer userId=null;
-	@FieldMeta(primaryKey = false,fieldName = "",dbName = "address_id",length = 10,allowNull=true)
-	private Integer addressId=null;
 	@FieldMeta(primaryKey = false,fieldName = "商品总价",dbName = "money",length = 10,allowNull=true)
 	private BigDecimal money=null;
 	@FieldMeta(primaryKey = false,fieldName = "订单总价",dbName = "total_money",length = 10,allowNull=true)
 	private BigDecimal totalMoney=null;
-	@FieldMeta(primaryKey = false,fieldName = "支付方式（1是支付宝支付，2是微信支付,3货到付款）",dbName = "pay_type",length = 10,allowNull=true)
-	private Integer payType=null;
+	@FieldMeta(primaryKey = false,fieldName = "支付方式（1是支付宝支付，2是微信支付,3货到付款）",dbName = "payment_Id",length = 10,allowNull=true)
+	private Integer paymentId=null;
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "payment_name",length = 32,allowNull=true)
+	private String paymentName=null;
 	@FieldMeta(primaryKey = false,fieldName = "订单状态(0未支付,1支付成功,2支付未成功)",dbName = "pay_status",length = 10,allowNull=true)
 	private Integer payStatus=null;
-	@FieldMeta(primaryKey = false,fieldName = "订单状态(1待确认，2待发货，3运送中，4已完成)",dbName = "status",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "订单状态(1待付款，2待发货，3运送中，4已完成)",dbName = "status",length = 10,allowNull=true)
 	private Integer status=null;
 	@FieldMeta(primaryKey = false,fieldName = "快递公司ID",dbName = "post_id",length = 10,allowNull=true)
 	private Integer postId=null;
@@ -53,6 +53,14 @@ public class TOrder extends BaseEntity implements Serializable{
 	private Integer invoiceIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "发票抬头",dbName = "invoice_head",length = 128,allowNull=true)
 	private String invoiceHead=null;
+	@FieldMeta(primaryKey = false,fieldName = "",dbName = "address_id",length = 10,allowNull=true)
+	private Integer addressId=null;
+	@FieldMeta(primaryKey = false,fieldName = "地址详细信息",dbName = "address",length = 255,allowNull=true)
+	private String address=null;
+	@FieldMeta(primaryKey = false,fieldName = "优惠券id",dbName = "coupon_id",length = 10,allowNull=true)
+	private Integer couponId=null;
+	@FieldMeta(primaryKey = false,fieldName = "优惠券信息",dbName = "coupon",length = 255,allowNull=true)
+	private String coupon=null;
 	@FieldMeta(primaryKey = false,fieldName = "消息推送记录(0为推送，1已推送)",dbName = "push",length = 10,allowNull=true)
 	private Integer push=null;
 	@FieldMeta(primaryKey = false,fieldName = "订单状态是否已读(0未读，1已读)",dbName = "read_is",length = 10,allowNull=true)
@@ -65,6 +73,8 @@ public class TOrder extends BaseEntity implements Serializable{
 	private String remark=null;
 	@FieldMeta(primaryKey = false,fieldName = "订单说明",dbName = "explain",length = 225,allowNull=true)
 	private String explain=null;
+	@FieldMeta(primaryKey = false,fieldName = "活动l列表",dbName = "activitys",length = 65535,allowNull=true)
+	private String activitys=null;
 	@FieldMeta(primaryKey = false,fieldName = "修改时间",dbName = "update_time",length = 19,allowNull=true)
 	private Date updateTime=null;
 	@FieldMeta(primaryKey = false,fieldName = "创建时间",dbName = "create_time",length = 19,allowNull=true)
@@ -77,14 +87,14 @@ public class TOrder extends BaseEntity implements Serializable{
 	
 	public TOrder(){
  	}
- 	public TOrder(Integer id,String orderCode,Integer userId,Integer addressId,BigDecimal money,BigDecimal totalMoney,Integer payType,Integer payStatus,Integer status,Integer postId,String postName,String postCode,BigDecimal postMoney,BigDecimal lostPostMoney,BigDecimal lostMoney,Integer invoiceIs,String invoiceHead,Integer push,Integer readIs,Integer deleteFlag,Integer form,String remark,String explain){
+ 	public TOrder(Integer id,String orderCode,Integer userId,BigDecimal money,BigDecimal totalMoney,Integer paymentId,String paymentName,Integer payStatus,Integer status,Integer postId,String postName,String postCode,BigDecimal postMoney,BigDecimal lostPostMoney,BigDecimal lostMoney,Integer invoiceIs,String invoiceHead,Integer addressId,String address,Integer couponId,String coupon,Integer push,Integer readIs,Integer deleteFlag,Integer form,String remark,String explain,String activitys){
  		this.id = id;
 		this.orderCode = orderCode;
 		this.userId = userId;
-		this.addressId = addressId;
 		this.money = money;
 		this.totalMoney = totalMoney;
-		this.payType = payType;
+		this.paymentId = paymentId;
+		this.paymentName = paymentName;
 		this.payStatus = payStatus;
 		this.status = status;
 		this.postId = postId;
@@ -95,12 +105,17 @@ public class TOrder extends BaseEntity implements Serializable{
 		this.lostMoney = lostMoney;
 		this.invoiceIs = invoiceIs;
 		this.invoiceHead = invoiceHead;
+		this.addressId = addressId;
+		this.address = address;
+		this.couponId = couponId;
+		this.coupon = coupon;
 		this.push = push;
 		this.readIs = readIs;
 		this.deleteFlag = deleteFlag;
 		this.form = form;
 		this.remark = remark;
 		this.explain = explain;
+		this.activitys = activitys;
 		
  	}
  	
@@ -125,13 +140,6 @@ public class TOrder extends BaseEntity implements Serializable{
 	public void setUserId(Integer userId){
 		  this.userId = userId; 
 	}
-	/**/
-	public Integer getAddressId(){
-		 return this.addressId; 
-	}
-	public void setAddressId(Integer addressId){
-		  this.addressId = addressId; 
-	}
 	/*商品总价*/
 	public BigDecimal getMoney(){
 		 return this.money; 
@@ -147,11 +155,18 @@ public class TOrder extends BaseEntity implements Serializable{
 		  this.totalMoney = totalMoney; 
 	}
 	/*支付方式（1是支付宝支付，2是微信支付,3货到付款）*/
-	public Integer getPayType(){
-		 return this.payType; 
+	public Integer getPaymentId(){
+		 return this.paymentId; 
 	}
-	public void setPayType(Integer payType){
-		  this.payType = payType; 
+	public void setPaymentId(Integer paymentId){
+		  this.paymentId = paymentId; 
+	}
+	/**/
+	public String getPaymentName(){
+		 return this.paymentName; 
+	}
+	public void setPaymentName(String paymentName){
+		  this.paymentName = paymentName; 
 	}
 	/*订单状态(0未支付,1支付成功,2支付未成功)*/
 	public Integer getPayStatus(){
@@ -160,7 +175,7 @@ public class TOrder extends BaseEntity implements Serializable{
 	public void setPayStatus(Integer payStatus){
 		  this.payStatus = payStatus; 
 	}
-	/*订单状态(1待确认，2待发货，3运送中，4已完成)*/
+	/*订单状态(1待付款，2待发货，3运送中，4已完成)*/
 	public Integer getStatus(){
 		 return this.status; 
 	}
@@ -223,6 +238,34 @@ public class TOrder extends BaseEntity implements Serializable{
 	public void setInvoiceHead(String invoiceHead){
 		  this.invoiceHead = invoiceHead; 
 	}
+	/**/
+	public Integer getAddressId(){
+		 return this.addressId; 
+	}
+	public void setAddressId(Integer addressId){
+		  this.addressId = addressId; 
+	}
+	/*地址详细信息*/
+	public String getAddress(){
+		 return this.address; 
+	}
+	public void setAddress(String address){
+		  this.address = address; 
+	}
+	/*优惠券id*/
+	public Integer getCouponId(){
+		 return this.couponId; 
+	}
+	public void setCouponId(Integer couponId){
+		  this.couponId = couponId; 
+	}
+	/*优惠券信息*/
+	public String getCoupon(){
+		 return this.coupon; 
+	}
+	public void setCoupon(String coupon){
+		  this.coupon = coupon; 
+	}
 	/*消息推送记录(0为推送，1已推送)*/
 	public Integer getPush(){
 		 return this.push; 
@@ -265,6 +308,13 @@ public class TOrder extends BaseEntity implements Serializable{
 	public void setExplain(String explain){
 		  this.explain = explain; 
 	}
+	/*活动l列表*/
+	public String getActivitys(){
+		 return this.activitys; 
+	}
+	public void setActivitys(String activitys){
+		  this.activitys = activitys; 
+	}
 	/*修改时间*/
 	public Date getUpdateTime(){
 		 return this.updateTime; 
@@ -286,10 +336,10 @@ public class TOrder extends BaseEntity implements Serializable{
 		id("id",Types.INTEGER,true,true,false),
 		orderCode("order_code",Types.VARCHAR,false,false,true),
 		userId("user_id",Types.INTEGER,false,false,false),
-		addressId("address_id",Types.INTEGER,false,false,true),
 		money("money",Types.DECIMAL,false,false,true),
 		totalMoney("total_money",Types.DECIMAL,false,false,true),
-		payType("pay_type",Types.INTEGER,false,false,true),
+		paymentId("payment_Id",Types.INTEGER,false,false,true),
+		paymentName("payment_name",Types.VARCHAR,false,false,true),
 		payStatus("pay_status",Types.INTEGER,false,false,true),
 		status("status",Types.INTEGER,false,false,true),
 		postId("post_id",Types.INTEGER,false,false,true),
@@ -300,12 +350,17 @@ public class TOrder extends BaseEntity implements Serializable{
 		lostMoney("lost_money",Types.DECIMAL,false,false,true),
 		invoiceIs("invoice_is",Types.INTEGER,false,false,true),
 		invoiceHead("invoice_head",Types.VARCHAR,false,false,true),
+		addressId("address_id",Types.INTEGER,false,false,true),
+		address("address",Types.VARCHAR,false,false,true),
+		couponId("coupon_id",Types.INTEGER,false,false,true),
+		coupon("coupon",Types.VARCHAR,false,false,true),
 		push("push",Types.INTEGER,false,false,true),
 		readIs("read_is",Types.INTEGER,false,false,true),
 		deleteFlag("delete_flag",Types.INTEGER,false,false,true),
 		form("form",Types.INTEGER,false,false,true),
 		remark("remark",Types.VARCHAR,false,false,true),
 		explain("explain",Types.VARCHAR,false,false,true),
+		activitys("activitys",Types.LONGVARCHAR,false,false,true),
 		updateTime("update_time",Types.TIMESTAMP,false,false,true),
 		createTime("create_time",Types.TIMESTAMP,false,false,true);
 		private String dbName;
@@ -354,10 +409,10 @@ public class TOrder extends BaseEntity implements Serializable{
 			tOrder.setId(rs.getInt("id"));
 			tOrder.setOrderCode(rs.getString("order_code"));
 			tOrder.setUserId(rs.getInt("user_id"));
-			tOrder.setAddressId(rs.getInt("address_id"));
 			tOrder.setMoney(rs.getBigDecimal("money"));
 			tOrder.setTotalMoney(rs.getBigDecimal("total_money"));
-			tOrder.setPayType(rs.getInt("pay_type"));
+			tOrder.setPaymentId(rs.getInt("payment_Id"));
+			tOrder.setPaymentName(rs.getString("payment_name"));
 			tOrder.setPayStatus(rs.getInt("pay_status"));
 			tOrder.setStatus(rs.getInt("status"));
 			tOrder.setPostId(rs.getInt("post_id"));
@@ -368,12 +423,17 @@ public class TOrder extends BaseEntity implements Serializable{
 			tOrder.setLostMoney(rs.getBigDecimal("lost_money"));
 			tOrder.setInvoiceIs(rs.getInt("invoice_is"));
 			tOrder.setInvoiceHead(rs.getString("invoice_head"));
+			tOrder.setAddressId(rs.getInt("address_id"));
+			tOrder.setAddress(rs.getString("address"));
+			tOrder.setCouponId(rs.getInt("coupon_id"));
+			tOrder.setCoupon(rs.getString("coupon"));
 			tOrder.setPush(rs.getInt("push"));
 			tOrder.setReadIs(rs.getInt("read_is"));
 			tOrder.setDeleteFlag(rs.getInt("delete_flag"));
 			tOrder.setForm(rs.getInt("form"));
 			tOrder.setRemark(rs.getString("remark"));
 			tOrder.setExplain(rs.getString("explain"));
+			tOrder.setActivitys(rs.getString("activitys"));
 			tOrder.setUpdateTime(rs.getTimestamp("update_time"));
 			tOrder.setCreateTime(rs.getTimestamp("create_time"));
 			return tOrder; 

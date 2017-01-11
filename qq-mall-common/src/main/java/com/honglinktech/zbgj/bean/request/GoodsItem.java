@@ -37,7 +37,7 @@ public class GoodsItem extends BaseEntity implements Serializable{
 	@FieldMeta(primaryKey = false,fieldName = "促销名字",dbName = "promo_name",allowNull=true)
 	private String promoName;
 	@FieldMeta(primaryKey = false,fieldName = "促销价",dbName = "promo_price",allowNull=true)
-	private Float promoPrice;
+	private BigDecimal promoPrice;
 	@FieldMeta(primaryKey = false,fieldName = "是否促销",dbName = "promo_is",allowNull=true)
 	private Integer promoIs;
 	@FieldMeta(primaryKey = false,fieldName = "是否热卖",dbName = "hot_is",allowNull=true)
@@ -80,8 +80,8 @@ public class GoodsItem extends BaseEntity implements Serializable{
 	public GoodsItem(){
  	}
 	public GoodsItem(TGoods tGoods){
-		this.styleId = tGoods.getStyleId();
-		this.styleName = tGoods.getStyleName();
+//		this.styleId = tGoods.getStyleId();
+//		this.styleName = tGoods.getStyleName();
 		this.typeId = tGoods.getTypeId();
 		this.typeName = tGoods.getTypeName();
 		this.brandId = tGoods.getBrandId();
@@ -109,8 +109,8 @@ public class GoodsItem extends BaseEntity implements Serializable{
 	public TGoods getTGoods(){
 		TGoods tGoods = new TGoods();
 		
-		tGoods.setStyleId(this.styleId);
-		tGoods.setStyleName(this.styleName);
+//		tGoods.setStyleId(this.styleId);
+//		tGoods.setStyleName(this.styleName);
 		tGoods.setTypeId(this.typeId);
 		tGoods.setTypeName(this.typeName);
 		tGoods.setBrandId(this.brandId);
@@ -215,10 +215,10 @@ public class GoodsItem extends BaseEntity implements Serializable{
 		  this.promoName = promoName; 
 	}
 	/*促销价*/
-	public Float getPromoPrice(){
+	public BigDecimal getPromoPrice(){
 		 return this.promoPrice; 
 	}
-	public void setPromoPrice(Float promoPrice){
+	public void setPromoPrice(BigDecimal promoPrice){
 		  this.promoPrice = promoPrice; 
 	}
 	/*是否促销*/

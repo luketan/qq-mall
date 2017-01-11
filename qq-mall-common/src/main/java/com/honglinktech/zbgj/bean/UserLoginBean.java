@@ -1,6 +1,5 @@
 package com.honglinktech.zbgj.bean;
 
-import com.honglinktech.zbgj.entity.TUser;
 
 public class UserLoginBean {
 	
@@ -8,13 +7,13 @@ public class UserLoginBean {
 		
 	}
 	
-	public UserLoginBean(String token, TUser tuser) {
+	public UserLoginBean(String token, UserBean userBean) {
 		super();
 		this.token = token;
-		this.tuser = tuser;
+		this.tuser = userBean;
 	}
 	private String token;
-	private TUser tuser;
+	private UserBean tuser;
 	
 	public String getToken() {
 		return token;
@@ -22,10 +21,10 @@ public class UserLoginBean {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	public TUser getTuser() {
+	public UserBean getTuser() {
 		return tuser;
 	}
-	public void setTuser(TUser tuser) {
+	public void setTuser(UserBean tuser) {
 		this.tuser = tuser;
 	}
 	

@@ -10,6 +10,7 @@ import com.honglinktech.zbgj.entity.TUser;
 /**
 *Dao
 **/
+@Component
 public class TUserDao extends BaseDao<TUser>{
 	
 	public Object[] getDBMapping(String filedName){

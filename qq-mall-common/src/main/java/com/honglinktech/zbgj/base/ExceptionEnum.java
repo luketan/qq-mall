@@ -7,7 +7,7 @@ public enum ExceptionEnum {
 	//common 000000
 	COMMON_SUCCESS("000000","操作成功！","success!"),
 	COMMON_ERROE("000001","操作失败，请联系工作人员！","error,{0}"),
-	COMMON_PARAMETER_ERROR("000002","参数错误！","parameter error:name{0},value:{1}!"),
+	COMMON_PARAMETER_ERROR("000002","参数错误！{0}","parameter error:name{0},value:{1}!"),
 	COMMON_PARAMETER_ERROR_NOT_NULL("000003","参数错误,{0}不允许为空！","parameter error:name:{1}!"),
 	COMMON_DATEBASE_REFLEX_ERROE("000004","系统错误，请联系工作人员！","data base error!"),
 	COMMON_DATEBASE_PARAMETER_ERROE("000005","系统错误，请联系工作人员！","data base set parameter error!"),
@@ -26,7 +26,8 @@ public enum ExceptionEnum {
 	USER_MUCH_ERROR("020002","系统错误","much user,account:{0},password:{1}!"),
 	USER_LOGINOUT_ERROR("020003","退出登录失败！","loginout error,userId:{0}!"),
 	//good 030000
-	
+	GOODS_ORDER_PAYMENT_NOT_FIND("030001","没找到支付方式！","没找到支付方式，paymentId:{0}!"),
+	GOODS_ORDER_ADDRESS_NOT_FIND("030002","没找到用户地址！","没找到用户地址，addressId:{0}!"),
 	//society 040000
 	;
 	

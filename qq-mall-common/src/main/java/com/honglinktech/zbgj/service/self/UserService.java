@@ -1,5 +1,7 @@
 package com.honglinktech.zbgj.service.self;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,17 +14,21 @@ import org.springframework.util.StringUtils;
 
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
+import com.honglinktech.zbgj.bean.FeedBackBean;
+import com.honglinktech.zbgj.bean.UserBean;
 import com.honglinktech.zbgj.bean.UserLoginBean;
+import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.dao.TUserAddressDao;
-import com.honglinktech.zbgj.dao.TUserKeepDao;
+import com.honglinktech.zbgj.dao.TChangeLogDao;
+import com.honglinktech.zbgj.dao.TFeedBackDao;
+import com.honglinktech.zbgj.dao.TPicDao;
 import com.honglinktech.zbgj.dao.helper.QueryHelper;
 import com.honglinktech.zbgj.dao.self.UserDao;
 import com.honglinktech.zbgj.dao.self.UserSessionDao;
-import com.honglinktech.zbgj.entity.TUser;
-import com.honglinktech.zbgj.entity.TUserAddress;
-import com.honglinktech.zbgj.entity.TUserKeep;
+import com.honglinktech.zbgj.entity.TChangeLog;
+import com.honglinktech.zbgj.entity.TFeedBack;
+import com.honglinktech.zbgj.entity.TPic;
 import com.honglinktech.zbgj.entity.TUserSession;
 import com.honglinktech.zbgj.service.TUserService;
 import com.honglinktech.zbgj.utils.HashUtils;
@@ -36,9 +42,11 @@ public class UserService extends TUserService {
 	@Autowired
 	private UserSessionDao userSessionDao;
 	@Resource
-	private TUserKeepDao tuserKeepDao;
+	private TChangeLogDao tchangeLogDao;
 	@Resource
-	private TUserAddressDao tuserAddressDao;
+	private TFeedBackDao tfeedBackDao;
+	@Resource
+	private TPicDao tpicDao;
 	
 
 	public Response<UserLoginBean> login(String account, String password) throws BaseException{
@@ -56,7 +64,7 @@ public class UserService extends TUserService {
 			throw new BaseException(ExceptionEnum.COMMON_ERROE);
 		}
 		
-		Response<TUser> rsponse = userDao.login(account,password);
+		Response<UserBean> rsponse = userDao.login(account,password);
 		//登录成功
 		if(rsponse.getCode().equals(ExceptionEnum.COMMON_SUCCESS.getRetCode())){
 			Map<String,String[]> userSeesionMap = new HashMap<String,String[]>();
@@ -82,87 +90,130 @@ public class UserService extends TUserService {
 	public Response<String> loginout(Integer id) throws BaseException{
 
 		return userSessionDao.loginout(id);
-		
 	}
-	public Response<String> saveOrUpdateKeep(TUserKeep userKeep) throws BaseException{
+
+	/**
+	 * 获取推荐用户
+	 * @return
+	 */
+	public Response<List<UserBean>> findRecUsers(Integer userId){
+		int rand = (int)(Math.random()*10);
+		List<UserBean> userBeans;
+		if(rand%2==0){
+			//获取被关注数最多的用户
+			userBeans = userDao.findAtteUserByNum(userId,1,50);
+		}else{
+			//获取被添加好友数最多的用户
+			userBeans = userDao.findFriendUserByNum(userId,1,50);
+		}
+		if(userBeans != null){
+			Collections.shuffle(userBeans);
+			userBeans = userBeans.subList(0, userBeans.size()>=5?5:userBeans.size());
+		}
+		return Result.resultSet(userBeans);
+	}
+	public static void main(String[] args) {
+		System.out.println();
+	}
+	
+	/**
+	 * 日志
+	 * @param valueOf
+	 * @param couponId
+	 * @return
+	 * @throws BaseException 
+	 */
+	public Response<List<TChangeLog>> findChangeLog(Integer userId, Integer type,Integer index,Integer size) throws BaseException {
 		
-		if(userKeep.getId() != null && userKeep.getId() > 0){//取消收藏
-			tuserKeepDao.deleteById(userKeep.getId());
-			return Result.success("取消收藏成功~");
-		}else{//添加收藏
-			tuserKeepDao.save(userKeep);
-			return Result.success("添加收藏成功~");
+		Map<String, String[]> whereMap = new HashMap<String, String[]>();
+		whereMap.put(TChangeLog.DBMaping.userId.name(), new String[]{userId+""});
+		whereMap.put(TChangeLog.DBMaping.type.name(), new String[]{type+""});
+		QueryHelper<TChangeLog> qh = new QueryHelper<TChangeLog>(index,size,whereMap);
+		Map<String, String> orderMap = new HashMap<String, String>();
+		orderMap.put(TChangeLog.DBMaping.createTime.getDbName(), "desc");
+		qh.setOrderBy(orderMap);
+		QueryHelper<TChangeLog> resultQH = tchangeLogDao.findByQueryHelperNoCount(qh);
+		return Result.resultSet(resultQH.getResultList());
+	}
+
+	/**
+	 * 意见反馈
+	 * @param valueOf
+	 * @param couponId
+	 * @return
+	 * @throws BaseException 
+	 */
+	public Response<String> saveFeedPage(Integer userId,String detail,List<String> imgs) throws BaseException {
+		TFeedBack feedBack = new TFeedBack();
+		feedBack.setDetail(detail);
+		feedBack.setUserId(userId);
+		feedBack.setReadIs(Constants.N0);
+		int id = tfeedBackDao.save(feedBack);
+		if(imgs!=null && imgs.size()>0){
+			for(String img:imgs){
+				TPic tpic = new TPic();
+				tpic.setObjId(id);
+				tpic.setPicUrl(img);
+				tpic.setType(Constants.PIC_FEED_BACK);
+				tpicDao.save(tpic);
+			}
+			
+		}
+		return Result.success("意见反馈提交成功！");
+	}
+	
+	/**
+	 * 意见反馈
+	 * @param valueOf
+	 * @param couponId
+	 * @return
+	 * @throws BaseException 
+	 */
+	public Response<List<FeedBackBean>> findFeedBackPage(Integer userId,Integer index,Integer size) throws BaseException {
+		
+		Map<String, String[]> whereMap = new HashMap<String, String[]>();
+		whereMap.put(TFeedBack.DBMaping.userId.name(), new String[]{userId+""});
+		QueryHelper<TFeedBack> qh = new QueryHelper<TFeedBack>(index,size,whereMap);
+		Map<String, String> orderMap = new HashMap<String, String>();
+		orderMap.put(TChangeLog.DBMaping.createTime.getDbName(), "desc");
+		qh.setOrderBy(orderMap);
+		QueryHelper<TFeedBack> resultQH = tfeedBackDao.findByQueryHelperNoCount(qh);
+		List<TFeedBack> feedBackList = resultQH.getResultList();
+		//图片处理
+		List<FeedBackBean> feedBackBeanList = new ArrayList<FeedBackBean>();
+		for(TFeedBack fb:feedBackList){
+			FeedBackBean fbBean = new FeedBackBean(fb);
+			Map<String,String[]> picWhere = new HashMap<String, String[]>();
+			picWhere.put(TPic.DBMaping.objId.name(), new String[]{fb.getId()+""});
+			picWhere.put(TPic.DBMaping.type.name(), new String[]{Constants.PIC_FEED_BACK+""});
+			List<TPic> picList = tpicDao.findByWhere(picWhere);
+			fbBean.setPicList(picList);
+			feedBackBeanList.add(fbBean);
 		}
 		
-		
-	}
-	public Response<List<TUserKeep>> findKeepPage(Integer userId,Integer type,Integer index,Integer size) throws BaseException{
-		
-		Map<String,String[]> whereMap = new HashMap<String, String[]>();
-		whereMap.put(TUserKeep.DBMaping.userId.name(), new String[]{String.valueOf(userId)});
-		whereMap.put(TUserKeep.DBMaping.type.name(), new String[]{String.valueOf(type)});
-		QueryHelper<TUserKeep> qh = new QueryHelper<TUserKeep>(whereMap);
-		qh.setIndex(index);
-		qh.setSize(size);
-		QueryHelper<TUserKeep> restQH= tuserKeepDao.findByQueryHelper(qh);
-		
-		if(restQH.getResultList().size()==0){
-			return Result.resultSet("没有查询到数据~", null);
-		}
-		return Result.resultSet(restQH.getResultList(), restQH.getTotalRow());
-		
+		return Result.resultSet(feedBackBeanList);
 	}
 	/**
-	 * 查询地址列表
+	 * 意见反馈
 	 * @param userId
-	 * @param index
-	 * @param size
+	 * @param id
 	 * @return
-	 * @throws BaseException
 	 */
-	public Response<TUserAddress> findAddressById(Integer userId, Integer id){
-		TUserAddress tuserAddress = tuserAddressDao.findById(id);
-		if(tuserAddress.getUserId().intValue()!=userId.intValue()){
-			return Result.fail(ExceptionEnum.COMMON_USER_ILLEGAL_REQUEST);
+	public Response<FeedBackBean> findFeedBackById(Integer userId, Integer id) {
+		TFeedBack feedBack = tfeedBackDao.findById(id);
+		
+		if(userId.intValue() != feedBack.getUserId()){
+			return Result.fail(ExceptionEnum.COMMON_ERROE);
 		}
-		return Result.resultSet(tuserAddress);
-	}
-	/**
-	 * 查询地址列表
-	 * @param userId
-	 * @param index
-	 * @param size
-	 * @return
-	 * @throws BaseException
-	 */
-	public Response<List<TUserAddress>> findAddressPage(Integer userId,Integer index,Integer size) throws BaseException{
 		
-		Map<String,String[]> whereMap = new HashMap<String, String[]>();
-		whereMap.put(TUserKeep.DBMaping.userId.name(), new String[]{String.valueOf(userId)});
-		QueryHelper<TUserAddress> qh = new QueryHelper<TUserAddress>(whereMap);
-		qh.setIndex(index);
-		qh.setSize(size);
-		QueryHelper<TUserAddress> restQH= tuserAddressDao.findByQueryHelper(qh);
+		FeedBackBean fbBean = new FeedBackBean(feedBack);
+		Map<String,String[]> picWhere = new HashMap<String, String[]>();
+		picWhere.put(TPic.DBMaping.objId.name(), new String[]{feedBack.getId()+""});
+		picWhere.put(TPic.DBMaping.type.name(), new String[]{Constants.PIC_FEED_BACK+""});
+		List<TPic> picList = tpicDao.findByWhere(picWhere);
+		fbBean.setPicList(picList);
 		
-		if(restQH.getResultList().size()==0){
-			return Result.resultSet("没有查询到数据~", null);
-		}
-		return Result.resultSet(restQH.getResultList(), restQH.getTotalRow());
-		
+		return Result.resultSet(fbBean);
 	}
-	/**
-	 * 修改地址
-	 * @param tuserAddress
-	 * @return
-	 * @throws BaseException
-	 */
-	public Response<String> updateAddressDefault(TUserAddress tuserAddress) throws BaseException{
-		String sql = "update "+TUserAddress.DBMaping.tableName.getDbName()+" set "+TUserAddress.DBMaping.defaultIs.getDbName()+"=0,"+
-				TUserAddress.DBMaping.updateTime.getDbName()+"=NOW() where "+TUserAddress.DBMaping.userId.getDbName()+"="+tuserAddress.getUserId();
-		System.out.println("updateAddressDefault-sql:"+sql);
-		tuserAddressDao.updateExecute(sql);
-		tuserAddress.setDefaultIs(1);
-		tuserAddressDao.update(tuserAddress);
-		return Result.success();
-	}
+	
 }
