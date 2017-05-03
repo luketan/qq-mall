@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.SocietySubDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietySub">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ico" jdbcType="VARCHAR" property="ico" />
+    <result column="ico_color" jdbcType="VARCHAR" property="icoColor" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="hot_num" jdbcType="INTEGER" property="hotNum" />
+    <result column="award_type" jdbcType="INTEGER" property="awardType" />
+    <result column="award_num" jdbcType="INTEGER" property="awardNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, ico, ico_color, image, synopsis, type, status, sort, hot_num, award_type, 
+    award_num, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_sub
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_society_sub
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietySub">
+    INSERT INTO t_society_sub
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="ico != null and ico != ''">
+        ico,
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        ico_color,
+      </if>
+      <if test="image != null and image != ''">
+        image,
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        synopsis,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="hotNum != null">
+        hot_num,
+      </if>
+      <if test="awardType != null">
+        award_type,
+      </if>
+      <if test="awardNum != null">
+        award_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ico != null and ico != ''">
+        #{ico,jdbcType=VARCHAR},
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        #{icoColor,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null and image != ''">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        #{synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="awardType != null">
+        #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardNum != null">
+        #{awardNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietySub">
+    UPDATE t_society_sub
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ico != null and ico != ''">
+        ico = #{ico,jdbcType=VARCHAR},
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        ico_color = #{icoColor,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null and image != ''">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        synopsis = #{synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        hot_num = #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="awardType != null">
+        award_type = #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardNum != null">
+        award_num = #{awardNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietySub">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ico" jdbcType="VARCHAR" property="ico" />
+    <result column="ico_color" jdbcType="VARCHAR" property="icoColor" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="hot_num" jdbcType="INTEGER" property="hotNum" />
+    <result column="award_type" jdbcType="INTEGER" property="awardType" />
+    <result column="award_num" jdbcType="INTEGER" property="awardNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, ico, ico_color, image, synopsis, type, status, sort, hot_num, award_type, 
+    award_num, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_sub
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_society_sub
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietySub">
+    INSERT INTO t_society_sub
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="ico != null and ico != ''">
+        ico,
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        ico_color,
+      </if>
+      <if test="image != null and image != ''">
+        image,
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        synopsis,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="hotNum != null">
+        hot_num,
+      </if>
+      <if test="awardType != null">
+        award_type,
+      </if>
+      <if test="awardNum != null">
+        award_num,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ico != null and ico != ''">
+        #{ico,jdbcType=VARCHAR},
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        #{icoColor,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null and image != ''">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        #{synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="awardType != null">
+        #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardNum != null">
+        #{awardNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietySub">
+    UPDATE t_society_sub
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ico != null and ico != ''">
+        ico = #{ico,jdbcType=VARCHAR},
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        ico_color = #{icoColor,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null and image != ''">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        synopsis = #{synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        hot_num = #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="awardType != null">
+        award_type = #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardNum != null">
+        award_num = #{awardNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

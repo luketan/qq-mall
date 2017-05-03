@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.UserDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="exp" jdbcType="INTEGER" property="exp" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="head" jdbcType="VARCHAR" property="head" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="email_is" jdbcType="INTEGER" property="emailIs" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="phone_is" jdbcType="INTEGER" property="phoneIs" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="sexu" jdbcType="INTEGER" property="sexu" />
+    <result column="marr" jdbcType="INTEGER" property="marr" />
+    <result column="try_is" jdbcType="INTEGER" property="tryIs" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="from" jdbcType="VARCHAR" property="from" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, nick_name, account, password, exp, level, sign, head, email, email_is, phone, 
+    phone_is, age, sex, sexu, marr, try_is, type, status, from, update_time, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_user
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_user
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.User">
+    INSERT INTO t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nickName != null and nickName != ''">
+        nick_name,
+      </if>
+      <if test="account != null and account != ''">
+        account,
+      </if>
+      <if test="password != null and password != ''">
+        password,
+      </if>
+      <if test="exp != null">
+        exp,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="sign != null and sign != ''">
+        sign,
+      </if>
+      <if test="head != null and head != ''">
+        head,
+      </if>
+      <if test="email != null and email != ''">
+        email,
+      </if>
+      <if test="emailIs != null">
+        email_is,
+      </if>
+      <if test="phone != null and phone != ''">
+        phone,
+      </if>
+      <if test="phoneIs != null">
+        phone_is,
+      </if>
+      <if test="age != null and age != ''">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="sexu != null">
+        sexu,
+      </if>
+      <if test="marr != null">
+        marr,
+      </if>
+      <if test="tryIs != null">
+        try_is,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="from != null and from != ''">
+        from,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null and nickName != ''">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null and account != ''">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="exp != null">
+        #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null and sign != ''">
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null and head != ''">
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null and email != ''">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailIs != null">
+        #{emailIs,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null and phone != ''">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneIs != null">
+        #{phoneIs,jdbcType=INTEGER},
+      </if>
+      <if test="age != null and age != ''">
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="sexu != null">
+        #{sexu,jdbcType=INTEGER},
+      </if>
+      <if test="marr != null">
+        #{marr,jdbcType=INTEGER},
+      </if>
+      <if test="tryIs != null">
+        #{tryIs,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="from != null and from != ''">
+        #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.User">
+    UPDATE t_user
+    <set>
+      <if test="nickName != null and nickName != ''">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null and account != ''">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="exp != null">
+        exp = #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null and sign != ''">
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null and head != ''">
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null and email != ''">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailIs != null">
+        email_is = #{emailIs,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null and phone != ''">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneIs != null">
+        phone_is = #{phoneIs,jdbcType=INTEGER},
+      </if>
+      <if test="age != null and age != ''">
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="sexu != null">
+        sexu = #{sexu,jdbcType=INTEGER},
+      </if>
+      <if test="marr != null">
+        marr = #{marr,jdbcType=INTEGER},
+      </if>
+      <if test="tryIs != null">
+        try_is = #{tryIs,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="from != null and from != ''">
+        from = #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="exp" jdbcType="INTEGER" property="exp" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="head" jdbcType="VARCHAR" property="head" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="email_is" jdbcType="INTEGER" property="emailIs" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="phone_is" jdbcType="INTEGER" property="phoneIs" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="sexu" jdbcType="INTEGER" property="sexu" />
+    <result column="marr" jdbcType="INTEGER" property="marr" />
+    <result column="try_is" jdbcType="INTEGER" property="tryIs" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="from" jdbcType="VARCHAR" property="from" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, nick_name, account, password, exp, level, sign, head, email, email_is, phone, 
+    phone_is, age, sex, sexu, marr, try_is, type, status, from, update_time, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_user
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_user
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.User">
+    INSERT INTO t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nickName != null and nickName != ''">
+        nick_name,
+      </if>
+      <if test="account != null and account != ''">
+        account,
+      </if>
+      <if test="password != null and password != ''">
+        password,
+      </if>
+      <if test="exp != null">
+        exp,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="sign != null and sign != ''">
+        sign,
+      </if>
+      <if test="head != null and head != ''">
+        head,
+      </if>
+      <if test="email != null and email != ''">
+        email,
+      </if>
+      <if test="emailIs != null">
+        email_is,
+      </if>
+      <if test="phone != null and phone != ''">
+        phone,
+      </if>
+      <if test="phoneIs != null">
+        phone_is,
+      </if>
+      <if test="age != null and age != ''">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="sexu != null">
+        sexu,
+      </if>
+      <if test="marr != null">
+        marr,
+      </if>
+      <if test="tryIs != null">
+        try_is,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="from != null and from != ''">
+        from,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null and nickName != ''">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null and account != ''">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="exp != null">
+        #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null and sign != ''">
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null and head != ''">
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null and email != ''">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailIs != null">
+        #{emailIs,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null and phone != ''">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneIs != null">
+        #{phoneIs,jdbcType=INTEGER},
+      </if>
+      <if test="age != null and age != ''">
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="sexu != null">
+        #{sexu,jdbcType=INTEGER},
+      </if>
+      <if test="marr != null">
+        #{marr,jdbcType=INTEGER},
+      </if>
+      <if test="tryIs != null">
+        #{tryIs,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="from != null and from != ''">
+        #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.User">
+    UPDATE t_user
+    <set>
+      <if test="nickName != null and nickName != ''">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null and account != ''">
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="exp != null">
+        exp = #{exp,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null and sign != ''">
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null and head != ''">
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null and email != ''">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="emailIs != null">
+        email_is = #{emailIs,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null and phone != ''">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneIs != null">
+        phone_is = #{phoneIs,jdbcType=INTEGER},
+      </if>
+      <if test="age != null and age != ''">
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="sexu != null">
+        sexu = #{sexu,jdbcType=INTEGER},
+      </if>
+      <if test="marr != null">
+        marr = #{marr,jdbcType=INTEGER},
+      </if>
+      <if test="tryIs != null">
+        try_is = #{tryIs,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="from != null and from != ''">
+        from = #{from,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

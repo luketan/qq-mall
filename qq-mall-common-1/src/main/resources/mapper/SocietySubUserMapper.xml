@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.SocietySubUserDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietySubUser">
+    <id column="society_sub_id" jdbcType="INTEGER" property="societySubId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="val" jdbcType="INTEGER" property="val" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    society_sub_id, user_id, val, type, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.SocietySubUserKey" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_sub_user
+    WHERE society_sub_id = #{societySubId,jdbcType=INTEGER}
+      AND user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.SocietySubUserKey">
+    DELETE FROM t_society_sub_user
+    WHERE society_sub_id = #{societySubId,jdbcType=INTEGER}
+      AND user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietySubUser">
+    INSERT INTO t_society_sub_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="societySubId != null">
+        society_sub_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="val != null">
+        val,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="societySubId != null">
+        #{societySubId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="val != null">
+        #{val,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietySubUser">
+    UPDATE t_society_sub_user
+    <set>
+      <if test="val != null">
+        val = #{val,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE society_sub_id = #{societySubId,jdbcType=INTEGER}
+      AND user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietySubUser">
+    <id column="society_sub_id" jdbcType="INTEGER" property="societySubId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="val" jdbcType="INTEGER" property="val" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    society_sub_id, user_id, val, type, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.SocietySubUserKey" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_sub_user
+    WHERE society_sub_id = #{societySubId,jdbcType=INTEGER}
+      AND user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.SocietySubUserKey">
+    DELETE FROM t_society_sub_user
+    WHERE society_sub_id = #{societySubId,jdbcType=INTEGER}
+      AND user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietySubUser">
+    INSERT INTO t_society_sub_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="societySubId != null">
+        society_sub_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="val != null">
+        val,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="societySubId != null">
+        #{societySubId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="val != null">
+        #{val,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietySubUser">
+    UPDATE t_society_sub_user
+    <set>
+      <if test="val != null">
+        val = #{val,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE society_sub_id = #{societySubId,jdbcType=INTEGER}
+      AND user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

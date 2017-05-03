@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.OrderDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="total_money" jdbcType="DECIMAL" property="totalMoney" />
+    <result column="payment_Id" jdbcType="INTEGER" property="paymentId" />
+    <result column="payment_name" jdbcType="VARCHAR" property="paymentName" />
+    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="post_name" jdbcType="VARCHAR" property="postName" />
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="post_money" jdbcType="DECIMAL" property="postMoney" />
+    <result column="lost_post_money" jdbcType="DECIMAL" property="lostPostMoney" />
+    <result column="lost_money" jdbcType="DECIMAL" property="lostMoney" />
+    <result column="invoice_is" jdbcType="INTEGER" property="invoiceIs" />
+    <result column="invoice_head" jdbcType="VARCHAR" property="invoiceHead" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="coupon_id" jdbcType="INTEGER" property="couponId" />
+    <result column="coupon" jdbcType="VARCHAR" property="coupon" />
+    <result column="push" jdbcType="INTEGER" property="push" />
+    <result column="read_is" jdbcType="INTEGER" property="readIs" />
+    <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+    <result column="form" jdbcType="INTEGER" property="form" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="explain" jdbcType="VARCHAR" property="explain" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.honglinktech.zbgj.entity.Order">
+    <result column="activitys" jdbcType="LONGVARCHAR" property="activitys" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_code, user_id, money, total_money, payment_Id, payment_name, pay_status, 
+    status, post_id, post_name, post_code, post_money, lost_post_money, lost_money, invoice_is, 
+    invoice_head, address_id, address, coupon_id, coupon, push, read_is, delete_flag, 
+    form, remark, explain, update_time, create_time
+  </sql>
+
+  <sql id="Blob_Column_List">
+    activitys
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    SELECT 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM t_order
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_order
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Order">
+    INSERT INTO t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderCode != null and orderCode != ''">
+        order_code,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="totalMoney != null">
+        total_money,
+      </if>
+      <if test="paymentId != null">
+        payment_Id,
+      </if>
+      <if test="paymentName != null and paymentName != ''">
+        payment_name,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="postId != null">
+        post_id,
+      </if>
+      <if test="postName != null and postName != ''">
+        post_name,
+      </if>
+      <if test="postCode != null and postCode != ''">
+        post_code,
+      </if>
+      <if test="postMoney != null">
+        post_money,
+      </if>
+      <if test="lostPostMoney != null">
+        lost_post_money,
+      </if>
+      <if test="lostMoney != null">
+        lost_money,
+      </if>
+      <if test="invoiceIs != null">
+        invoice_is,
+      </if>
+      <if test="invoiceHead != null and invoiceHead != ''">
+        invoice_head,
+      </if>
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="address != null and address != ''">
+        address,
+      </if>
+      <if test="couponId != null">
+        coupon_id,
+      </if>
+      <if test="coupon != null and coupon != ''">
+        coupon,
+      </if>
+      <if test="push != null">
+        push,
+      </if>
+      <if test="readIs != null">
+        read_is,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="form != null">
+        form,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="explain != null and explain != ''">
+        explain,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activitys != null">
+        activitys,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderCode != null and orderCode != ''">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentId != null">
+        #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentName != null and paymentName != ''">
+        #{paymentName,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postName != null and postName != ''">
+        #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null and postCode != ''">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postMoney != null">
+        #{postMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lostPostMoney != null">
+        #{lostPostMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lostMoney != null">
+        #{lostMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceIs != null">
+        #{invoiceIs,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceHead != null and invoiceHead != ''">
+        #{invoiceHead,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null">
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null and address != ''">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null">
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="coupon != null and coupon != ''">
+        #{coupon,jdbcType=VARCHAR},
+      </if>
+      <if test="push != null">
+        #{push,jdbcType=INTEGER},
+      </if>
+      <if test="readIs != null">
+        #{readIs,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="form != null">
+        #{form,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null and explain != ''">
+        #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitys != null">
+        #{activitys,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Order">
+    UPDATE t_order
+    <set>
+      <if test="orderCode != null and orderCode != ''">
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="totalMoney != null">
+        total_money = #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentId != null">
+        payment_Id = #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentName != null and paymentName != ''">
+        payment_name = #{paymentName,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="postId != null">
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postName != null and postName != ''">
+        post_name = #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null and postCode != ''">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postMoney != null">
+        post_money = #{postMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lostPostMoney != null">
+        lost_post_money = #{lostPostMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lostMoney != null">
+        lost_money = #{lostMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceIs != null">
+        invoice_is = #{invoiceIs,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceHead != null and invoiceHead != ''">
+        invoice_head = #{invoiceHead,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null">
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null and address != ''">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null">
+        coupon_id = #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="coupon != null and coupon != ''">
+        coupon = #{coupon,jdbcType=VARCHAR},
+      </if>
+      <if test="push != null">
+        push = #{push,jdbcType=INTEGER},
+      </if>
+      <if test="readIs != null">
+        read_is = #{readIs,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="form != null">
+        form = #{form,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null and explain != ''">
+        explain = #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitys != null">
+        activitys = #{activitys,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.Order">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="total_money" jdbcType="DECIMAL" property="totalMoney" />
+    <result column="payment_Id" jdbcType="INTEGER" property="paymentId" />
+    <result column="payment_name" jdbcType="VARCHAR" property="paymentName" />
+    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="post_id" jdbcType="INTEGER" property="postId" />
+    <result column="post_name" jdbcType="VARCHAR" property="postName" />
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="post_money" jdbcType="DECIMAL" property="postMoney" />
+    <result column="lost_post_money" jdbcType="DECIMAL" property="lostPostMoney" />
+    <result column="lost_money" jdbcType="DECIMAL" property="lostMoney" />
+    <result column="invoice_is" jdbcType="INTEGER" property="invoiceIs" />
+    <result column="invoice_head" jdbcType="VARCHAR" property="invoiceHead" />
+    <result column="address_id" jdbcType="INTEGER" property="addressId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="coupon_id" jdbcType="INTEGER" property="couponId" />
+    <result column="coupon" jdbcType="VARCHAR" property="coupon" />
+    <result column="push" jdbcType="INTEGER" property="push" />
+    <result column="read_is" jdbcType="INTEGER" property="readIs" />
+    <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+    <result column="form" jdbcType="INTEGER" property="form" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="explain" jdbcType="VARCHAR" property="explain" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.honglinktech.zbgj.entity.Order">
+    <result column="activitys" jdbcType="LONGVARCHAR" property="activitys" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_code, user_id, money, total_money, payment_Id, payment_name, pay_status, 
+    status, post_id, post_name, post_code, post_money, lost_post_money, lost_money, invoice_is, 
+    invoice_head, address_id, address, coupon_id, coupon, push, read_is, delete_flag, 
+    form, remark, explain, update_time, create_time
+  </sql>
+
+  <sql id="Blob_Column_List">
+    activitys
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    SELECT 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM t_order
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_order
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Order">
+    INSERT INTO t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderCode != null and orderCode != ''">
+        order_code,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="totalMoney != null">
+        total_money,
+      </if>
+      <if test="paymentId != null">
+        payment_Id,
+      </if>
+      <if test="paymentName != null and paymentName != ''">
+        payment_name,
+      </if>
+      <if test="payStatus != null">
+        pay_status,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="postId != null">
+        post_id,
+      </if>
+      <if test="postName != null and postName != ''">
+        post_name,
+      </if>
+      <if test="postCode != null and postCode != ''">
+        post_code,
+      </if>
+      <if test="postMoney != null">
+        post_money,
+      </if>
+      <if test="lostPostMoney != null">
+        lost_post_money,
+      </if>
+      <if test="lostMoney != null">
+        lost_money,
+      </if>
+      <if test="invoiceIs != null">
+        invoice_is,
+      </if>
+      <if test="invoiceHead != null and invoiceHead != ''">
+        invoice_head,
+      </if>
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="address != null and address != ''">
+        address,
+      </if>
+      <if test="couponId != null">
+        coupon_id,
+      </if>
+      <if test="coupon != null and coupon != ''">
+        coupon,
+      </if>
+      <if test="push != null">
+        push,
+      </if>
+      <if test="readIs != null">
+        read_is,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+      <if test="form != null">
+        form,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="explain != null and explain != ''">
+        explain,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="activitys != null">
+        activitys,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderCode != null and orderCode != ''">
+        #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="totalMoney != null">
+        #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentId != null">
+        #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentName != null and paymentName != ''">
+        #{paymentName,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="postId != null">
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postName != null and postName != ''">
+        #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null and postCode != ''">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postMoney != null">
+        #{postMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lostPostMoney != null">
+        #{lostPostMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lostMoney != null">
+        #{lostMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceIs != null">
+        #{invoiceIs,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceHead != null and invoiceHead != ''">
+        #{invoiceHead,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null">
+        #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null and address != ''">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null">
+        #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="coupon != null and coupon != ''">
+        #{coupon,jdbcType=VARCHAR},
+      </if>
+      <if test="push != null">
+        #{push,jdbcType=INTEGER},
+      </if>
+      <if test="readIs != null">
+        #{readIs,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="form != null">
+        #{form,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null and explain != ''">
+        #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitys != null">
+        #{activitys,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Order">
+    UPDATE t_order
+    <set>
+      <if test="orderCode != null and orderCode != ''">
+        order_code = #{orderCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=DECIMAL},
+      </if>
+      <if test="totalMoney != null">
+        total_money = #{totalMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentId != null">
+        payment_Id = #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentName != null and paymentName != ''">
+        payment_name = #{paymentName,jdbcType=VARCHAR},
+      </if>
+      <if test="payStatus != null">
+        pay_status = #{payStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="postId != null">
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="postName != null and postName != ''">
+        post_name = #{postName,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null and postCode != ''">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="postMoney != null">
+        post_money = #{postMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lostPostMoney != null">
+        lost_post_money = #{lostPostMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="lostMoney != null">
+        lost_money = #{lostMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="invoiceIs != null">
+        invoice_is = #{invoiceIs,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceHead != null and invoiceHead != ''">
+        invoice_head = #{invoiceHead,jdbcType=VARCHAR},
+      </if>
+      <if test="addressId != null">
+        address_id = #{addressId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null and address != ''">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="couponId != null">
+        coupon_id = #{couponId,jdbcType=INTEGER},
+      </if>
+      <if test="coupon != null and coupon != ''">
+        coupon = #{coupon,jdbcType=VARCHAR},
+      </if>
+      <if test="push != null">
+        push = #{push,jdbcType=INTEGER},
+      </if>
+      <if test="readIs != null">
+        read_is = #{readIs,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+      <if test="form != null">
+        form = #{form,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null and explain != ''">
+        explain = #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activitys != null">
+        activitys = #{activitys,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

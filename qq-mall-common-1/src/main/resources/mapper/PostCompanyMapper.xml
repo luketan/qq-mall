@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.PostCompanyDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.PostCompany">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="api_url" jdbcType="VARCHAR" property="apiUrl" />
+    <result column="api_account" jdbcType="VARCHAR" property="apiAccount" />
+    <result column="api_code" jdbcType="VARCHAR" property="apiCode" />
+    <result column="api_password" jdbcType="VARCHAR" property="apiPassword" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, address, director, telephone, api_url, api_account, api_code, api_password, 
+    code, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_post_company
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_post_company
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.PostCompany">
+    INSERT INTO t_post_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="address != null and address != ''">
+        address,
+      </if>
+      <if test="director != null and director != ''">
+        director,
+      </if>
+      <if test="telephone != null and telephone != ''">
+        telephone,
+      </if>
+      <if test="apiUrl != null and apiUrl != ''">
+        api_url,
+      </if>
+      <if test="apiAccount != null and apiAccount != ''">
+        api_account,
+      </if>
+      <if test="apiCode != null and apiCode != ''">
+        api_code,
+      </if>
+      <if test="apiPassword != null and apiPassword != ''">
+        api_password,
+      </if>
+      <if test="code != null and code != ''">
+        code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null and director != ''">
+        #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null and telephone != ''">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUrl != null and apiUrl != ''">
+        #{apiUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null and apiAccount != ''">
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="apiCode != null and apiCode != ''">
+        #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiPassword != null and apiPassword != ''">
+        #{apiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.PostCompany">
+    UPDATE t_post_company
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null and director != ''">
+        director = #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null and telephone != ''">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUrl != null and apiUrl != ''">
+        api_url = #{apiUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null and apiAccount != ''">
+        api_account = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="apiCode != null and apiCode != ''">
+        api_code = #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiPassword != null and apiPassword != ''">
+        api_password = #{apiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.PostCompany">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="api_url" jdbcType="VARCHAR" property="apiUrl" />
+    <result column="api_account" jdbcType="VARCHAR" property="apiAccount" />
+    <result column="api_code" jdbcType="VARCHAR" property="apiCode" />
+    <result column="api_password" jdbcType="VARCHAR" property="apiPassword" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, address, director, telephone, api_url, api_account, api_code, api_password, 
+    code, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_post_company
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_post_company
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.PostCompany">
+    INSERT INTO t_post_company
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="address != null and address != ''">
+        address,
+      </if>
+      <if test="director != null and director != ''">
+        director,
+      </if>
+      <if test="telephone != null and telephone != ''">
+        telephone,
+      </if>
+      <if test="apiUrl != null and apiUrl != ''">
+        api_url,
+      </if>
+      <if test="apiAccount != null and apiAccount != ''">
+        api_account,
+      </if>
+      <if test="apiCode != null and apiCode != ''">
+        api_code,
+      </if>
+      <if test="apiPassword != null and apiPassword != ''">
+        api_password,
+      </if>
+      <if test="code != null and code != ''">
+        code,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null and director != ''">
+        #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null and telephone != ''">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUrl != null and apiUrl != ''">
+        #{apiUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null and apiAccount != ''">
+        #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="apiCode != null and apiCode != ''">
+        #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiPassword != null and apiPassword != ''">
+        #{apiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.PostCompany">
+    UPDATE t_post_company
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="director != null and director != ''">
+        director = #{director,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null and telephone != ''">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="apiUrl != null and apiUrl != ''">
+        api_url = #{apiUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="apiAccount != null and apiAccount != ''">
+        api_account = #{apiAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="apiCode != null and apiCode != ''">
+        api_code = #{apiCode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiPassword != null and apiPassword != ''">
+        api_password = #{apiPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null and code != ''">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

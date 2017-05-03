@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.SocietyDisDisDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietyDisDis">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="society_dis_id" jdbcType="INTEGER" property="societyDisId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="img_is" jdbcType="INTEGER" property="imgIs" />
+    <result column="parent" jdbcType="INTEGER" property="parent" />
+    <result column="good_num" jdbcType="INTEGER" property="goodNum" />
+    <result column="reply_user_id" jdbcType="INTEGER" property="replyUserId" />
+    <result column="reply_user_name" jdbcType="VARCHAR" property="replyUserName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, society_dis_id, user_id, user_name, content, img_is, parent, good_num, reply_user_id, 
+    reply_user_name, status, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_dis_dis
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_society_dis_dis
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietyDisDis">
+    INSERT INTO t_society_dis_dis
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="societyDisId != null">
+        society_dis_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="content != null and content != ''">
+        content,
+      </if>
+      <if test="imgIs != null">
+        img_is,
+      </if>
+      <if test="parent != null">
+        parent,
+      </if>
+      <if test="goodNum != null">
+        good_num,
+      </if>
+      <if test="replyUserId != null">
+        reply_user_id,
+      </if>
+      <if test="replyUserName != null and replyUserName != ''">
+        reply_user_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="societyDisId != null">
+        #{societyDisId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null and content != ''">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgIs != null">
+        #{imgIs,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="goodNum != null">
+        #{goodNum,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserId != null">
+        #{replyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserName != null and replyUserName != ''">
+        #{replyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietyDisDis">
+    UPDATE t_society_dis_dis
+    <set>
+      <if test="societyDisId != null">
+        society_dis_id = #{societyDisId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null and content != ''">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgIs != null">
+        img_is = #{imgIs,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        parent = #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="goodNum != null">
+        good_num = #{goodNum,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserId != null">
+        reply_user_id = #{replyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserName != null and replyUserName != ''">
+        reply_user_name = #{replyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietyDisDis">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="society_dis_id" jdbcType="INTEGER" property="societyDisId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="img_is" jdbcType="INTEGER" property="imgIs" />
+    <result column="parent" jdbcType="INTEGER" property="parent" />
+    <result column="good_num" jdbcType="INTEGER" property="goodNum" />
+    <result column="reply_user_id" jdbcType="INTEGER" property="replyUserId" />
+    <result column="reply_user_name" jdbcType="VARCHAR" property="replyUserName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, society_dis_id, user_id, user_name, content, img_is, parent, good_num, reply_user_id, 
+    reply_user_name, status, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_dis_dis
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_society_dis_dis
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietyDisDis">
+    INSERT INTO t_society_dis_dis
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="societyDisId != null">
+        society_dis_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="content != null and content != ''">
+        content,
+      </if>
+      <if test="imgIs != null">
+        img_is,
+      </if>
+      <if test="parent != null">
+        parent,
+      </if>
+      <if test="goodNum != null">
+        good_num,
+      </if>
+      <if test="replyUserId != null">
+        reply_user_id,
+      </if>
+      <if test="replyUserName != null and replyUserName != ''">
+        reply_user_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="societyDisId != null">
+        #{societyDisId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null and content != ''">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgIs != null">
+        #{imgIs,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="goodNum != null">
+        #{goodNum,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserId != null">
+        #{replyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserName != null and replyUserName != ''">
+        #{replyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietyDisDis">
+    UPDATE t_society_dis_dis
+    <set>
+      <if test="societyDisId != null">
+        society_dis_id = #{societyDisId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null and content != ''">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgIs != null">
+        img_is = #{imgIs,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null">
+        parent = #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="goodNum != null">
+        good_num = #{goodNum,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserId != null">
+        reply_user_id = #{replyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserName != null and replyUserName != ''">
+        reply_user_name = #{replyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

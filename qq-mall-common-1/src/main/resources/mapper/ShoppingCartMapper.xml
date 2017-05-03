@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.ShoppingCartDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.ShoppingCart">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="mark_price" jdbcType="DECIMAL" property="markPrice" />
+    <result column="format_id" jdbcType="INTEGER" property="formatId" />
+    <result column="format_name" jdbcType="VARCHAR" property="formatName" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="checkbox" jdbcType="INTEGER" property="checkbox" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, goods_id, goods_name, image_url, price, mark_price, format_id, format_name, 
+    num, checkbox, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_shopping_cart
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_shopping_cart
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
+    INSERT INTO t_shopping_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        goods_name,
+      </if>
+      <if test="imageUrl != null and imageUrl != ''">
+        image_url,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="markPrice != null">
+        mark_price,
+      </if>
+      <if test="formatId != null">
+        format_id,
+      </if>
+      <if test="formatName != null and formatName != ''">
+        format_name,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="checkbox != null">
+        checkbox,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null and imageUrl != ''">
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="markPrice != null">
+        #{markPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="formatId != null">
+        #{formatId,jdbcType=INTEGER},
+      </if>
+      <if test="formatName != null and formatName != ''">
+        #{formatName,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="checkbox != null">
+        #{checkbox,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
+    UPDATE t_shopping_cart
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null and imageUrl != ''">
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="markPrice != null">
+        mark_price = #{markPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="formatId != null">
+        format_id = #{formatId,jdbcType=INTEGER},
+      </if>
+      <if test="formatName != null and formatName != ''">
+        format_name = #{formatName,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="checkbox != null">
+        checkbox = #{checkbox,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.ShoppingCart">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="image_url" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="mark_price" jdbcType="DECIMAL" property="markPrice" />
+    <result column="format_id" jdbcType="INTEGER" property="formatId" />
+    <result column="format_name" jdbcType="VARCHAR" property="formatName" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="checkbox" jdbcType="INTEGER" property="checkbox" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, goods_id, goods_name, image_url, price, mark_price, format_id, format_name, 
+    num, checkbox, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_shopping_cart
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_shopping_cart
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
+    INSERT INTO t_shopping_cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        goods_name,
+      </if>
+      <if test="imageUrl != null and imageUrl != ''">
+        image_url,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="markPrice != null">
+        mark_price,
+      </if>
+      <if test="formatId != null">
+        format_id,
+      </if>
+      <if test="formatName != null and formatName != ''">
+        format_name,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="checkbox != null">
+        checkbox,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null and imageUrl != ''">
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="markPrice != null">
+        #{markPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="formatId != null">
+        #{formatId,jdbcType=INTEGER},
+      </if>
+      <if test="formatName != null and formatName != ''">
+        #{formatName,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="checkbox != null">
+        #{checkbox,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
+    UPDATE t_shopping_cart
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null and imageUrl != ''">
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="markPrice != null">
+        mark_price = #{markPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="formatId != null">
+        format_id = #{formatId,jdbcType=INTEGER},
+      </if>
+      <if test="formatName != null and formatName != ''">
+        format_name = #{formatName,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="checkbox != null">
+        checkbox = #{checkbox,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

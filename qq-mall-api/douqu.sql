@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50536
 File Encoding         : 65001
 
-Date: 2017-01-11 23:57:56
+Date: 2017-05-04 00:24:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -388,8 +388,8 @@ DROP TABLE IF EXISTS `t_feed_back`;
 CREATE TABLE `t_feed_back` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '反馈ID',
   `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `detail` text COMMENT '反馈详情',
-  `reply` text COMMENT '系统回复',
+  `detail` varchar(225) DEFAULT NULL COMMENT '反馈详情',
+  `reply` varchar(225) DEFAULT NULL COMMENT '系统回复',
   `reply_time` timestamp NULL DEFAULT NULL COMMENT '回复时间',
   `read_is` int(1) DEFAULT '0' COMMENT '是否已读',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -1280,12 +1280,12 @@ CREATE TABLE `t_payment_user` (
   `checked` int(1) DEFAULT '0' COMMENT '是否选中',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 COMMENT='用户默认支付方式';
+) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COMMENT='用户默认支付方式';
 
 -- ----------------------------
 -- Records of t_payment_user
 -- ----------------------------
-INSERT INTO `t_payment_user` VALUES ('79', '1', '2', '1', '2016-11-26 00:38:59');
+INSERT INTO `t_payment_user` VALUES ('81', '1', '2', '1', '2017-02-08 23:46:04');
 
 -- ----------------------------
 -- Table structure for `t_pic`
@@ -7147,14 +7147,15 @@ CREATE TABLE `t_shopping_cart` (
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_shopping_cart
 -- ----------------------------
-INSERT INTO `t_shopping_cart` VALUES ('25', '1', '10001', null, null, null, null, null, null, '1', '1', '2016-11-02 00:00:19', '2016-11-23 02:13:04');
-INSERT INTO `t_shopping_cart` VALUES ('26', '1', '10011', null, null, null, null, null, null, '1', '1', '2016-11-02 23:23:23', '2016-11-24 01:17:36');
-INSERT INTO `t_shopping_cart` VALUES ('27', '1', '10032', null, null, null, null, null, null, '1', '1', '2017-01-05 01:23:20', '2017-01-05 01:23:20');
+INSERT INTO `t_shopping_cart` VALUES ('25', '1', '10001', null, null, null, null, null, null, '5', '1', '2016-11-02 00:00:19', '2017-02-04 01:22:03');
+INSERT INTO `t_shopping_cart` VALUES ('26', '1', '10011', null, null, null, null, null, null, '6', '1', '2016-11-02 23:23:23', '2017-02-04 01:22:01');
+INSERT INTO `t_shopping_cart` VALUES ('27', '1', '10032', null, null, null, null, null, null, '5', '1', '2017-01-05 01:23:20', '2017-02-04 01:22:04');
+INSERT INTO `t_shopping_cart` VALUES ('28', '1', '10019', null, null, null, null, null, null, '14', '1', '2017-01-13 01:55:41', '2017-02-04 01:22:05');
 
 -- ----------------------------
 -- Table structure for `t_shopping_cart_format`
@@ -7165,7 +7166,7 @@ CREATE TABLE `t_shopping_cart_format` (
   `shopping_cart_id` int(11) NOT NULL COMMENT '购物车ID',
   `format_sub_id` int(11) NOT NULL COMMENT '规格子类ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='购物车规格中间表';
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COMMENT='购物车规格中间表';
 
 -- ----------------------------
 -- Records of t_shopping_cart_format
@@ -7182,6 +7183,7 @@ INSERT INTO `t_shopping_cart_format` VALUES ('41', '25', '40');
 INSERT INTO `t_shopping_cart_format` VALUES ('42', '25', '41');
 INSERT INTO `t_shopping_cart_format` VALUES ('43', '27', '57');
 INSERT INTO `t_shopping_cart_format` VALUES ('44', '27', '58');
+INSERT INTO `t_shopping_cart_format` VALUES ('45', '28', '45');
 
 -- ----------------------------
 -- Table structure for `t_society_dis`
@@ -7195,7 +7197,7 @@ CREATE TABLE `t_society_dis` (
   `content` varchar(225) DEFAULT NULL COMMENT '回复内容',
   `img_is` int(1) DEFAULT '0' COMMENT '是否有图片0没有，1有',
   `reply_is` int(1) DEFAULT '0' COMMENT '是否有回复,0没有，1有',
-  `good_num` int(10) DEFAULT '0' COMMENT '点赞数量',
+  `good_num` int(10) unsigned DEFAULT '0' COMMENT '点赞数量',
   `parent` int(10) DEFAULT '0' COMMENT '跟帖的上级（0表示回复帖子）',
   `status` int(1) DEFAULT '0' COMMENT '0正常',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -7205,12 +7207,12 @@ CREATE TABLE `t_society_dis` (
 -- ----------------------------
 -- Records of t_society_dis
 -- ----------------------------
-INSERT INTO `t_society_dis` VALUES ('1', '2', '4', null, '怎么说呢，好多好多要说的', '1', '1', '1', '0', '0', '2017-01-05 00:23:03');
-INSERT INTO `t_society_dis` VALUES ('2', '2', '3', null, '电饭锅电饭锅电饭锅', '0', '1', '2', '0', '0', '2017-01-05 00:55:25');
-INSERT INTO `t_society_dis` VALUES ('3', '2', '4', null, '看了看空间看规划局', '0', '0', '0', '0', '0', '1979-01-01 01:00:00');
-INSERT INTO `t_society_dis` VALUES ('4', '2', '8', null, '纪念馆好几个号结构化', '0', '0', '0', '0', '0', '2017-01-04 00:38:27');
-INSERT INTO `t_society_dis` VALUES ('5', '2', '10', null, '个人通过后国的法国的飞', '0', '0', '0', '0', '0', '2017-01-04 00:38:41');
-INSERT INTO `t_society_dis` VALUES ('6', '2', '11', null, '不能发给你房管局南风过境你干嘛挂号费寂寞孤独还没那该多好没打过黑默丁格黑默丁格会很反感害死人挺好共和党人的风格大概大概大概', '0', '0', '0', '0', '0', '2017-01-04 00:39:26');
+INSERT INTO `t_society_dis` VALUES ('1', '2', '4', null, '怎么说呢，好多好多要说的', '1', '1', '1', '0', '0', '2017-02-04 01:22:51');
+INSERT INTO `t_society_dis` VALUES ('2', '2', '3', null, '电饭锅电饭锅电饭锅', '0', '1', '2', '0', '0', '2017-01-18 01:09:02');
+INSERT INTO `t_society_dis` VALUES ('3', '2', '4', null, '看了看空间看规划局', '0', '0', '1', '0', '0', '2017-02-03 21:37:11');
+INSERT INTO `t_society_dis` VALUES ('4', '2', '8', null, '纪念馆好几个号结构化', '0', '0', '1', '0', '0', '2017-01-18 21:30:30');
+INSERT INTO `t_society_dis` VALUES ('5', '2', '10', null, '个人通过后国的法国的飞', '0', '0', '1', '0', '0', '2017-01-17 00:39:37');
+INSERT INTO `t_society_dis` VALUES ('6', '2', '11', null, '不能发给你房管局南风过境你干嘛挂号费寂寞孤独还没那该多好没打过黑默丁格黑默丁格会很反感害死人挺好共和党人的风格大概大概大概', '0', '0', '1', '0', '0', '2017-01-17 00:39:39');
 
 -- ----------------------------
 -- Table structure for `t_society_dis_dis`
@@ -7269,7 +7271,12 @@ CREATE TABLE `t_society_dis_like` (
 -- ----------------------------
 -- Records of t_society_dis_like
 -- ----------------------------
-INSERT INTO `t_society_dis_like` VALUES ('1', '1', '1979-01-01 01:00:00');
+INSERT INTO `t_society_dis_like` VALUES ('1', '1', '2017-02-04 01:22:51');
+INSERT INTO `t_society_dis_like` VALUES ('2', '1', '2017-01-18 01:09:02');
+INSERT INTO `t_society_dis_like` VALUES ('3', '1', '2017-02-03 21:37:11');
+INSERT INTO `t_society_dis_like` VALUES ('4', '1', '2017-01-18 21:30:30');
+INSERT INTO `t_society_dis_like` VALUES ('5', '1', '2017-01-17 00:39:37');
+INSERT INTO `t_society_dis_like` VALUES ('6', '1', '2017-01-17 00:39:39');
 
 -- ----------------------------
 -- Table structure for `t_society_note`
@@ -7285,12 +7292,13 @@ CREATE TABLE `t_society_note` (
   `detail` varchar(500) DEFAULT NULL COMMENT '帖子详情',
   `address` varchar(50) DEFAULT '' COMMENT '发表地址',
   `ip` varchar(32) DEFAULT NULL COMMENT '发表的ip地址',
-  `good_num` int(10) DEFAULT '0' COMMENT '点赞数量',
-  `dis_num` int(10) DEFAULT '0' COMMENT '评论数量',
+  `good_num` int(10) unsigned DEFAULT '0' COMMENT '点赞数量',
+  `dis_num` int(10) unsigned DEFAULT '0' COMMENT '评论数量',
   `top_is` int(1) DEFAULT '0' COMMENT '是否置顶',
   `rec_is` int(1) DEFAULT '0' COMMENT '是否推荐',
   `gifts_is` int(1) DEFAULT '0' COMMENT '是否是精品',
   `img_is` int(1) DEFAULT '0' COMMENT '是否有图片(0没有)',
+  `reward_is` int(1) DEFAULT '0' COMMENT '是否打赏',
   `type` int(1) DEFAULT '1' COMMENT '0社区公告，1是社区讨论帖子，2是体验贴，',
   `ano_is` int(1) DEFAULT '0' COMMENT '是否匿名发帖',
   `ann_is` int(1) DEFAULT '0' COMMENT '是否是公告(0不是，1是)',
@@ -7304,25 +7312,25 @@ CREATE TABLE `t_society_note` (
 -- ----------------------------
 -- Records of t_society_note
 -- ----------------------------
-INSERT INTO `t_society_note` VALUES ('1', '10', '我的羞羞日记', '1', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '12', '45', '0', '2', '0', '1', '1', '0', null, '2', null, '2016-12-10 22:05:25', '2017-01-02 01:44:16');
-INSERT INTO `t_society_note` VALUES ('2', '10', '我的羞羞日记', '3', '若放弃，请彻底', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '15', '34', '1', '0', '0', '1', '1', null, null, '2', null, '2015-12-11 22:05:25', '2017-01-02 01:44:18');
-INSERT INTO `t_society_note` VALUES ('3', '8', '内衣间的秘密', '3', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '1', '0', '0', '0', '1', '1', null, null, '2', null, '2016-10-11 22:05:25', '2017-01-02 01:58:09');
-INSERT INTO `t_society_note` VALUES ('4', '12', '超级性幻想', '4', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '3', '0', '0', '0', '1', '1', null, null, '2', null, '2013-12-11 22:05:25', '2017-01-02 01:58:11');
-INSERT INTO `t_society_note` VALUES ('5', '10', '我的羞羞日记', '5', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '23', '0', '0', '0', '1', '1', null, null, '2', null, '2016-12-11 11:05:25', '2017-01-02 01:58:10');
-INSERT INTO `t_society_note` VALUES ('6', '10', '我的羞羞日记', '6', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '4', '0', '0', '0', '1', '1', null, null, '2', null, '2016-12-11 20:05:25', '2017-01-02 01:58:11');
-INSERT INTO `t_society_note` VALUES ('7', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '3', '0', '0', '0', '1', '1', null, null, '2', null, '2016-11-11 15:05:25', '2017-01-02 01:58:17');
-INSERT INTO `t_society_note` VALUES ('8', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '8', '0', '0', '0', '1', '1', null, null, '2', null, '2016-10-11 22:05:25', '2017-01-02 01:58:18');
-INSERT INTO `t_society_note` VALUES ('9', '10', '我的羞羞日记', '8', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '2', '0', '0', '0', '1', '1', null, null, '2', null, '2016-08-11 22:05:25', '2017-01-02 01:58:19');
-INSERT INTO `t_society_note` VALUES ('10', '10', '我的羞羞日记', '9', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '4', '0', '0', '0', '1', '1', null, null, '2', null, '2016-07-11 22:05:25', '2017-01-02 01:58:21');
-INSERT INTO `t_society_note` VALUES ('11', '10', '我的羞羞日记', '1', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '34', '0', '0', '0', '1', '1', null, null, '2', null, '2016-07-10 22:05:25', '2017-01-02 01:58:20');
-INSERT INTO `t_society_note` VALUES ('12', '10', '我的羞羞日记', '3', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '3', '0', '0', '0', '1', '1', null, null, '2', null, '2016-09-11 22:05:25', '2017-01-02 01:58:22');
-INSERT INTO `t_society_note` VALUES ('13', '10', '我的羞羞日记', '4', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '5', '0', '0', '0', '1', '1', null, null, '2', null, '2016-11-23 22:05:25', '2017-01-02 01:58:23');
-INSERT INTO `t_society_note` VALUES ('14', '10', '我的羞羞日记', '5', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '6', '0', '0', '0', '1', '1', null, null, '2', null, '2016-11-12 22:05:25', '2017-01-02 01:58:24');
-INSERT INTO `t_society_note` VALUES ('15', '10', '我的羞羞日记', '6', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '7', '0', '0', '0', '1', '1', null, null, '2', null, '2016-12-11 22:05:25', '2017-01-02 01:58:24');
-INSERT INTO `t_society_note` VALUES ('16', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '11', '0', '0', '0', '1', '1', '1', null, '2', null, '2016-12-11 22:05:25', '2017-01-02 23:34:08');
-INSERT INTO `t_society_note` VALUES ('17', '10', '我的羞羞日记', '15', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '15', '0', '0', '0', '1', '1', null, null, '2', null, '2016-12-11 22:05:25', '2017-01-02 01:58:31');
-INSERT INTO `t_society_note` VALUES ('18', '10', '我的羞羞日记', '0', '系统', '公告', '这个是公告内容', '', null, '0', '8', '0', '0', '0', '1', '0', '0', '1', '2', null, '2016-12-11 22:05:25', '2017-01-02 23:34:05');
-INSERT INTO `t_society_note` VALUES ('19', '10', '我的羞羞日记', '0', '系统', '公告1', '这个是公告1内容', '', null, '0', '11', '0', '0', '0', '1', '0', null, '1', '2', null, '2016-12-11 22:05:25', '2017-01-02 01:58:35');
+INSERT INTO `t_society_note` VALUES ('1', '10', '我的羞羞日记', '1', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '12', '45', '0', '1', '1', '1', '0', '1', '0', null, '2', null, '2016-12-10 22:05:25', '2017-02-21 00:29:14');
+INSERT INTO `t_society_note` VALUES ('2', '10', '我的羞羞日记', '3', '若放弃，请彻底', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '24', '34', '1', '1', '1', '1', '1', '1', null, null, '2', null, '2015-12-11 22:05:25', '2017-02-12 23:26:14');
+INSERT INTO `t_society_note` VALUES ('3', '8', '内衣间的秘密', '3', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '1', '0', '0', '0', '1', '0', '1', null, null, '2', null, '2016-10-11 22:05:25', '2017-01-12 01:15:54');
+INSERT INTO `t_society_note` VALUES ('4', '12', '超级性幻想', '4', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '3', '0', '0', '1', '1', '0', '1', null, null, '2', null, '2013-12-11 22:05:25', '2017-02-21 00:29:15');
+INSERT INTO `t_society_note` VALUES ('5', '10', '我的羞羞日记', '5', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '1', '23', '0', '1', '0', '1', '0', '1', null, null, '2', null, '2016-12-11 11:05:25', '2017-02-21 00:29:26');
+INSERT INTO `t_society_note` VALUES ('6', '10', '我的羞羞日记', '6', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '4', '0', '1', '1', '1', '0', '1', null, null, '2', null, '2016-12-11 20:05:25', '2017-02-21 00:29:27');
+INSERT INTO `t_society_note` VALUES ('7', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '3', '0', '1', '1', '1', '0', '1', null, null, '2', null, '2016-11-11 15:05:25', '2017-02-21 00:29:25');
+INSERT INTO `t_society_note` VALUES ('8', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '8', '0', '0', '1', '1', '0', '1', null, null, '2', null, '2016-10-11 22:05:25', '2017-02-21 00:29:19');
+INSERT INTO `t_society_note` VALUES ('9', '10', '我的羞羞日记', '8', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '2', '0', '1', '1', '1', '0', '1', null, null, '2', null, '2016-08-11 22:05:25', '2017-02-21 00:29:23');
+INSERT INTO `t_society_note` VALUES ('10', '10', '我的羞羞日记', '9', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '4', '0', '1', '0', '1', '0', '1', null, null, '2', null, '2016-07-11 22:05:25', '2017-02-21 00:29:24');
+INSERT INTO `t_society_note` VALUES ('11', '10', '我的羞羞日记', '1', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '34', '0', '0', '1', '1', '0', '1', null, null, '2', null, '2016-07-10 22:05:25', '2017-02-21 00:29:23');
+INSERT INTO `t_society_note` VALUES ('12', '10', '我的羞羞日记', '3', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '3', '0', '1', '0', '1', '0', '1', null, null, '2', null, '2016-09-11 22:05:25', '2017-02-21 00:29:06');
+INSERT INTO `t_society_note` VALUES ('13', '10', '我的羞羞日记', '4', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '5', '0', '1', '1', '1', '0', '1', null, null, '2', null, '2016-11-23 22:05:25', '2017-02-21 00:29:13');
+INSERT INTO `t_society_note` VALUES ('14', '10', '我的羞羞日记', '5', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '6', '0', '1', '1', '1', '0', '1', null, null, '2', null, '2016-11-12 22:05:25', '2017-02-21 00:29:13');
+INSERT INTO `t_society_note` VALUES ('15', '10', '我的羞羞日记', '6', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '7', '0', '1', '1', '1', '0', '1', null, null, '2', null, '2016-12-11 22:05:25', '2017-02-21 00:29:12');
+INSERT INTO `t_society_note` VALUES ('16', '10', '我的羞羞日记', '7', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '深圳', null, '0', '11', '0', '1', '1', '1', '0', '1', '1', null, '2', null, '2016-12-11 22:05:25', '2017-02-21 00:29:12');
+INSERT INTO `t_society_note` VALUES ('17', '10', '我的羞羞日记', '15', '遗城落梦', '好吧，我也讲讲我的经历', '比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的比较多吧，慢慢来想看看，那你我21，她28，她离异，我单身狗，记得我吗实在酒吧认识的', '', null, '0', '15', '0', '0', '0', '1', '0', '1', null, null, '2', null, '2016-12-11 22:05:25', '2017-01-12 01:16:02');
+INSERT INTO `t_society_note` VALUES ('18', '10', '我的羞羞日记', '0', '系统', '公告', '这个是公告内容', '', null, '0', '8', '0', '0', '0', '1', '0', '0', '0', '1', '2', null, '2016-12-11 22:05:25', '2017-01-12 01:15:59');
+INSERT INTO `t_society_note` VALUES ('19', '10', '我的羞羞日记', '0', '系统', '公告1', '这个是公告1内容', '', null, '0', '11', '0', '0', '0', '1', '0', '0', null, '1', '2', null, '2016-12-11 22:05:25', '2017-01-12 01:16:00');
 
 -- ----------------------------
 -- Table structure for `t_society_note_like`
@@ -7338,13 +7346,15 @@ CREATE TABLE `t_society_note_like` (
 -- ----------------------------
 -- Records of t_society_note_like
 -- ----------------------------
+INSERT INTO `t_society_note_like` VALUES ('2', '1', '2017-02-12 23:26:14');
+INSERT INTO `t_society_note_like` VALUES ('5', '1', '2017-02-04 01:14:07');
 INSERT INTO `t_society_note_like` VALUES ('6', '1', '2017-01-02 01:23:06');
 
 -- ----------------------------
--- Table structure for `t_society_reward`
+-- Table structure for `t_society_note_reward`
 -- ----------------------------
-DROP TABLE IF EXISTS `t_society_reward`;
-CREATE TABLE `t_society_reward` (
+DROP TABLE IF EXISTS `t_society_note_reward`;
+CREATE TABLE `t_society_note_reward` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `society_note_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL COMMENT '收的',
@@ -7353,11 +7363,26 @@ CREATE TABLE `t_society_reward` (
   `val_num` int(10) DEFAULT '0' COMMENT '价值数量',
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='社区打赏';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='社区打赏';
 
 -- ----------------------------
--- Records of t_society_reward
+-- Records of t_society_note_reward
 -- ----------------------------
+INSERT INTO `t_society_note_reward` VALUES ('1', '2', '3', '1', '1', '10', '2017-01-12 01:14:18');
+INSERT INTO `t_society_note_reward` VALUES ('2', '2', '3', '2', '1', '5', '2017-01-12 01:14:38');
+INSERT INTO `t_society_note_reward` VALUES ('3', '2', '3', '16', '1', '8', '2017-01-12 02:05:35');
+INSERT INTO `t_society_note_reward` VALUES ('4', '2', '3', '4', '1', '20', '2017-01-12 02:05:18');
+INSERT INTO `t_society_note_reward` VALUES ('5', '2', '3', '5', '1', '12', '2017-01-12 02:05:18');
+INSERT INTO `t_society_note_reward` VALUES ('6', '2', '3', '6', '1', '18', '2017-01-12 02:05:19');
+INSERT INTO `t_society_note_reward` VALUES ('7', '2', '3', '7', '1', '1', '2017-01-12 02:05:19');
+INSERT INTO `t_society_note_reward` VALUES ('8', '2', '3', '8', '1', '2', '2017-01-12 02:05:20');
+INSERT INTO `t_society_note_reward` VALUES ('9', '2', '3', '9', '1', '3', '2017-01-12 02:05:21');
+INSERT INTO `t_society_note_reward` VALUES ('10', '2', '3', '10', '1', '5', '2017-01-12 02:05:25');
+INSERT INTO `t_society_note_reward` VALUES ('11', '2', '3', '11', '1', '4', '2017-01-12 02:05:26');
+INSERT INTO `t_society_note_reward` VALUES ('12', '2', '3', '12', '1', '6', '2017-01-12 02:05:27');
+INSERT INTO `t_society_note_reward` VALUES ('13', '2', '3', '13', '1', '7', '2017-01-12 02:05:29');
+INSERT INTO `t_society_note_reward` VALUES ('14', '2', '3', '14', '1', '8', '2017-01-12 02:05:30');
+INSERT INTO `t_society_note_reward` VALUES ('15', '2', '3', '15', '1', '9', '2017-01-12 02:05:31');
 
 -- ----------------------------
 -- Table structure for `t_society_sub`
@@ -7544,13 +7569,10 @@ CREATE TABLE `t_user` (
   `nick_name` varchar(20) DEFAULT NULL COMMENT '昵称',
   `account` varchar(64) NOT NULL COMMENT '账号',
   `password` varchar(64) NOT NULL COMMENT '密码',
-  `sign` varchar(50) DEFAULT NULL COMMENT '个性签名',
-  `head` varchar(225) DEFAULT NULL COMMENT '头像',
-  `virtual_money` decimal(10,2) DEFAULT '0.00' COMMENT '虚拟币(逗币)',
-  `money` decimal(10,2) DEFAULT '0.00' COMMENT '账户余额',
-  `point` int(10) DEFAULT NULL COMMENT '商城积分',
   `exp` int(10) DEFAULT '0' COMMENT '社区经验',
   `level` int(4) DEFAULT '0' COMMENT '社区级别',
+  `sign` varchar(50) DEFAULT NULL COMMENT '个性签名',
+  `head` varchar(225) DEFAULT NULL COMMENT '头像',
   `email` varchar(50) DEFAULT NULL COMMENT '邮箱',
   `email_is` int(1) DEFAULT '0' COMMENT '是否已认证(0否,1是)',
   `phone` varchar(50) DEFAULT NULL COMMENT '手机号码',
@@ -7574,22 +7596,22 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1', '遗城落梦', 'luke', 'd9b1d7db4cd6e70935368a1efb10e377', '不要迷恋锅 、锅只是个炒饭的。', 'http://imgsrc.baidu.com/forum/w%3D580/sign=bff34c1e4990f60304b09c4f0913b370/d92ae7dde71190ef43b752f0cd1b9d16fdfa6074.jpg', '56.00', '12.00', '75', '32', '1', '361681251@qq.com', '0', '18666668629', '0', null, '2', '1', null, '0', '1', '1', null, '2016-12-10 00:47:07', '2015-12-25 00:56:16');
-INSERT INTO `t_user` VALUES ('2', '若放弃，请彻底', '345', '14e1b600b1fd579f47433b88e8d85291', '那个人，是我心中的一片海。', 'http://img3.duitang.com/uploads/item/201502/21/20150221162526_Krfzk.jpeg', '12.00', '87.00', '34', '65', '5', '15920579059@139.com', '0', '15920579059', '0', null, '1', '2', null, '0', '1', '1', null, '2016-12-10 00:36:52', '2015-12-25 00:56:16');
-INSERT INTO `t_user` VALUES ('3', '缘尽了′情淡了', 'kuke', 'd9b1d7db4cd6e70935368a1efb10e377', '时间永远不会停留，停留的只会是记忆 ', 'http://tupian.enterdesk.com/2014/mxy/11/2/1/12.jpg', '0.00', '0.00', '0', '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 00:36:58', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('4', '浅唱灬幸福', 'huangting', 'd9b1d7db4cd6e70935368a1efb10e377', '弱水三千只取一瓢  ||  世界之大只想要你', 'http://www.5hb.org/uploads/weichat/b8439dedd708f1017868cc3c9df51a59.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:11:37', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('5', '入她城、占她心', 'moren', 'd9b1d7db4cd6e70935368a1efb10e377', '装逼引领时尚，犯贱成就梦想', 'http://www.poluoluo.com/qq/UploadFiles_7828/201611/2016110420035680.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 00:37:36', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('6', '╰追忆°似水流年', 'jiandan', 'd9b1d7db4cd6e70935368a1efb10e377', '心脏，我跟她表白你激动个毛啊！', 'http://www.duoziwang.com/uploads/1512/1-15122H125160-L.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:11:28', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('7', '无爱无伤,无欲则刚', 'kele', 'd9b1d7db4cd6e70935368a1efb10e377', '人生没有彩排，每天都是直播，不仅收视率低，而且工资不高。', 'http://www.itouxiang.net/uploads/allimg/20151215/174558443123582.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 01:11:50', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('8', '爱是毒', 'moren1', 'd9b1d7db4cd6e70935368a1efb10e377', '沵可知道,沵的一举一动牵动着峩的心跳', 'http://tupian.qqjay.com/tou2/2016/0830/d5a4c03f3bb1d3b15a518ad69ea04394.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 00:38:04', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('9', '格桑花开', 'jiandan1', 'd9b1d7db4cd6e70935368a1efb10e377', '时钟走着走着的会累！何况是一颗心?', 'http://imgsrc.baidu.com/forum/w%3D580/sign=61aca80096cad1c8d0bbfc2f4f3f67c4/f8251d2442a7d93399775c5cae4bd11372f0015c.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 01:13:12', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('10', '胸小随我爸', 'kele1', 'd9b1d7db4cd6e70935368a1efb10e377', '我们现在的状态、是分手前的最后的矜持。', 'http://www.qqpk.cn/Article/UploadFiles/201501/20150113144930170.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:10:59', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('11', '吃樱桃的小丸子', 'moren2', 'd9b1d7db4cd6e70935368a1efb10e377', '你娶或不娶我我都在这里允你一生。  ||  你嫁或不嫁我我都在那里诺你一世。', 'http://img4.duitang.com/uploads/item/201307/16/20130716071650_3XTaE.thumb.200_0.jpeg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 01:11:09', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('12', '空人空心空回忆', 'jiandan2', 'd9b1d7db4cd6e70935368a1efb10e377', '明明知道你不爱我,可我却不顾一切的爱你***', 'http://up.qqjia.com/z/25/tu32716_7.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:11:16', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('13', '失心的骚年', 'kele2', 'd9b1d7db4cd6e70935368a1efb10e377', '十年前我们期待青春，现在，或许是我们致青春的时候了。\r\n', 'http://up.qqjia.com/z/12/tu14952_17.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 00:38:51', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('14', '似水流年', 'moren12', 'd9b1d7db4cd6e70935368a1efb10e377', '一句话唤起了我对你的全部思念，原来我还是如此懦弱。\r\n', 'http://up.qqjia.com/z/25/tu32718_18.png', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 01:12:05', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('15', '╰追忆°', 'jiandan12', 'd9b1d7db4cd6e70935368a1efb10e377', '    ', 'http://www.poluoluo.com/qq/UploadFiles_7828/201611/2016110701032147.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2016-12-10 01:18:01', '1979-01-01 01:00:00');
-INSERT INTO `t_user` VALUES ('16', '浅唱灬幸福', 'kele12', 'd9b1d7db4cd6e70935368a1efb10e377', '初一羡慕初二的旅游、初二羡慕初三的暑假、初三羡慕初一的青春。\r\n', 'http://tupian.qqjay.com/tou2/2016/0822/5c7597f0e8d860dfc80a92c2b6aa561f.jpg', '0.00', '0.00', null, '0', '0', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2016-12-10 00:39:12', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('1', '遗城落梦', 'luke', 'd9b1d7db4cd6e70935368a1efb10e377', '32', '1', '不要迷恋锅 、锅只是个炒饭的。', 'http://up.qqjia.com/z/26/tu32812_6.jpg', '361681251@qq.com', '0', '18666668629', '0', null, '2', '1', null, '0', '1', '1', null, '2017-01-12 01:05:45', '2015-12-25 00:56:16');
+INSERT INTO `t_user` VALUES ('2', '若放弃，请彻底', '345', '14e1b600b1fd579f47433b88e8d85291', '65', '2', '那个人，是我心中的一片海。', 'http://up.qqjia.com/z/26/tu32812_1.jpg', '15920579059@139.com', '0', '15920579059', '0', null, '1', '2', null, '0', '1', '1', null, '2017-01-12 01:08:38', '2015-12-25 00:56:16');
+INSERT INTO `t_user` VALUES ('3', '缘尽了′情淡了', 'kuke', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '3', '时间永远不会停留，停留的只会是记忆 ', 'http://up.qqjia.com/z/26/tu32812_2.jpg', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2017-01-12 01:08:39', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('4', '浅唱灬幸福', 'huangting', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '4', '弱水三千只取一瓢  ||  世界之大只想要你', 'http://up.qqjia.com/z/26/tu32812_3.jpg', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2017-01-12 01:08:39', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('5', '入她城、占她心', 'moren', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '5', '装逼引领时尚，犯贱成就梦想', 'http://up.qqjia.com/z/26/tu32812_4.jpg', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2017-01-12 01:08:40', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('6', '╰追忆°似水流年', 'jiandan', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '6', '心脏，我跟她表白你激动个毛啊！', 'http://up.qqjia.com/z/26/tu32812_5.jpg', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2017-01-12 01:08:41', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('7', '无爱无伤,无欲则刚', 'kele', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '7', '人生没有彩排，每天都是直播，不仅收视率低，而且工资不高。', 'http://up.qqjia.com/z/26/tu32812_6.jpg', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2017-01-12 01:08:41', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('8', '爱是毒', 'moren1', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '8', '沵可知道,沵的一举一动牵动着峩的心跳', 'http://up.qqjia.com/z/26/tu32812_7.jpg', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2017-01-12 01:08:44', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('9', '格桑花开', 'jiandan1', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '9', '时钟走着走着的会累！何况是一颗心?', 'http://up.qqjia.com/z/26/tu32812_8.jpg', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2017-01-12 01:08:47', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('10', '胸小随我爸', 'kele1', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '10', '我们现在的状态、是分手前的最后的矜持。', 'http://up.qqjia.com/z/26/tu32812_9.jpg', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2017-01-12 01:08:50', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('11', '吃樱桃的小丸子', 'moren2', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '11', '你娶或不娶我我都在这里允你一生。  ||  你嫁或不嫁我我都在那里诺你一世。', 'http://up.qqjia.com/z/26/tu32812_10.jpg', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2017-01-12 01:08:51', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('12', '空人空心空回忆', 'jiandan2', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '12', '明明知道你不爱我,可我却不顾一切的爱你***', 'http://up.qqjia.com/z/26/tu32812_11.jpg', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2017-01-12 01:08:52', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('13', '失心的骚年', 'kele2', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '13', '十年前我们期待青春，现在，或许是我们致青春的时候了。\r\n', 'http://up.qqjia.com/z/26/tu32812_12.jpg', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2017-01-12 01:08:55', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('14', '似水流年', 'moren12', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '14', '一句话唤起了我对你的全部思念，原来我还是如此懦弱。\r\n', 'http://up.qqjia.com/z/26/tu32812_13.jpg', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2017-01-12 01:08:57', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('15', '╰追忆°', 'jiandan12', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '15', '    ', 'http://up.qqjia.com/z/26/tu32812_14.jpg', null, '0', null, '0', null, '2', null, null, '0', '1', '1', null, '2017-01-12 01:08:59', '1979-01-01 01:00:00');
+INSERT INTO `t_user` VALUES ('16', '浅唱灬幸福', 'kele12', 'd9b1d7db4cd6e70935368a1efb10e377', '0', '16', '初一羡慕初二的旅游、初二羡慕初三的暑假、初三羡慕初一的青春。\r\n', 'http://up.qqjia.com/z/26/tu32812_15.jpg', null, '0', null, '0', null, '1', null, null, '0', '1', '1', null, '2017-01-12 01:09:00', '1979-01-01 01:00:00');
 
 -- ----------------------------
 -- Table structure for `t_user_address`
@@ -7618,8 +7640,8 @@ CREATE TABLE `t_user_address` (
 -- ----------------------------
 -- Records of t_user_address
 -- ----------------------------
-INSERT INTO `t_user_address` VALUES ('1', '1', '谭辉', '15920579059', '广东省', '440000', '深圳市', '440300', '440303', '罗湖区', '黄贝岭街道经二路龙景花园芳庭苑', '430223', '1', '1', '2017-01-11 00:43:41', '1979-01-01 01:00:00');
-INSERT INTO `t_user_address` VALUES ('2', '1', '青蛙王子', '18666668629', '湖南省', '430000', '株洲市', '430200', '430223', '攸县', '菜花坪东南村', '51800', '0', '1', '2017-01-11 00:43:40', '1979-01-01 01:00:00');
+INSERT INTO `t_user_address` VALUES ('1', '1', '谭辉', '15920579059', '广东省', '440000', '深圳市', '440300', '440303', '罗湖区', '黄贝岭街道经二路龙景花园芳庭苑', '430223', '0', '1', '2017-02-17 01:11:02', '1979-01-01 01:00:00');
+INSERT INTO `t_user_address` VALUES ('2', '1', '青蛙王子', '18666668629', '湖南省', '430000', '株洲市', '430200', '430223', '攸县', '菜花坪东南村', '51800', '1', '1', '2017-02-17 01:11:03', '1979-01-01 01:00:00');
 
 -- ----------------------------
 -- Table structure for `t_user_atte`
@@ -7750,28 +7772,29 @@ CREATE TABLE `t_user_basis` (
   `point` int(10) DEFAULT '0' COMMENT '商城积分',
   `exp` int(10) DEFAULT '0' COMMENT '社区经验',
   `level` int(4) DEFAULT '0' COMMENT '社区级别',
+  `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_user_basis
 -- ----------------------------
-INSERT INTO `t_user_basis` VALUES ('1', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('2', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('3', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('4', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('5', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('6', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('7', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('8', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('9', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('10', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('11', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('12', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('13', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('14', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('15', '0.00', '0.00', '0', '0', '0');
-INSERT INTO `t_user_basis` VALUES ('16', '0.00', '0.00', '0', '0', '0');
+INSERT INTO `t_user_basis` VALUES ('1', '56.00', '12.00', '75', '32', '1', '2016-12-10 00:47:07');
+INSERT INTO `t_user_basis` VALUES ('2', '12.00', '87.00', '34', '65', '5', '2016-12-10 00:36:52');
+INSERT INTO `t_user_basis` VALUES ('3', '0.00', '0.00', '0', '0', '0', '2016-12-10 00:36:58');
+INSERT INTO `t_user_basis` VALUES ('4', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:11:37');
+INSERT INTO `t_user_basis` VALUES ('5', '0.00', '0.00', '0', '0', '0', '2016-12-10 00:37:36');
+INSERT INTO `t_user_basis` VALUES ('6', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:11:28');
+INSERT INTO `t_user_basis` VALUES ('7', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:11:50');
+INSERT INTO `t_user_basis` VALUES ('8', '0.00', '0.00', '0', '0', '0', '2016-12-10 00:38:04');
+INSERT INTO `t_user_basis` VALUES ('9', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:13:12');
+INSERT INTO `t_user_basis` VALUES ('10', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:10:59');
+INSERT INTO `t_user_basis` VALUES ('11', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:11:09');
+INSERT INTO `t_user_basis` VALUES ('12', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:11:16');
+INSERT INTO `t_user_basis` VALUES ('13', '0.00', '0.00', '0', '0', '0', '2016-12-10 00:38:51');
+INSERT INTO `t_user_basis` VALUES ('14', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:12:05');
+INSERT INTO `t_user_basis` VALUES ('15', '0.00', '0.00', '0', '0', '0', '2016-12-10 01:18:01');
+INSERT INTO `t_user_basis` VALUES ('16', '0.00', '0.00', '0', '0', '0', '2016-12-10 00:39:12');
 
 -- ----------------------------
 -- Table structure for `t_user_friend`
@@ -7903,7 +7926,7 @@ CREATE TABLE `t_user_keep` (
   `create_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT '1979-01-01 01:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=186 DEFAULT CHARSET=utf8 COMMENT='用户的收藏';
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8 COMMENT='用户的收藏';
 
 -- ----------------------------
 -- Records of t_user_keep
@@ -7928,7 +7951,6 @@ INSERT INTO `t_user_keep` VALUES ('149', '1', '10033', null, null, '1', '【新�
 INSERT INTO `t_user_keep` VALUES ('152', '1', '1', '7', '情趣研究所', '2', '发上来的积分楼上的', null, null, '1979-01-01 01:00:00', '2016-09-18 01:21:25');
 INSERT INTO `t_user_keep` VALUES ('155', '1', '10030', null, null, '1', '性感露乳露背 网纱透明裸色花仙子女仆装', 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', '59.00', '2016-10-25 01:19:54', '2016-10-25 01:19:54');
 INSERT INTO `t_user_keep` VALUES ('161', '1', '10001', null, null, '1', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '19.00', '2016-10-31 01:08:04', '2016-10-31 01:08:04');
-INSERT INTO `t_user_keep` VALUES ('164', '1', '10019', null, null, '1', '【买1送2】纯情女仆女佣装分体露乳制服 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '35.00', '2016-11-20 16:10:59', '2016-11-20 16:10:59');
 INSERT INTO `t_user_keep` VALUES ('165', '1', '10011', null, null, '1', '性感日式印花和服宽松深V蝴蝶结复古和服风东京美娘款', 'http://mallimg01.touchcdn.com/goods-gallery/0e65fea48479e7da41432b9bb774bca0.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('166', '1', '10012', null, null, '1', '古典高档绣花年年有鱼喜庆露乳性感肚兜 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/b75134196cccd1a6fc88c1bfe2627b43.jpg?imageView/2/w/416/interlace/1', '25.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('167', '1', '10013', null, null, '1', '日式和服开襟三点式绑带缎面印花和服套装 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/625edf645a7c9e04ff8ef24555eb3179.jpg?imageView/2/w/416/interlace/1', '39.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
@@ -7948,7 +7970,7 @@ INSERT INTO `t_user_keep` VALUES ('180', '1', '10032', null, null, '1', '【包�
 INSERT INTO `t_user_keep` VALUES ('181', '1', '10033', null, null, '1', '【新品】LULU 噜噜 003超薄避孕套 热感激情装12只', 'http://mallimg01.touchcdn.com/goods-gallery/f6031e0efdb9d15cbacb07b572a77073.jpg?imageView/2/w/416/interlace/1', '29.00', '1979-01-01 01:00:00', '1979-01-01 01:00:00');
 INSERT INTO `t_user_keep` VALUES ('182', '1', '10030', null, null, '1', '性感露乳露背 网纱透明裸色花仙子女仆装', 'http://mallimg01.touchcdn.com/goods-gallery/49984b72781c0d0b1b18c89ee318d07b.jpg?imageView/2/w/416/interlace/1', '59.00', '2016-10-25 01:19:54', '2016-10-25 01:19:54');
 INSERT INTO `t_user_keep` VALUES ('183', '1', '10001', null, null, '1', '霏慕 中国古典肚兜性感挂脖绑带情趣诱惑肚兜T裤 2件套', 'http://mallimg01.touchcdn.com/goods-gallery/866976864088af42f9014313d06bbf77.jpg?imageView/2/w/416/interlace/1', '19.00', '2016-10-31 01:08:04', '2016-10-31 01:08:04');
-INSERT INTO `t_user_keep` VALUES ('185', '1', '10019', null, null, '1', '【买1送2】纯情女仆女佣装分体露乳制服 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '35.00', '2016-11-20 16:10:59', '2016-11-20 16:10:59');
+INSERT INTO `t_user_keep` VALUES ('186', '1', '10019', null, null, '1', '【买1送2】纯情女仆女佣装分体露乳制服 3件套', 'http://mallimg01.touchcdn.com/goods-gallery/2b4634844cbac41c89cb3d6d60f2e96b.jpg?imageView/2/w/416/interlace/1', '35.00', '2017-02-04 01:22:11', '2017-02-04 01:22:11');
 
 -- ----------------------------
 -- Table structure for `t_user_msg`

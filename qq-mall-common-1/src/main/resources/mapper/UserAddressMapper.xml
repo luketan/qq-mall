@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.UserAddressDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.UserAddress">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
+    <result column="province_code" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="region_code" jdbcType="VARCHAR" property="regionCode" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+    <result column="road" jdbcType="VARCHAR" property="road" />
+    <result column="zipcode" jdbcType="INTEGER" property="zipcode" />
+    <result column="default_is" jdbcType="INTEGER" property="defaultIs" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, user_name, phone, province_name, province_code, city_name, city_code, 
+    region_code, region_name, road, zipcode, default_is, status, update_time, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_user_address
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_user_address
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.UserAddress">
+    INSERT INTO t_user_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="phone != null and phone != ''">
+        phone,
+      </if>
+      <if test="provinceName != null and provinceName != ''">
+        province_name,
+      </if>
+      <if test="provinceCode != null and provinceCode != ''">
+        province_code,
+      </if>
+      <if test="cityName != null and cityName != ''">
+        city_name,
+      </if>
+      <if test="cityCode != null and cityCode != ''">
+        city_code,
+      </if>
+      <if test="regionCode != null and regionCode != ''">
+        region_code,
+      </if>
+      <if test="regionName != null and regionName != ''">
+        region_name,
+      </if>
+      <if test="road != null and road != ''">
+        road,
+      </if>
+      <if test="zipcode != null">
+        zipcode,
+      </if>
+      <if test="defaultIs != null">
+        default_is,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null and phone != ''">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null and provinceName != ''">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null and provinceCode != ''">
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null and cityName != ''">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null and cityCode != ''">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null and regionCode != ''">
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null and regionName != ''">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="road != null and road != ''">
+        #{road,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="defaultIs != null">
+        #{defaultIs,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.UserAddress">
+    UPDATE t_user_address
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null and phone != ''">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null and provinceName != ''">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null and provinceCode != ''">
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null and cityName != ''">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null and cityCode != ''">
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null and regionCode != ''">
+        region_code = #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null and regionName != ''">
+        region_name = #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="road != null and road != ''">
+        road = #{road,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        zipcode = #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="defaultIs != null">
+        default_is = #{defaultIs,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.UserAddress">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
+    <result column="province_code" jdbcType="VARCHAR" property="provinceCode" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="city_code" jdbcType="VARCHAR" property="cityCode" />
+    <result column="region_code" jdbcType="VARCHAR" property="regionCode" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+    <result column="road" jdbcType="VARCHAR" property="road" />
+    <result column="zipcode" jdbcType="INTEGER" property="zipcode" />
+    <result column="default_is" jdbcType="INTEGER" property="defaultIs" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, user_name, phone, province_name, province_code, city_name, city_code, 
+    region_code, region_name, road, zipcode, default_is, status, update_time, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_user_address
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_user_address
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.UserAddress">
+    INSERT INTO t_user_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name,
+      </if>
+      <if test="phone != null and phone != ''">
+        phone,
+      </if>
+      <if test="provinceName != null and provinceName != ''">
+        province_name,
+      </if>
+      <if test="provinceCode != null and provinceCode != ''">
+        province_code,
+      </if>
+      <if test="cityName != null and cityName != ''">
+        city_name,
+      </if>
+      <if test="cityCode != null and cityCode != ''">
+        city_code,
+      </if>
+      <if test="regionCode != null and regionCode != ''">
+        region_code,
+      </if>
+      <if test="regionName != null and regionName != ''">
+        region_name,
+      </if>
+      <if test="road != null and road != ''">
+        road,
+      </if>
+      <if test="zipcode != null">
+        zipcode,
+      </if>
+      <if test="defaultIs != null">
+        default_is,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null and userName != ''">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null and phone != ''">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null and provinceName != ''">
+        #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null and provinceCode != ''">
+        #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null and cityName != ''">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null and cityCode != ''">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null and regionCode != ''">
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null and regionName != ''">
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="road != null and road != ''">
+        #{road,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="defaultIs != null">
+        #{defaultIs,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.UserAddress">
+    UPDATE t_user_address
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null and userName != ''">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null and phone != ''">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceName != null and provinceName != ''">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null and provinceCode != ''">
+        province_code = #{provinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null and cityName != ''">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null and cityCode != ''">
+        city_code = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionCode != null and regionCode != ''">
+        region_code = #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="regionName != null and regionName != ''">
+        region_name = #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="road != null and road != ''">
+        road = #{road,jdbcType=VARCHAR},
+      </if>
+      <if test="zipcode != null">
+        zipcode = #{zipcode,jdbcType=INTEGER},
+      </if>
+      <if test="defaultIs != null">
+        default_is = #{defaultIs,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.UserRankingDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.UserRanking">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="play_reward" jdbcType="DECIMAL" property="playReward" />
+    <result column="play_reward_total" jdbcType="DECIMAL" property="playRewardTotal" />
+    <result column="play_reward_rank" jdbcType="INTEGER" property="playRewardRank" />
+    <result column="get_reward" jdbcType="DECIMAL" property="getReward" />
+    <result column="get_reward_total" jdbcType="DECIMAL" property="getRewardTotal" />
+    <result column="get_reward_rank" jdbcType="INTEGER" property="getRewardRank" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, play_reward, play_reward_total, play_reward_rank, get_reward, get_reward_total, 
+    get_reward_rank
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_user_ranking
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_user_ranking
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.UserRanking">
+    INSERT INTO t_user_ranking
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="playReward != null">
+        play_reward,
+      </if>
+      <if test="playRewardTotal != null">
+        play_reward_total,
+      </if>
+      <if test="playRewardRank != null">
+        play_reward_rank,
+      </if>
+      <if test="getReward != null">
+        get_reward,
+      </if>
+      <if test="getRewardTotal != null">
+        get_reward_total,
+      </if>
+      <if test="getRewardRank != null">
+        get_reward_rank,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="playReward != null">
+        #{playReward,jdbcType=DECIMAL},
+      </if>
+      <if test="playRewardTotal != null">
+        #{playRewardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="playRewardRank != null">
+        #{playRewardRank,jdbcType=INTEGER},
+      </if>
+      <if test="getReward != null">
+        #{getReward,jdbcType=DECIMAL},
+      </if>
+      <if test="getRewardTotal != null">
+        #{getRewardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="getRewardRank != null">
+        #{getRewardRank,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.UserRanking">
+    UPDATE t_user_ranking
+    <set>
+      <if test="playReward != null">
+        play_reward = #{playReward,jdbcType=DECIMAL},
+      </if>
+      <if test="playRewardTotal != null">
+        play_reward_total = #{playRewardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="playRewardRank != null">
+        play_reward_rank = #{playRewardRank,jdbcType=INTEGER},
+      </if>
+      <if test="getReward != null">
+        get_reward = #{getReward,jdbcType=DECIMAL},
+      </if>
+      <if test="getRewardTotal != null">
+        get_reward_total = #{getRewardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="getRewardRank != null">
+        get_reward_rank = #{getRewardRank,jdbcType=INTEGER},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.UserRanking">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="play_reward" jdbcType="DECIMAL" property="playReward" />
+    <result column="play_reward_total" jdbcType="DECIMAL" property="playRewardTotal" />
+    <result column="play_reward_rank" jdbcType="INTEGER" property="playRewardRank" />
+    <result column="get_reward" jdbcType="DECIMAL" property="getReward" />
+    <result column="get_reward_total" jdbcType="DECIMAL" property="getRewardTotal" />
+    <result column="get_reward_rank" jdbcType="INTEGER" property="getRewardRank" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, play_reward, play_reward_total, play_reward_rank, get_reward, get_reward_total, 
+    get_reward_rank
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_user_ranking
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_user_ranking
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.UserRanking">
+    INSERT INTO t_user_ranking
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="playReward != null">
+        play_reward,
+      </if>
+      <if test="playRewardTotal != null">
+        play_reward_total,
+      </if>
+      <if test="playRewardRank != null">
+        play_reward_rank,
+      </if>
+      <if test="getReward != null">
+        get_reward,
+      </if>
+      <if test="getRewardTotal != null">
+        get_reward_total,
+      </if>
+      <if test="getRewardRank != null">
+        get_reward_rank,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="playReward != null">
+        #{playReward,jdbcType=DECIMAL},
+      </if>
+      <if test="playRewardTotal != null">
+        #{playRewardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="playRewardRank != null">
+        #{playRewardRank,jdbcType=INTEGER},
+      </if>
+      <if test="getReward != null">
+        #{getReward,jdbcType=DECIMAL},
+      </if>
+      <if test="getRewardTotal != null">
+        #{getRewardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="getRewardRank != null">
+        #{getRewardRank,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.UserRanking">
+    UPDATE t_user_ranking
+    <set>
+      <if test="playReward != null">
+        play_reward = #{playReward,jdbcType=DECIMAL},
+      </if>
+      <if test="playRewardTotal != null">
+        play_reward_total = #{playRewardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="playRewardRank != null">
+        play_reward_rank = #{playRewardRank,jdbcType=INTEGER},
+      </if>
+      <if test="getReward != null">
+        get_reward = #{getReward,jdbcType=DECIMAL},
+      </if>
+      <if test="getRewardTotal != null">
+        get_reward_total = #{getRewardTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="getRewardRank != null">
+        get_reward_rank = #{getRewardRank,jdbcType=INTEGER},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.UserAtteDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.UserAtte">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="atte_user_id" jdbcType="INTEGER" property="atteUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    user_id, atte_user_id, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.UserAtteKey" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_user_atte
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+      AND atte_user_id = #{atteUserId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.UserAtteKey">
+    DELETE FROM t_user_atte
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+      AND atte_user_id = #{atteUserId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.UserAtte">
+    INSERT INTO t_user_atte
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="atteUserId != null">
+        atte_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="atteUserId != null">
+        #{atteUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.UserAtte">
+    UPDATE t_user_atte
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+      AND atte_user_id = #{atteUserId,jdbcType=INTEGER}
+  </update>
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.UserAtte">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="atte_user_id" jdbcType="INTEGER" property="atteUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    user_id, atte_user_id, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.UserAtteKey" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_user_atte
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+      AND atte_user_id = #{atteUserId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.UserAtteKey">
+    DELETE FROM t_user_atte
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+      AND atte_user_id = #{atteUserId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.UserAtte">
+    INSERT INTO t_user_atte
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="atteUserId != null">
+        atte_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="atteUserId != null">
+        #{atteUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.UserAtte">
+    UPDATE t_user_atte
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    WHERE user_id = #{userId,jdbcType=INTEGER}
+      AND atte_user_id = #{atteUserId,jdbcType=INTEGER}
+  </update>
+</mapper>
