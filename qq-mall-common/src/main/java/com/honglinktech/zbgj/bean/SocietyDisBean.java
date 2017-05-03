@@ -3,11 +3,12 @@ package com.honglinktech.zbgj.bean;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
+
+import com.honglinktech.zbgj.entity.TSocietyDis;
 
 
 /**
@@ -28,6 +29,7 @@ public class SocietyDisBean implements Serializable{
 	
 	private String nickName=null;
 	private String head;
+	private int level;
 	
 	private int likeUserId;
 	
@@ -141,55 +143,17 @@ public class SocietyDisBean implements Serializable{
 	public void setHead(String head) {
 		this.head = head;
 	}
-
-
-
-	public enum DBMaping{
-		tableName("t_society_dis",0,false,false,false),
-		id("id",Types.INTEGER,true,true,false),
-		societyNoteId("society_note_id",Types.INTEGER,false,false,true),
-		userId("user_id",Types.INTEGER,false,false,true),
-		userName("user_name",Types.VARCHAR,false,false,true),
-		content("content",Types.VARCHAR,false,false,true),
-		imgIs("img_is",Types.INTEGER,false,false,true),
-		replyIs("reply_is",Types.INTEGER,false,false,true),
-		goodNum("good_num",Types.INTEGER,false,false,true),
-		parent("parent",Types.INTEGER,false,false,true),
-		status("status",Types.INTEGER,false,false,true),
-		createTime("create_time",Types.TIMESTAMP,false,false,true);
-		private String dbName;
-		private int dbType;
-		private boolean primaryKey;
-		private boolean isAotuIn;
-		private boolean isAllowNull;
-	    public String getDbName(){
-	    	 return this.dbName;
-	    }
-	    public int getDbType(){
-	    	 return this.dbType;
-	    }
-	    public boolean getPrimaryKey(){
-	    	 return this.primaryKey;
-	    }
-	    public boolean isAotuIn(){
-	    	 return this.isAotuIn;
-	    }
-	    public boolean isAllowNull(){
-	    	 return this.isAllowNull;
-	    }
-	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
-	    	 this.dbName = dbName;
-	    	 this.dbType = dbType;
-	    	 this.primaryKey = primaryKey;
-	    	 this.isAotuIn = isAotuIn;
-	    	 this.isAllowNull = isAllowNull;
-	    }
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	public Object[] getDBMapping(String filedName){
-		for(DBMaping d:DBMaping.values()){
+		for(TSocietyDis.DBMaping d:TSocietyDis.DBMaping.values()){
 			if(d.toString().equals(filedName)){
-				DBMaping dbMaping = DBMaping.valueOf(filedName);
-				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
+				TSocietyDis.DBMaping dbMaping = TSocietyDis.DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
 				return values;
 			}
 		}
@@ -215,6 +179,7 @@ public class SocietyDisBean implements Serializable{
 			
 			tSocietyDis.setLikeUserId(rs.getInt("likeUserId"));
 			tSocietyDis.setHead(rs.getString("head"));
+			tSocietyDis.setLevel(rs.getInt("level"));
 			
 			return tSocietyDis; 
         }  

@@ -46,7 +46,7 @@ public abstract class BaseService<T>{
 		return getDao().findByQueryHelperNoCount(queryHelper);
 	}
 	public int findCount(String where) throws BaseException{
-		return getDao().findCount(where);
+		return getDao().findCountWhere(where);
 	}
 	public int findCount(Map<String, String[]> where) throws BaseException{
 		return getDao().findCount(where);

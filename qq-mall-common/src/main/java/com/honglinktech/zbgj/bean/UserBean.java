@@ -1,23 +1,21 @@
 package com.honglinktech.zbgj.bean;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
+import java.util.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.honglinktech.zbgj.base.BaseEntity;
-import com.honglinktech.zbgj.annotation.FieldMeta;
-import java.io.Serializable;
-import java.math.BigDecimal; 
-
-import java.util.Date; 
+import com.honglinktech.zbgj.entity.TUser;
+import com.honglinktech.zbgj.entity.TUserBasis;
 
 
 /**
 *
 **/
-public class UserBean extends BaseEntity implements Serializable{
+public class UserBean implements Serializable{
 
 	private Integer id=null;
 	private String nickName=null;
@@ -254,68 +252,19 @@ public class UserBean extends BaseEntity implements Serializable{
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-
 	
-	public enum DBMaping{
-		tableName("t_user",0,false,false,false),
-		id("id",Types.INTEGER,true,true,false),
-		nickName("nick_name",Types.VARCHAR,false,false,true),
-		account("account",Types.VARCHAR,false,false,false),
-		password("password",Types.VARCHAR,false,false,false),
-		sign("sign",Types.VARCHAR,false,false,true),
-		head("head",Types.VARCHAR,false,false,true),
-		virtualMoney("virtual_money",Types.DECIMAL,false,false,true),
-		money("money",Types.DECIMAL,false,false,true),
-		point("point",Types.INTEGER,false,false,true),
-		exp("exp",Types.INTEGER,false,false,true),
-		level("level",Types.INTEGER,false,false,true),
-		email("email",Types.VARCHAR,false,false,true),
-		emailIs("email_is",Types.INTEGER,false,false,true),
-		phone("phone",Types.VARCHAR,false,false,true),
-		phoneIs("phone_is",Types.INTEGER,false,false,true),
-		age("age",Types.VARCHAR,false,false,true),
-		sex("sex",Types.INTEGER,false,false,true),
-		sexu("sexu",Types.INTEGER,false,false,true),
-		marr("marr",Types.INTEGER,false,false,true),
-		tryIs("try_is",Types.INTEGER,false,false,true),
-		type("type",Types.INTEGER,false,false,true),
-		status("status",Types.INTEGER,false,false,true),
-		from("from",Types.VARCHAR,false,false,true),
-		updateTime("update_time",Types.TIMESTAMP,false,false,true),
-		createTime("create_time",Types.TIMESTAMP,false,false,true);
-		private String dbName;
-		private int dbType;
-		private boolean primaryKey;
-		private boolean isAotuIn;
-		private boolean isAllowNull;
-	    public String getDbName(){
-	    	 return this.dbName;
-	    }
-	    public int getDbType(){
-	    	 return this.dbType;
-	    }
-	    public boolean getPrimaryKey(){
-	    	 return this.primaryKey;
-	    }
-	    public boolean isAotuIn(){
-	    	 return this.isAotuIn;
-	    }
-	    public boolean isAllowNull(){
-	    	 return this.isAllowNull;
-	    }
-	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
-	    	 this.dbName = dbName;
-	    	 this.dbType = dbType;
-	    	 this.primaryKey = primaryKey;
-	    	 this.isAotuIn = isAotuIn;
-	    	 this.isAllowNull = isAllowNull;
-	    }
-	}
 	public Object[] getDBMapping(String filedName){
-		for(DBMaping d:DBMaping.values()){
+		for(TUser.DBMaping d:TUser.DBMaping.values()){
 			if(d.toString().equals(filedName)){
-				DBMaping dbMaping = DBMaping.valueOf(filedName);
-				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
+				TUser.DBMaping dbMaping = TUser.DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
+				return values;
+			}
+		}
+		for(TUserBasis.DBMaping d:TUserBasis.DBMaping.values()){
+			if(d.toString().equals(filedName)){
+				TUser.DBMaping dbMaping = TUser.DBMaping.valueOf(filedName);
+				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
 				return values;
 			}
 		}
@@ -353,6 +302,48 @@ public class UserBean extends BaseEntity implements Serializable{
 			tUser.setCreateTime(rs.getTimestamp("create_time"));
 			return tUser; 
         }  
-          
+    }
+	public static class UserSmallPartRowMapper implements RowMapper<UserBean> {  
+        @Override  
+        public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
+
+			UserBean tUser = new UserBean();
+			tUser.setId(rs.getInt("id"));
+			tUser.setNickName(rs.getString("nick_name"));
+			tUser.setAccount(rs.getString("account"));
+			tUser.setSign(rs.getString("sign"));
+			tUser.setHead(rs.getString("head"));
+			return tUser; 
+        }  
+    }
+	public static class UserPartRowMapper implements RowMapper<UserBean> {  
+        @Override  
+        public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
+
+			UserBean tUser = new UserBean();
+			tUser.setId(rs.getInt("id"));
+			tUser.setNickName(rs.getString("nick_name"));
+			tUser.setAccount(rs.getString("account"));
+			tUser.setPassword(rs.getString("password"));
+			tUser.setExp(rs.getInt("exp"));
+			tUser.setLevel(rs.getInt("level"));
+			tUser.setSign(rs.getString("sign"));
+			tUser.setHead(rs.getString("head"));
+			tUser.setEmail(rs.getString("email"));
+			tUser.setEmailIs(rs.getInt("email_is"));
+			tUser.setPhone(rs.getString("phone"));
+			tUser.setPhoneIs(rs.getInt("phone_is"));
+			tUser.setAge(rs.getString("age"));
+			tUser.setSex(rs.getInt("sex"));
+			tUser.setSexu(rs.getInt("sexu"));
+			tUser.setMarr(rs.getInt("marr"));
+			tUser.setTryIs(rs.getInt("try_is"));
+			tUser.setType(rs.getInt("type"));
+			tUser.setStatus(rs.getInt("status"));
+			tUser.setFrom(rs.getString("from"));
+			tUser.setUpdateTime(rs.getTimestamp("update_time"));
+			tUser.setCreateTime(rs.getTimestamp("create_time"));
+			return tUser; 
+        }  
     }
 }

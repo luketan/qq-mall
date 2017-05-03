@@ -20,7 +20,7 @@ public class SocietyDisDao extends BaseDao<SocietyDisBean> {
 
 	public List<SocietyDisBean> findSocietyDis(int socNoteId, Integer userId, int index,
 			int size, Map<String, Object> whereMap, Map<String, Object> orderMap) {
-		StringBuilder sql = new StringBuilder("SELECT sd.*,u.nick_name AS nickName, u.head AS head ");
+		StringBuilder sql = new StringBuilder("SELECT sd.*,u.nick_name AS nickName, u.head AS head, u.level AS level ");
 		if(userId != null && userId > 0){//是否需要查询是否已经关注
 			sql.append(" ,sdl.user_id AS likeUserId");
 		}else{
@@ -42,6 +42,21 @@ public class SocietyDisDao extends BaseDao<SocietyDisBean> {
 		List<SocietyDisBean> societyDisBeanList = find(sql.toString(), new SocietyDisBean.SocietyDisBeanRowMapper());
 		return societyDisBeanList;
 	}
+	
+	/**
+	 * 修改点赞数量
+	 * @param socDisId
+	 * @param like
+	 * @return
+	 */
+	public int updateSocDisLikeNum(int socDisId, boolean like) {
+		String sql = "update t_society_dis set good_num=good_num+1 where id="+socDisId;
+		if(!like){
+			sql = "update t_society_dis set good_num=good_num-1 where id="+socDisId;
+		}
+		return updateExecute(sql);
+	}
+	
 	
 	public Object[] getDBMapping(String filedName){
 		for(TSocietyDis.DBMaping d:TSocietyDis.DBMaping.values()){

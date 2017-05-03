@@ -9,8 +9,6 @@ import org.springframework.jdbc.core.RowMapper;
 import com.honglinktech.zbgj.base.BaseEntity;
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import java.io.Serializable;
-import java.math.BigDecimal; 
-
 import java.util.Date; 
 
 
@@ -31,16 +29,6 @@ public class TUser extends BaseEntity implements Serializable{
 	private String sign=null;
 	@FieldMeta(primaryKey = false,fieldName = "头像",dbName = "head",length = 225,allowNull=true)
 	private String head=null;
-	@FieldMeta(primaryKey = false,fieldName = "虚拟币(逗币)",dbName = "virtual_money",length = 10,allowNull=true)
-	private BigDecimal virtualMoney=null;
-	@FieldMeta(primaryKey = false,fieldName = "账户余额",dbName = "money",length = 10,allowNull=true)
-	private BigDecimal money=null;
-	@FieldMeta(primaryKey = false,fieldName = "商城积分",dbName = "point",length = 10,allowNull=true)
-	private Integer point=null;
-	@FieldMeta(primaryKey = false,fieldName = "社区经验",dbName = "exp",length = 10,allowNull=true)
-	private Integer exp=null;
-	@FieldMeta(primaryKey = false,fieldName = "社区级别",dbName = "level",length = 10,allowNull=true)
-	private Integer level=null;
 	@FieldMeta(primaryKey = false,fieldName = "邮箱",dbName = "email",length = 50,allowNull=true)
 	private String email=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否已认证(0否,1是)",dbName = "email_is",length = 10,allowNull=true)
@@ -77,18 +65,13 @@ public class TUser extends BaseEntity implements Serializable{
 	
 	public TUser(){
  	}
- 	public TUser(Integer id,String nickName,String account,String password,String sign,String head,BigDecimal virtualMoney,BigDecimal money,Integer point,Integer exp,Integer level,String email,Integer emailIs,String phone,Integer phoneIs,String age,Integer sex,Integer sexu,Integer marr,Integer tryIs,Integer type,Integer status,String from){
+ 	public TUser(Integer id,String nickName,String account,String password,String sign,String head,String email,Integer emailIs,String phone,Integer phoneIs,String age,Integer sex,Integer sexu,Integer marr,Integer tryIs,Integer type,Integer status,String from){
  		this.id = id;
 		this.nickName = nickName;
 		this.account = account;
 		this.password = password;
 		this.sign = sign;
 		this.head = head;
-		this.virtualMoney = virtualMoney;
-		this.money = money;
-		this.point = point;
-		this.exp = exp;
-		this.level = level;
 		this.email = email;
 		this.emailIs = emailIs;
 		this.phone = phone;
@@ -145,41 +128,6 @@ public class TUser extends BaseEntity implements Serializable{
 	}
 	public void setHead(String head){
 		  this.head = head; 
-	}
-	/*虚拟币(逗币)*/
-	public BigDecimal getVirtualMoney(){
-		 return this.virtualMoney; 
-	}
-	public void setVirtualMoney(BigDecimal virtualMoney){
-		  this.virtualMoney = virtualMoney; 
-	}
-	/*账户余额*/
-	public BigDecimal getMoney(){
-		 return this.money; 
-	}
-	public void setMoney(BigDecimal money){
-		  this.money = money; 
-	}
-	/*商城积分*/
-	public Integer getPoint(){
-		 return this.point; 
-	}
-	public void setPoint(Integer point){
-		  this.point = point; 
-	}
-	/*社区经验*/
-	public Integer getExp(){
-		 return this.exp; 
-	}
-	public void setExp(Integer exp){
-		  this.exp = exp; 
-	}
-	/*社区级别*/
-	public Integer getLevel(){
-		 return this.level; 
-	}
-	public void setLevel(Integer level){
-		  this.level = level; 
 	}
 	/*邮箱*/
 	public String getEmail(){
@@ -289,11 +237,6 @@ public class TUser extends BaseEntity implements Serializable{
 		password("password",Types.VARCHAR,false,false,false),
 		sign("sign",Types.VARCHAR,false,false,true),
 		head("head",Types.VARCHAR,false,false,true),
-		virtualMoney("virtual_money",Types.DECIMAL,false,false,true),
-		money("money",Types.DECIMAL,false,false,true),
-		point("point",Types.INTEGER,false,false,true),
-		exp("exp",Types.INTEGER,false,false,true),
-		level("level",Types.INTEGER,false,false,true),
 		email("email",Types.VARCHAR,false,false,true),
 		emailIs("email_is",Types.INTEGER,false,false,true),
 		phone("phone",Types.VARCHAR,false,false,true),
@@ -357,11 +300,6 @@ public class TUser extends BaseEntity implements Serializable{
 			tUser.setPassword(rs.getString("password"));
 			tUser.setSign(rs.getString("sign"));
 			tUser.setHead(rs.getString("head"));
-			tUser.setVirtualMoney(rs.getBigDecimal("virtual_money"));
-			tUser.setMoney(rs.getBigDecimal("money"));
-			tUser.setPoint(rs.getInt("point"));
-			tUser.setExp(rs.getInt("exp"));
-			tUser.setLevel(rs.getInt("level"));
 			tUser.setEmail(rs.getString("email"));
 			tUser.setEmailIs(rs.getInt("email_is"));
 			tUser.setPhone(rs.getString("phone"));

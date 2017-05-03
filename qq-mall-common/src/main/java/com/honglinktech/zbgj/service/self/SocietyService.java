@@ -13,20 +13,27 @@ import com.honglinktech.zbgj.bean.PicBean;
 import com.honglinktech.zbgj.bean.SocietyDisBean;
 import com.honglinktech.zbgj.bean.SocietyDisDisBean;
 import com.honglinktech.zbgj.bean.SocietyNoteBean;
+import com.honglinktech.zbgj.bean.SocietyNoteRewardBean;
 import com.honglinktech.zbgj.bean.SocietySubBean;
 import com.honglinktech.zbgj.bean.SocietyTypeBean;
 import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
+import com.honglinktech.zbgj.dao.TSocietyDisLikeDao;
+import com.honglinktech.zbgj.dao.TSocietyNoteLikeDao;
 import com.honglinktech.zbgj.dao.TSocietySubUserDao;
 import com.honglinktech.zbgj.dao.TUserAtteDao;
 import com.honglinktech.zbgj.dao.self.SocietyDisDao;
 import com.honglinktech.zbgj.dao.self.SocietyDisDisDao;
 import com.honglinktech.zbgj.dao.self.SocietyNoteDao;
+import com.honglinktech.zbgj.dao.self.SocietyNoteRewardDao;
 import com.honglinktech.zbgj.dao.self.SocietySubDao;
 import com.honglinktech.zbgj.dao.self.SocietyTypeDao;
+import com.honglinktech.zbgj.entity.TSocietyDisLike;
+import com.honglinktech.zbgj.entity.TSocietyNoteLike;
 import com.honglinktech.zbgj.entity.TSocietySubUser;
 import com.honglinktech.zbgj.entity.TUserAtte;
+import com.honglinktech.zbgj.entity.TUserBasis;
 
 @Component
 public class SocietyService{
@@ -47,6 +54,12 @@ public class SocietyService{
 	private TUserAtteDao tuserAtteDao;
 	@Resource
 	private PicService picService;
+	@Resource
+	private SocietyNoteRewardDao societyNoteRewardDao;
+	@Resource
+	private TSocietyNoteLikeDao tsocietyNoteLikeDao;
+	@Resource
+	private TSocietyDisLikeDao tsocietyDisLikeDao;
 	/**
 	 * 获取用户关注的主题
 	 * @param userId
@@ -187,11 +200,94 @@ public class SocietyService{
 				List<PicBean> picBeans =  picService.findPic(societyNoteBean.getId(), Constants.PIC_SOCIETY);
 				societyNoteBean.setPicBeans(picBeans);
 			}
+			if(societyNoteBean.getRewardIs() == 1){
+				List<SocietyNoteRewardBean> socNoteRewardBeans = societyNoteRewardDao.findSocietyNoteReward(id, 1, 9);
+				societyNoteBean.setSocNoteRewardBeans(socNoteRewardBeans);
+				int socNoteRewardCount = societyNoteRewardDao.findSocietyNoteRewardCount(id);
+				societyNoteBean.setSocNoteRewardCount(socNoteRewardCount);
+			}
 			return Result.resultSet(societyNoteBean);
 		}else{
 			return Result.fail("没有查到数据，或者帖子被和谐了！");
 		}
 		
+	}
+	/**
+	 * 帖子点赞
+	 * @param userId
+	 * @param recUserId
+	 * @param socNoteId
+	 * @param like
+	 * @return
+	 * @throws BaseException 
+	 */
+	public Response<Boolean> updateSocNotelike(int userId, int socNoteId, boolean like) throws BaseException {
+		TSocietyNoteLike tsocietyNoteLike = new TSocietyNoteLike(socNoteId, userId);
+		int count = 0;
+		try{
+			if(like){
+				count = tsocietyNoteLikeDao.save(tsocietyNoteLike);
+			}else{
+				count = tsocietyNoteLikeDao.delete(tsocietyNoteLike);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		societyNoteDao.updateSocNoteLikeNum(socNoteId, like);
+		return Result.resultSet(count > 0);
+	}
+	/**
+	 * 评论点赞
+	 * @param userId
+	 * @param recUserId
+	 * @param socDisId
+	 * @param like
+	 * @return
+	 * @throws BaseException 
+	 */
+	public Response<Boolean> updateSocDislike(int userId, int socDisId, boolean like){
+		
+		TSocietyDisLike tsocietyDisLike = new TSocietyDisLike(socDisId, userId);
+		int count = 0;
+		try{
+			if(like){
+				count = tsocietyDisLikeDao.save(tsocietyDisLike);
+			}else{
+				count = tsocietyDisLikeDao.delete(tsocietyDisLike);
+			}
+			societyDisDao.updateSocDisLikeNum(socDisId, like);
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println(e);
+		}
+		return Result.resultSet(count > 0);
+	}
+	/**
+	 * 打赏
+	 * @param userId
+	 * @param recUserId
+	 * @param value
+	 * @param socNoteId
+	 * @return
+	 */
+	public Response<Boolean> socNotePlayingReward(int userId, int recUserId,int value, int socNoteId) {
+		//select stock from good where id=1 for update;
+		//update good set stock=stock-1 where id=1
+		return null;
+	}
+	/**
+	 * 获取打赏列表
+	 * @param userId
+	 * @param socNoteId
+	 * @param index
+	 * @param size
+	 * @return
+	 */
+	public Response<List<SocietyNoteRewardBean>> findSocietyNoteRewards(Integer userId, Integer socNoteId, int index, int size) {
+		
+		List<SocietyNoteRewardBean> socNoteRewardBeans = societyNoteRewardDao.findSocietyNoteReward(socNoteId, index, size);
+		return Result.resultSet(socNoteRewardBeans);
 	}
 	
 	/**
@@ -217,6 +313,5 @@ public class SocietyService{
 		}
 		return Result.resultSet(societyDisBeans);
 	}
-	
-	
+
 }

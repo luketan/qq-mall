@@ -25,6 +25,7 @@ public class SocietyNoteBean implements Serializable{
 	private Integer recIs=null;
 	private Integer giftsIs=null;
 	private Integer imgIs=null;
+	private Integer rewardIs=null;
 	private Integer type=null;
 	private Integer anoIs=null;
 	private Integer annIs=null;
@@ -48,6 +49,8 @@ public class SocietyNoteBean implements Serializable{
 	private int likeUserId;//是否点赞
 	
 	private List<PicBean> picBeans;
+	private List<SocietyNoteRewardBean> socNoteRewardBeans;
+	private int socNoteRewardCount;
 	
 	/**
 	 * 
@@ -261,6 +264,32 @@ public class SocietyNoteBean implements Serializable{
 	public void setSocSubIcoColor(String socSubIcoColor) {
 		this.socSubIcoColor = socSubIcoColor;
 	}
+	
+	public Integer getRewardIs() {
+		return rewardIs;
+	}
+
+	public void setRewardIs(Integer rewardIs) {
+		this.rewardIs = rewardIs;
+	}
+
+	public List<SocietyNoteRewardBean> getSocNoteRewardBeans() {
+		return socNoteRewardBeans;
+	}
+
+	public void setSocNoteRewardBeans(List<SocietyNoteRewardBean> socNoteRewardBeans) {
+		this.socNoteRewardBeans = socNoteRewardBeans;
+	}
+
+	public int getSocNoteRewardCount() {
+		return socNoteRewardCount;
+	}
+
+	public void setSocNoteRewardCount(int socNoteRewardCount) {
+		this.socNoteRewardCount = socNoteRewardCount;
+	}
+
+
 
 	public static class SocietyNoteRowMapper implements RowMapper<SocietyNoteBean> {  
         @Override  
@@ -280,6 +309,7 @@ public class SocietyNoteBean implements Serializable{
 			societyNote.setRecIs(rs.getInt("rec_is"));
 			societyNote.setGiftsIs(rs.getInt("gifts_is"));
 			societyNote.setImgIs(rs.getInt("img_is"));
+			societyNote.setRewardIs(rs.getInt("reward_is"));
 			societyNote.setType(rs.getInt("type"));
 			societyNote.setAnoIs(rs.getInt("ano_is"));
 			societyNote.setAnnIs(rs.getInt("ann_is"));
@@ -287,7 +317,7 @@ public class SocietyNoteBean implements Serializable{
 			societyNote.setTags(rs.getString("tags"));
 			societyNote.setCreateTime(rs.getTimestamp("create_time"));
 			societyNote.setUpdateTime(rs.getTimestamp("update_time"));
-			
+			//用户信息
 			societyNote.setNickName(rs.getString("nick_name"));
 			societyNote.setSex(rs.getInt("sex"));
 			societyNote.setLevel(rs.getInt("level"));
@@ -314,6 +344,7 @@ public class SocietyNoteBean implements Serializable{
 			societyNote.setRecIs(rs.getInt("rec_is"));
 			societyNote.setGiftsIs(rs.getInt("gifts_is"));
 			societyNote.setImgIs(rs.getInt("img_is"));
+			societyNote.setRewardIs(rs.getInt("reward_is"));
 			societyNote.setType(rs.getInt("type"));
 			societyNote.setAnoIs(rs.getInt("ano_is"));
 			societyNote.setAnnIs(rs.getInt("ann_is"));
@@ -321,12 +352,12 @@ public class SocietyNoteBean implements Serializable{
 			societyNote.setTags(rs.getString("tags"));
 			societyNote.setCreateTime(rs.getTimestamp("create_time"));
 			societyNote.setUpdateTime(rs.getTimestamp("update_time"));
-			
+			//帖子主题信息
 			societyNote.setSocietySubId(rs.getInt("society_sub_id"));
 			societyNote.setSocietySubName(rs.getString("socSubName"));
 			societyNote.setSocSubIco(rs.getString("socSubIco"));
 			societyNote.setSocSubIcoColor(rs.getString("socSubIcoColor"));
-			
+			//用户信息
 			societyNote.setNickName(rs.getString("nick_name"));
 			societyNote.setSex(rs.getInt("sex"));
 			societyNote.setLevel(rs.getInt("level"));

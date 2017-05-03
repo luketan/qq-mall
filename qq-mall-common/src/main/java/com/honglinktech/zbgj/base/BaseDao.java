@@ -246,7 +246,7 @@ public abstract class BaseDao<T>{
         Object[] args = { (queryHelper.getIndex()-1) * queryHelper.getSize(), queryHelper.getSize() };  
 //        RowMapper<T> rowMapper = BeanPropertyRowMapper.newInstance(entityClass);  
         queryHelper.setResultList(jdbcTemplate.query(sql.toString(), args, getRowMapper()));
-        queryHelper.setTotalRow(findCount(sqlWhere.toString()));
+        queryHelper.setTotalRow(findCountWhere(sqlWhere.toString()));
         return queryHelper;  
     }
     
@@ -377,12 +377,12 @@ public abstract class BaseDao<T>{
 	        }else if (sqlFlag.equals(SQL_UPDATE)) {
 	        } else if (sqlFlag.equals(SQL_DELETE)) {
 	        }  
-        }catch(IllegalArgumentException|IllegalAccessException e) {
+        }catch(Exception e) {
 			e.printStackTrace();
 			ExceptionEnum ee = ExceptionEnum.COMMON_DATEBASE_REFLEX_ERROE;
 			ee.setLogString(e.getMessage());
 			throw new BaseException(ee);
-		} 
+		}
         
         return sql.toString();  
     }
@@ -689,10 +689,18 @@ public abstract class BaseDao<T>{
     }
     /**
      * 查询总数
+     * @param where
+     * @return
+     */
+    public int findCount(String sql) {  
+        return jdbcTemplate.queryForObject(sql.toString(), Integer.class);
+    }
+    /**
+     * 查询总数
      * @param where 1=1
      * @return
      */
-    public int findCount(String where) {  
+    public int findCountWhere(String where) {  
         StringBuffer sql = new StringBuffer(" SELECT COUNT(1) FROM " + getDBMapping(TABLENAME)[0]);  
         if (!StringUtils.isEmpty(where)) {  
         	sql.append(" "+where);

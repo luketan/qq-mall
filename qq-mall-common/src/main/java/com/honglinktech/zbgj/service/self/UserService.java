@@ -29,6 +29,7 @@ import com.honglinktech.zbgj.dao.self.UserSessionDao;
 import com.honglinktech.zbgj.entity.TChangeLog;
 import com.honglinktech.zbgj.entity.TFeedBack;
 import com.honglinktech.zbgj.entity.TPic;
+import com.honglinktech.zbgj.entity.TUser;
 import com.honglinktech.zbgj.entity.TUserSession;
 import com.honglinktech.zbgj.service.TUserService;
 import com.honglinktech.zbgj.utils.HashUtils;
@@ -215,5 +216,6 @@ public class UserService extends TUserService {
 		
 		return Result.resultSet(fbBean);
 	}
+	
 	
 }

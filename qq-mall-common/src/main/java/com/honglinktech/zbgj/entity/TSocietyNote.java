@@ -35,7 +35,7 @@ public class TSocietyNote extends BaseEntity implements Serializable{
 	private String address=null;
 	@FieldMeta(primaryKey = false,fieldName = "发表的ip地址",dbName = "ip",length = 32,allowNull=true)
 	private String ip=null;
-	@FieldMeta(primaryKey = false,fieldName = "查看数量",dbName = "good_num",length = 10,allowNull=true)
+	@FieldMeta(primaryKey = false,fieldName = "点赞数量",dbName = "good_num",length = 10,allowNull=true)
 	private Integer goodNum=null;
 	@FieldMeta(primaryKey = false,fieldName = "评论数量",dbName = "dis_num",length = 10,allowNull=true)
 	private Integer disNum=null;
@@ -47,6 +47,8 @@ public class TSocietyNote extends BaseEntity implements Serializable{
 	private Integer giftsIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否有图片(0没有)",dbName = "img_is",length = 10,allowNull=true)
 	private Integer imgIs=null;
+	@FieldMeta(primaryKey = false,fieldName = "是否打赏",dbName = "reward_is",length = 10,allowNull=true)
+	private Integer rewardIs=null;
 	@FieldMeta(primaryKey = false,fieldName = "0社区公告，1是社区讨论帖子，2是体验贴，",dbName = "type",length = 10,allowNull=true)
 	private Integer type=null;
 	@FieldMeta(primaryKey = false,fieldName = "是否匿名发帖",dbName = "ano_is",length = 10,allowNull=true)
@@ -69,7 +71,7 @@ public class TSocietyNote extends BaseEntity implements Serializable{
 	
 	public TSocietyNote(){
  	}
- 	public TSocietyNote(Integer id,Integer societySubId,String societySubName,Integer userId,String nickName,String title,String detail,String address,String ip,Integer goodNum,Integer disNum,Integer topIs,Integer recIs,Integer giftsIs,Integer imgIs,Integer type,Integer anoIs,Integer annIs,Integer status,String tags){
+ 	public TSocietyNote(Integer id,Integer societySubId,String societySubName,Integer userId,String nickName,String title,String detail,String address,String ip,Integer goodNum,Integer disNum,Integer topIs,Integer recIs,Integer giftsIs,Integer imgIs,Integer rewardIs,Integer type,Integer anoIs,Integer annIs,Integer status,String tags){
  		this.id = id;
 		this.societySubId = societySubId;
 		this.societySubName = societySubName;
@@ -85,6 +87,7 @@ public class TSocietyNote extends BaseEntity implements Serializable{
 		this.recIs = recIs;
 		this.giftsIs = giftsIs;
 		this.imgIs = imgIs;
+		this.rewardIs = rewardIs;
 		this.type = type;
 		this.anoIs = anoIs;
 		this.annIs = annIs;
@@ -156,7 +159,7 @@ public class TSocietyNote extends BaseEntity implements Serializable{
 	public void setIp(String ip){
 		  this.ip = ip; 
 	}
-	/*查看数量*/
+	/*点赞数量*/
 	public Integer getGoodNum(){
 		 return this.goodNum; 
 	}
@@ -197,6 +200,13 @@ public class TSocietyNote extends BaseEntity implements Serializable{
 	}
 	public void setImgIs(Integer imgIs){
 		  this.imgIs = imgIs; 
+	}
+	/*是否打赏*/
+	public Integer getRewardIs(){
+		 return this.rewardIs; 
+	}
+	public void setRewardIs(Integer rewardIs){
+		  this.rewardIs = rewardIs; 
 	}
 	/*0社区公告，1是社区讨论帖子，2是体验贴，*/
 	public Integer getType(){
@@ -266,6 +276,7 @@ public class TSocietyNote extends BaseEntity implements Serializable{
 		recIs("rec_is",Types.INTEGER,false,false,true),
 		giftsIs("gifts_is",Types.INTEGER,false,false,true),
 		imgIs("img_is",Types.INTEGER,false,false,true),
+		rewardIs("reward_is",Types.INTEGER,false,false,true),
 		type("type",Types.INTEGER,false,false,true),
 		anoIs("ano_is",Types.INTEGER,false,false,true),
 		annIs("ann_is",Types.INTEGER,false,false,true),
@@ -331,6 +342,7 @@ public class TSocietyNote extends BaseEntity implements Serializable{
 			tSocietyNote.setRecIs(rs.getInt("rec_is"));
 			tSocietyNote.setGiftsIs(rs.getInt("gifts_is"));
 			tSocietyNote.setImgIs(rs.getInt("img_is"));
+			tSocietyNote.setRewardIs(rs.getInt("reward_is"));
 			tSocietyNote.setType(rs.getInt("type"));
 			tSocietyNote.setAnoIs(rs.getInt("ano_is"));
 			tSocietyNote.setAnnIs(rs.getInt("ann_is"));

@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +25,7 @@ import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.HomeBean;
 import com.honglinktech.zbgj.bean.SocietyDisBean;
 import com.honglinktech.zbgj.bean.SocietyNoteBean;
+import com.honglinktech.zbgj.bean.SocietyNoteRewardBean;
 import com.honglinktech.zbgj.bean.SocietySubBean;
 import com.honglinktech.zbgj.bean.SocietyTypeBean;
 import com.honglinktech.zbgj.bean.UserBean;
@@ -40,6 +43,7 @@ import com.honglinktech.zbgj.service.self.UserService;
 @RestController
 @RequestMapping("/society/api")
 public class SocietyController extends BaseApiController {
+	private final Logger logger = LogManager.getLogger(getClass());
 	@Resource
 	private TModuleService tModuleService;
 	@Resource
@@ -270,11 +274,11 @@ public class SocietyController extends BaseApiController {
 	@ResponseBody
 	public Response<Map<String,Object>> findSocSubById(@RequestBody Map<String,String> map,@RequestHeader HttpHeaders headers) throws BaseException{
 
-		String userCode =  headers.getFirst("userId");
-		Integer userId = null;
-		if(!StringUtils.isEmpty(userCode)){
-			userId = Integer.valueOf(userCode);
-		}
+//		String userCode =  headers.getFirst("userId");
+//		Integer userId = null;
+//		if(!StringUtils.isEmpty(userCode)){
+//			userId = Integer.valueOf(userCode);
+//		}
 		if(!map.containsKey("subId")){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"subId");
 		}
@@ -347,6 +351,126 @@ public class SocietyController extends BaseApiController {
 		}
 		
 		Response<SocietyNoteBean> resp = societyService.findSocNoteById(userId, Integer.valueOf(map.get("id")), socSubInfo);
+		return resp;
+	}
+	/**
+	 * 帖子点赞
+	 * @param map
+	 * @param headers
+	 * @return
+	 * @throws BaseException
+	 */
+	@RequestMapping(value="socNotePlayingReward",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public Response<Boolean> socNotePlayingReward(@RequestBody Map<String,String> map, @RequestHeader HttpHeaders headers) throws BaseException{
+		logger.info("=================socNotePlayingReward====================");
+		String userCode =  headers.getFirst("userId");
+		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+		}
+		if(!map.containsKey("socNoteId")){
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"socNoteId");
+		}
+		if(!map.containsKey("recUserId")){
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"recUserId");
+		}
+		if(!map.containsKey("value")){
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"value");
+		}
+		
+		int userId = Integer.valueOf(userCode);
+		int recUserId = Integer.valueOf(map.get("recUserId"));
+		int socNoteId = Integer.valueOf(map.get("socNoteId"));
+		int value = Integer.valueOf(map.get("value"));
+		
+		Response<Boolean> resp = societyService.socNotePlayingReward(userId, recUserId, value, socNoteId);
+		return resp;
+	}
+	/**
+	 * 帖子点赞
+	 * @param map
+	 * @param headers
+	 * @return
+	 * @throws BaseException
+	 */
+	@RequestMapping(value="likeSocNote",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public Response<Boolean> likeSocNote(@RequestBody Map<String,String> map, @RequestHeader HttpHeaders headers) throws BaseException{
+		System.out.println("()()()()()"+logger);
+		logger.debug("=================likeSocNote====================");
+		logger.warn("============warn");
+		logger.info("============info");
+		String userCode =  headers.getFirst("userId");
+		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+		}
+		if(!map.containsKey("socNoteId")){
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"socNoteId");
+		}
+		if(!map.containsKey("like")){
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"like");
+		}
+		
+		int userId = Integer.valueOf(userCode);
+		boolean like = Boolean.valueOf(map.get("like"));
+		int socNoteId = Integer.valueOf(map.get("socNoteId"));
+		
+		Response<Boolean> resp = societyService.updateSocNotelike(userId, socNoteId, like);
+		return resp;
+	}
+	/**
+	 * 评论点赞
+	 * @param map
+	 * @param headers
+	 * @return
+	 * @throws BaseException
+	 */
+	@RequestMapping(value="likeSocDis",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public Response<Boolean> likeSocDis(@RequestBody Map<String,String> map, @RequestHeader HttpHeaders headers) throws BaseException{
+		logger.debug("=================likeSocDis====================");
+		String userCode =  headers.getFirst("userId");
+		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
+			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
+		}
+		if(!map.containsKey("socDisId")){
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"socNoteId");
+		}
+		if(!map.containsKey("like")){
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"like");
+		}
+		
+		int userId = Integer.valueOf(userCode);
+		boolean like = Boolean.valueOf(map.get("like"));
+		int socDisId = Integer.valueOf(map.get("socDisId"));
+		
+		Response<Boolean> resp = societyService.updateSocDislike(userId, socDisId, like);
+		return resp;
+	}
+	/**
+	 * 查询主题的帖子
+	 * @param map
+	 * @param headers
+	 * @return
+	 * @throws BaseException
+	 */
+	@RequestMapping(value="findSocietyNoteRewards",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public Response<List<SocietyNoteRewardBean>> findSocietyNoteRewards(@RequestBody Map<String,String> map, @RequestHeader HttpHeaders headers) throws BaseException{
+
+		String userCode =  headers.getFirst("userId");
+		Integer userId = null;
+		if(!StringUtils.isEmpty(userCode)){
+			userId = Integer.valueOf(userCode);
+		}
+		
+		if(!map.containsKey("socNoteId")){
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"socNoteId");
+		}
+		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
+		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+		
+		Response<List<SocietyNoteRewardBean>> resp = societyService.findSocietyNoteRewards(userId, Integer.valueOf(map.get("socNoteId")), index, size);
 		return resp;
 	}
 	/**

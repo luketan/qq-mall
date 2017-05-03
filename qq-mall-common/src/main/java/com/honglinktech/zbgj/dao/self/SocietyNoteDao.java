@@ -62,7 +62,7 @@ public class SocietyNoteDao extends BaseDao<SocietyNoteBean> {
 		}else{
 			sql.append(" ,0 AS likeUserId ");
 		}
-		if(socSubInfo!=null && socSubInfo){//是否需要查询帖子主题形象
+		if(socSubInfo!=null && socSubInfo){//是否需要查询帖子主题信息
 			sql.append(" ,ss.name AS socSubName, ss.ico AS socSubIco, ss.ico_color AS socSubIcoColor");
 		}else{
 			sql.append(" ,sn.society_sub_name AS socSubName, '' AS socSubIco, '' AS socSubIcoColor");
@@ -71,13 +71,27 @@ public class SocietyNoteDao extends BaseDao<SocietyNoteBean> {
 		if(userId != null && userId > 0){//是否需要查询是否已经关注
 			sql.append(" LEFT JOIN t_society_note_like snl ON(snl.user_id = "+userId+" AND sn.id = snl.id) ");
 		}
-		if(socSubInfo!=null && socSubInfo){//是否需要查询帖子主题形象
+		if(socSubInfo!=null && socSubInfo){//是否需要查询帖子主题信息
 			sql.append(" LEFT JOIN t_society_sub ss ON(sn.society_sub_id = ss.id) ");
 		}
 		sql.append(" WHERE 1=1 AND sn.status="+Constants.SOCIETY_NOTE_STATUS_NORMAL+" AND sn.id="+Id);
 		System.out.println("findSocietyNoteById:"+sql);
 		List<SocietyNoteBean> societyNoteBeanList = find(sql.toString(), new SocietyNoteBean.SocietyNoteInfoRowMapper());
-		return societyNoteBeanList!=null?societyNoteBeanList.get(0):null;
+		return societyNoteBeanList!=null&&societyNoteBeanList.size()>0?societyNoteBeanList.get(0):null;
+	}
+	
+	/**
+	 * 
+	 * @param socNoteId
+	 * @param like
+	 * @return
+	 */
+	public int updateSocNoteLikeNum(int socNoteId, boolean like) {
+		String sql = "update t_society_note set good_num=good_num+1 where id="+socNoteId;
+		if(!like){
+			sql = "update t_society_note set good_num=good_num-1 where id="+socNoteId;
+		}
+		return updateExecute(sql);
 	}
 	
 	public Object[] getDBMapping(String filedName){
