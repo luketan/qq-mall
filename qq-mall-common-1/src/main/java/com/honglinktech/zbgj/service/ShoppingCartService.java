@@ -1,13 +1,4 @@
-package com.honglinktech.zbgj.service.self;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
+package com.honglinktech.zbgj.service;
 
 import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.base.BaseException;
@@ -16,23 +7,28 @@ import com.honglinktech.zbgj.bean.ShoppingCartBean;
 import com.honglinktech.zbgj.bean.request.AddShoppingBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.dao.TShoppingCartDao;
-import com.honglinktech.zbgj.dao.TShoppingCartFormatDao;
+import com.honglinktech.zbgj.dao.FormatSubDao;
+import com.honglinktech.zbgj.dao.ShoppingCartDao;
+import com.honglinktech.zbgj.dao.ShoppingCartFormatDao;
 import com.honglinktech.zbgj.dao.self.FormatSubDao;
-import com.honglinktech.zbgj.dao.self.ShoppingCartBeanDao;
 import com.honglinktech.zbgj.entity.TShoppingCart;
 import com.honglinktech.zbgj.entity.TShoppingCartFormat;
 import com.honglinktech.zbgj.service.TShoppingCartService;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
-public class ShoppingCartService extends TShoppingCartService {
+public class ShoppingCartService{
 	
 	@Resource
-	private TShoppingCartDao shoppingCartDao;
+	private ShoppingCartDao shoppingCartDao;
 	@Resource
-	private TShoppingCartFormatDao tshoppingCartFormatDao;
-	@Resource
-	private ShoppingCartBeanDao shoppingCartBeanDao;
+	private ShoppingCartFormatDao shoppingCartFormatDao;
 	@Resource
 	private FormatSubDao formatSubDao;
 	/**
@@ -41,7 +37,7 @@ public class ShoppingCartService extends TShoppingCartService {
 	 * @return
 	 */
 	public Response<List<ShoppingCartBean>> findShoppingBeansByMap(Map<String,Object> whereMap) {
-		List<ShoppingCartBean> shoppingCartBeans = shoppingCartBeanDao.findShoppingCartBeansByMap(whereMap);
+		List<ShoppingCartBean> shoppingCartBeans = shoppingCartDao.findShoppingCartBeansByMap(whereMap);
 		if(shoppingCartBeans != null){
 			for(ShoppingCartBean sc:shoppingCartBeans){
 				List<FormatSubBean> formatSubBeans = formatSubDao.findFormatSubByShoppingId(sc.getId());

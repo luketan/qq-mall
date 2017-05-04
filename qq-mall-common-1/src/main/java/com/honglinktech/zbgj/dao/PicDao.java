@@ -4,7 +4,11 @@
  */
 package com.honglinktech.zbgj.dao;
 
+import com.honglinktech.zbgj.bean.PicBean;
 import com.honglinktech.zbgj.entity.Pic;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface PicDao {
     /**
@@ -38,4 +42,13 @@ public interface PicDao {
      * @mbggenerated
      */
     int updateByPrimaryKeySelective(Pic record);
+
+    /********************************************************************************************************************************************************************/
+    /**
+     * 查询
+     * @param objId
+     * @param type
+     * @return
+     */
+    List<PicBean> findBeanList(@Param(value = "objId")Integer objId, @Param(value = "type") Integer type);
 }

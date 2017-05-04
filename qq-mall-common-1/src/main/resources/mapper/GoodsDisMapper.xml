@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.honglinktech.zbgj.dao.GoodsDisDao">
-
   <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.GoodsDis">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
@@ -18,26 +17,17 @@
     <result column="low" jdbcType="INTEGER" property="low" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.honglinktech.zbgj.entity.GoodsDis">
-    <result column="reply" jdbcType="LONGVARCHAR" property="reply" />
+    <result column="reply" jdbcType="VARCHAR" property="reply" />
   </resultMap>
 
   <sql id="Base_Column_List">
     id, goods_id, user_id, user_name, goods_format_id, goods_format, content, reply_time, 
-    type_value, dis_value, img, good, low, create_time, update_time
-  </sql>
-
-  <sql id="Blob_Column_List">
-    reply
+    type_value, dis_value, img, good, low, create_time, update_time, reply
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     SELECT 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     FROM t_goods_dis
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
@@ -203,204 +193,29 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
 
-  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.GoodsDis">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="goods_format_id" jdbcType="INTEGER" property="goodsFormatId" />
-    <result column="goods_format" jdbcType="VARCHAR" property="goodsFormat" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="reply_time" jdbcType="TIMESTAMP" property="replyTime" />
-    <result column="type_value" jdbcType="VARCHAR" property="typeValue" />
-    <result column="dis_value" jdbcType="INTEGER" property="disValue" />
-    <result column="img" jdbcType="INTEGER" property="img" />
-    <result column="good" jdbcType="INTEGER" property="good" />
-    <result column="low" jdbcType="INTEGER" property="low" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.honglinktech.zbgj.entity.GoodsDis">
-    <result column="reply" jdbcType="LONGVARCHAR" property="reply" />
-  </resultMap>
-
-  <sql id="Base_Column_List">
-    id, goods_id, user_id, user_name, goods_format_id, goods_format, content, reply_time, 
-    type_value, dis_value, img, good, low, create_time, update_time
-  </sql>
-
-  <sql id="Blob_Column_List">
-    reply
-  </sql>
-
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    SELECT 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    FROM t_goods_dis
-    WHERE id = #{id,jdbcType=INTEGER}
+  <!--*************************************************************************************************************************-->
+  <select id="findGoodsDisCount" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.bean.GoodsDisCountBean">
+    SELECT
+      (select count(1) FROM t_goods_dis where goods_id=#{goodsId}) as totalCount,
+      (select count(1) FROM t_goods_dis where goods_id=#{goodsId} AND img=1) as imgCount,
+      (select count(1) FROM t_goods_dis where goods_id=#{goodsId} AND (dis_value>=4)) as goodCount,
+      (select count(1) FROM t_goods_dis where goods_id=#{goodsId} AND (dis_value=2 OR dis_value=3)) as generalCount,
+      (select count(1) FROM t_goods_dis where goods_id=#{goodsId} AND (dis_value=1)) as errorCount,
+      (select IFNULL(AVG(dis_value),0) FROM t_goods_dis where goods_id=#{goodsId}) as avgDisValue;
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    DELETE FROM t_goods_dis
-    WHERE id = #{id,jdbcType=INTEGER}
-  </delete>
-
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsDis">
-    INSERT INTO t_goods_dis
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="goodsId != null">
-        goods_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="userName != null and userName != ''">
-        user_name,
-      </if>
-      <if test="goodsFormatId != null">
-        goods_format_id,
-      </if>
-      <if test="goodsFormat != null and goodsFormat != ''">
-        goods_format,
-      </if>
-      <if test="content != null and content != ''">
-        content,
-      </if>
-      <if test="replyTime != null">
-        reply_time,
-      </if>
-      <if test="typeValue != null and typeValue != ''">
-        type_value,
-      </if>
-      <if test="disValue != null">
-        dis_value,
-      </if>
-      <if test="img != null">
-        img,
-      </if>
-      <if test="good != null">
-        good,
-      </if>
-      <if test="low != null">
-        low,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="reply != null">
-        reply,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="goodsId != null">
-        #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="userName != null and userName != ''">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsFormatId != null">
-        #{goodsFormatId,jdbcType=INTEGER},
-      </if>
-      <if test="goodsFormat != null and goodsFormat != ''">
-        #{goodsFormat,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null and content != ''">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="replyTime != null">
-        #{replyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="typeValue != null and typeValue != ''">
-        #{typeValue,jdbcType=VARCHAR},
-      </if>
-      <if test="disValue != null">
-        #{disValue,jdbcType=INTEGER},
-      </if>
-      <if test="img != null">
-        #{img,jdbcType=INTEGER},
-      </if>
-      <if test="good != null">
-        #{good,jdbcType=INTEGER},
-      </if>
-      <if test="low != null">
-        #{low,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="reply != null">
-        #{reply,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsDis">
-    UPDATE t_goods_dis
-    <set>
-      <if test="goodsId != null">
-        goods_id = #{goodsId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="userName != null and userName != ''">
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="goodsFormatId != null">
-        goods_format_id = #{goodsFormatId,jdbcType=INTEGER},
-      </if>
-      <if test="goodsFormat != null and goodsFormat != ''">
-        goods_format = #{goodsFormat,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null and content != ''">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="replyTime != null">
-        reply_time = #{replyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="typeValue != null and typeValue != ''">
-        type_value = #{typeValue,jdbcType=VARCHAR},
-      </if>
-      <if test="disValue != null">
-        dis_value = #{disValue,jdbcType=INTEGER},
-      </if>
-      <if test="img != null">
-        img = #{img,jdbcType=INTEGER},
-      </if>
-      <if test="good != null">
-        good = #{good,jdbcType=INTEGER},
-      </if>
-      <if test="low != null">
-        low = #{low,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="reply != null">
-        reply = #{reply,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    WHERE id = #{id,jdbcType=INTEGER}
-  </update>
+  <select id="findByGoodsId" parameterType="map" resultMap="ResultMapWithBLOBs">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_goods_dis tgd
+    WHERE tgd.goods_id = #{goodsId,jdbcType=INTEGER}
+    <if test="disValues != null">
+      AND tgd.type IN
+      <foreach collection="disValues" item="disValue" index="index"
+               open="(" close=")" separator=",">
+        #{disValue}
+      </foreach>
+    </if>
+    limit #{start,jdbcType=INTEGER}, #{rows,jdbcType=INTEGER}
+  </select>
 </mapper>

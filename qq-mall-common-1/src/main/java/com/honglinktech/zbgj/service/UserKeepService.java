@@ -1,4 +1,4 @@
-package com.honglinktech.zbgj.service.self;
+package com.honglinktech.zbgj.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.dao.GoodsDao;
+import com.honglinktech.zbgj.dao.UserKeepDao;
 import org.springframework.stereotype.Component;
 
 import com.honglinktech.zbgj.base.BaseException;
@@ -20,12 +22,12 @@ import com.honglinktech.zbgj.entity.TUserKeep;
 import com.honglinktech.zbgj.service.TUserKeepService;
 
 @Component
-public class UserKeepService extends TUserKeepService{
+public class UserKeepService{
 	
 	@Resource
-	private TUserKeepDao tuserKeepDao;
+	private UserKeepDao userKeepDao;
 	@Resource
-	private TGoodsDao tgoodsDao;
+	private GoodsDao goodsDao;
 	
 	
 	public Response<String> updateGoodsKeep(Integer userId, Integer goodsId, Boolean keep) throws BaseException {

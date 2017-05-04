@@ -1,4 +1,4 @@
-package com.honglinktech.zbgj.service.self;
+package com.honglinktech.zbgj.service;
 
 import java.util.HashMap;
 import java.util.List;

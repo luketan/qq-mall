@@ -8,7 +8,7 @@ import com.honglinktech.zbgj.entity.GoodsDis;
 
 
 /**
-*产品款式
+* 商品评论
 **/
 public class GoodsDisBean implements Serializable{
 

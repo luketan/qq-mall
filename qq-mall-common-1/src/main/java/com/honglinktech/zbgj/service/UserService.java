@@ -39,9 +39,9 @@ public class UserService{
 	@Autowired
 	private UserSessionDao userSessionDao;
 	@Resource
-	private ChangeLogDao tchangeLogDao;
+	private ChangeLogDao changeLogDao;
 	@Resource
-	private FeedBackDao tfeedBackDao;
+	private FeedBackDao feedBackDao;
 	@Resource
 	private PicDao tpicDao;
 	
@@ -129,7 +129,7 @@ public class UserService{
 		Map<String, String> orderMap = new HashMap<String, String>();
 		orderMap.put(TChangeLog.DBMaping.createTime.getDbName(), "desc");
 		qh.setOrderBy(orderMap);
-		QueryHelper<TChangeLog> resultQH = tchangeLogDao.findByQueryHelperNoCount(qh);
+		QueryHelper<TChangeLog> resultQH = changeLogDao.findByQueryHelperNoCount(qh);
 		return Result.resultSet(resultQH.getResultList());
 	}
 
@@ -145,7 +145,7 @@ public class UserService{
 		feedBack.setDetail(detail);
 		feedBack.setUserId(userId);
 		feedBack.setReadIs(Constants.N0);
-		int id = tfeedBackDao.insertSelective(feedBack);
+		int id = feedBackDao.insertSelective(feedBack);
 		if(imgs!=null && imgs.size()>0){
 			for(String img:imgs){
 				Pic tpic = new Pic();
@@ -174,7 +174,7 @@ public class UserService{
 		Map<String, String> orderMap = new HashMap<String, String>();
 		orderMap.put(TChangeLog.DBMaping.createTime.getDbName(), "desc");
 		qh.setOrderBy(orderMap);
-		QueryHelper<TFeedBack> resultQH = tfeedBackDao.findByQueryHelperNoCount(qh);
+		QueryHelper<TFeedBack> resultQH = feedBackDao.findByQueryHelperNoCount(qh);
 		List<TFeedBack> feedBackList = resultQH.getResultList();
 		//图片处理
 		List<FeedBackBean> feedBackBeanList = new ArrayList<FeedBackBean>();
@@ -197,7 +197,7 @@ public class UserService{
 	 * @return
 	 */
 	public Response<FeedBackBean> findFeedBackById(Integer userId, Integer id) {
-		FeedBackWithBLOBs feedBack = tfeedBackDao.selectByPrimaryKey(id);
+		FeedBackWithBLOBs feedBack = feedBackDao.selectByPrimaryKey(id);
 		
 		if(userId.intValue() != feedBack.getUserId()){
 			return Result.fail(ExceptionEnum.COMMON_ERROE);

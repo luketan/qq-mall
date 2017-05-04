@@ -1,41 +1,49 @@
-package com.honglinktech.zbgj.service.self;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
+package com.honglinktech.zbgj.service;
 
 import com.honglinktech.zbgj.bean.GoodsTypeBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.dao.TGoodsTypeSubDao;
-import com.honglinktech.zbgj.dao.self.GoodsTypeBeanDao;
-import com.honglinktech.zbgj.entity.TGoodsTypeSub;
-import com.honglinktech.zbgj.service.TGTypeService;
+import com.honglinktech.zbgj.dao.GoodsTypeDao;
+import com.honglinktech.zbgj.dao.GoodsTypeSubDao;
+import com.honglinktech.zbgj.entity.GoodsType;
+import com.honglinktech.zbgj.entity.GoodsTypeSub;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
-public class GoodsTypeService extends TGTypeService {
+public class GoodsTypeService{
 	@Resource
-	private GoodsTypeBeanDao goodsTypeBeanDao;
+	private GoodsTypeDao goodsTypeDao;
 	@Resource
-	private TGoodsTypeSubDao tgoodsTypeSubDao;
+	private GoodsTypeSubDao goodsTypeSubDao;
 	
 	public Response<GoodsTypeBean> findGoodsTypeBeanById(int id) {
 
-		GoodsTypeBean goodsTypeBean = goodsTypeBeanDao.findGoodsBeanTypeById(id);
-		Map<String,String[]> whereMap = new HashMap<String, String[]>();
-		whereMap.put(TGoodsTypeSub.DBMaping.goodsType.name(), new String[]{id+""});
-		List<TGoodsTypeSub> gtsList = tgoodsTypeSubDao.findByWhere(whereMap);
+		GoodsType goodsType = goodsTypeDao.selectByPrimaryKey(id);
+		Map whereMap = new HashMap();
+		whereMap.put("goodsType", id);
+		List<GoodsTypeSub> gtsList = goodsTypeSubDao.findByWhere(whereMap);
+
+		GoodsTypeBean goodsTypeBean = new GoodsTypeBean(goodsType);
 		goodsTypeBean.setTgoodsTypeSubList(gtsList);
 		
 		return Result.resultSet(goodsTypeBean);
 	}
 	
 	public Response<List<GoodsTypeBean>> findGoodsTypeAll() {
-		List<GoodsTypeBean> goodsTypeBean = goodsTypeBeanDao.findAll();
-		return Result.resultSet(goodsTypeBean);
+		List<GoodsType> goodsTypes = goodsTypeDao.findAll();
+
+		List<GoodsTypeBean> goodsTypeBeans = new ArrayList<>();
+		if (goodsTypes != null) {
+			for (GoodsType goodsType:goodsTypes) {
+				goodsTypeBeans.add(new GoodsTypeBean(goodsType));
+			}
+		}
+		return Result.resultSet(goodsTypeBeans);
 	}
 }

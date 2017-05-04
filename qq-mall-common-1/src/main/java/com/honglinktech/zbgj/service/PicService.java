@@ -1,24 +1,18 @@
-package com.honglinktech.zbgj.service.self;
-
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
+package com.honglinktech.zbgj.service;
 
 import com.honglinktech.zbgj.bean.PicBean;
-import com.honglinktech.zbgj.dao.TPicDao;
-import com.honglinktech.zbgj.dao.self.PicDao;
-import com.honglinktech.zbgj.service.TPicService;
+import com.honglinktech.zbgj.dao.PicDao;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Component
-public class PicService extends TPicService {
+public class PicService{
 	@Resource
 	private PicDao picDao;
-	@Resource
-	private TPicDao tpicDao;
 	
-	public List<PicBean> findPic(int objId,int type){
+	public List<PicBean> findPic(Integer objId,Integer type){
 		return picDao.findBeanList(objId,type);
 	}
 	

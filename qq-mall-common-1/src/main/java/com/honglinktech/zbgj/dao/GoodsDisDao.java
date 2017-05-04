@@ -4,7 +4,12 @@
  */
 package com.honglinktech.zbgj.dao;
 
+import com.honglinktech.zbgj.bean.GoodsDisCountBean;
 import com.honglinktech.zbgj.entity.GoodsDis;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 public interface GoodsDisDao {
     /**
@@ -38,4 +43,19 @@ public interface GoodsDisDao {
      * @mbggenerated
      */
     int updateByPrimaryKeySelective(GoodsDis record);
+
+    /***********************************************************************************************************/
+    /**
+     * 查询商品评论统计
+     * @param goodsId
+     * @return
+     */
+    GoodsDisCountBean findGoodsDisCount(@Param(value = "goodsId")Integer goodsId);
+
+    /**
+     * 获取商品的评论
+     * @param map
+     * @return
+     */
+    List<GoodsDis> findByGoodsId(Map map);
 }

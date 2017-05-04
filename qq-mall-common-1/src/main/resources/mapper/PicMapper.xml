@@ -223,4 +223,14 @@
     </set>
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--***************************************************************************************************************************************-->
+  <select id="findBeanList" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.bean.PicBean">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_pic
+    WHERE obj_id = #{objId}
+    AND `type` = #{type}
+    ORDER BY update_time desc
+  </select>
 </mapper>
