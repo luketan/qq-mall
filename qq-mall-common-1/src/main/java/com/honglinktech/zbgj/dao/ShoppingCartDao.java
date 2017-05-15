@@ -4,7 +4,12 @@
  */
 package com.honglinktech.zbgj.dao;
 
+import com.honglinktech.zbgj.bean.ShoppingCartBean;
 import com.honglinktech.zbgj.entity.ShoppingCart;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ShoppingCartDao {
     /**
@@ -38,4 +43,42 @@ public interface ShoppingCartDao {
      * @mbggenerated
      */
     int updateByPrimaryKeySelective(ShoppingCart record);
+
+    /****************************************************************************************/
+    /**
+     * 查询购物车
+     * @param map
+     * @return
+     */
+    List<ShoppingCartBean> findShoppingCartBeansByMap(Map map);
+
+    /**
+     * 查询
+     * @param map
+     * @return
+     */
+    List<ShoppingCart> findByWhere(Map map);
+
+    /**
+     * 删除
+     * @param userId
+     * @param id
+     * @return
+     */
+    int deleteByIdAndUserId(@Param(value = "userId")Integer userId, @Param(value = "id")Integer id);
+
+    /**
+     * 修改
+     * @param shoppingCart
+     * @return
+     */
+    int updateShoppingCart(ShoppingCart shoppingCart);
+
+    /**
+     * 修改
+     * @param userId
+     * @param checkAll
+     * @return
+     */
+    int updateShoppingCartChckboxAll(@Param(value = "userId")Integer userId, @Param(value = "checkAll")Boolean checkAll);
 }

@@ -10,10 +10,9 @@ import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.dao.FormatSubDao;
 import com.honglinktech.zbgj.dao.ShoppingCartDao;
 import com.honglinktech.zbgj.dao.ShoppingCartFormatDao;
-import com.honglinktech.zbgj.dao.self.FormatSubDao;
-import com.honglinktech.zbgj.entity.TShoppingCart;
-import com.honglinktech.zbgj.entity.TShoppingCartFormat;
-import com.honglinktech.zbgj.service.TShoppingCartService;
+import com.honglinktech.zbgj.entity.ShoppingCart;
+import com.honglinktech.zbgj.entity.ShoppingCart;
+import com.honglinktech.zbgj.entity.ShoppingCartFormat;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -36,24 +35,15 @@ public class ShoppingCartService{
 	 * @param whereMap
 	 * @return
 	 */
-	public Response<List<ShoppingCartBean>> findShoppingBeansByMap(Map<String,Object> whereMap) {
+	public Response<List<ShoppingCartBean>> findShoppingBeansByMap(Map whereMap) {
+
+		int index = whereMap.containsKey("index")?Integer.valueOf(whereMap.get("index").toString()):1;
+		int size = whereMap.containsKey("size")?Integer.valueOf(whereMap.get("size").toString()):10;
+
+		whereMap.put("start", (index-1)*size);
+		whereMap.put("rows", size);
+
 		List<ShoppingCartBean> shoppingCartBeans = shoppingCartDao.findShoppingCartBeansByMap(whereMap);
-		if(shoppingCartBeans != null){
-			for(ShoppingCartBean sc:shoppingCartBeans){
-				List<FormatSubBean> formatSubBeans = formatSubDao.findFormatSubByShoppingId(sc.getId());
-				sc.setFormatSubBeanList(formatSubBeans);
-			}
-		}
-		return Result.resultSet(shoppingCartBeans);
-	}
-	
-	/**
-	 * App购物车查询(分页可选)
-	 * @param whereMap
-	 * @return
-	 */
-	public Response<List<ShoppingCartBean>> findShoppingBeansGoodsInfoByMap(Map<String,Object> whereMap) {
-		List<ShoppingCartBean> shoppingCartBeans = shoppingCartBeanDao.findShoppingCartBeansGoodsInfoByMap(whereMap);
 		if(shoppingCartBeans != null){
 			for(ShoppingCartBean sc:shoppingCartBeans){
 				List<FormatSubBean> formatSubBeans = formatSubDao.findFormatSubByShoppingId(sc.getId());
@@ -71,21 +61,20 @@ public class ShoppingCartService{
 		return Result.resultSet(shoppingCartBeans);
 	}
 
-
 	public Response<String> addShoppingCart(int userId, AddShoppingBean addShoppingBean) throws BaseException {
 		//检查是否已经存在
-		Map<String,String[]> whereMap = new HashMap<String, String[]>();
-		whereMap.put(TShoppingCart.DBMaping.goodsId.name(), new String[]{addShoppingBean.getGoodsId()+""});
-		whereMap.put(TShoppingCart.DBMaping.userId.name(), new String[]{userId+""});
-		List<TShoppingCart> tshoppingCartList = shoppingCartDao.findByWhere(whereMap);
+		Map whereMap = new HashMap();
+		whereMap.put("goodsId", addShoppingBean.getGoodsId());
+		whereMap.put("userId", userId);
+		List<ShoppingCart> shoppingCartList = shoppingCartDao.findByWhere(whereMap);
 		String formatSubIdString = JSON.toJSONString(addShoppingBean.getFormatSubIds()).replace("]", ",]");
 		System.out.println("formatSubIdString:"+formatSubIdString);
-		if(tshoppingCartList!=null && tshoppingCartList.size()>0){
-			for(int i=0;i<tshoppingCartList.size();i++){
-				TShoppingCart sc = tshoppingCartList.get(i);
-				Map<String,String[]> scfWhereMap = new HashMap<String, String[]>();
-				scfWhereMap.put(TShoppingCartFormat.DBMaping.shoppingCartId.name(), new String[]{sc.getId()+","});
-				List<TShoppingCartFormat> scfList = tshoppingCartFormatDao.findByWhere(scfWhereMap);
+		if(shoppingCartList!=null && shoppingCartList.size()>0){
+			for(int i=0;i<shoppingCartList.size();i++){
+				ShoppingCart sc = shoppingCartList.get(i);
+				Map scfWhereMap = new HashMap();
+				scfWhereMap.put("shoppingCartId",sc.getId());
+				List<ShoppingCartFormat> scfList = shoppingCartFormatDao.findByWhere(scfWhereMap);
 				if(scfList!=null && scfList.size()>0 && addShoppingBean.getFormatSubIds()!=null && addShoppingBean.getFormatSubIds().length>0){
 					int flag = 0;
 					for(int j=0; j<scfList.size(); j++){
@@ -105,20 +94,20 @@ public class ShoppingCartService{
 			}
 		}
 		//添加
-		TShoppingCart tshoppingCart = new TShoppingCart();
+		ShoppingCart tshoppingCart = new ShoppingCart();
 		tshoppingCart.setUserId(userId);
 		tshoppingCart.setGoodsId(addShoppingBean.getGoodsId());
 		tshoppingCart.setNum(addShoppingBean.getNum());
-		int result = shoppingCartDao.save(tshoppingCart);
+		int result = shoppingCartDao.insertSelective(tshoppingCart);
 		if(addShoppingBean.getFormatSubIds()!=null && addShoppingBean.getFormatSubIds().length>0){
-			List<TShoppingCartFormat> scfList = new ArrayList<TShoppingCartFormat>();
+			List<ShoppingCartFormat> scfList = new ArrayList<ShoppingCartFormat>();
 			for(int i=0;i<addShoppingBean.getFormatSubIds().length;i++){
-				TShoppingCartFormat shoppingCartFormat = new TShoppingCartFormat();
+				ShoppingCartFormat shoppingCartFormat = new ShoppingCartFormat();
 				shoppingCartFormat.setFormatSubId(addShoppingBean.getFormatSubIds()[i]);
 				shoppingCartFormat.setShoppingCartId(result);
 				scfList.add(shoppingCartFormat);
 			}
-			tshoppingCartFormatDao.saveBatch(scfList);
+			shoppingCartFormatDao.saveBatch(scfList);
 		}
 		
 		if(result>0){
@@ -136,13 +125,8 @@ public class ShoppingCartService{
 	 * @throws BaseException
 	 */
 	public Response<String> deleteShoppingCart(Integer userId, Integer id) throws BaseException {
-		TShoppingCart sc = new TShoppingCart();
-		sc.setId(id);
-		sc.setUserId(userId);
-		int result = shoppingCartDao.delete(sc);
-		TShoppingCartFormat scf = new TShoppingCartFormat();
-		scf.setShoppingCartId(id);
-		tshoppingCartFormatDao.delete(scf);
+		int result = shoppingCartDao.deleteByIdAndUserId(userId, id);
+		result += shoppingCartFormatDao.deleteByShoppingId(id);
 		if(result>0){
 			return Result.success("删除购物车成功！");
 		}else{
@@ -161,26 +145,25 @@ public class ShoppingCartService{
 	public Response<String> updateShoppingCart(Integer userId, Integer id,
 			Integer num, Integer checkbox, Boolean checkAll) {
 		if(checkAll == null){
-			TShoppingCart tshoppingCart = new TShoppingCart();
-			tshoppingCart.setId(id);
-			tshoppingCart.setNum(num);
-			tshoppingCart.setCheckbox(checkbox);
-			int result = shoppingCartBeanDao.updateShoppingCart(userId, tshoppingCart);
+			ShoppingCart shoppingCart = new ShoppingCart();
+			shoppingCart.setId(id);
+			shoppingCart.setNum(num);
+			shoppingCart.setCheckbox(checkbox);
+			shoppingCart.setUserId(userId);
+			int result = shoppingCartDao.updateShoppingCart(shoppingCart);
 			if(result>0){
 				return Result.success("修改购物车成功！");
 			}else{
 				return Result.success("修改购物车失败！");
 			}
 		}else{
-			int result = shoppingCartBeanDao.updateShoppingCartChckboxAll(userId, checkAll);
+			int result = shoppingCartDao.updateShoppingCartChckboxAll(userId, checkAll);
 			if(result>0){
 				return Result.success("修改购物车成功！");
 			}else{
 				return Result.success("修改购物车失败！");
 			}
 		}
-		
 	}
 
-	
 }

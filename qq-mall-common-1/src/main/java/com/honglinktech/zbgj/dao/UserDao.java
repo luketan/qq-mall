@@ -4,7 +4,12 @@
  */
 package com.honglinktech.zbgj.dao;
 
+import com.honglinktech.zbgj.bean.UserBean;
+import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.User;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserDao {
     /**
@@ -38,4 +43,30 @@ public interface UserDao {
      * @mbggenerated
      */
     int updateByPrimaryKeySelective(User record);
+
+    /*******************************************************************************************************************************/
+    /**
+     * 获取被关注数最多的用户
+     * @param userId
+     * @param start
+     * @param rows
+     * @return
+     */
+    List<User> findAtteUserByNum(@Param(value = "userId")Integer userId, @Param(value = "start")int start, @Param(value = "rows")int rows);
+    /**
+     *
+     * @param userId
+     * @param start
+     * @param rows
+     * @return
+     */
+    List<User> findFriendUserByNum(@Param(value = "userId")Integer userId, @Param(value = "start")int start, @Param(value = "rows")int rows);
+
+    /**
+     * login
+     * @param account
+     * @param password
+     * @return
+     */
+    Response<UserBean> login(String account, String password);
 }

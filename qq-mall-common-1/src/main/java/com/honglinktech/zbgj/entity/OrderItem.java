@@ -4,6 +4,7 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class OrderItem {
@@ -50,12 +51,12 @@ public class OrderItem {
     /**
      * 成交价格
      */
-    private Long price;
+    private BigDecimal price;
 
     /**
      * 市场价格
      */
-    private Long marketPrice;
+    private BigDecimal marketPrice;
 
     /**
      * 备注
@@ -141,19 +142,19 @@ public class OrderItem {
         this.num = num;
     }
 
-    public Long getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Long getMarketPrice() {
+    public BigDecimal getMarketPrice() {
         return marketPrice;
     }
 
-    public void setMarketPrice(Long marketPrice) {
+    public void setMarketPrice(BigDecimal marketPrice) {
         this.marketPrice = marketPrice;
     }
 

@@ -1,25 +1,19 @@
 package com.honglinktech.zbgj.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import com.honglinktech.zbgj.dao.GoodsDao;
-import com.honglinktech.zbgj.dao.UserKeepDao;
-import org.springframework.stereotype.Component;
-
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.dao.TGoodsDao;
-import com.honglinktech.zbgj.dao.TUserKeepDao;
-import com.honglinktech.zbgj.dao.helper.QueryHelper;
-import com.honglinktech.zbgj.entity.TGoods;
-import com.honglinktech.zbgj.entity.TUserKeep;
-import com.honglinktech.zbgj.service.TUserKeepService;
+import com.honglinktech.zbgj.dao.GoodsDao;
+import com.honglinktech.zbgj.dao.UserKeepDao;
+import com.honglinktech.zbgj.entity.Goods;
+import com.honglinktech.zbgj.entity.UserKeep;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class UserKeepService{
@@ -33,22 +27,22 @@ public class UserKeepService{
 	public Response<String> updateGoodsKeep(Integer userId, Integer goodsId, Boolean keep) throws BaseException {
 		String mag="";
 		if(!keep){
-			TUserKeep uk = new TUserKeep();
+			UserKeep uk = new UserKeep();
 			uk.setObjId(goodsId);
 			uk.setType(Constants.USER_KEEP_TYPE_GOODS);
 			uk.setUserId(userId);
-			tuserKeepDao.delete(uk);
+			userKeepDao.deleteKeep(uk);
 			mag = "取消收藏成功！";
 		}else{
-			TGoods tgoods = tgoodsDao.findById(goodsId);
-			TUserKeep uk = new TUserKeep();
+			Goods goods = goodsDao.selectByPrimaryKey(goodsId);
+			UserKeep uk = new UserKeep();
 			uk.setObjId(goodsId);
 			uk.setType(Constants.USER_KEEP_TYPE_GOODS);
 			uk.setUserId(userId);
-			uk.setName(tgoods.getName());
-			uk.setImgUrl(tgoods.getImgUrl());
-			uk.setPrice(tgoods.getPrice());
-			tuserKeepDao.save(uk);
+			uk.setName(goods.getName());
+			uk.setImgUrl(goods.getImgUrl());
+			uk.setPrice(goods.getPrice());
+			userKeepDao.insertSelective(uk);
 			mag = "收藏成功！";
 		}
 		return Result.success(mag);
@@ -63,17 +57,18 @@ public class UserKeepService{
 	 * @return
 	 * @throws BaseException
 	 */
-	public Response<List<TUserKeep>> findKeepPage(Integer userId,Integer type,Integer index,Integer size) throws BaseException{
+	public Response<List<UserKeep>> findKeepPage(Integer userId,Integer type,Integer index,Integer size) throws BaseException{
+
+		int start = index!=null?(index-1)*size:0;
+		int rows = size!=null?size:10;
+		Map where  = new HashMap();
+		where.put("userId", userId);
+		where.put("type", type);
+		where.put("start", start);
+		where.put("rows", rows);
+		List<UserKeep> userKeeps= userKeepDao.findByWhere(where);
 		
-		Map<String,String[]> whereMap = new HashMap<String, String[]>();
-		whereMap.put(TUserKeep.DBMaping.userId.name(), new String[]{String.valueOf(userId)});
-		whereMap.put(TUserKeep.DBMaping.type.name(), new String[]{String.valueOf(type)});
-		QueryHelper<TUserKeep> qh = new QueryHelper<TUserKeep>(whereMap);
-		qh.setIndex(index);
-		qh.setSize(size);
-		QueryHelper<TUserKeep> restQH= tuserKeepDao.findByQueryHelper(qh);
-		
-		return Result.resultSet(restQH.getResultList(), restQH.getTotalRow());
+		return Result.resultSet(userKeeps);
 		
 	}
 	

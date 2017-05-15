@@ -1,12 +1,10 @@
 package com.honglinktech.zbgj.bean;
 
+import com.honglinktech.zbgj.entity.User;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
-
-import org.springframework.jdbc.core.RowMapper;
 
 
 /**
@@ -47,6 +45,30 @@ public class UserBean implements Serializable{
 	
 	public UserBean(){
  	}
+	public UserBean(User user){
+		this.id = user.getId();
+		this.nickName = user.getNickName();
+		this.account = user.getAccount();
+		this.sign = user.getSign();
+		this.head = user.getHead();
+
+		this.exp = user.getExp();
+		this.level = user.getLevel();
+		this.email = user.getEmail();
+		this.emailIs = user.getEmailIs();
+		this.phone = user.getPhone();
+		this.phoneIs = user.getPhoneIs();
+		this.age = user.getAge();
+		this.sex = user.getSex();
+		this.sexu = user.getSexu();
+		this.marr = user.getMarr();
+		this.tryIs = user.getTryIs();
+		this.type = user.getType();
+		this.status = user.getStatus();
+		this.from = user.getFrom();
+		this.updateTime = user.getUpdateTime();
+		this.createTime = user.getCreateTime();
+	}
  	public UserBean(Integer id,String nickName,String account,String password,String sign,String head,BigDecimal virtualMoney,BigDecimal money,Integer point,Integer exp,Integer level,String email,Integer emailIs,String phone,Integer phoneIs,String age,Integer sex,Integer sexu,Integer marr,Integer tryIs,Integer type,Integer status,String from){
  		this.id = id;
 		this.nickName = nickName;

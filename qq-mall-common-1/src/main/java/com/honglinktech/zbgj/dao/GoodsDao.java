@@ -4,6 +4,7 @@
  */
 package com.honglinktech.zbgj.dao;
 
+import com.honglinktech.zbgj.bean.GoodsBean;
 import com.honglinktech.zbgj.entity.Goods;
 
 public interface GoodsDao {
@@ -38,4 +39,13 @@ public interface GoodsDao {
      * @mbggenerated
      */
     int updateByPrimaryKeySelective(Goods record);
+
+    /*****************************************************************************************************/
+    /**
+     * App find by Id
+     * @param id
+     * @param userId
+     * @return
+     */
+    GoodsBean appFindKeepById(int id, int userId);
 }

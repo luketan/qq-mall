@@ -5,6 +5,10 @@
 package com.honglinktech.zbgj.dao;
 
 import com.honglinktech.zbgj.entity.ShoppingCartFormat;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ShoppingCartFormatDao {
     /**
@@ -38,4 +42,26 @@ public interface ShoppingCartFormatDao {
      * @mbggenerated
      */
     int updateByPrimaryKeySelective(ShoppingCartFormat record);
+
+    /**********************************************************************************************/
+    /**
+     *
+     * @param map
+     * @return
+     */
+    List<ShoppingCartFormat> findByWhere(Map map);
+
+    /**
+     * 批量插入
+     * @param shoppingCartFormats
+     * @return
+     */
+    int saveBatch(List<ShoppingCartFormat> shoppingCartFormats);
+
+    /**
+     * 删除
+     * @param shoppingId
+     * @return
+     */
+    int deleteByShoppingId(@Param(value = "shoppingId")Integer shoppingId);
 }

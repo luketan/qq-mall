@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.honglinktech.zbgj.dao.FeedBackDao">
-
   <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.FeedBack">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
@@ -9,26 +8,18 @@
     <result column="read_is" jdbcType="INTEGER" property="readIs" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.honglinktech.zbgj.entity.FeedBackWithBLOBs">
-    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
-    <result column="reply" jdbcType="LONGVARCHAR" property="reply" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="reply" jdbcType="VARCHAR" property="reply" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, user_id, reply_time, read_is, update_time, create_time
+    id, user_id, reply_time, read_is, update_time, create_time, detail, reply
   </sql>
 
-  <sql id="Blob_Column_List">
-    detail, reply
-  </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     FROM t_feed_back
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
@@ -38,7 +29,7 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.FeedBackWithBLOBs">
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.FeedBack">
     INSERT INTO t_feed_back
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -94,7 +85,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.FeedBackWithBLOBs">
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.FeedBack">
     UPDATE t_feed_back
     <set>
       <if test="userId != null">
@@ -121,124 +112,19 @@
     </set>
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
-
-  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.FeedBack">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="reply_time" jdbcType="TIMESTAMP" property="replyTime" />
-    <result column="read_is" jdbcType="INTEGER" property="readIs" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.honglinktech.zbgj.entity.FeedBackWithBLOBs">
-    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
-    <result column="reply" jdbcType="LONGVARCHAR" property="reply" />
-  </resultMap>
-
-  <sql id="Base_Column_List">
-    id, user_id, reply_time, read_is, update_time, create_time
-  </sql>
-
-  <sql id="Blob_Column_List">
-    detail, reply
-  </sql>
-
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    SELECT 
+  <!--******************************************************************************************************************-->
+  <select id="findByWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     FROM t_feed_back
-    WHERE id = #{id,jdbcType=INTEGER}
+    WHERE 1=1
+    <if test="userId != null">
+        AND user_id = userId
+    </if>
+    ORDER BY update_time desc
+    <if test="start != null and rows != null">
+      limit #{start}, #{rows}
+    </if>
+
   </select>
-
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    DELETE FROM t_feed_back
-    WHERE id = #{id,jdbcType=INTEGER}
-  </delete>
-
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.FeedBackWithBLOBs">
-    INSERT INTO t_feed_back
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="replyTime != null">
-        reply_time,
-      </if>
-      <if test="readIs != null">
-        read_is,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="detail != null">
-        detail,
-      </if>
-      <if test="reply != null">
-        reply,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="replyTime != null">
-        #{replyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="readIs != null">
-        #{readIs,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="detail != null">
-        #{detail,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="reply != null">
-        #{reply,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.FeedBackWithBLOBs">
-    UPDATE t_feed_back
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="replyTime != null">
-        reply_time = #{replyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="readIs != null">
-        read_is = #{readIs,jdbcType=INTEGER},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="detail != null">
-        detail = #{detail,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="reply != null">
-        reply = #{reply,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    WHERE id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

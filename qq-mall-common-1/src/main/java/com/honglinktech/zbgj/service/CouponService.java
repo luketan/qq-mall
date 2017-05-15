@@ -54,24 +54,26 @@ public class CouponService {
 		List<Coupon> tcoupons = couponDao.findCoupons(whereMap);
 		return Result.resultSet(tcoupons);
 	}
+
 	/**
-	 *  删除券
-	 * @param valueOf
+	 * 删除券
+	 * @param userId
 	 * @param couponId
 	 * @return
-	 * @throws BaseException 
+	 * @throws BaseException
 	 */
 	public Response<Integer> deleteCoupon(Integer userId, Integer couponId) throws BaseException {
 		
 		int result = couponUserDao.deleteByUserIdAndCouponId(userId, couponId);
 		return Result.resultSet(result);
 	}
+
 	/**
 	 * 获取用户单个优惠券
-	 * @param valueOf
+	 * @param userId
 	 * @param couponId
 	 * @return
-	 * @throws BaseException 
+	 * @throws BaseException
 	 */
 	public Coupon findUserCoupon(Integer userId, Integer couponId) throws BaseException {
 		List<Coupon> tcoupons = couponDao.findCouponByUser(userId, couponId);
@@ -82,13 +84,13 @@ public class CouponService {
 		}
 		
 	}
-	
+
 	/**
-	 *  使用券
-	 * @param valueOf
+	 * 使用券
+	 * @param userId
 	 * @param couponId
 	 * @return
-	 * @throws BaseException 
+	 * @throws BaseException
 	 */
 	public Response<String> useCoupon(Integer userId, Integer couponId) throws BaseException {		
 		int result = couponUserDao.useCoupon(userId, couponId);

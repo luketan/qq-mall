@@ -1,19 +1,5 @@
 package com.honglinktech.zbgj.service;
 
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-
 import com.google.gson.Gson;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
@@ -28,35 +14,52 @@ import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.dao.CouponDao;
 import com.honglinktech.zbgj.dao.FormatSubDao;
+import com.honglinktech.zbgj.dao.GoodsActivityDao;
+import com.honglinktech.zbgj.dao.GoodsDao;
 import com.honglinktech.zbgj.dao.OrderDao;
 import com.honglinktech.zbgj.dao.OrderItemDao;
 import com.honglinktech.zbgj.dao.PaymentDao;
 import com.honglinktech.zbgj.dao.PaymentUserDao;
 import com.honglinktech.zbgj.dao.PostDetailDao;
 import com.honglinktech.zbgj.dao.UserAddressDao;
+import com.honglinktech.zbgj.entity.Coupon;
+import com.honglinktech.zbgj.entity.Goods;
 import com.honglinktech.zbgj.entity.Order;
 import com.honglinktech.zbgj.entity.OrderItem;
 import com.honglinktech.zbgj.entity.PostDetail;
+import com.honglinktech.zbgj.entity.UserAddress;
 import com.honglinktech.zbgj.enums.OrderStatusEnum;
 import com.honglinktech.zbgj.utils.RandomUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class OrderService{
 
 	@Autowired
-	private OrderDao torderDao;
+	private OrderDao orderDao;
 	@Autowired
-	private OrderItemDao torderItemDao;
+	private OrderItemDao orderItemDao;
 	@Autowired
-	private UserAddressDao tuserAddressDao;
+	private UserAddressDao userAddressDao;
 	@Autowired
-	private PostDetailDao tpostDetailDao;
+	private PostDetailDao postDetailDao;
 	@Autowired
 	private ShoppingCartService shoppingCartService;
 	@Autowired
 	private UserAddressService userAddressService;
 	@Autowired
-	private ActivityDao activityDao;
+	private GoodsActivityDao activityDao;
 	@Resource
 	private CouponDao couponDao;
 	@Resource
@@ -64,9 +67,11 @@ public class OrderService{
 	@Resource
 	private GoodsService goodsService;
 	@Resource
+	private GoodsDao goodsDao;
+	@Resource
 	private FormatSubDao formatSubDao;
 	@Resource
-	private PaymentUserDao tpaymentUserDao;
+	private PaymentUserDao paymentUserDao;
 	@Resource
 	private PaymentDao paymentDao;
 	
@@ -84,7 +89,7 @@ public class OrderService{
 		if(map.containsKey("goodsId") && map.containsKey("num")){
 			//TODO 直接购买
 			int goodsId = Integer.valueOf(map.get("goodsId").toString());
-			TGoods goods = goodsService.findById(goodsId);
+			Goods goods = goodsDao.selectByPrimaryKey(goodsId);
 			
 			ShoppingCartBean scb = new ShoppingCartBean();
 			scb.setNum(Integer.valueOf(map.get("num").toString()));
@@ -100,7 +105,7 @@ public class OrderService{
 				List<Integer> formatSubIds = (List<Integer>)map.get("formatSubIds");
 				if(formatSubIds!=null && formatSubIds.size()>0){
 					List<FormatSubBean> formatSubBeans = formatSubDao.findFormatSubByIds(formatSubIds);
-					scb.setFormatSubBeanList(formatSubDao.findFormatSubByIds(formatSubIds));
+					scb.setFormatSubBeanList(formatSubBeans);
 					//规格价格处理
 					if(formatSubBeans != null){
 						for(FormatSubBean fsb:formatSubBeans){
@@ -117,12 +122,11 @@ public class OrderService{
 			
 		}else{
 			//商品信息 - 购物车提取
-			Map<String,Object> scWhereMap = new HashMap<String, Object>();
-			scWhereMap.put(TShoppingCart.DBMaping.userId.name(),userId);
-			scWhereMap.put(TShoppingCart.DBMaping.checkbox.name(),1);
-			Response<List<ShoppingCartBean>> scResponse = shoppingCartService.findShoppingBeansGoodsInfoByMap(scWhereMap);
+			Map scWhereMap = new HashMap();
+			scWhereMap.put("userId", userId);
+			scWhereMap.put("checkbox", 1);
+			Response<List<ShoppingCartBean>> scResponse = shoppingCartService.findShoppingBeansByMap(scWhereMap);
 			shoppingCartBeanList = scResponse.getResult();
-			
 		}
 		restultMap.put("shoppingCarts", shoppingCartBeanList);
 		
@@ -143,11 +147,11 @@ public class OrderService{
 				}
 			}
 		}
-		Response<List<TCoupon>> respCoupon = couponService.findCoupons(userId, null, null, 1);
-		List<TCoupon> couponList = respCoupon.getResult();
+		Response<List<Coupon>> respCoupon = couponService.findCoupons(userId, null, null, 1);
+		List<Coupon> couponList = respCoupon.getResult();
 		List<CouponBean> couponBeanList = new ArrayList<CouponBean>();
 		if(couponList!=null){
-			for(TCoupon tcoupon:couponList){
+			for(Coupon tcoupon:couponList){
 				CouponBean couponBean = new CouponBean(tcoupon);
 				if(tcoupon.getType()==0){
 					if(tcoupon.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){
@@ -215,10 +219,7 @@ public class OrderService{
 		restultMap.put("goodsTotalPrice", goodsTotalPrice);
 		
 		//地址
-		Map<String,String[]> addressWhereMap = new HashMap<String, String[]>();
-		addressWhereMap.put(TUserAddress.DBMaping.userId.name(), new String[]{userId+""});
-		addressWhereMap.put(TUserAddress.DBMaping.status.name(), new String[]{"1"});
-		List<TUserAddress> userAddressList = userAddressService.findByWhere(addressWhereMap);
+		List<UserAddress> userAddressList = userAddressService.findAddressById(userId, 1);
 		restultMap.put("userAddressList", userAddressList);
 		
 		return Result.resultSet(restultMap);
@@ -236,7 +237,7 @@ public class OrderService{
 		if(map.containsKey("goodsId") && map.containsKey("num")){
 			//直接购买
 			int goodsId = Integer.valueOf(map.get("goodsId").toString());
-			TGoods goods = goodsService.findById(goodsId);
+			Goods goods = goodsDao.selectByPrimaryKey(goodsId);
 			
 			ShoppingCartBean scb = new ShoppingCartBean();
 			scb.setNum(Integer.valueOf(map.get("num").toString()));
@@ -271,9 +272,9 @@ public class OrderService{
 			isByShoppingCart = true;
 			//商品信息 - 购物车提取
 			Map<String,Object> scWhereMap = new HashMap<String, Object>();
-			scWhereMap.put(TShoppingCart.DBMaping.userId.name(),userId);
-			scWhereMap.put(TShoppingCart.DBMaping.checkbox.name(),1);
-			Response<List<ShoppingCartBean>> scResponse = shoppingCartService.findShoppingBeansGoodsInfoByMap(scWhereMap);
+			scWhereMap.put("userId", userId);
+			scWhereMap.put("checkbox", 1);
+			Response<List<ShoppingCartBean>> scResponse = shoppingCartService.findShoppingBeansByMap(scWhereMap);
 			shoppingCartBeanList = scResponse.getResult();
 			
 		}
@@ -322,7 +323,7 @@ public class OrderService{
 		BigDecimal couponMoney = new BigDecimal(0);
 		int couponId = 0;//优惠券ID用于修改已经使用
 		if(!StringUtils.isEmpty(map.get("couponId"))){
-			TCoupon tcoupon = couponService.findUserCoupon(userId, Integer.valueOf(map.get("couponId").toString()));
+			Coupon tcoupon = couponService.findUserCoupon(userId, Integer.valueOf(map.get("couponId").toString()));
 			if(tcoupon!=null){
 				if(tcoupon.getType()==0){//全场适用
 					if(tcoupon.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){

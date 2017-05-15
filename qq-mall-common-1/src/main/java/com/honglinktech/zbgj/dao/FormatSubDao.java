@@ -4,7 +4,11 @@
  */
 package com.honglinktech.zbgj.dao;
 
+import com.honglinktech.zbgj.bean.FormatSubBean;
 import com.honglinktech.zbgj.entity.FormatSub;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface FormatSubDao {
     /**
@@ -38,4 +42,12 @@ public interface FormatSubDao {
      * @mbggenerated
      */
     int updateByPrimaryKeySelective(FormatSub record);
+
+    /************************************************************************************************/
+    /**
+     *
+     * @param shoppingId
+     * @return
+     */
+    List<FormatSubBean> findFormatSubByShoppingId(@Param(value = "shoppingId")Integer shoppingId);
 }

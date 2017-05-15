@@ -62,65 +62,27 @@
     </set>
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
-
-  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.ShoppingCartFormat">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="shopping_cart_id" jdbcType="INTEGER" property="shoppingCartId" />
-    <result column="format_sub_id" jdbcType="INTEGER" property="formatSubId" />
-  </resultMap>
-
-  <sql id="Base_Column_List">
-    id, shopping_cart_id, format_sub_id
-  </sql>
-
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    SELECT 
+  <!--***********************************************************************************************************************************-->
+  <select id="findByWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
     <include refid="Base_Column_List" />
     FROM t_shopping_cart_format
-    WHERE id = #{id,jdbcType=INTEGER}
+    WHERE 1=1
+    <if test="shoppingCartId != null">
+        shopping_cart_id = #{shoppingCartId}
+    </if>
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    DELETE FROM t_shopping_cart_format
-    WHERE id = #{id,jdbcType=INTEGER}
-  </delete>
-
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.ShoppingCartFormat">
-    INSERT INTO t_shopping_cart_format
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="shoppingCartId != null">
-        shopping_cart_id,
-      </if>
-      <if test="formatSubId != null">
-        format_sub_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="shoppingCartId != null">
-        #{shoppingCartId,jdbcType=INTEGER},
-      </if>
-      <if test="formatSubId != null">
-        #{formatSubId,jdbcType=INTEGER},
-      </if>
-    </trim>
+  <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.ShoppingCartFormat">
+    INSERT INTO t_shopping_cart_format(shopping_cart_id,format_sub_id) values
+    <foreach collection="shoppingCartFormats" item="shoppingCartFormat" index="index"
+             open="(" close=")" separator=",">
+      #{shoppingCartFormat.shoppingCartId,jdbcType=INTEGER},#{shoppingCartFormat.formatSubId,jdbcType=INTEGER}
+    </foreach>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.ShoppingCartFormat">
-    UPDATE t_shopping_cart_format
-    <set>
-      <if test="shoppingCartId != null">
-        shopping_cart_id = #{shoppingCartId,jdbcType=INTEGER},
-      </if>
-      <if test="formatSubId != null">
-        format_sub_id = #{formatSubId,jdbcType=INTEGER},
-      </if>
-    </set>
-    WHERE id = #{id,jdbcType=INTEGER}
-  </update>
+  <delete id="deleteByShoppingId" parameterType="java.lang.Integer">
+    DELETE FROM t_shopping_cart_format
+    WHERE shopping_cart_id = #{shoppingId,jdbcType=INTEGER}
+  </delete>
 </mapper>

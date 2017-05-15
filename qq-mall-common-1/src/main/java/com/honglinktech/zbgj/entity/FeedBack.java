@@ -37,6 +37,16 @@ public class FeedBack {
      */
     private Date createTime;
 
+    /**
+     * 反馈详情
+     */
+    private String detail;
+
+    /**
+     * 系统回复
+     */
+    private String reply;
+
     public Integer getId() {
         return id;
     }
@@ -83,5 +93,21 @@ public class FeedBack {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 }

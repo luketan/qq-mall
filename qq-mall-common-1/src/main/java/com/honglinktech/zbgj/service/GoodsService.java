@@ -7,6 +7,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.entity.GoodsActivity;
+import com.honglinktech.zbgj.entity.GoodsFormat;
+import com.honglinktech.zbgj.entity.Pic;
 import org.springframework.stereotype.Component;
 
 import com.honglinktech.zbgj.base.BaseException;
@@ -33,30 +36,26 @@ import com.honglinktech.zbgj.dao.PicDao;
 public class GoodsService{
 
 	@Resource
-	private GoodsDao tgoodsDao;
+	private GoodsDao goodsDao;
 	@Resource
-	private GoodsBeanDao goodsBeanDao;
+	private GoodsActivityDao goodsActivityDao;
 	@Resource
-	private GoodsActivityDao tgoodsActivityDao;
+	private GoodsFormatDao goodsFormatDao;
 	@Resource
-	private GoodsFormatDao tgoodsFormatDao;
-	@Resource
-	private ActivityDao activityDao;
+	private GoodsActivityDao activityDao;
 	@Resource
 	private FormatDao formatDao;
 	@Resource
 	private FormatSubDao formatSubDao;
 	@Resource
-	private PicDao tPicDao;
-	@Resource
-	private GoodsDisDao tgoodsDisDao;
+	private PicDao picDao;
 	@Resource
 	private PicService picService;
 	@Resource
 	private GoodsDisService goodsDisService;
 	
 	public Response<GoodsBean> findGoodsBeanById(int id, int userId, int index, int size) throws BaseException{
-		GoodsBean goodsBean = goodsBeanDao.appFindById(id, userId);
+		GoodsBean goodsBean = goodsDao.appFindKeepById(id, userId);
 		//活动
 		List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
 		//规格
@@ -101,96 +100,93 @@ public class GoodsService{
 				whereMap.put("maxPrice", maxPrice);
 			}
 		}
-		List<GoodsBean> goodsListBeans = goodsBeanDao.findGoodsSearchBeansByMap(whereMap);
+		List<GoodsBean> goodsListBeans = goodsDao.findGoodsSearchBeansByMap(whereMap);
 		return Result.resultSet(goodsListBeans);
 	}
 	
 	public void saveGoods(GoodsItem goodsItem) throws BaseException{
-		int goodsId = tgoodsDao.save(goodsItem.getTGoods());
+		int goodsId = goodsDao.insertSelective(goodsItem.getGoods());
 		Integer[] goodsFormats = goodsItem.getGoodsFormats();
 		Integer[] goodsActivitys = goodsItem.getGoodsActivitys();
 		String[] goodsImgs = goodsItem.getGoodsImgs();
-		List<TGoodsActivity> goodsActivityList = new ArrayList<TGoodsActivity>();
+		List<GoodsActivity> goodsActivityList = new ArrayList<GoodsActivity>();
 		if(goodsActivitys!=null){
 			for(Integer activityId:goodsActivitys){
-				TGoodsActivity ga = new TGoodsActivity();
+				GoodsActivity ga = new GoodsActivity();
 				ga.setActivityId(activityId);
 				ga.setGoodsId(goodsId);
 				goodsActivityList.add(ga);
 			}
 		}
-		tgoodsActivityDao.saveBatch(goodsActivityList);
-		List<TGoodsFormat> goodsFormatList = new ArrayList<TGoodsFormat>();
+		goodsActivityDao.saveBatch(goodsActivityList);
+		List<GoodsFormat> goodsFormatList = new ArrayList<GoodsFormat>();
 		if(goodsFormats!=null){
 			for(Integer formatId:goodsFormats){
-				TGoodsFormat gf = new TGoodsFormat();
+				GoodsFormat gf = new GoodsFormat();
 				gf.setFormatId(formatId);
 				gf.setGoodsId(goodsId);
 				goodsFormatList.add(gf);
 			}
 		}
-		tgoodsFormatDao.saveBatch(goodsFormatList);
-		List<TPic> goodsImgList = new ArrayList<TPic>();
+		goodsFormatDao.saveBatch(goodsFormatList);
+		List<Pic> goodsImgList = new ArrayList<TPic>();
 		if(goodsImgs!=null){
 			for(String goodsImg:goodsImgs){
-				TPic tpic = new TPic();
+				Pic tpic = new Pic();
 				tpic.setObjId(goodsId);
 				tpic.setPicUrl(goodsImg);
 				tpic.setType(Constants.PIC_GOODS);
 				goodsImgList.add(tpic);
 			}
 		}
-		tPicDao.saveBatch(goodsImgList);
-		
+		PicDao.saveBatch(goodsImgList);
 	}
-	
-	
+
 	public void updateGoods(GoodsItem goodsItem) throws BaseException{
 		int goodsId = goodsItem.getId();
-		tgoodsDao.update(goodsItem.getTGoods());
+		goodsDao.updateByPrimaryKeySelective(goodsItem.getGoods());
 		Integer[] goodsFormats = goodsItem.getGoodsFormats();
 		Integer[] goodsActivitys = goodsItem.getGoodsActivitys();
 		String[] goodsImgs = goodsItem.getGoodsImgs();
 		
-		List<TGoodsActivity> goodsActivityList = new ArrayList<TGoodsActivity>();
+		List<GoodsActivity> goodsActivityList = new ArrayList<GoodsActivity>();
 		if(goodsActivitys!=null){
 			for(Integer activityId:goodsActivitys){
-				TGoodsActivity ga = new TGoodsActivity();
+				GoodsActivity ga = new GoodsActivity();
 				ga.setActivityId(activityId);
 				ga.setGoodsId(goodsId);
 				goodsActivityList.add(ga);
 			}
 		}
-		tgoodsActivityDao.delete(new TGoodsActivity(goodsId, null));
-		tgoodsActivityDao.saveBatch(goodsActivityList);
-		
-		
-		List<TGoodsFormat> goodsFormatList = new ArrayList<TGoodsFormat>();
+		goodsActivityDao.deleteByGoodsId(goodsId);
+		goodsActivityDao.saveBatch(goodsActivityList);
+
+		List<GoodsFormat> goodsFormatList = new ArrayList<GoodsFormat>();
 		if(goodsFormats!=null){
 			for(Integer formatId:goodsFormats){
-				TGoodsFormat gf = new TGoodsFormat();
+				GoodsFormat gf = new GoodsFormat();
 				gf.setFormatId(formatId);
 				gf.setGoodsId(goodsId);
 				goodsFormatList.add(gf);
 			}
 		}
-		tgoodsFormatDao.delete(new TGoodsFormat(goodsId, null));
-		tgoodsFormatDao.saveBatch(goodsFormatList);
+		goodsFormatDao.deleteByGoodsId(goodsId);
+		goodsFormatDao.saveBatch(goodsFormatList);
 		
 		System.out.println(goodsImgs);
 		System.out.println(goodsImgs.length);
-		List<TPic> goodsImgList = new ArrayList<TPic>();
+		List<Pic> goodsImgList = new ArrayList<Pic>();
 		if(goodsImgs!=null){
 			for(String goodsImg:goodsImgs){
-				TPic tpic = new TPic();
-				tpic.setObjId(goodsId);
-				tpic.setPicUrl(goodsImg);
-				tpic.setType(Constants.PIC_GOODS);
-				goodsImgList.add(tpic);
+				Pic pic = new Pic();
+				pic.setObjId(goodsId);
+				pic.setPicUrl(goodsImg);
+				pic.setType(Constants.PIC_GOODS);
+				goodsImgList.add(pic);
 			}
 		}
-		tPicDao.delete(new TPic(null, goodsId,Constants.PIC_GOODS,Constants.PIC_URL_TYPE_HTTP,null,null));
-		tPicDao.saveBatch(goodsImgList);
+		picDao.delete(new Pic(null, goodsId,Constants.PIC_GOODS,Constants.PIC_URL_TYPE_HTTP,null,null));
+		picDao.saveBatch(goodsImgList);
 	}
 
 	
