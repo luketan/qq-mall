@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.GoodsTypeSubDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.GoodsTypeSub">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="goods_type" jdbcType="INTEGER" property="goodsType" />
+    <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, goods_type, delete_flag, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_goods_type_sub
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_goods_type_sub
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsTypeSub">
+    INSERT INTO t_goods_type_sub
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="goodsType != null">
+        goods_type,
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag,
+      </if>
+        create_time,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=INTEGER},
+      </if>
+        now(),
+        now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsTypeSub">
+    UPDATE t_goods_type_sub
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        goods_type = #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null">
+        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      </if>
+        update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--****************************************************************************-->
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_goods_type_sub
+    WHERE delete_flag = 0
+  </select>
+  <select id="findByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsTypeSubBean">
+    SELECT
+    gts.id,
+    gts.name,
+    gts.goods_type as goodsType,
+    gt.name as typeName,
+    gts.create_time,
+    gts.update_time
+    FROM t_goods_type_sub gts LEFT JOIN t_goods_type gt ON (gts.goods_type = gt.id)
+    WHERE gts.delete_flag = 0
+    <if test="goodsType != null">
+      and gts.goods_type = #{goodsType,jdbcType=TIMESTAMP}
+    </if>
+    <if test="start!=null and rows!=null">
+      limit #{start},#{rows}
+    </if>
+  </select>
+  <select id="findCount" parameterType="map" resultType="java.lang.Integer">
+    SELECT
+      count(1)
+    FROM t_goods_type_sub
+    WHERE delete_flag = 0
+    <if test="goodsType != null">
+      and goods_type = #{goodsType,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+</mapper>

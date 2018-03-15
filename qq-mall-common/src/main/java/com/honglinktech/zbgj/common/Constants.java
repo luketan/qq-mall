@@ -1,8 +1,8 @@
 package com.honglinktech.zbgj.common;
 
-import java.math.BigDecimal;
-
 import org.springframework.context.annotation.Configuration;
+
+import java.math.BigDecimal;
 
 /**
  * 常量类

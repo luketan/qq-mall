@@ -6,6 +6,18 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.entity.ChangeLog;
+import com.honglinktech.zbgj.entity.Coupon;
+import com.honglinktech.zbgj.entity.User;
+import com.honglinktech.zbgj.entity.UserAddress;
+import com.honglinktech.zbgj.entity.UserKeep;
+import com.honglinktech.zbgj.service.ChangeLogService;
+import com.honglinktech.zbgj.service.CouponService;
+import com.honglinktech.zbgj.service.FeedBackService;
+import com.honglinktech.zbgj.service.UserAddressService;
+import com.honglinktech.zbgj.service.UserKeepService;
+import com.honglinktech.zbgj.service.UserService;
+import com.honglinktech.zbgj.vo.UserLoginVO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,15 +35,6 @@ import com.honglinktech.zbgj.bean.UserLoginBean;
 import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.entity.TChangeLog;
-import com.honglinktech.zbgj.entity.TCoupon;
-import com.honglinktech.zbgj.entity.TUser;
-import com.honglinktech.zbgj.entity.TUserAddress;
-import com.honglinktech.zbgj.entity.TUserKeep;
-import com.honglinktech.zbgj.service.self.CouponService;
-import com.honglinktech.zbgj.service.self.UserAddressService;
-import com.honglinktech.zbgj.service.self.UserKeepService;
-import com.honglinktech.zbgj.service.self.UserService;
 
 @RestController
 @RequestMapping("/user/api")
@@ -42,15 +45,18 @@ public class UserController extends BaseApiController {
 	private UserAddressService userAddressService;
 	@Resource
 	private CouponService couponService;
-	
 	@Resource
 	private UserKeepService userKeepService;
+	@Resource
+	private FeedBackService feedBackService;
+	@Resource
+	private ChangeLogService changeLogService;
 	
 	@RequestMapping(value="login",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<UserLoginBean> login(@RequestBody TUser tuser) throws BaseException{
+	public Response<UserLoginVO> login(@RequestBody User user) throws BaseException{
 		
-		Response<UserLoginBean> resp = userService.login(tuser.getAccount(),tuser.getPassword());
+		Response<UserLoginVO> resp = userService.login(user.getAccount(), user.getPassword());
 
 		return resp; 
 	}
@@ -71,7 +77,7 @@ public class UserController extends BaseApiController {
 	
 	@RequestMapping(value="findMoneyLogPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<TChangeLog>> findMoneyLogPage(@RequestHeader HttpHeaders headers,@RequestBody Map<String, String> req) throws BaseException{
+	public Response<List<ChangeLog>> findMoneyLogPage(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
 	        	
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
@@ -80,13 +86,13 @@ public class UserController extends BaseApiController {
 		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
 		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
 		
-		Response<List<TChangeLog>> response = userService.findChangeLog(Integer.valueOf(userCode), Constants.CHANGE_MONEY, index, size);
+		Response<List<ChangeLog>> response = changeLogService.findChangeLog(Integer.valueOf(userCode), Constants.CHANGE_MONEY, index, size);
 		return response; 
 	}
 	
 	@RequestMapping(value="findPointLogPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<TChangeLog>> findPointLogPage(@RequestHeader HttpHeaders headers,@RequestBody Map<String, String> req) throws BaseException{
+	public Response<List<ChangeLog>> findPointLogPage(@RequestHeader HttpHeaders headers,@RequestBody Map<String, String> req) throws BaseException{
 	        	
 	        	
 		String userCode =  headers.getFirst("userId");
@@ -96,14 +102,14 @@ public class UserController extends BaseApiController {
 		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
 		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
 		
-		Response<List<TChangeLog>> response = userService.findChangeLog(Integer.valueOf(userCode), Constants.CHANGE_POINT, index, size);
+		Response<List<ChangeLog>> response = changeLogService.findChangeLog(Integer.valueOf(userCode), Constants.CHANGE_POINT, index, size);
 		return response; 
 		
 	}
 	
 	@RequestMapping(value="findKeepPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<TUserKeep>> findKeepPage(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
+	public Response<List<UserKeep>> findKeepPage(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
 	        	
 	    String userCode =  headers.getFirst("userId");
 	    if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
@@ -115,26 +121,26 @@ public class UserController extends BaseApiController {
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"type");
 		}
 		Integer type = Integer.valueOf(req.get("type"));
-		Response<List<TUserKeep>> resp = userKeepService.findKeepPage(Integer.valueOf(userCode), type, index, size);
+		Response<List<UserKeep>> resp = userKeepService.findKeepPage(Integer.valueOf(userCode), type, index, size);
 
 		return resp; 
 	}
 	@RequestMapping(value="saveOrUpdateKeep",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<String> saveOrUpdateKeep(@RequestHeader HttpHeaders headers,@RequestBody TUserKeep tuserKeep) throws BaseException{
+	public Response<String> saveOrUpdateKeep(@RequestHeader HttpHeaders headers,@RequestBody UserKeep userKeep) throws BaseException{
 	    
 		String userCode =  headers.getFirst("userId");
 	     
 		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
 			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
-		tuserKeep.setUserId(Integer.valueOf(userCode));
-		Response<String> resp = userKeepService.updateGoodsKeep(Integer.valueOf(userCode), tuserKeep.getObjId(), !(tuserKeep.getId() != null && tuserKeep.getId() > 0));
+		userKeep.setUserId(Integer.valueOf(userCode));
+		Response<String> resp = userKeepService.updateGoodsKeep(Integer.valueOf(userCode), userKeep.getObjId(), !(userKeep.getId() != null && userKeep.getId() > 0));
 		return resp; 
 	}
 	@RequestMapping(value="findAddressById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<TUserAddress> findAddressById(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
+	public Response<UserAddress> findAddressById(@RequestBody Map<String, String> req, @RequestHeader HttpHeaders headers) throws BaseException{
 	        	
 	    String userCode =  headers.getFirst("userId");
 	    if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
@@ -145,33 +151,33 @@ public class UserController extends BaseApiController {
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"ID");
 		}
 		Integer id = req.get("id")==null?1:Integer.valueOf(req.get("id"));
-		Response<TUserAddress> resp = userAddressService.findAddressById(Integer.valueOf(userCode), id);
+		Response<UserAddress> resp = userAddressService.findAddressById(Integer.valueOf(userCode), id);
 
 		return resp; 
 	}
 	@RequestMapping(value="findAddressList",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<TUserAddress>> findAddressList(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
+	public Response<List<UserAddress>> findAddressList(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
 	        	
 	    String userCode =  headers.getFirst("userId");
 	    if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
 			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
-		Response<List<TUserAddress>> resp = userAddressService.findAddress(Integer.valueOf(userCode));
+		Response<List<UserAddress>> resp = userAddressService.findAddress(Integer.valueOf(userCode));
 
 		return resp; 
 	}
 	@RequestMapping(value="updateAddressDefault",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<String> updateAddressDefault(@RequestHeader HttpHeaders headers,@RequestBody TUserAddress tuserAddress) throws BaseException{
+	public Response<String> updateAddressDefault(@RequestHeader HttpHeaders headers,@RequestBody UserAddress userAddress) throws BaseException{
 	    
 		String userCode =  headers.getFirst("userId");
 	     
 		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
 			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
-		tuserAddress.setUserId(Integer.valueOf(userCode));
-		Response<String> resp = userAddressService.updateAddressDefault(tuserAddress);
+		userAddress.setUserId(Integer.valueOf(userCode));
+		Response<String> resp = userAddressService.updateAddressDefault(userAddress);
 
 		return resp; 
 	}
@@ -195,7 +201,7 @@ public class UserController extends BaseApiController {
 	}
 	@RequestMapping(value="findCouponPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<TCoupon>> findCouponPage(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
+	public Response<List<Coupon>> findCouponPage(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
 	    
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
@@ -204,13 +210,13 @@ public class UserController extends BaseApiController {
 		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
 		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
 		int type = req.get("type")==null?0:Integer.valueOf(req.get("type"));
-		Response<List<TCoupon>> resp = couponService.findCoupons(Integer.valueOf(userCode), index, size, type);
+		Response<List<Coupon>> resp = couponService.findCoupons(Integer.valueOf(userCode), index, size, type);
 
 		return resp; 
 	}
 	@RequestMapping(value="deleteCoupon",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<String> deleteCoupon(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
+	public Response deleteCoupon(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
 	    
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
@@ -221,7 +227,7 @@ public class UserController extends BaseApiController {
 		}
 		Integer couponId = Integer.valueOf(req.get("couponId"));
 		
-		Response<String> resp = couponService.deleteCoupon(Integer.valueOf(userCode), couponId);
+		Response<Integer> resp = couponService.deleteCoupon(Integer.valueOf(userCode), couponId);
 
 		return resp; 
 	}
@@ -234,7 +240,7 @@ public class UserController extends BaseApiController {
 	 */
 	@RequestMapping(value="findRedMoneyLog",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<TChangeLog>> findRedMoneyLog(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
+	public Response<List<ChangeLog>> findRedMoneyLog(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
 			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
@@ -242,7 +248,7 @@ public class UserController extends BaseApiController {
 		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
 		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
 		
-		Response<List<TChangeLog>> response = userService.findChangeLog(Integer.valueOf(userCode), Constants.CHANGE_VIRTUAL_MONEY, index, size);
+		Response<List<ChangeLog>> response = changeLogService.findChangeLog(Integer.valueOf(userCode), Constants.CHANGE_VIRTUAL_MONEY, index, size);
 		return response; 
 	}
 	/**
@@ -263,7 +269,7 @@ public class UserController extends BaseApiController {
 		if(StringUtils.isEmpty(id) || Integer.valueOf(id)<=0){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"id");
 		}
-		Response<FeedBackBean> response = userService.findFeedBackById(Integer.valueOf(userCode), Integer.valueOf(id));
+		Response<FeedBackBean> response = feedBackService.findFeedBackById(Integer.valueOf(userCode), Integer.valueOf(id));
 		return response; 
 	}
 	/**
@@ -281,7 +287,7 @@ public class UserController extends BaseApiController {
 			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
 		String detail = req.get("detail");
-		Response<String> response = userService.saveFeedPage(Integer.valueOf(userCode), detail, null);
+		Response<String> response = feedBackService.saveFeedPage(Integer.valueOf(userCode), detail, null);
 		return response; 
 	}
 	/**
@@ -301,7 +307,7 @@ public class UserController extends BaseApiController {
 		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
 		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
 		
-		Response<List<FeedBackBean>> response = userService.findFeedBackPage(Integer.valueOf(userCode), index, size);
+		Response<List<FeedBackBean>> response = feedBackService.findFeedBackPage(Integer.valueOf(userCode), index, size);
 		return response; 
 	}
 	

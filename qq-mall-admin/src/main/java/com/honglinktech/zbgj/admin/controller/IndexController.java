@@ -1,6 +1,7 @@
 package com.honglinktech.zbgj.admin.controller;
 
 import com.honglinktech.zbgj.admin.common.Constants;
+import com.honglinktech.zbgj.entity.SystemConfig;
 import com.honglinktech.zbgj.utils.HashUtils;
 
 import org.apache.commons.logging.Log;
@@ -15,12 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by Dayong on 16/2/24.
  */
 @Controller
 @RequestMapping("/")
 public class IndexController extends BaseController {
-    private Log logger = LogFactory.getLog(getClass());
 
     @RequestMapping("index")
     public String index() {
@@ -62,10 +61,9 @@ public class IndexController extends BaseController {
             Subject subject = SecurityUtils.getSubject();
             String encryptPwd = HashUtils.encryptMD5(password, "");
             token = new UsernamePasswordToken(userName, encryptPwd);
-            System.out.println("token="+token);
             token.setRememberMe(rememberMe);
             subject.login(token);
-            return "redirect:/index.html";
+            return "redirect:index.html";
         } catch (IncorrectCredentialsException e) {
             if (token != null) {
                 token.clear();
@@ -78,7 +76,7 @@ public class IndexController extends BaseController {
             msg = e.getMessage();
         }
         model.addAttribute("error", msg);
-        return "/login";
+        return "login";
     }
 
     /**
@@ -95,6 +93,6 @@ public class IndexController extends BaseController {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        return "redirect:/login";
+        return "redirect:login";
     }
 }

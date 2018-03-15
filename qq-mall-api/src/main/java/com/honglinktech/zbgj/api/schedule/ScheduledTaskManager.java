@@ -3,6 +3,7 @@ package com.honglinktech.zbgj.api.schedule;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.honglinktech.zbgj.service.WxMpService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,25 @@ public class ScheduledTaskManager {
 
     @Autowired  
     private Environment env;
-    
+
+    /**
+     *
+     */
+    @Autowired
+    private WxMpService wxMpService;
 
     @Async
     public void autoNoticeExpiredOrder() {
     	logger.info("ScheduledTask:check order status->time["+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"]");
     	      
+    }
+    @Async
+    public void refreshWxJsTicketScheduler() {
+        try {
+            logger.info("refreshJsTicketScheduler:refresh");
+            wxMpService.refreshAllJsTicket();
+        } catch (Exception e) {
+            logger.error(e, e);
+        }
     }
 }

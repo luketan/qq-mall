@@ -3,7 +3,8 @@ package com.honglinktech.zbgj.bean;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.honglinktech.zbgj.entity.TModule;
+import com.honglinktech.zbgj.entity.Module;
+
 @SuppressWarnings("unused")
 public class HomeBean {
 	private int type;
@@ -12,7 +13,8 @@ public class HomeBean {
 	private Result results;
 	
 	public HomeBean(){}
-	public HomeBean(TModule module){
+	
+	public HomeBean(Module module){
 		this.title = module.getTitle();
 		this.type = module.getType();
 		this.url = module.getUrl();

@@ -46,8 +46,8 @@
                                             <td>${item.parentId}</td>
                                             <td>${item.name}</td>
                                             <td>${item.code}</td>
-                                            <td>${item.desc}</td>
-                                            <td><a href="/system/security/modify.html?id=${item.id}">编辑</a></td>
+                                            <td>${item.description}</td>
+                                            <td><a href="/secyrity/security/modify.html?id=${item.id}">编辑</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

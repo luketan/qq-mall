@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.honglinktech.zbgj.entity.TFeedBack;
-import com.honglinktech.zbgj.entity.TPic;
+import com.honglinktech.zbgj.entity.FeedBack;
+import com.honglinktech.zbgj.entity.Pic;
 
 
 /**
@@ -20,7 +20,7 @@ public class FeedBackBean implements Serializable{
 	private Date createTime=null;
 	private Date replyTime;
 	private String reply;
-	private List<TPic> picList;
+	private List<PicBean> picBeanList;
 	/**
 	 * 
 	 */
@@ -29,14 +29,14 @@ public class FeedBackBean implements Serializable{
 	public FeedBackBean(){
  	}
 	
-	public FeedBackBean(TFeedBack tfeedBack){
- 		this.id = tfeedBack.getId();
-		this.userId = tfeedBack.getUserId();
-		this.detail = tfeedBack.getDetail();
-		this.readIs = tfeedBack.getReadIs();
-		this.replyTime = tfeedBack.getReplyTime();
-		this.reply = tfeedBack.getReply();
-		this.createTime = tfeedBack.getCreateTime();
+	public FeedBackBean(FeedBack feedBack){
+ 		this.id = feedBack.getId();
+		this.userId = feedBack.getUserId();
+		this.detail = feedBack.getDetail();
+		this.readIs = feedBack.getReadIs();
+		this.replyTime = feedBack.getReplyTime();
+		this.reply = feedBack.getReply();
+		this.createTime = feedBack.getCreateTime();
  	}
 	
 	public FeedBackBean(Integer id,Integer userId,String detail,String reply,Date replyTime,Integer readIs){
@@ -83,12 +83,6 @@ public class FeedBackBean implements Serializable{
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	public List<TPic> getPicList() {
-		return picList;
-	}
-	public void setPicList(List<TPic> picList) {
-		this.picList = picList;
-	}
 	public Date getReplyTime() {
 		return replyTime;
 	}
@@ -101,5 +95,12 @@ public class FeedBackBean implements Serializable{
 	public void setReply(String reply) {
 		this.reply = reply;
 	}
-	
+
+	public List<PicBean> getPicBeanList() {
+		return picBeanList;
+	}
+
+	public void setPicBeanList(List<PicBean> picBeanList) {
+		this.picBeanList = picBeanList;
+	}
 }

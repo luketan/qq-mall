@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.GoodsActivityDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.GoodsActivity">
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <id column="activity_id" jdbcType="INTEGER" property="activityId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    goods_id, activity_id, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsActivityKey" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_goods_activity
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+      AND activity_id = #{activityId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsActivityKey">
+    DELETE FROM t_goods_activity
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+      AND activity_id = #{activityId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
+    INSERT INTO t_goods_activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="activityId != null">
+        activity_id,
+      </if>
+        create_time,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="activityId != null">
+        #{activityId,jdbcType=INTEGER},
+      </if>
+        now(),
+        now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
+    UPDATE t_goods_activity
+    <set>
+        update_time = now(),
+    </set>
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+      AND activity_id = #{activityId,jdbcType=INTEGER}
+  </update>
+
+  <!--**************************************************************************************************************************************************-->
+  <!--APP通过商品ID获取有效活动-->
+  <select id="findActivityByGoodsId" parameterType="com.honglinktech.zbgj.entity.GoodsActivityKey" resultType="com.honglinktech.zbgj.bean.ActivityBean">
+    SELECT
+      act.id,
+      act.name,
+      act.type,
+      act.args,
+      act.detail,
+      act.max,
+      act.value,
+      act.url
+    FROM t_goods_activity ga join t_g_activity act on ga.activity_id = act.id
+    WHERE act.status=1 AND ((act.available = 1 AND act.start_time <![CDATA[ <= ]]> NOW() AND act.end_time <![CDATA[ >= ]]> NOW()) OR act.available = 0) AND ga.goods_id = #{goodsId}
+  </select>
+  <!--APP通过商品ID获取有效活动 (去重复)-->
+  <select id="findActivityByGoodsIds"  resultType="com.honglinktech.zbgj.bean.ActivityBean">
+    select DISTINCT
+      act.id,
+      act.name,
+      act.type,
+      act.args,
+      act.detail,
+      act.max,
+      act.value,
+      act.url
+    FROM t_goods_activity ga join t_g_activity act on ga.activity_id = act.id
+    WHERE act.status=1
+    AND ((act.available = 1 AND act.start_time <![CDATA[ <= ]]> NOW() AND act.end_time <![CDATA[ >= ]]> NOW()) OR act.available = 0)
+    AND ga.goods_id = #{goodsId}
+    <if test="goodsIds != null and goodsIds.size &gt; 0">
+      AND ga.goods_id IN
+      <foreach collection="goodsIds" item="goodsId" index="index"
+               open="(" close=")" separator=",">
+        #{goodsId}
+      </foreach>
+    </if>
+  </select>
+  <!--批量插入-->
+  <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
+    INSERT INTO t_goods_format(
+        goods_id, activity_id, create_time, update_time
+    )
+    values
+    <if test="goodsActivitys != null and goodsActivitys.size &gt; 0">
+      <foreach collection="goodsActivitys" item="goodsActivity" index="index"
+               open="" close="" separator=",">
+        (
+        #{goodsActivity.goodsId,jdbcType=INTEGER},
+        #{goodsActivity.activityId,jdbcType=INTEGER},
+        now(),
+        now()
+        )
+      </foreach>
+    </if>
+  </insert>
+  <delete id="deleteByGoodsId" parameterType="java.lang.Integer">
+    DELETE FROM t_goods_activity
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+</mapper>

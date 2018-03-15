@@ -1,7 +1,7 @@
 package com.honglinktech.zbgj.admin.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.honglinktech.zbgj.entity.CSecurity;
+import com.honglinktech.zbgj.entity.Security;
 
 /**
  * Created by Dayong on 16/3/22.
@@ -15,7 +15,7 @@ public class SecurityTree {
     public SecurityTree() {
     }
 
-    public SecurityTree(CSecurity security) {
+    public SecurityTree(Security security) {
         this.id = security.getId();
         this.pid = security.getParentId();
         this.name = security.getName();

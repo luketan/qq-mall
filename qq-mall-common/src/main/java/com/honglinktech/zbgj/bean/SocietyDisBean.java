@@ -1,14 +1,8 @@
 package com.honglinktech.zbgj.bean;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.jdbc.core.RowMapper;
-
-import com.honglinktech.zbgj.entity.TSocietyDis;
 
 
 /**
@@ -149,40 +143,4 @@ public class SocietyDisBean implements Serializable{
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public Object[] getDBMapping(String filedName){
-		for(TSocietyDis.DBMaping d:TSocietyDis.DBMaping.values()){
-			if(d.toString().equals(filedName)){
-				TSocietyDis.DBMaping dbMaping = TSocietyDis.DBMaping.valueOf(filedName);
-				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
-				return values;
-			}
-		}
-		return null;
-	}
-	
-	public static class SocietyDisBeanRowMapper implements RowMapper<SocietyDisBean> {  
-        @Override  
-        public SocietyDisBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
-
-			SocietyDisBean tSocietyDis = new SocietyDisBean();
-			tSocietyDis.setId(rs.getInt("id"));
-			tSocietyDis.setSocietyNoteId(rs.getInt("society_note_id"));
-			tSocietyDis.setUserId(rs.getInt("user_id"));
-			tSocietyDis.setNickName(rs.getString("nickName"));
-			tSocietyDis.setContent(rs.getString("content"));
-			tSocietyDis.setImgIs(rs.getInt("img_is"));
-			tSocietyDis.setReplyIs(rs.getInt("reply_is"));
-			tSocietyDis.setGoodNum(rs.getInt("good_num"));
-			tSocietyDis.setParent(rs.getInt("parent"));
-			tSocietyDis.setStatus(rs.getInt("status"));
-			tSocietyDis.setCreateTime(rs.getTimestamp("create_time"));
-			
-			tSocietyDis.setLikeUserId(rs.getInt("likeUserId"));
-			tSocietyDis.setHead(rs.getString("head"));
-			tSocietyDis.setLevel(rs.getInt("level"));
-			
-			return tSocietyDis; 
-        }  
-          
-    }
 }

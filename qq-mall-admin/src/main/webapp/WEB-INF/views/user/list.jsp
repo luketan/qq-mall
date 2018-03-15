@@ -22,15 +22,28 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                                                                 用户列表
-                        <c:choose>
-                       		<c:when test="${userServiceName == 'UserThirdServiceImpl' }">
-                       			<a href="#" onclick="userAuth(0,true)" class="btn btn-primary btn-xs pull-right" role="button">授权新用户</a>
-                       		</c:when>
-                       		<c:otherwise>
-                       			<a href="add.html" class="btn btn-primary btn-xs pull-right" role="button">新增用户</a>
-                       		</c:otherwise>
-                       	</c:choose>
+                        用户列表
+                        <form id="inputForm" action="list.html" method="post" class="row">
+                            <div class="col-lg-12 form-inline pull-left">
+                                <input name="keyword" type="text" class="form-control input-sm" value="${keyword}" placeholder="输入关键字查询">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label>状态</label>
+                                <select name="status" class="form-control input-sm">
+                                    <option value="0" ${status==0?'selected':''}>全部状态</option>
+                                    <option value="1" ${status==1?'selected':''}>正常</option>
+                                    <option value="2" ${status==2?'selected':''}>锁定</option>
+                                    <option value="3" ${status==3?'selected':''}>拉黑</option>
+                                </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label>类型</label>
+                                <select name="type" class="form-control input-sm" >
+                                    <option value="0" ${type==0?'selected':''}>全部类型</option>
+                                    <option value="1" ${type==1?'selected':''}>普通</option>
+                                    <option value="2" ${type==2?'selected':''}>小编</option>
+                                </select>
+                                <button type="submit" class="btn btn-warning">查询</button>
+                            </div>
+                        </form>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -40,8 +53,11 @@
                                     <thead>
                                     <tr>
                                         <th>序号</th>
-                                        <th>登录名</th>
-                                        <th>用户名</th>
+                                        <th>昵称</th>
+                                        <th>账号</th>
+                                        <th>电话</th>
+                                        <th>邮箱</th>
+                                        <th>类型</th>
                                         <th>状态</th>
                                         <th>操作</th>
                                     </tr>
@@ -50,19 +66,13 @@
                                     <c:forEach items="${page.list}" var="item">
                                         <tr>
                                             <td>${item.id}</td>
-                                            <td>${(empty item.loginName)?item.telephone:item.loginName}</td>
-                                            <td>${item.userName}</td>
-                                            <td>${(empty item.active)?"未知":(item.active?"活跃":"拉黑")}</td>
-                                            <td>
-                                            	<c:choose>
-                                            		<c:when test="${userServiceName == 'UserThirdServiceImpl' }">
-                                            			<a onclick="userAuth(${item.id},false)">取消授权</a>
-                                            		</c:when>
-                                            		<c:otherwise>
-                                            			<a href="modify.html?id=${item.id}">编辑</a>
-                                            		</c:otherwise>
-                                            	</c:choose>
-                                            </td>
+                                            <td>${item.nickName}</td>
+                                            <td>${item.account}</td>
+                                            <td>${item.phone}</td>
+                                            <td>${item.email}</td>
+                                            <td>${item.type == 1 ? "普通" : ""}${item.type == 2 ? "小编" : ""}</td>
+                                            <td>${item.status == 1 ? "正常" : ""}${item.status == 2 ? "锁定" : ""}${item.status == 3 ? "封号" : ""}</td>
+                                            <td class="col-lg-1"><a href="modify.html?id=${item.id}">查看详情</a></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

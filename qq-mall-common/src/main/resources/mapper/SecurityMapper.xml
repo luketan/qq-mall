@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.SecurityDao">
+
+    <!-- Mappers -->
+    <resultMap id="SecurityMap" type="com.honglinktech.zbgj.entity.Security">
+        <id property="id" column="id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="type" column="type"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+
+    <insert id="save" parameterType="com.honglinktech.zbgj.entity.Security"
+            useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO
+        c_security(parent_id,type,name,code,description)
+        VALUES
+        (#{parentId},#{type},#{name},#{code},#{desc})
+    </insert>
+
+    <update id="update">
+        UPDATE c_security
+        SET
+        parent_id = #{parentId},
+        type = #{type},
+        name = #{name},
+        code = #{code},
+        description = #{desc}
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM c_security
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findById" resultMap="SecurityMap">
+        SELECT * FROM c_security WHERE id = #{id}
+    </select>
+
+    <select id="findByUserId" resultMap="SecurityMap">
+        SELECT s.* FROM c_security s, c_role_security rs, c_admin_role ul WHERE s.id = rs.security_id AND rs.role_id =
+        ul.role_id AND ul.admin_id = #{uid}
+    </select>
+
+    <select id="findByRoleId" resultMap="SecurityMap">
+        SELECT s.* FROM c_security s, c_role_security rs WHERE s.id = rs.security_id AND rs.role_id = #{rid}
+    </select>
+
+    <select id="findAll" resultMap="SecurityMap">
+        SELECT *
+        FROM c_security
+    </select>
+
+    <select id="findPage" resultMap="SecurityMap">
+        SELECT *
+        FROM c_security LIMIT #{start}, #{rows}
+    </select>
+
+    <select id="countAll" resultType="Long">
+        SELECT count(1)
+        FROM c_security
+    </select>
+
+    <insert id="saveRoleSecurity" useGeneratedKeys="true" keyProperty="id">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS ID
+        </selectKey>
+        INSERT INTO
+        c_role_security(role_id,security_id)
+        VALUES
+        (#{rid},#{sid})
+    </insert>
+
+    <delete id="deleteRoleSecurity">
+        DELETE FROM c_role_security WHERE role_id = #{rid} AND security_id = #{sid}
+    </delete>
+
+</mapper>

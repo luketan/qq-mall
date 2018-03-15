@@ -1,7 +1,7 @@
 package com.honglinktech.zbgj.admin.exception;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Component
 public class AdminHandlerExceptionResolver implements HandlerExceptionResolver {
-    private Log logger = LogFactory.getLog(getClass());
+    protected final Logger logger = LogManager.getLogger(getClass());
 
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {

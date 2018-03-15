@@ -13,15 +13,15 @@
     <title>${site.title}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath }/static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/static/css/login.css" rel="stylesheet">
+    <link href="${basePath }/static/css/login.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]>
-    <script src="/static/bootstrap/js/ie/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="/static/libs/bootstrap/js/ie/ie-emulation-modes-warning.js"></script>
+    <script src="${basePath }/static/bootstrap/js/ie/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="${basePath }/static/libs/bootstrap/js/ie/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -33,7 +33,7 @@
 <body>
 
 <div class="container">
-    <form class="form-signin" action="/login.html" method="post">
+    <form class="form-signin" action="login.html" method="post">
         <h2 class="form-signin-heading">${site.title}</h2>
         <label for="inputUserName" class="sr-only">账号</label>
         <input type="text" id="inputUserName" name="userName" class="form-control" placeholder="请输入您的登录帐号" required

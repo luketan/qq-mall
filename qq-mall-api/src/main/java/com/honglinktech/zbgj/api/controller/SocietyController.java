@@ -8,6 +8,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.entity.Module;
+import com.honglinktech.zbgj.service.ModuleService;
+import com.honglinktech.zbgj.service.SocietyService;
+import com.honglinktech.zbgj.service.UserService;
+import com.honglinktech.zbgj.vo.UserVO;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpHeaders;
@@ -26,15 +31,11 @@ import com.honglinktech.zbgj.bean.HomeBean;
 import com.honglinktech.zbgj.bean.SocietyDisBean;
 import com.honglinktech.zbgj.bean.SocietyNoteBean;
 import com.honglinktech.zbgj.bean.SocietyNoteRewardBean;
-import com.honglinktech.zbgj.bean.SocietySubBean;
+import com.honglinktech.zbgj.bean.SocietySubTypeBean;
 import com.honglinktech.zbgj.bean.SocietyTypeBean;
 import com.honglinktech.zbgj.bean.UserBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.entity.TModule;
-import com.honglinktech.zbgj.service.TModuleService;
-import com.honglinktech.zbgj.service.self.SocietyService;
-import com.honglinktech.zbgj.service.self.UserService;
 
 /**
  * 社区管理
@@ -45,7 +46,7 @@ import com.honglinktech.zbgj.service.self.UserService;
 public class SocietyController extends BaseApiController {
 	private final Logger logger = LogManager.getLogger(getClass());
 	@Resource
-	private TModuleService tModuleService;
+	private ModuleService moduleService;
 	@Resource
 	private SocietyService societyService;
 	@Resource
@@ -61,29 +62,29 @@ public class SocietyController extends BaseApiController {
 	public Response<Map<String,Object>> findHome(@RequestHeader HttpHeaders headers) throws BaseException{
 		Map<String,Object> retMap = new HashMap<String, Object>();
 		
-		Map<String,String[]> where = new HashMap<String, String[]>();
-		where.put(TModule.DBMaping.mainType.name(), new String[]{"2"});
-		List<TModule> modules = tModuleService.findByWhere(where);
+		Map where = new HashMap();
+		where.put("mainType", 2);
+		List<Module> modules = moduleService.findByWhere(where);
 		List<HomeBean> homeBeans = new LinkedList<HomeBean>();
-		for(TModule module:modules){
+		for(Module module:modules){
 			homeBeans.add(new HomeBean(module));
 		}
 		retMap.put("homeSoc", homeBeans);
 		//用户关注主题
 		String userCode =  headers.getFirst("userId");
 		if(!StringUtils.isEmpty(userCode)){
-			Response<List<SocietySubBean>> resp = societyService.findUserSocSubBean(Integer.valueOf(userCode));
+			Response<List<SocietySubTypeBean>> resp = societyService.findUserSocSubBean(Integer.valueOf(userCode));
 			retMap.put("userSoc", resp.getResult());
 		}
 		//推荐主题
-		Response<List<SocietySubBean>> respSocietySubAll = societyService.findRecSocSubBean(!StringUtils.isEmpty(userCode)?Integer.valueOf(userCode):null);
-		List<SocietySubBean> socList = respSocietySubAll.getResult();
+		Response<List<SocietySubTypeBean>> respSocietySubAll = societyService.findRecSocSubBean(!StringUtils.isEmpty(userCode)?Integer.valueOf(userCode):null);
+		List<SocietySubTypeBean> socList = respSocietySubAll.getResult();
 		if(socList != null){
 			retMap.put("recSoc", socList);
 		}
 		//推荐用户
-		Response<List<UserBean>> respRecUser = userService.findRecUsers(!StringUtils.isEmpty(userCode)?Integer.valueOf(userCode):null);
-		List<UserBean> userList = respRecUser.getResult();
+		Response<List<UserVO>> respRecUser = userService.findRecUsers(!StringUtils.isEmpty(userCode)?Integer.valueOf(userCode):null);
+		List<UserVO> userList = respRecUser.getResult();
 		if(userList != null){
 			retMap.put("recUser", userList);
 		}
@@ -283,7 +284,7 @@ public class SocietyController extends BaseApiController {
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"subId");
 		}
 		
-		Response<SocietySubBean> resp = societyService.findSocSubBeanById(Integer.valueOf(map.get("subId").toString()));
+		Response<SocietySubTypeBean> resp = societyService.findSocSubBeanById(Integer.valueOf(map.get("subId").toString()));
 		
 		Map<String,Object> whereMap = new HashMap<String, Object>();
 		whereMap.put("annIs", true);//查询公告
@@ -497,8 +498,7 @@ public class SocietyController extends BaseApiController {
 		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
 		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
 		Map<String,Object> whereMap = new HashMap<String, Object>();
-		Map<String, Object> orderMap = new HashMap<String, Object>();
-		Response<List<SocietyDisBean>> resp = societyService.findSocietyDisBySocNoteId(socNoteId, userId, index, size, whereMap, orderMap);
+		Response<List<SocietyDisBean>> resp = societyService.findSocietyDisBySocNoteId(socNoteId, userId, index, size, whereMap);
 		return resp;
 	}
 }

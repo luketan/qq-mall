@@ -4,20 +4,20 @@
     <link rel="icon" href="/favicon.ico">
 
     <!-- Bootstrap Core CSS -->
-    <link href="/static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/libs/bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/static/libs/bootstrap/css/bootstrap-multiselect.css" type="text/css"/>
-    <link rel="stylesheet" href="/static/libs/jquery/jquery-lightbox/css/lightbox.css" type="text/css"/>
+    <link href="${basePath }/static/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${basePath }/static/libs/bootstrap/css/bootstrap-dialog.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="${basePath }/static/libs/bootstrap/css/bootstrap-multiselect.css" type="text/css"/>
+    <link rel="stylesheet" href="${basePath }/static/libs/jquery/jquery-lightbox/css/lightbox.css" type="text/css"/>
 	
 
     <!-- MetisMenu CSS -->
-    <link href="/static/libs/metisMenu/css/metisMenu.min.css" rel="stylesheet">
+    <link href="${basePath }/static/libs/metisMenu/css/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/static/libs/sb-admin/css/sb-admin-2.css" rel="stylesheet">
+    <link href="${basePath }/static/libs/sb-admin/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="/static/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="${basePath }/static/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

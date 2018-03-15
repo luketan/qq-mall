@@ -16,19 +16,24 @@ public enum ExceptionEnum {
 	COMMON_USER_CODE_NOT_EMPTY("000008","用户会话信息错误，或者过期，请重新登录！","user code not empty!"),
 	COMMON_USER_ILLEGAL_REQUEST("000009","用户非法请求！","user code not empty!"),
 	//admin 010000
-	ADMIN_ACCOUNT_NOT_EXIST("010001","账户不存在","account name[{0}] does not exist!"),
-	ADMIN_ACCOUNT_PASSWORD_ERROR("010002","密码错误！","account name[{0}]，password [{1}] is error!"),
-	ADMIN_ACCOUNT_ERROR("010003","系统错误，请联系后台工作人员！","account must error，account name[{0}]，password [{1}]!"),
-	ADMIN_ACCOUNT_NOT_NULL("010004","用户名不能为空！","account not null!"),
-	ADMIN_PASSWORD_NOT_NULL("010005","密码不能为空！","password not null!"),
+	ADMIN_ACCOUNT_NOT_EXIST("100001","账户不存在","account name[{0}] does not exist!"),
+	ADMIN_ACCOUNT_PASSWORD_ERROR("100002","密码错误！","account name[{0}]，password [{1}] is error!"),
+	ADMIN_ACCOUNT_ERROR("100003","系统错误，请联系后台工作人员！","account must error，account name[{0}]，password [{1}]!"),
+	ADMIN_ACCOUNT_NOT_NULL("100004","用户名不能为空！","account not null!"),
+	ADMIN_PASSWORD_NOT_NULL("100005","密码不能为空！","password not null!"),
 	//user 020000
-	USER_PASSWORD_ERROR("020001","用户名或者密码错误","account or password error!"),
-	USER_MUCH_ERROR("020002","系统错误","much user,account:{0},password:{1}!"),
-	USER_LOGINOUT_ERROR("020003","退出登录失败！","loginout error,userId:{0}!"),
+	USER_PASSWORD_ERROR("200001","用户名或者密码错误","account or password error!"),
+	USER_MUCH_ERROR("200002","系统错误","much user,account:{0},password:{1}!"),
+	USER_LOGINOUT_ERROR("200003","退出登录失败！","loginout error,userId:{0}!"),
+	USER_LOCKED_ERROR("200004","账户被锁定，请联系系统解锁。","user locked,account:{0}!"),
+	USER_BLACK_ERROR("200005","账户被拉黑，永久性不能使用。","user black,account:{0}!"),
 	//good 030000
-	GOODS_ORDER_PAYMENT_NOT_FIND("030001","没找到支付方式！","没找到支付方式，paymentId:{0}!"),
-	GOODS_ORDER_ADDRESS_NOT_FIND("030002","没找到用户地址！","没找到用户地址，addressId:{0}!"),
+	GOODS_ORDER_PAYMENT_NOT_FIND("300001","没找到支付方式！","没找到支付方式，paymentId:{0}!"),
+	GOODS_ORDER_ADDRESS_NOT_FIND("300002","没找到用户地址！","没找到用户地址，addressId:{0}!"),
 	//society 040000
+
+	//order
+	ORDER_UPDATE_STATUS_ERROR("300002","订单状态修改失败！","订单状态修改失败，id:{0}!");
 	;
 	
 	

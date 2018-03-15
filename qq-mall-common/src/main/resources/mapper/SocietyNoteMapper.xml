@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.SocietyNoteDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietyNote">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="society_sub_id" jdbcType="INTEGER" property="societySubId" />
+    <result column="society_sub_name" jdbcType="VARCHAR" property="societySubName" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="good_num" jdbcType="INTEGER" property="goodNum" />
+    <result column="dis_num" jdbcType="INTEGER" property="disNum" />
+    <result column="top_is" jdbcType="INTEGER" property="topIs" />
+    <result column="rec_is" jdbcType="INTEGER" property="recIs" />
+    <result column="gifts_is" jdbcType="INTEGER" property="giftsIs" />
+    <result column="img_is" jdbcType="INTEGER" property="imgIs" />
+    <result column="reward_is" jdbcType="INTEGER" property="rewardIs" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="ano_is" jdbcType="INTEGER" property="anoIs" />
+    <result column="ann_is" jdbcType="INTEGER" property="annIs" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, society_sub_id, society_sub_name, user_id, nick_name, title, detail, address, 
+    ip, good_num, dis_num, top_is, rec_is, gifts_is, img_is, reward_is, type, ano_is, 
+    ann_is, status, tags, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_note
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_society_note
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietyNote">
+    INSERT INTO t_society_note
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="societySubId != null">
+        society_sub_id,
+      </if>
+      <if test="societySubName != null and societySubName != ''">
+        society_sub_name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="nickName != null and nickName != ''">
+        nick_name,
+      </if>
+      <if test="title != null and title != ''">
+        title,
+      </if>
+      <if test="detail != null and detail != ''">
+        detail,
+      </if>
+      <if test="address != null and address != ''">
+        address,
+      </if>
+      <if test="ip != null and ip != ''">
+        ip,
+      </if>
+      <if test="goodNum != null">
+        good_num,
+      </if>
+      <if test="disNum != null">
+        dis_num,
+      </if>
+      <if test="topIs != null">
+        top_is,
+      </if>
+      <if test="recIs != null">
+        rec_is,
+      </if>
+      <if test="giftsIs != null">
+        gifts_is,
+      </if>
+      <if test="imgIs != null">
+        img_is,
+      </if>
+      <if test="rewardIs != null">
+        reward_is,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="anoIs != null">
+        ano_is,
+      </if>
+      <if test="annIs != null">
+        ann_is,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="tags != null and tags != ''">
+        tags,
+      </if>
+        create_time,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="societySubId != null">
+        #{societySubId,jdbcType=INTEGER},
+      </if>
+      <if test="societySubName != null and societySubName != ''">
+        #{societySubName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null and nickName != ''">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null and title != ''">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null and detail != ''">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null and ip != ''">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="goodNum != null">
+        #{goodNum,jdbcType=INTEGER},
+      </if>
+      <if test="disNum != null">
+        #{disNum,jdbcType=INTEGER},
+      </if>
+      <if test="topIs != null">
+        #{topIs,jdbcType=INTEGER},
+      </if>
+      <if test="recIs != null">
+        #{recIs,jdbcType=INTEGER},
+      </if>
+      <if test="giftsIs != null">
+        #{giftsIs,jdbcType=INTEGER},
+      </if>
+      <if test="imgIs != null">
+        #{imgIs,jdbcType=INTEGER},
+      </if>
+      <if test="rewardIs != null">
+        #{rewardIs,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="anoIs != null">
+        #{anoIs,jdbcType=INTEGER},
+      </if>
+      <if test="annIs != null">
+        #{annIs,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tags != null and tags != ''">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietyNote">
+    UPDATE t_society_note
+    <set>
+      <if test="societySubId != null">
+        society_sub_id = #{societySubId,jdbcType=INTEGER},
+      </if>
+      <if test="societySubName != null and societySubName != ''">
+        society_sub_name = #{societySubName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null and nickName != ''">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null and title != ''">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null and detail != ''">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null and address != ''">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null and ip != ''">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="goodNum != null">
+        good_num = #{goodNum,jdbcType=INTEGER},
+      </if>
+      <if test="disNum != null">
+        dis_num = #{disNum,jdbcType=INTEGER},
+      </if>
+      <if test="topIs != null">
+        top_is = #{topIs,jdbcType=INTEGER},
+      </if>
+      <if test="recIs != null">
+        rec_is = #{recIs,jdbcType=INTEGER},
+      </if>
+      <if test="giftsIs != null">
+        gifts_is = #{giftsIs,jdbcType=INTEGER},
+      </if>
+      <if test="imgIs != null">
+        img_is = #{imgIs,jdbcType=INTEGER},
+      </if>
+      <if test="rewardIs != null">
+        reward_is = #{rewardIs,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="anoIs != null">
+        ano_is = #{anoIs,jdbcType=INTEGER},
+      </if>
+      <if test="annIs != null">
+        ann_is = #{annIs,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tags != null and tags != ''">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--******************************************************************************************************-->
+  <!--查询帖子列表-->
+  <select id="findSocietyNotes" parameterType="map" resultType="com.honglinktech.zbgj.bean.SocietyNoteBean">
+    SELECT
+      u.nick_name,
+      u.head,
+      u.level,
+      u.sex,
+      sn.id,
+      sn.society_sub_id as societySubId,
+      sn.society_sub_name as societySubName,
+      sn.user_id as userId,
+      sn.nick_name as nickName,
+      sn.title,
+      sn.detail,
+      sn.address,
+      sn.ip,
+      sn.good_num as goodNum,
+      sn.dis_num as disNum,
+      sn.top_is as topIs,
+      sn.rec_is as recIs,
+      sn.gifts_is as giftsIs,
+      sn.img_is as imgIs,
+      sn.reward_is as rewardIs,
+      sn.type,
+      sn.ano_is as anoIs,
+      sn.status,
+      sn.tags,
+      sn.create_time as createTime,
+      sn.update_time as updateTime,
+      u.nick_name
+    FROM t_society_note sn LEFT JOIN t_user u ON(sn.user_id = u.id)
+    WHERE 1=1 AND sn.status = 2 AND sn.id =  #{id,jdbcType=INTEGER}
+    <choose>
+      <when test="annIs != null and annIs == true">
+         AND (ann_is = 0 OR ann_is is NULL)
+      </when>
+      <otherwise>
+         AND ann_is = 1
+      </otherwise>
+    </choose>
+    <if test="atte!=null and atte == true and userId != null">
+        AND sn.user_id IN(SELECT atte_user_id FROM t_user_atte WHERE user_id = #{userId} )
+    </if>
+    <if test="friend!=null and friend == true and userId != null">
+        AND sn.user_id IN(SELECT friend_user_id FROM t_user_friend WHERE user_id = #{userId} )
+    </if>
+    <if test="subId!=null">
+        AND sn.society_sub_id = #{subId}
+    </if>
+    ORDER BY DATE_FORMAT(sn.create_time,'%Y%m%d') DESC, sn.top_is DESC, sn.gifts_is DESC, sn.rec_is DESC
+    <if test="start!=null and rows!=null">
+        LIMIT #{start}, #{rows};
+    </if>
+  </select>
+  <!--查询帖子详情-->
+  <select id="findSocietyNoteById" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.bean.SocietyNoteBean">
+    SELECT
+      sn.id,
+      sn.society_sub_id as societySubId,
+      sn.society_sub_name as societySubName,
+      sn.user_id as userId,
+      sn.nick_name as nickName,
+      sn.title,
+      sn.detail,
+      sn.address,
+      sn.ip,
+      sn.good_num as goodNum,
+      sn.dis_num as disNum,
+      sn.top_is as topIs,
+      sn.rec_is as recIs,
+      sn.gifts_is as giftsIs,
+      sn.img_is as imgIs,
+      sn.reward_is as rewardIs,
+      sn.type,
+      sn.ano_is as anoIs,
+      sn.ann_is as annIs,
+      sn.status,
+      sn.tags,
+      sn.create_time as createTime,
+      sn.update_time as updateTime,
+      u.nick_name,
+      u.head,
+      u.level
+      <choose>
+      <when test="userId != null and userId > 0">
+          ,snl.user_id AS likeUserId/*是否需要查询帖子主题信息*/
+      </when>
+      <otherwise>
+          ,0 AS likeUserId
+      </otherwise>
+      </choose>
+      <choose>
+      <when test="socSubInfo==null or socSubInfo = true">
+        ,ss.name AS socSubName, ss.ico AS socSubIco, ss.ico_color AS socSubIcoColor
+      </when>
+      <otherwise>
+        ,sn.society_sub_name AS socSubName, '' AS socSubIco, '' AS socSubIcoColor
+      </otherwise>
+    </choose>
+    FROM t_society_note sn LEFT JOIN t_user u ON(sn.user_id = u.id)
+      <if test="userId != null and userId > 0">
+          LEFT JOIN t_society_note_like snl ON(snl.user_id = ${userId, jdbcType=INTEGER} AND sn.id = snl.id)
+      </if>
+      <if test="socSubInfo==null or socSubInfo = true">/*是否需要查询帖子主题信息*/
+          LEFT JOIN t_society_sub_type ss ON(sn.society_sub_id = ss.id)
+      </if>
+    WHERE 1=1 AND sn.status = 2 AND sn.id =  #{id,jdbcType=INTEGER}
+  </select>
+  <!--添加或者减少评论数量-->
+  <update id="updateSocNoteLikeNum">
+      UPDATE t_society_note
+      SET
+      <choose>
+        <when test="like != null and like == true">
+          good_num=good_num+1
+        </when>
+        <otherwise>
+          good_num=good_num-1
+        </otherwise>
+      </choose>
+      WHERE id= ${socNoteId}
+  </update>
+</mapper>

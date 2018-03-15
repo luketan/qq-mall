@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.VersionInfoDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.v3.company.bean.VersionInfoBean" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lowest_version" property="lowestVersion" jdbcType="VARCHAR" />
+    <result column="latest_version" property="latestVersion" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="update_info" property="updateInfo" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="sha" property="sha" jdbcType="VARCHAR" />
+    <result column="update_url" property="updateUrl" jdbcType="VARCHAR" />
+    <result column="file_size" property="fileSize" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="os_type" property="osType" jdbcType="VARCHAR" />
+    <result column="enforce" property="enforce" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, lowest_version, latest_version, title, update_info, remark, sha, update_url, file_size, type, os_type,
+    enforce, status, update_time, create_time
+  </sql>
+
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_version_info
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    DELETE FROM t_version_info
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="save" parameterType="com.honglinktech.zbgj.bean.VersionInfoBean"
+          useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO t_version_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lowestVersion != null and lowestVersion != ''" >
+        lowest_version,
+      </if>
+      <if test="latestVersion != null and latestVersion != ''" >
+        latest_version,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="updateInfo != null" >
+        update_info,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="sha != null" >
+        sha,
+      </if>
+      <if test="updateInfo != null" >
+        update_info,
+      </if>
+      <if test="updateUrl != null and updateUrl != ''" >
+        update_url,
+      </if>
+      <if test="fileSize != null and fileSize != ''" >
+        file_size,
+      </if>
+      <if test="type != null and type != ''" >
+        type,
+      </if>
+      <if test="osType != null and osType != ''" >
+        os_type,
+      </if>
+      <if test="enforce != null" >
+        enforce,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      update_time,
+      create_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lowestVersion != null" >
+        #{lowestVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="latestVersion != null'" >
+        #{latestVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="updateInfo != null" >
+        #{updateInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sha != null" >
+        #{sha,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUrl != null and updateUrl != ''" >
+        #{updateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null and fileSize != ''" >
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null and type != ''" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null and osType != ''" >
+        #{osType,jdbcType=VARCHAR},
+      </if>
+      <if test="enforce != null" >
+        #{enforce,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      now(),
+      now()
+    </trim>
+  </insert>
+
+  <update id="update" parameterType="com.honglinktech.zbgj.bean.VersionInfoBean" >
+    UPDATE t_version_info
+      SET
+      <if test="lowestVersion != null" >
+        lowest_version = #{lowestVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="latestVersion != null" >
+        latest_version = #{latestVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="updateInfo != null" >
+        update_info = #{updateInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="sha != null" >
+        sha = #{sha,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUrl != null" >
+        update_url = #{updateUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="osType != null" >
+        os_type = #{osType,jdbcType=VARCHAR},
+      </if>
+      <if test="enforce != null" >
+        enforce = #{enforce,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      update_time = now()
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--APP-->
+  <select id="findByPage" resultMap="BaseResultMap" parameterType="map" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_version_info
+    WHERE 1=1
+    <if test="status != null">
+      AND status = #{status}
+    </if>
+    <if test="type != null">
+      AND type = #{type}
+    </if>
+    <if test="osType != null">
+      AND os_type = #{osType}
+    </if>
+    ORDER BY update_time DESC
+    <if test="start != null and rows != null">
+      limit ${start},${rows}
+    </if>
+  </select>
+  <select id="findByWhere" resultType="com.honglinktech.zbgj.vo.VersionInfoVO" parameterType="map" >
+    SELECT
+      id,
+      lowest_version as lowestVersion,
+      latest_version as latestVersion,
+      title,
+      update_info as updateInfo,
+      sha,
+      update_url as updateUrl,
+      file_size as fileSize,
+      enforce
+    FROM t_version_info
+    WHERE 1=1
+    <if test="status != null">
+        AND status = #{status}
+    </if>
+    <if test="type != null">
+      AND type = #{type}
+    </if>
+    <if test="osType != null">
+      AND os_type = #{osType}
+    </if>
+    ORDER BY update_time DESC
+    <if test="start != null and rows != null">
+        limit ${start},${rows}
+    </if>
+  </select>
+  <select id="countAll" resultType="long" parameterType="map" >
+    SELECT
+      count(1)
+    FROM t_version_info
+    WHERE 1=1
+    <if test="status != null">
+      AND status = #{status}
+    </if>
+    <if test="type != null">
+      AND type = #{type}
+    </if>
+    <if test="osType != null">
+      AND os_type = #{osType}
+    </if>
+  </select>
+</mapper>

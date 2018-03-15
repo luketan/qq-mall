@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.SocietyNoteRewardDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietyNoteReward">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="society_note_id" jdbcType="INTEGER" property="societyNoteId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="bus_user_id" jdbcType="INTEGER" property="busUserId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="val_num" jdbcType="INTEGER" property="valNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, society_note_id, user_id, bus_user_id, type, val_num, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_note_reward
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_society_note_reward
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietyNoteReward">
+    INSERT INTO t_society_note_reward
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="societyNoteId != null">
+        society_note_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="busUserId != null">
+        bus_user_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="valNum != null">
+        val_num,
+      </if>
+      create_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="societyNoteId != null">
+        #{societyNoteId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="busUserId != null">
+        #{busUserId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="valNum != null">
+        #{valNum,jdbcType=INTEGER},
+      </if>
+      now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietyNoteReward">
+    UPDATE t_society_note_reward
+    <set>
+      <if test="societyNoteId != null">
+        society_note_id = #{societyNoteId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="busUserId != null">
+        bus_user_id = #{busUserId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="valNum != null">
+        val_num = #{valNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--*****************************************************************************************-->
+
+  <select id="findSocietyNoteRewardByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.SocietyNoteRewardBean">
+    SELECT
+    snr.id,
+    snr.society_note_id as societyNoteId,
+    snr.user_id as userId,
+    snr.bus_user_id as busUserId,
+    snr.type,
+    snr.val_num as valNum,
+    snr.create_time as createTime,
+    u.nick_name AS nickName,
+    u.head,
+    u.sex,
+    u.level
+    FROM t_society_note_reward snr LEFT JOIN t_user u ON(snr.bus_user_id = u.id)
+    WHERE snr.society_note_id = #{socNoteId,jdbcType=INTEGER}
+    <if test="start != null and rows != null">
+        limit #{start},#{rows}
+    </if>
+  </select>
+  <select id="findSocietyNoteRewardCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+      SELECT count(1)
+      FROM t_society_note_reward snr
+      WHERE snr.society_note_id = #{socNoteId,jdbcType=INTEGER}
+  </select>
+</mapper>

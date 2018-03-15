@@ -1,13 +1,7 @@
 package com.honglinktech.zbgj.bean;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
-
-import org.springframework.jdbc.core.RowMapper;
-
-import com.honglinktech.zbgj.entity.SocietyNoteReward;
 
 
 /**
@@ -109,36 +103,4 @@ public class SocietyNoteRewardBean implements Serializable{
 		this.head = head;
 	}
 	
-	
-	public Object[] getDBMapping(String filedName){
-		for(SocietyNoteReward.DBMaping d:SocietyNoteReward.DBMaping.values()){
-			if(d.toString().equals(filedName)){
-				SocietyNoteReward.DBMaping dbMaping = SocietyNoteReward.DBMaping.valueOf(filedName);
-				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
-				return values;
-			}
-		}
-		return null;
-	}
-	public static class SocietyNoteRewardRowMapper implements RowMapper<SocietyNoteRewardBean> {  
-        @Override  
-        public SocietyNoteRewardBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
-
-        	SocietyNoteRewardBean tSocietyNoteReward = new SocietyNoteRewardBean();
-			tSocietyNoteReward.setId(rs.getInt("id"));
-			tSocietyNoteReward.setSocietyNoteId(rs.getInt("society_note_id"));
-			tSocietyNoteReward.setUserId(rs.getInt("user_id"));
-			tSocietyNoteReward.setBusUserId(rs.getInt("bus_user_id"));
-			tSocietyNoteReward.setType(rs.getInt("type"));
-			tSocietyNoteReward.setValNum(rs.getInt("val_num"));
-			tSocietyNoteReward.setCreateTime(rs.getTimestamp("create_time"));
-			
-			tSocietyNoteReward.setNickName(rs.getString("nickName"));
-			tSocietyNoteReward.setHead(rs.getString("head"));
-			tSocietyNoteReward.setSex(rs.getInt("sex"));
-			tSocietyNoteReward.setLevel(rs.getInt("level"));
-			return tSocietyNoteReward; 
-        }  
-          
-    }
 }

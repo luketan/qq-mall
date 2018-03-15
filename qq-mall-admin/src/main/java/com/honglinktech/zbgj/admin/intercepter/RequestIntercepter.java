@@ -3,6 +3,7 @@ package com.honglinktech.zbgj.admin.intercepter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.honglinktech.zbgj.entity.Admin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.honglinktech.zbgj.admin.common.Constants;
-import com.honglinktech.zbgj.entity.CAdmin;
 
 /**
  * 请求拦截器
@@ -28,9 +28,9 @@ public class RequestIntercepter implements HandlerInterceptor {
             return true;
         } else {
             Session session = SecurityUtils.getSubject().getSession();
-            CAdmin admin = (CAdmin) session.getAttribute(Constants.LOGIN_ADMIN_DATA);
+            Admin admin = (Admin) session.getAttribute(Constants.LOGIN_ADMIN_DATA);
             if (admin == null) {
-                response.sendRedirect("/logout.html");
+                response.sendRedirect("logout.html");
                 return false;
             }
         }

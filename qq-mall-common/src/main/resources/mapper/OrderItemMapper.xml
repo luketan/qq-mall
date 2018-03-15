@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.OrderItemDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.OrderItem">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_img" jdbcType="VARCHAR" property="goodsImg" />
+    <result column="formats" jdbcType="VARCHAR" property="formats" />
+    <result column="activitys" jdbcType="VARCHAR" property="activitys" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="dis_is" jdbcType="INTEGER" property="disIs" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, order_id, goods_id, goods_name, goods_img, formats, activitys, num, price, market_price, 
+    remark, dis_is, update_time, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_order_item
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_order_item
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.OrderItem">
+    INSERT INTO t_order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        goods_name,
+      </if>
+      <if test="goodsImg != null and goodsImg != ''">
+        goods_img,
+      </if>
+      <if test="formats != null and formats != ''">
+        formats,
+      </if>
+      <if test="activitys != null and activitys != ''">
+        activitys,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="remark != null and remark != ''">
+        remark,
+      </if>
+      <if test="disIs != null">
+        dis_is,
+      </if>
+        update_time,
+        create_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImg != null and goodsImg != ''">
+        #{goodsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="formats != null and formats != ''">
+        #{formats,jdbcType=VARCHAR},
+      </if>
+      <if test="activitys != null and activitys != ''">
+        #{activitys,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null and remark != ''">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="disIs != null">
+        #{disIs,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.OrderItem">
+    UPDATE t_order_item
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null and goodsName != ''">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsImg != null and goodsImg != ''">
+        goods_img = #{goodsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="formats != null and formats != ''">
+        formats = #{formats,jdbcType=VARCHAR},
+      </if>
+      <if test="activitys != null and activitys != ''">
+        activitys = #{activitys,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null and remark != ''">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="disIs != null">
+        dis_is = #{disIs,jdbcType=INTEGER},
+      </if>
+      update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--*******************************************************************************************************-->
+  <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.OrderItem">
+              INSERT INTO t_order_item(
+                  order_id,
+                  goods_id,
+                  goods_name,
+                  goods_img,
+                  formats,
+                  num,
+                  price,
+                  market_price,
+                  remark,
+                  dis_is,
+                  update_time,
+                  create_time
+                  )
+                  values
+                  <if test="orderItems != null and orderItems.size &gt; 0">
+                    <foreach collection="orderItems" item="orderItem" index="index"
+                             open="" close="" separator=",">
+                      (
+                      #{orderItem.orderId,jdbcType=INTEGER},
+                      #{orderItem.goodsId,jdbcType=INTEGER},
+                      #{orderItem.goodsName,jdbcType=VARCHAR},
+                      #{orderItem.goodsImg,jdbcType=VARCHAR},
+                      #{orderItem.formats,jdbcType=VARCHAR},
+                      #{orderItem.num,jdbcType=INTEGER},
+                      #{orderItem.price,jdbcType=DECIMAL},
+                      #{orderItem.marketPrice,jdbcType=DECIMAL},
+                      #{orderItem.remark,jdbcType=VARCHAR},
+                      #{orderItem.disIs,jdbcType=INTEGER},
+                      now(),
+                      now()
+                      )
+                    </foreach>
+                  </if>
+  </insert>
+  <select id="findByWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_order_item
+    WHERE 1=1
+    <if test="orderId">
+        and order_id = #{orderId}
+    </if>
+  </select>
+
+</mapper>

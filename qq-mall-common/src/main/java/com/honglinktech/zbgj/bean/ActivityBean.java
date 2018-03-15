@@ -1,12 +1,6 @@
 package com.honglinktech.zbgj.bean;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
-
-import org.springframework.jdbc.core.RowMapper;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.honglinktech.zbgj.common.Constants;
@@ -18,11 +12,15 @@ import com.honglinktech.zbgj.common.Constants;
  *
  */
 public class ActivityBean implements Serializable{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	//活动名称
 	private String name;
-	//活动类型
+	//活动类型(1打折,2包邮,3赠送,4满减)
 	@JsonIgnore
 	private Integer type;
 	//活动类型名称
@@ -37,10 +35,8 @@ public class ActivityBean implements Serializable{
 	private Integer value;
 	//活动链接
 	private String url;
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	//
+	private Integer goodsId;
 	
 	public ActivityBean(){
  	}
@@ -114,76 +110,11 @@ public class ActivityBean implements Serializable{
 		this.url = url;
 	}
 
-	public enum DBMaping{
-		tableName("t_g_activity",0,false,false,false),
-		id("id",Types.INTEGER,true,true,false),
-		name("name",Types.VARCHAR,false,false,false),
-		type("type",Types.INTEGER,false,false,true),
-		args("args",Types.VARCHAR,false,false,true),
-		max("max",Types.INTEGER,false,false,true),
-		value("value",Types.INTEGER,false,false,true),
-		url("url",Types.VARCHAR,false,false,true),
-		detail("detail",Types.VARCHAR,false,false,true),
-		available("available",Types.INTEGER,false,false,true),
-		startTime("start_time",Types.TIMESTAMP,false,false,true),
-		endTime("end_time",Types.TIMESTAMP,false,false,true),
-		status("status",Types.INTEGER,false,false,false),
-		createTime("create_time",Types.TIMESTAMP,false,false,true),
-		updateTime("update_time",Types.TIMESTAMP,false,false,true);
-		private String dbName;
-		private int dbType;
-		private boolean primaryKey;
-		private boolean isAotuIn;
-		private boolean isAllowNull;
-	    public String getDbName(){
-	    	 return this.dbName;
-	    }
-	    public int getDbType(){
-	    	 return this.dbType;
-	    }
-	    public boolean getPrimaryKey(){
-	    	 return this.primaryKey;
-	    }
-	    public boolean isAotuIn(){
-	    	 return this.isAotuIn;
-	    }
-	    public boolean isAllowNull(){
-	    	 return this.isAllowNull;
-	    }
-	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
-	    	 this.dbName = dbName;
-	    	 this.dbType = dbType;
-	    	 this.primaryKey = primaryKey;
-	    	 this.isAotuIn = isAotuIn;
-	    	 this.isAllowNull = isAllowNull;
-	    }
+	public Integer getGoodsId() {
+		return goodsId;
 	}
-	public Object[] getDBMapping(String filedName){
-		for(DBMaping d:DBMaping.values()){
-			if(d.toString().equals(filedName)){
-				DBMaping dbMaping = DBMaping.valueOf(filedName);
-				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
-				return values;
-			}
-		}
-		return null;
-	}
-	public static class ActivityBeanRowMapper implements RowMapper<ActivityBean> {  
-        @Override  
-        public ActivityBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
 
-        	ActivityBean tGActivity = new ActivityBean();
-			tGActivity.setId(rs.getInt("id"));
-			tGActivity.setName(rs.getString("name"));
-			tGActivity.setType(rs.getInt("type"));
-			tGActivity.setArgs(rs.getString("args"));
-			tGActivity.setDetail(rs.getString("detail"));
-			tGActivity.setValue(rs.getInt("value"));
-			tGActivity.setMax(rs.getInt("max"));
-			tGActivity.setUrl(rs.getString("url"));
-			
-			return tGActivity; 
-        }  
-          
-    }
+	public void setGoodsId(Integer goodsId) {
+		this.goodsId = goodsId;
+	}
 }

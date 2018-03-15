@@ -9,7 +9,7 @@
     <title>${item.id==null?"添加":"修改"}系统角色 - ${site.title}</title>
 
     <%@include file="../include/head.jsp" %>
-    <link rel="stylesheet" href="/static/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <link rel="stylesheet" href="${basePath }/static/libs/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 </head>
 
 <body>
@@ -111,8 +111,8 @@
 </div>
 
 <%@include file="../include/footer.jsp" %>
-<script type="text/javascript" src="/static/libs/ztree/js/jquery.ztree.core.min.js"></script>
-<script type="text/javascript" src="/static/libs/ztree/js/jquery.ztree.excheck.min.js"></script>
+<script type="text/javascript" src="${basePath }/static/libs/ztree/js/jquery.ztree.core.min.js"></script>
+<script type="text/javascript" src="${basePath }/static/libs/ztree/js/jquery.ztree.excheck.min.js"></script>
 <script type="text/javascript" src="../../../static/js/system/role.js"></script>
 <script type="application/javascript">
     var zNodes = ${tree};

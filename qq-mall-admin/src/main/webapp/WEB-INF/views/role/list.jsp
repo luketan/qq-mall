@@ -43,9 +43,9 @@
                                         <td>${item.name}</td>
                                         <td>${item.desc}</td>
                                         <td>
-                                            <a href="/system/role/modify.html?id=${item.id}">编辑</a>
-                                            <shiro:hasPermission name="system:role:member">
-                                                | <a href="/system/role/member.html?id=${item.id}">查看成员</a>
+                                            <a href="${basePath }/security/role/modify.html?id=${item.id}">编辑</a>
+                                            <shiro:hasPermission name="security:role:member">
+                                                | <a href="${basePath }/security/role/member.html?id=${item.id}">查看成员</a>
                                             </shiro:hasPermission>
                                         </td>
                                     </tr>

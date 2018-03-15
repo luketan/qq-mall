@@ -37,10 +37,12 @@ public class Result {
     public static <T> Response<T> fail(String desc) {
         return new Response<T>(ExceptionEnum.COMMON_ERROE.getRetCode(), desc);
     }
+
     /**
-     * 生成操作失败的返回对象
-     *
-     * @param desc
+     *  生成操作失败的返回对象
+     * @param ee
+     * @param args
+     * @param <T>
      * @return
      */
     public static <T> Response<T> fail(ExceptionEnum ee, String...args) {

@@ -61,11 +61,12 @@
                                         		<c:set var="isCheck" value=""/>
                                         		<label class="checkbox" style="margin-left: 25px;display:inline-block;">
                                         			<c:forEach items="${adminRoles}" var="adminRole">
+                                                        <c:out value="${role.id+'==='+adminRole.id }" />
 											   	 		<c:if test="${role.id==adminRole.id }">
 											   	 			<c:set var="isCheck" value='checked="checked"'/>
 											   	 		</c:if>
 											   	 	</c:forEach>
-											   	 	<input name="roles" type="checkbox" ${isCheck} value="${role.id }">${role.name }
+											   	 	<input name="roles" type="checkbox" ${isCheck} value="${role.id }">${role.name }==${isCheck}
 												</label>
                                         	</c:forEach>
 										</div>

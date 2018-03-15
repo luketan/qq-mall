@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.FeedBackDao">
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.FeedBack">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="reply_time" jdbcType="TIMESTAMP" property="replyTime" />
+    <result column="read_is" jdbcType="INTEGER" property="readIs" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="reply" jdbcType="VARCHAR" property="reply" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, user_id, reply_time, read_is, update_time, create_time, detail, reply
+  </sql>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_feed_back
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_feed_back
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.FeedBack">
+    INSERT INTO t_feed_back
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="replyTime != null">
+        reply_time,
+      </if>
+      <if test="readIs != null">
+        read_is,
+      </if>
+        update_time,
+        create_time,
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="reply != null">
+        reply,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="replyTime != null">
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readIs != null">
+        #{readIs,jdbcType=INTEGER},
+      </if>
+      bow(),
+      now(),
+      <if test="detail != null">
+        #{detail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reply != null">
+        #{reply,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.FeedBack">
+    UPDATE t_feed_back
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="replyTime != null">
+        reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readIs != null">
+        read_is = #{readIs,jdbcType=INTEGER},
+      </if>
+      update_time = now(),
+      <if test="detail != null">
+        detail = #{detail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reply != null">
+        reply = #{reply,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--******************************************************************************************************************-->
+  <!--APP-->
+  <select id="findByWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_feed_back
+    WHERE 1=1
+    <if test="userId != null">
+        AND user_id = userId
+    </if>
+    ORDER BY update_time desc
+    <if test="start != null and rows != null">
+      limit #{start}, #{rows}
+    </if>
+
+  </select>
+  <!--console-->
+  <select id="findCountByWhere" parameterType="map" resultType="int">
+    SELECT
+      count(1)
+    FROM t_feed_back
+    WHERE 1=1
+    <if test="userId != null">
+      AND user_id = userId
+    </if>
+    ORDER BY update_time desc
+  </select>
+</mapper>

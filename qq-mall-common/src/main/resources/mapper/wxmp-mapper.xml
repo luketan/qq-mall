@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.v3.wxmp.dao.WxMpDao">
+    <select id="findWxMpConfigByName" resultType="com.honglinktech.zbgj.v3.wxmp.entity.WxMpConfig">
+        SELECT
+        name as wxMpName,
+        appid as appId,
+        appsecret as appSecret,
+        token as token,
+        baseHost as baseHost,
+        expDate as expDate,
+        needJsTicket as needJsTicket
+        FROM tbl_wxmp_config WHERE name = #{name}
+    </select>
+
+    <select id="findWxMpJsTicketByName" resultType="com.honglinktech.zbgj.v3.wxmp.entity.WxMpJsTicket">
+        SELECT
+        name as wxMpName,
+        jsTicket as jsTicket,
+        expDate as expDate
+        FROM tbl_wxmp_jsticket WHERE name = #{name}
+    </select>
+
+    <select id="findAllWxMpConfig" resultType="com.honglinktech.zbgj.v3.wxmp.entity.WxMpConfig">
+        SELECT
+        name as wxMpName,
+        appid as appId,
+        appsecret as appSecret,
+        token as token,
+        baseHost as baseHost,
+        expDate as expDate,
+        needJsTicket as needJsTicket
+        FROM tbl_wxmp_config
+    </select>
+    
+    <update id="updateWxMpConfig" parameterType="com.honglinktech.zbgj.v3.wxmp.entity.WxMpConfig">
+        UPDATE tbl_wxmp_config
+        SET
+        token = #{token},
+        expDate = #{expDate}
+        WHERE name = #{wxMpName}
+    </update>
+
+    <update id="updateWxMpJsTicket" parameterType="com.honglinktech.zbgj.v3.wxmp.entity.WxMpJsTicket">
+        UPDATE tbl_wxmp_jsticket
+        SET
+        jsTicket = #{jsTicket},
+        expDate = #{expDate}
+        WHERE name = #{wxMpName}
+    </update>
+
+    <insert id="insertWxMpJsTicket" parameterType="com.honglinktech.zbgj.v3.wxmp.entity.WxMpJsTicket">
+        INSERT IGNORE INTO tbl_wxmp_jsticket(name, jsTicket, expDate)
+        VALUE (#{wxMpName},#{jsTicket},#{expDate})
+    </insert>
+
+
+
+
+
+</mapper>

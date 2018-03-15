@@ -51,11 +51,11 @@
                                         <%--<td>${item.code}</td>--%>
                                         <td style="word-break:break-all;">${item.value}</td>
                                         <td style="width: 120px">${item.remark}</td>
-                                        <td style="width: 100px"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                                        <td style="width: 100px"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                         <%--<td>${item.createUser}</td>--%>
-                                        <td><fmt:formatDate value="${item.updateTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                                        <td><fmt:formatDate value="${item.updateTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                         <%--<td>${item.updateUser}</td>--%>
-                                        <td style="width: 80px"><a href="/system/parameter/modify.html?id=${item.id}">编辑</a></td>
+                                        <td style="width: 80px"><a href="${basePath }/system/parameter/modify.html?id=${item.id}">编辑</a></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

@@ -6,7 +6,7 @@ import java.util.Date;
 
 import com.honglinktech.zbgj.annotation.FieldMeta;
 import com.honglinktech.zbgj.base.BaseEntity;
-import com.honglinktech.zbgj.entity.TGoods;
+import com.honglinktech.zbgj.entity.Goods;
 
 
 /**
@@ -79,7 +79,7 @@ public class GoodsItem extends BaseEntity implements Serializable{
 	
 	public GoodsItem(){
  	}
-	public GoodsItem(TGoods tGoods){
+	public GoodsItem(Goods tGoods){
 //		this.styleId = tGoods.getStyleId();
 //		this.styleName = tGoods.getStyleName();
 		this.typeId = tGoods.getTypeId();
@@ -106,36 +106,36 @@ public class GoodsItem extends BaseEntity implements Serializable{
 		this.subName = tGoods.getSubName();
 		this.imgUrl = tGoods.getImgUrl();
  	}
-	public TGoods getTGoods(){
-		TGoods tGoods = new TGoods();
+	public Goods getGoods(){
+		Goods goods = new Goods();
 		
 //		tGoods.setStyleId(this.styleId);
 //		tGoods.setStyleName(this.styleName);
-		tGoods.setTypeId(this.typeId);
-		tGoods.setTypeName(this.typeName);
-		tGoods.setBrandId(this.brandId);
-		tGoods.setBrandName(this.brandName);
-		tGoods.setCollectNum(this.collectNum);
-		tGoods.setCreateTime(this.createTime);
-		tGoods.setDetail(this.detail);
-		tGoods.setDiscussNum(this.discussNum);
-		tGoods.setFormerPrice(this.formerPrice);
-		tGoods.setGiftsIs(this.giftsIs);
-		tGoods.setHotIs(this.hotIs);
-		tGoods.setId(this.id);
-		tGoods.setKeepNum(this.keepNum);
-		tGoods.setMarkPrice(this.markPrice);
-		tGoods.setName(this.name);
-		tGoods.setPrice(this.price);
-		tGoods.setPromoIs(this.promoIs);
-		tGoods.setPromoName(this.promoName);
-		tGoods.setPromoPrice(this.promoPrice);
-		tGoods.setSalesNum(this.salesNum);
-		tGoods.setStatus(this.status);
-		tGoods.setSubName(this.subName);
-		tGoods.setImgUrl(this.imgUrl);
+		goods.setTypeId(this.typeId);
+		goods.setTypeName(this.typeName);
+		goods.setBrandId(this.brandId);
+		goods.setBrandName(this.brandName);
+		goods.setCollectNum(this.collectNum);
+		goods.setCreateTime(this.createTime);
+		goods.setDetail(this.detail);
+		goods.setDiscussNum(this.discussNum);
+		goods.setFormerPrice(this.formerPrice);
+		goods.setGiftsIs(this.giftsIs);
+		goods.setHotIs(this.hotIs);
+		goods.setId(this.id);
+		goods.setKeepNum(this.keepNum);
+		goods.setMarkPrice(this.markPrice);
+		goods.setName(this.name);
+		goods.setPrice(this.price);
+		goods.setPromoIs(this.promoIs);
+		goods.setPromoName(this.promoName);
+		goods.setPromoPrice(this.promoPrice);
+		goods.setSalesNum(this.salesNum);
+		goods.setStatus(this.status);
+		goods.setSubName(this.subName);
+		goods.setImgUrl(this.imgUrl);
 		
-		return tGoods; 
+		return goods;
 	}
 	/**/
 	public Integer getId(){

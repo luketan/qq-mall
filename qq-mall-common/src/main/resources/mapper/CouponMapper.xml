@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.CouponDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.Coupon">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="condition" jdbcType="VARCHAR" property="condition" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="goods_type" jdbcType="INTEGER" property="goodsType" />
+    <result column="max" jdbcType="INTEGER" property="max" />
+    <result column="value" jdbcType="INTEGER" property="value" />
+    <result column="start_date" jdbcType="DATE" property="startDate" />
+    <result column="end_date" jdbcType="DATE" property="endDate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    `id`, `name`, `condition`, `detail`, `goods_type`, `max`, `value`, `start_date`, `end_date`, `status`, `create_time`, `update_time`
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_coupon
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_coupon
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Coupon"
+          useGeneratedKeys="true" keyProperty="id">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+    INSERT INTO t_coupon
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        `name`,
+      </if>
+      <if test="condition != null and condition != ''">
+        `condition`,
+      </if>
+      <if test="detail != null and detail != ''">
+        detail,
+      </if>
+      <if test="goodsType != null">
+        goods_type,
+      </if>
+      <if test="max != null">
+        max,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+        create_time,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="condition != null and condition != ''">
+        #{condition,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null and detail != ''">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="max != null">
+        #{max,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Coupon">
+    UPDATE t_coupon
+    <set>
+      <if test="name != null and name != ''">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="condition != null and condition != ''">
+        `condition` = #{condition,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null and detail != ''">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        goods_type = #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="max != null">
+        max = #{max,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=DATE},
+      </if>
+      update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--************************************************************************************************************************************  -->
+  <!--APP -->
+  <select id="findCoupons" parameterType="map" resultMap="BaseResultMap">
+    SELECT 
+    	c.* 
+    FROM t_coupon_user couUser LEFT JOIN t_coupon c ON(couUser.coupon_id = c.id)
+    WHERE couUser.user_id = #{userId,jdbcType=INTEGER}
+    <if test="type != null and type == 1">
+    	AND couUser.status=0  AND  c.start_date &lt;= CURDATE() AND c.end_date &gt;= CURDATE() 
+    </if>
+    <if test="type != null and type != 1">
+    	AND (couUser.status &lt;&gt;0 OR c.start_date &gt; CURDATE() OR c.end_date &lt; CURDATE()) 
+    </if>
+    ORDER BY c.start_date DESC
+    <if test="index != null and size!=null">
+    	limit  #{index,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!--APP -->
+  <select id="findCouponByUser" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT c.* 
+    FROM t_coupon_user couUser LEFT JOIN t_coupon c ON(couUser.coupon_id = c.id)
+    WHERE couUser.user_id = #{userId, jdbcType=INTEGER} 
+    AND couUser.coupon_id = #{couponId, jdbcType=INTEGER}
+    AND  couUser.status=0  
+    AND  c.start_date &lt;= CURDATE() 
+    AND c.end_date &gt;= CURDATE() 
+    ORDER BY c.start_date DESC
+  </select>
+  <!--console-->
+  <select id="findCouponWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    c.*
+    FROM t_coupon c
+    WHERE 1=1
+    <if test="status">
+      AND c.status = #{status, jdbcType=INTEGER}
+    </if>
+    ORDER BY c.update_time DESC
+    <if test="start != null and rows != null">
+      limit  #{start,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
+    </if>
+  </select>
+  <!--console-->
+  <select id="findCouponCountWhere" parameterType="map" resultType="java.lang.Integer">
+    SELECT
+    count(1)
+    FROM t_coupon c
+    WHERE 1=1
+    <if test="status">
+      AND c.status = #{status, jdbcType=INTEGER}
+    </if>
+    ORDER BY c.update_time DESC
+  </select>
+</mapper>

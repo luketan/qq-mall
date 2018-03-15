@@ -1,55 +1,105 @@
 package com.honglinktech.zbgj.bean;
 
+import com.honglinktech.zbgj.entity.User;
+import com.honglinktech.zbgj.entity.UserBasis;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
-
-import org.springframework.jdbc.core.RowMapper;
-
-import com.honglinktech.zbgj.entity.TUser;
-import com.honglinktech.zbgj.entity.TUserBasis;
 
 
 /**
 *
 **/
 public class UserBean implements Serializable{
-
-	private Integer id=null;
-	private String nickName=null;
-	private String account=null;
-	private String password=null;
-	private String sign=null;
-	private String head=null;
-	private BigDecimal virtualMoney=null;
-	private BigDecimal money=null;
-	private Integer point=null;
-	private Integer exp=null;
-	private Integer level=null;
-	private String email=null;
-	private Integer emailIs=null;
-	private String phone=null;
-	private Integer phoneIs=null;
-	private String age=null;
-	private Integer sex=null;
-	private Integer sexu=null;
-	private Integer marr=null;
-	private Integer tryIs=null;
-	private Integer type=null;
-	private Integer status=null;
-	private String from=null;
-	private Date updateTime=null;
-	private Date createTime=null;
-	
 	/**
-	 * 
+	 *
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4161097049784539939L;
+
+	private Integer id;
+	private String nickName;
+	private String account;
+	private String password;
+	private String sign;
+	private String head;
+	private BigDecimal virtualMoney;
+	private BigDecimal money;
+	private Integer point;
+	private Integer exp;
+	private Integer level;
+	private String email;
+	private Integer emailIs;
+	private String phone;
+	private Integer phoneIs;
+	private String age;
+	private Integer sex;
+	private Integer sexu;
+	private Integer marr;
+	private Integer tryIs;
+	private Integer type;
+	private Integer status;
+	private String from;
+	private String remark;
+	private Date updateTime;
+	private Date createTime;
 	
 	public UserBean(){
  	}
+
+	public UserBean(User user, UserBasis userBasis){
+		this.id = user.getId();
+		this.nickName = user.getNickName();
+		this.account = user.getAccount();
+		this.sign = user.getSign();
+		this.head = user.getHead();
+		this.email = user.getEmail();
+		this.emailIs = user.getEmailIs();
+		this.phone = user.getPhone();
+		this.phoneIs = user.getPhoneIs();
+		this.age = user.getAge();
+		this.sex = user.getSex();
+		this.sexu = user.getSexu();
+		this.marr = user.getMarr();
+		this.tryIs = user.getTryIs();
+		this.type = user.getType();
+		this.status = user.getStatus();
+		this.from = user.getFrom();
+		this.remark = user.getRemark();
+		this.updateTime = user.getUpdateTime();
+		this.createTime = user.getCreateTime();
+
+		this.exp = userBasis.getExp();
+		this.level = userBasis.getLevel();
+		this.point = userBasis.getPoint();
+		this.money = userBasis.getMoney();
+		this.virtualMoney = userBasis.getVirtualMoney();
+
+	}
+	public UserBean(User user){
+		this.id = user.getId();
+		this.nickName = user.getNickName();
+		this.account = user.getAccount();
+		this.sign = user.getSign();
+		this.head = user.getHead();
+
+		this.exp = user.getExp();
+		this.level = user.getLevel();
+		this.email = user.getEmail();
+		this.emailIs = user.getEmailIs();
+		this.phone = user.getPhone();
+		this.phoneIs = user.getPhoneIs();
+		this.age = user.getAge();
+		this.sex = user.getSex();
+		this.sexu = user.getSexu();
+		this.marr = user.getMarr();
+		this.tryIs = user.getTryIs();
+		this.type = user.getType();
+		this.status = user.getStatus();
+		this.from = user.getFrom();
+		this.updateTime = user.getUpdateTime();
+		this.createTime = user.getCreateTime();
+	}
  	public UserBean(Integer id,String nickName,String account,String password,String sign,String head,BigDecimal virtualMoney,BigDecimal money,Integer point,Integer exp,Integer level,String email,Integer emailIs,String phone,Integer phoneIs,String age,Integer sex,Integer sexu,Integer marr,Integer tryIs,Integer type,Integer status,String from){
  		this.id = id;
 		this.nickName = nickName;
@@ -252,98 +302,45 @@ public class UserBean implements Serializable{
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	
-	public Object[] getDBMapping(String filedName){
-		for(TUser.DBMaping d:TUser.DBMaping.values()){
-			if(d.toString().equals(filedName)){
-				TUser.DBMaping dbMaping = TUser.DBMaping.valueOf(filedName);
-				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
-				return values;
-			}
-		}
-		for(TUserBasis.DBMaping d:TUserBasis.DBMaping.values()){
-			if(d.toString().equals(filedName)){
-				TUser.DBMaping dbMaping = TUser.DBMaping.valueOf(filedName);
-				Object[] values = {dbMaping.getDbName(),dbMaping.getDbType(),dbMaping.getPrimaryKey(),dbMaping.isAotuIn(),dbMaping.isAllowNull()};
-				return values;
-			}
-		}
-		return null;
+
+	public String getRemark() {
+		return remark;
 	}
-	public static class UserRowMapper implements RowMapper<UserBean> {  
-        @Override  
-        public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
 
-			UserBean tUser = new UserBean();
-			tUser.setId(rs.getInt("id"));
-			tUser.setNickName(rs.getString("nick_name"));
-			tUser.setAccount(rs.getString("account"));
-			tUser.setPassword(rs.getString("password"));
-			tUser.setSign(rs.getString("sign"));
-			tUser.setHead(rs.getString("head"));
-			tUser.setVirtualMoney(rs.getBigDecimal("virtual_money"));
-			tUser.setMoney(rs.getBigDecimal("money"));
-			tUser.setPoint(rs.getInt("point"));
-			tUser.setExp(rs.getInt("exp"));
-			tUser.setLevel(rs.getInt("level"));
-			tUser.setEmail(rs.getString("email"));
-			tUser.setEmailIs(rs.getInt("email_is"));
-			tUser.setPhone(rs.getString("phone"));
-			tUser.setPhoneIs(rs.getInt("phone_is"));
-			tUser.setAge(rs.getString("age"));
-			tUser.setSex(rs.getInt("sex"));
-			tUser.setSexu(rs.getInt("sexu"));
-			tUser.setMarr(rs.getInt("marr"));
-			tUser.setTryIs(rs.getInt("try_is"));
-			tUser.setType(rs.getInt("type"));
-			tUser.setStatus(rs.getInt("status"));
-			tUser.setFrom(rs.getString("from"));
-			tUser.setUpdateTime(rs.getTimestamp("update_time"));
-			tUser.setCreateTime(rs.getTimestamp("create_time"));
-			return tUser; 
-        }  
-    }
-	public static class UserSmallPartRowMapper implements RowMapper<UserBean> {  
-        @Override  
-        public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 
-			UserBean tUser = new UserBean();
-			tUser.setId(rs.getInt("id"));
-			tUser.setNickName(rs.getString("nick_name"));
-			tUser.setAccount(rs.getString("account"));
-			tUser.setSign(rs.getString("sign"));
-			tUser.setHead(rs.getString("head"));
-			return tUser; 
-        }  
-    }
-	public static class UserPartRowMapper implements RowMapper<UserBean> {  
-        @Override  
-        public UserBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
-
-			UserBean tUser = new UserBean();
-			tUser.setId(rs.getInt("id"));
-			tUser.setNickName(rs.getString("nick_name"));
-			tUser.setAccount(rs.getString("account"));
-			tUser.setPassword(rs.getString("password"));
-			tUser.setExp(rs.getInt("exp"));
-			tUser.setLevel(rs.getInt("level"));
-			tUser.setSign(rs.getString("sign"));
-			tUser.setHead(rs.getString("head"));
-			tUser.setEmail(rs.getString("email"));
-			tUser.setEmailIs(rs.getInt("email_is"));
-			tUser.setPhone(rs.getString("phone"));
-			tUser.setPhoneIs(rs.getInt("phone_is"));
-			tUser.setAge(rs.getString("age"));
-			tUser.setSex(rs.getInt("sex"));
-			tUser.setSexu(rs.getInt("sexu"));
-			tUser.setMarr(rs.getInt("marr"));
-			tUser.setTryIs(rs.getInt("try_is"));
-			tUser.setType(rs.getInt("type"));
-			tUser.setStatus(rs.getInt("status"));
-			tUser.setFrom(rs.getString("from"));
-			tUser.setUpdateTime(rs.getTimestamp("update_time"));
-			tUser.setCreateTime(rs.getTimestamp("create_time"));
-			return tUser; 
-        }  
-    }
+	public User toUsre(){
+		User user = new User();
+		user.setRemark(this.remark);
+		user.setStatus(this.status);
+		user.setAccount(this.account);
+		user.setAge(this.age);
+		user.setEmail(this.email);
+		user.setEmailIs(this.emailIs);
+		user.setFrom(this.from);
+		user.setHead(this.head);
+		user.setId(this.id);
+		user.setMarr(this.marr);
+		user.setNickName(this.nickName);
+		user.setPhone(this.phone);
+		user.setPhoneIs(this.phoneIs);
+		user.setSex(this.sex);
+		user.setSexu(this.sexu);
+		user.setSign(this.sign);
+		user.setTryIs(this.tryIs);
+		user.setType(this.type);
+		return user;
+	}
+	public UserBasis toUserBasis(){
+		UserBasis user = new UserBasis();
+		user.setId(this.id);
+		user.setLevel(this.level);
+		user.setPoint(this.point);
+		user.setExp(this.exp);
+		user.setMoney(this.money);
+		user.setVirtualMoney(this.virtualMoney);
+		return user;
+	}
 }

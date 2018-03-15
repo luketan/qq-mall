@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.entity.PostDetail;
+import com.honglinktech.zbgj.service.OrderService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +22,6 @@ import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.OrderBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.entity.TPostDetail;
-import com.honglinktech.zbgj.service.self.OrderService;
 
 @RestController
 @RequestMapping("/order/api")
@@ -147,7 +147,7 @@ public class OrderController extends BaseApiController {
 	 */
 	@RequestMapping(value="findPostDetail",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<TPostDetail>> findPostDetail(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
+	public Response<List<PostDetail>> findPostDetail(@RequestBody Map<String, String> req, @RequestHeader HttpHeaders headers) throws BaseException{
 	   
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode)){
@@ -158,7 +158,7 @@ public class OrderController extends BaseApiController {
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"postCode");
 		}
 		
-		Response<List<TPostDetail>> resp = orderService.appFindPostDetail(postCode);
+		Response<List<PostDetail>> resp = orderService.appFindPostDetail(postCode);
 		return resp; 
 	}
 	

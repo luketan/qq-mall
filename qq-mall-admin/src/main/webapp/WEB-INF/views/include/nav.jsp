@@ -8,17 +8,11 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="padding-top: 5px;" href="/index.html">
-            	<c:if test="${!independent}">
-            		<img src="/static/img/zbgj_logo.png" height="40"></a>
-            	</c:if>
-            	<c:if test="${independent}">
-            		<img src="/static/img/logo.jpg" height="40"></a>
-            	</c:if>
+            <a class="navbar-brand" style="padding-top: 5px;" href="${basePath }/index.html"><img src="${basePath }/static/img/logo.jpg" height="40"></a>
             <span class="navbar-brand">${site.title}</span>
         </div>
         <!-- /.navbar-header -->
-        <audio id="audioNewOrder" src="/static/file/new-order.mp3" loop="true">
+        <audio id="audioNewOrder" src="${basePath }/static/file/new-order.mp3" loop="true">
         </audio>
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
@@ -28,7 +22,7 @@
 
                 <ul class="dropdown-menu dropdown-alerts">
                     <li>
-                        <a href="/order/list.html?status=1">
+                        <a href="${basePath }/order/list.html?status=1">
                             <div>
                                 <i class="fa fa-shopping-cart fa-fw"></i> 新订单
                                 <span id="orderMenuNumber" class="pull-right text-muted small orderMenuNumber">0</span>
@@ -47,12 +41,10 @@
                     <li><a href="#"><i class="fa fa-user fa-fw"></i> 用户中心</a>
                     </li>
                     <li><a href="#"><i class="fa fa-gear fa-fw"></i> 个人设置</a>
-                    <c:if test="${independent}">
-                    	<li><a href="/admin/updatePwdForm.html"><i class="fa fa-gear fa-fw"></i> 修改密码</a></li>
-                    </c:if>
+                    	<li><a href="admin/updatePwdForm.html"><i class="fa fa-gear fa-fw"></i> 修改密码</a></li>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="/logout.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
+                    <li><a href="${basePath }/logout.html"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -65,184 +57,181 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav in" id="side-menu">
                     <li class="${selectMenu=='index' ? 'active':''}">
-                        <a href="/index.html"><i class="fa fa-home fa-fw"></i> 首页</a>
+                        <a href="${basePath }/index.html"><i class="fa fa-home fa-fw"></i> 首页</a>
                     </li>
-                    <shiro:hasPermission name="product">
-                        <li class="${selectMenu=='product' ? 'active':''}">
-                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 系列管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level collapse ${selectMenu=='product' ? 'in':''}"
-                                aria-expanded="${selectMenu=='product' ? 'true':'false'} ">
-                                <shiro:hasPermission name="product/search">
-                                    <li>
-                                        <a href="/product/list.html">系列列表</a>
-                                    </li>
+                    <shiro:hasPermission name="goods">
+                        <li class="${selectMenu=='goods' ? 'active':''}">
+                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 商品管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='goods' ? 'in':''}"
+                                aria-expanded="${selectMenu=='goods' ? 'true':'false'} ">
+                                <shiro:hasPermission name="goods:search">
+                                    <li><a href="${basePath }/goods/list.html">商品列表</a></li>
                                 </shiro:hasPermission>
-                                <shiro:hasPermission name="product/insert">
-                                    <li>
-                                        <a href="/product/add.html">添加系列</a>
-                                    </li>
-                                </shiro:hasPermission>
-                                <shiro:hasPermission name="product/series">
-                                    <li>
-                                        <a href="/product/series.html">系列名称列表</a>
-                                    </li>
-                                </shiro:hasPermission>
-
-                                <shiro:hasPermission name="product/series:insert">
-                                    <li>
-                                        <a href="/product/series/add.html">添加系列名称</a>
-                                    </li>
-                                </shiro:hasPermission>
-                                <shiro:hasPermission name="product/category">
-                                    <li>
-                                        <a href="/product/category.html">系列类别列表</a>
-                                    </li>
-                                </shiro:hasPermission>
-                                <shiro:hasPermission name="product/category:insert">
-                                    <li>
-                                        <a href="/product/category/add.html">添加系列类别</a>
-                                    </li>
+                                <shiro:hasPermission name="goods:insert">
+                                    <li><a href="${basePath }/goods/add.html">添加商品</a></li>
                                 </shiro:hasPermission>
                             </ul>
                         </li>
                     </shiro:hasPermission>
-                    <shiro:hasPermission name="product">
-                        <li class="${selectMenu=='productItem' ? 'active':''}">
-                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 单品管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level collapse ${selectMenu=='productItem' ? 'in':''}"
-                                aria-expanded="${selectMenu=='productItem' ? 'true':'false'} ">
-                                <shiro:hasPermission name="productItem/search">
-                                    <li>
-                                        <a href="/productItem/item.html">单品列表</a>
-                                    </li>
+                    <shiro:hasPermission name="goodsBrand">
+                        <li class="${selectMenu=='goodsBrand' ? 'active':''}">
+                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 商品品牌管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='goods' ? 'in':''}"
+                                aria-expanded="${selectMenu=='goodsBrand' ? 'true':'false'} ">
+                                <li><a href="${basePath }/goodsBrand/list.html">商品品牌列表</a></li>
+                                <li><a href="${basePath }/goodsBrand/add.html">添加商品品牌类型</a></li>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="goodsType">
+                        <li class="${selectMenu=='goodsType' ? 'active':''}">
+                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 商品类型管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='goodsType' ? 'in':''}"
+                                aria-expanded="${selectMenu=='goodsTag' ? 'true':'false'} ">
+                                    <li><a href="${basePath }/goodsType/list.html">商品类型列表</a></li>
+                                    <li><a href="${basePath }/goodsType/add.html">添加商品类型</a></li>
+                                    <li><a href="${basePath }/goodsType/subList.html">商品子类型列表</a></li>
+                                    <li><a href="${basePath }/goodsType/subAdd.html">添加商品子类型</a></li>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="goodsTag">
+                        <li class="${selectMenu=='goodsTag' ? 'active':''}">
+                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 商品标签管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='goodsTag' ? 'in':''}"
+                                aria-expanded="${selectMenu=='goodsTag' ? 'true':'false'} ">
+                                <shiro:hasPermission name="goodsTag:search">
+                                    <li><a href="${basePath }/goodsTag/list.html">商品标签列表</a></li>
                                 </shiro:hasPermission>
-                                <shiro:hasPermission name="productItem/insert">
-                                    <li>
-                                        <a href="/productItem/item/add.html">添加单品</a>
-                                    </li>
+                                <shiro:hasPermission name="goodsTag:insert">
+                                    <li><a href="${basePath }/goodsTag/add.html">添加商品标签</a></li>
                                 </shiro:hasPermission>
-                                <shiro:hasPermission name="productItem/category:search">
-                                    <li>
-                                        <a href="/productItem/item/category.html">单品类别列表</a>
-                                    </li>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="goodsActivity">
+                        <li class="${selectMenu=='goodsActivity' ? 'active':''}">
+                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 商品活动管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='goodsActivity' ? 'in':''}"
+                                aria-expanded="${selectMenu=='goodsActivity' ? 'true':'false'} ">
+                                <shiro:hasPermission name="goodsActivity:search">
+                                    <li><a href="${basePath }/goodsActivity/list.html">商品活动列表</a></li>
                                 </shiro:hasPermission>
-                                <shiro:hasPermission name="productItem/category:insert">
-                                    <li>
-                                        <a href="/productItem/item/category/add.html">添加单品类别</a>
-                                    </li>
+                                <shiro:hasPermission name="goodsActivity:insert">
+                                    <li><a href="${basePath }/goodsActivity/add.html">添加商品活动</a></li>
+                                </shiro:hasPermission>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="societyType">
+                        <li class="${selectMenu=='societyType' ? 'active':''}">
+                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 论坛类型管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='societyType' ? 'in':''}"
+                                aria-expanded="${selectMenu=='societyType' ? 'true':'false'} ">
+                                <li><a href="${basePath }/societyType/list.html">论坛类型列表</a></li>
+                                <li><a href="${basePath }/societyType/add.html">添加论坛类型</a></li>
+                                <li><a href="${basePath }/societyType/subList.html">论坛子类型列表</a></li>
+                                <li><a href="${basePath }/societyType/subAdd.html">添加论坛子类型</a></li>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="coupon">
+                        <li class="${selectMenu=='coupon' ? 'active':''}">
+                            <a href="#"><i class="fa fa-pagelines fa-fw"></i> 优惠券管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='coupon' ? 'in':''}"
+                                aria-expanded="${selectMenu=='coupon' ? 'true':'false'} ">
+                                <shiro:hasPermission name="coupon:search">
+                                    <li><a href="${basePath }/coupon/list.html">优惠券列表</a></li>
+                                </shiro:hasPermission>
+                                <shiro:hasPermission name="coupon:add">
+                                    <li><a href="${basePath }/coupon/add.html">添加优惠券</a></li>
+                                </shiro:hasPermission>
+                                <shiro:hasPermission name="coupon:search">
+                                    <li><a href="${basePath }/coupon/userConponList.html">用户优惠券列表</a></li>
                                 </shiro:hasPermission>
                             </ul>
                         </li>
                     </shiro:hasPermission>
                     <shiro:hasPermission name="order">
-                        <li class="${(selectMenu=='order'||selectMenu=='shipOrder'||selectMenu=='packOrder') ? 'active':''}">
+                        <li class="${(selectMenu=='order') ? 'active':''}">
                             <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> 订单管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level collapse ${(selectMenu=='order'||selectMenu=='shipOrder'||selectMenu=='packOrder') ? 'in':''}" 
-                            	aria-expanded="${(selectMenu=='order'||selectMenu=='shipOrder'||selectMenu=='packOrder') ? 'true':'false'} ">
-                                <shiro:hasPermission name="order/search">
-                                    <li>
-                                        <a class="${(selectMenu=='order') ? 'active':''}" href="/order/list.html">订单列表</a>
-                                    </li>
-                                </shiro:hasPermission>
-                                <shiro:hasPermission name="shipOrder/search">
-                                    <li>
-                                        <a class="${(selectMenu=='shipOrder') ? 'active':''}" href="/shipOrder/shipList.html">待发货列表</a>
-                                    </li>
-                                </shiro:hasPermission>
-                                <shiro:hasPermission name="packOrder/search">
-                                    <li>
-                                        <a class="${(selectMenu=='packOrder') ? 'active':''}" href="/packOrder/packList.html">包裹列表</a>
-                                    </li>
+                            <ul class="nav nav-second-level collapse ${(selectMenu=='order') ? 'in':''}"
+                            	aria-expanded="${(selectMenu=='order') ? 'true':'false'} ">
+                                <shiro:hasPermission name="order:search">
+                                    <li><a class="${(selectMenu=='order') ? 'active':''}" href="${basePath }/order/list.html">订单列表</a></li>
                                 </shiro:hasPermission>
                             </ul>
                         </li>
                     </shiro:hasPermission>
-                    <c:if test="${!independent}">
-	                    <shiro:hasPermission name="supplier">
-	                        <li class="${selectMenu=='supplier' ? 'active':''}">
-	                            <a href="#"><i class="fa fa-film fa-fw"></i> 供应商管理<span class="fa arrow"></span></a>
-	                            <ul class="nav nav-second-level collapse ${selectMenu=='supplier' ? 'in':''}"
-	                                aria-expanded="${selectMenu=='supplier' ? 'true':'false'} ">
-	                                <shiro:hasPermission name="supplier:search">
-	                                    <li>
-	                                        <a href="/supplier/list.html">供应商列表</a>
-	                                    </li>
-	                                </shiro:hasPermission>
-	                                <shiro:hasPermission name="supplier:insert">
-	                                    <li>
-	                                        <a href="/supplier/add.html">添加供应商</a>
-	                                    </li>
-	                                </shiro:hasPermission>
-	                            </ul>
-	                        </li>
-	                    </shiro:hasPermission>
-                    </c:if>
-                    <c:if test="${!independent}">
-	                    <shiro:hasPermission name="advertisement">
-	                        <li class="${selectMenu=='advertisement' ? 'active':''}">
-	                            <a href="#"><i class="fa fa-film fa-fw"></i> 广告管理<span class="fa arrow"></span></a>
-	                            <ul class="nav nav-second-level collapse ${selectMenu=='advertisement' ? 'in':''}"
-	                                aria-expanded="${selectMenu=='advertisement' ? 'true':'false'} ">
-	                                <shiro:hasPermission name="advertisement:list">
-	                                    <li>
-	                                        <a href="/advertisement/list.html">广告列表</a>
-	                                    </li>
-	                                </shiro:hasPermission>
-	                                <shiro:hasPermission name="advertisement:add">
-	                                    <li>
-	                                        <a href="/advertisement/add.html">添加广告</a>
-	                                    </li>
-	                                </shiro:hasPermission>
-	                            </ul>
-	                        </li>
-	                    </shiro:hasPermission>
-                    </c:if>
+                    <shiro:hasPermission name="feedBack">
+                        <li class="${(selectMenu=='feedBack') ? 'active':''}">
+                            <a href="#"><i class="fa fa-thumb-tack fa-fw"></i> 用户反馈信息<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${(selectMenu=='feedBack') ? 'in':''}"
+                                aria-expanded="${(selectMenu=='feedBack') ? 'true':'false'} ">
+                                <shiro:hasPermission name="feedBack:search">
+                                    <li><a class="${(selectMenu=='feedBack') ? 'active':''}" href="${basePath }/feedBack/list.html">用户反馈列表</a></li>
+                                </shiro:hasPermission>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="post">
+                        <li class="${(selectMenu=='post') ? 'active':''}">
+                            <a href="#"><i class="fa fa-thumb-tack fa-fw"></i>快递公司管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${(selectMenu=='post') ? 'in':''}"
+                                aria-expanded="${(selectMenu=='post') ? 'true':'false'} ">
+                                <shiro:hasPermission name="post:search">
+                                    <li><a class="${(selectMenu=='post') ? 'active':''}" href="${basePath }/post/list.html">快递公司列表</a></li>
+                                </shiro:hasPermission>
+                                <shiro:hasPermission name="post:add">
+                                    <li><a href="${basePath }/post/add.html">添加快递公司</a></li>
+                                </shiro:hasPermission>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="advertisement">
+                        <li class="${selectMenu=='advertisement' ? 'active':''}">
+                            <a href="#"><i class="fa fa-film fa-fw"></i> 广告管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='advertisement' ? 'in':''}"
+                                aria-expanded="${selectMenu=='advertisement' ? 'true':'false'} ">
+                                <shiro:hasPermission name="advertisement:list">
+                                    <li><a href="${basePath }/advertisement/list.html">广告列表</a></li>
+                                </shiro:hasPermission>
+                                <shiro:hasPermission name="advertisement:add">
+                                    <li><a href="${basePath }/advertisement/add.html">添加广告</a></li>
+                                </shiro:hasPermission>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
+                    <shiro:hasPermission name="user">
+                        <li class="${selectMenu=='user' ? 'active':''}">
+                            <a href="#"><i class="fa fa-film fa-fw"></i> 用户管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='user' ? 'in':''}"
+                                aria-expanded="${selectMenu=='user' ? 'true':'false'} ">
+                                <shiro:hasPermission name="user:list">
+                                    <li><a href="${basePath }/user/list.html">用户列表</a></li>
+                                </shiro:hasPermission>
+                            </ul>
+                        </li>
+                    </shiro:hasPermission>
                     <shiro:hasRole name="admin">
                         <li class="${selectMenu=='system' ? 'active':''}">
                             <a href="#"><i class="fa fa-gear fa-fw"></i> 系统设置<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse ${selectMenu=='system' ? 'in':''}"
                                 aria-expanded="${selectMenu=='system' ? 'true':'false'} ">
-                                <c:if test="${independent}">
-	                                <shiro:hasPermission name="system/user">
-	                                    <li>
-	                                        <a href="/user/list.html">用户管理</a>
-	                                    </li>
-	                                </shiro:hasPermission>
-	                                <shiro:hasPermission name="system/admin">
-	                                    <li>
-	                                        <a href="/admin/list.html">管理员管理</a>
-	                                    </li>
-	                                </shiro:hasPermission>
-                                </c:if>
-                                <shiro:hasPermission name="system/userColor">
-                                    <li>
-                                        <a href="/userColor/list.html">特殊用户管理</a>
-                                    </li>
+                                <shiro:hasPermission name="system:admin">
+                                    <li><a href="${basePath }/admin/list.html">管理员管理</a></li>
                                 </shiro:hasPermission>
-                                <shiro:hasPermission name="system/role">
-                                    <li>
-                                        <a href="/system/role.html">系统角色管理</a>
-                                    </li>
+                                <shiro:hasPermission name="system:role">
+                                    <li><a href="${basePath }/security/role.html">系统角色管理</a></li>
                                 </shiro:hasPermission>
-                                <shiro:hasPermission name="system/security">
-                                    <li>
-                                        <a href="/system/security.html">系统权限管理</a>
-                                    </li>
+                                <shiro:hasPermission name="system:security">
+                                    <li><a href="${basePath }/security/security.html">系统权限管理</a></li>
                                 </shiro:hasPermission>
                                 <shiro:hasPermission name="system/parameter">
-                                    <li>
-                                        <a href="/system/parameter.html">系统参数管理</a>
-                                    </li>
+                                    <li><a href="${basePath }/system/parameter.html">系统参数管理</a></li>
                                 </shiro:hasPermission>
-                                <shiro:hasPermission name="system/delivery">
-                                    <li>
-                                        <a href="/system/delivery.html">快递公司管理</a>
-                                    </li>
-                                </shiro:hasPermission>
-                                <shiro:hasPermission name="system/pickup">
-                                    <li>
-                                        <a href="/system/address.html">自提地址管理</a>
-                                    </li>
+                                <shiro:hasPermission name="system:version">
+                                    <li><a href="${basePath }/version/list.html">版本管理</a></li>
                                 </shiro:hasPermission>
                             </ul>
                         </li>

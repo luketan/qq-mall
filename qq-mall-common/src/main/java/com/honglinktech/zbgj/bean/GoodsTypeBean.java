@@ -1,15 +1,10 @@
 package com.honglinktech.zbgj.bean;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
 import java.util.List;
 
-import org.springframework.jdbc.core.RowMapper;
-
-import com.honglinktech.zbgj.entity.TGoodsType;
-import com.honglinktech.zbgj.entity.TGoodsTypeSub;
+import com.honglinktech.zbgj.entity.GoodsType;
+import com.honglinktech.zbgj.entity.GoodsTypeSub;
 
 
 /**
@@ -24,7 +19,7 @@ public class GoodsTypeBean implements Serializable{
 	private String search=null;
 	private String summary=null;
 	
-	private List<TGoodsTypeSub> tgoodsTypeSubList;
+	private List<GoodsTypeSubBean> goodsTypeSubList;
 	
 	/**
 	 * 
@@ -33,7 +28,7 @@ public class GoodsTypeBean implements Serializable{
 	
 	public GoodsTypeBean(){
  	}
- 	public GoodsTypeBean(TGoodsType goodsType){
+ 	public GoodsTypeBean(GoodsType goodsType){
  		this.id = goodsType.getId();
 		this.name = goodsType.getName();
 		this.ico = goodsType.getIco();
@@ -84,73 +79,12 @@ public class GoodsTypeBean implements Serializable{
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-	public List<TGoodsTypeSub> getTgoodsTypeSubList() {
-		return tgoodsTypeSubList;
-	}
-	public void setTgoodsTypeSubList(List<TGoodsTypeSub> tgoodsTypeSubList) {
-		this.tgoodsTypeSubList = tgoodsTypeSubList;
+
+	public List<GoodsTypeSubBean> getGoodsTypeSubList() {
+		return goodsTypeSubList;
 	}
 
-
-	public enum DBMaping{
-		tableName("t_goods_type",0,false,false,false),
-		id("id",Types.INTEGER,true,true,false),
-		name("name",Types.VARCHAR,false,false,false),
-		ico("ico",Types.VARCHAR,false,false,true),
-		img("img",Types.VARCHAR,false,false,true),
-		search("search",Types.VARCHAR,false,false,true),
-		summary("summary",Types.VARCHAR,false,false,true);
-		private String dbName;
-		private int dbType;
-		private boolean primaryKey;
-		private boolean isAotuIn;
-		private boolean isAllowNull;
-	    public String getDbName(){
-	    	 return this.dbName;
-	    }
-	    public int getDbType(){
-	    	 return this.dbType;
-	    }
-	    public boolean getPrimaryKey(){
-	    	 return this.primaryKey;
-	    }
-	    public boolean isAotuIn(){
-	    	 return this.isAotuIn;
-	    }
-	    public boolean isAllowNull(){
-	    	 return this.isAllowNull;
-	    }
-	    private DBMaping(String dbName,int dbType,boolean primaryKey,boolean isAotuIn,boolean isAllowNull){
-	    	 this.dbName = dbName;
-	    	 this.dbType = dbType;
-	    	 this.primaryKey = primaryKey;
-	    	 this.isAotuIn = isAotuIn;
-	    	 this.isAllowNull = isAllowNull;
-	    }
+	public void setGoodsTypeSubList(List<GoodsTypeSubBean> goodsTypeSubList) {
+		this.goodsTypeSubList = goodsTypeSubList;
 	}
-	public Object[] getDBMapping(String filedName){
-		for(DBMaping d:DBMaping.values()){
-			if(d.toString().equals(filedName)){
-				DBMaping dbMaping = DBMaping.valueOf(filedName);
-				Object[] values = {dbMaping.dbName,dbMaping.dbType,dbMaping.primaryKey,dbMaping.isAotuIn,dbMaping.isAllowNull};
-				return values;
-			}
-		}
-		return null;
-	}
-	public static class GoodsTypeBeanRowMapper implements RowMapper<GoodsTypeBean> {  
-        @Override  
-        public GoodsTypeBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
-
-        	GoodsTypeBean goodsTypeBean = new GoodsTypeBean();
-        	goodsTypeBean.setId(rs.getInt("id"));
-        	goodsTypeBean.setName(rs.getString("name"));
-        	goodsTypeBean.setIco(rs.getString("ico"));
-        	goodsTypeBean.setImg(rs.getString("img"));
-        	goodsTypeBean.setSearch(rs.getString("search"));
-        	goodsTypeBean.setSummary(rs.getString("summary"));
-			return goodsTypeBean; 
-        }  
-          
-    }
 }

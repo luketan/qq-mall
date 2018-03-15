@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.GtagDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.Gtag">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="show_main" jdbcType="INTEGER" property="showMain" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, type, img, status, title, subtitle, show_main, update_time, create_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_g_tag
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_g_tag
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Gtag" useGeneratedKeys="true" keyProperty="id">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+    INSERT INTO t_g_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="img != null and img != ''">
+        img,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="title != null and title != ''">
+        title,
+      </if>
+      <if test="subtitle != null and subtitle != ''">
+        subtitle,
+      </if>
+      <if test="showMain != null">
+        show_main,
+      </if>
+        update_time,
+        create_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="img != null and img != ''">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="title != null and title != ''">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null and subtitle != ''">
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="showMain != null">
+        #{showMain,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Gtag">
+    UPDATE t_g_tag
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="img != null and img != ''">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="title != null and title != ''">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null and subtitle != ''">
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="showMain != null">
+        show_main = #{showMain,jdbcType=INTEGER},
+      </if>
+        update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--######################################################################################-->
+  <!---->
+  <select id="findByWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_g_tag
+    WHERE 1=1
+    <if test="start!=null and rows!=null">
+      limit #{start},#{rows}
+    </if>
+  </select>
+  <!---->
+  <select id="findCount" parameterType="map" resultType="java.lang.Integer">
+    SELECT
+    count(1)
+    FROM t_g_tag
+    WHERE 1=1
+  </select>
+  <!---->
+  <select id="findAllByGoodsId" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsTagBean">
+    SELECT
+      t.`id`,
+      t.`name`,
+      t.`type`,
+      t.`img`,
+      t.`status`,
+      t.`title`,
+      t.`subtitle`,
+      t.`show_main` as showMain,
+      t.`update_time` as updateTime,
+      t.`create_time` as createTime,
+      g.goods_id as goodsId
+    FROM t_g_tag as t LEFT JOIN t_goods_tag g ON(t.id = g.tag_id and g.goods_id = #{goodsId})
+    WHERE 1=1
+    and t.status = 1
+  </select>
+
+</mapper>

@@ -1,20 +1,6 @@
 package com.honglinktech.zbgj.api.controller;
 
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
@@ -24,10 +10,23 @@ import com.honglinktech.zbgj.bean.GoodsDisCountBean;
 import com.honglinktech.zbgj.bean.GoodsTypeBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.service.self.GoodsDisService;
-import com.honglinktech.zbgj.service.self.GoodsService;
-import com.honglinktech.zbgj.service.self.GoodsTypeService;
-import com.honglinktech.zbgj.service.self.UserKeepService;
+import com.honglinktech.zbgj.service.GoodsService;
+import com.honglinktech.zbgj.service.GoodsDisService;
+import com.honglinktech.zbgj.service.GoodsService;
+import com.honglinktech.zbgj.service.GoodsTypeService;
+import com.honglinktech.zbgj.service.UserKeepService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/goods/api")
@@ -42,7 +41,6 @@ public class GoodsController extends BaseApiController {
 	private UserKeepService userKeepService;
 	/**
 	 * App通过ID获取goodsBean
-	 * @param goods
 	 * @return
 	 * @throws BaseException
 	 */
@@ -109,7 +107,6 @@ public class GoodsController extends BaseApiController {
 	
 	/**
 	 * 商品类型所有
-	 * @param map
 	 * @return
 	 * @throws BaseException
 	 */

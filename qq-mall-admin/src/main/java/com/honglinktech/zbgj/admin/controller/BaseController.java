@@ -3,8 +3,9 @@
  */
 package com.honglinktech.zbgj.admin.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.honglinktech.zbgj.admin.common.Constants;
+import com.honglinktech.zbgj.common.SystemArgsCache;
+import com.honglinktech.zbgj.entity.Admin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -17,9 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.honglinktech.zbgj.admin.common.Constants;
-import com.honglinktech.zbgj.common.SystemArgsCache;
-import com.honglinktech.zbgj.entity.CAdmin;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 控制器支持类
@@ -28,7 +27,7 @@ import com.honglinktech.zbgj.entity.CAdmin;
 @Configuration
 public abstract class BaseController {
 
-    protected Logger logger = LogManager.getLogger(getClass());
+    protected final Logger logger = LogManager.getLogger(getClass());
 
     @Autowired
     protected HttpServletRequest request;
@@ -38,7 +37,12 @@ public abstract class BaseController {
     
     @ModelAttribute
     public void setArgs() {
-    	String mallName = env.getProperty("system.mallName");
+
+        String contextPath = request.getContextPath();
+        String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+contextPath+"/";
+        request.setAttribute("basePath", basePath);
+
+    	String mallName = "珠宝管家";
         SystemArgsCache.put("title", mallName+"后台管理系统");
         SystemArgsCache.put("name", mallName+"后台管理系统");
         request.setAttribute("site", SystemArgsCache.getMap());
@@ -56,9 +60,9 @@ public abstract class BaseController {
      * 获取当前登录用户的信息
      * @return
      */
-    protected CAdmin getAdmin() throws AuthenticationException {
+    protected Admin getAdmin() throws AuthenticationException {
         Session session = SecurityUtils.getSubject().getSession();
-        CAdmin admin = (CAdmin) session.getAttribute(Constants.LOGIN_ADMIN_DATA);
+        Admin admin = (Admin) session.getAttribute(Constants.LOGIN_ADMIN_DATA);
         return admin;
     }
 

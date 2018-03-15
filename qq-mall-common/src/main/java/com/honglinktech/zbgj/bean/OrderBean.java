@@ -4,10 +4,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.honglinktech.zbgj.annotation.FieldMeta;
-import com.honglinktech.zbgj.entity.TOrder;
-import com.honglinktech.zbgj.entity.TOrderItem;
-import com.honglinktech.zbgj.entity.TUserAddress;
+import com.honglinktech.zbgj.entity.Order;
+import com.honglinktech.zbgj.entity.OrderItem;
+import com.honglinktech.zbgj.entity.UserAddress;
 
 @SuppressWarnings("unused")
 public class OrderBean {
@@ -37,8 +36,8 @@ public class OrderBean {
 	private String remark=null;
 	private Date createTime=null;
 	
-	private List<TOrderItem> orderItemList;
-	private TUserAddress tuserAddress;
+	private List<OrderItem> orderItemList;
+	private UserAddress tuserAddress;
 	
 	/**
 	 * 
@@ -48,7 +47,7 @@ public class OrderBean {
 	public OrderBean(){
  	}
   	
-	public OrderBean(TOrder torder) {
+	public OrderBean(Order torder) {
 		if(torder!=null){
 			this.id = torder.getId();
 			this.orderCode = torder.getOrderCode();
@@ -237,16 +236,16 @@ public class OrderBean {
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	public List<TOrderItem> getOrderItemList() {
+	public List<OrderItem> getOrderItemList() {
 		return orderItemList;
 	}
-	public void setOrderItemList(List<TOrderItem> orderItemList) {
+	public void setOrderItemList(List<OrderItem> orderItemList) {
 		this.orderItemList = orderItemList;
 	}
-	public TUserAddress getTuserAddress() {
+	public UserAddress getTuserAddress() {
 		return tuserAddress;
 	}
-	public void setTuserAddress(TUserAddress tuserAddress) {
+	public void setTuserAddress(UserAddress tuserAddress) {
 		this.tuserAddress = tuserAddress;
 	}
 	public String getOrderStatus(){
@@ -263,6 +262,9 @@ public class OrderBean {
 				break;
 			case 4:
 				orderStatus = "已完成";
+				break;
+			case 7:
+				orderStatus = "已取消";
 				break;
 			default:
 				break;

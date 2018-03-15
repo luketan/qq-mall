@@ -4,7 +4,7 @@
 <head>
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="/static/img/favicon.ico" type="image/x-icon" rel="shortcut icon"> 
+    <link href="${basePath }/static/img/favicon.ico" type="image/x-icon" rel="shortcut icon">
     <title>首页 - ${site.title}</title>
     <%@include file="include/head.jsp" %>
 

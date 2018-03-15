@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.GoodsBrandDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.GoodsBrand">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="goods_type" jdbcType="INTEGER" property="goodsType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, goods_type, status, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_goods_brand
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_goods_brand
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsBrand" useGeneratedKeys="true" keyProperty="id">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+    INSERT INTO t_goods_brand
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="goodsType != null">
+        goods_type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+        create_time,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null and typeName != ''">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+        now(),
+        now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsBrand">
+    UPDATE t_goods_brand
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsType != null">
+        goods_type = #{goodsType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--###############################################################################################-->
+  <select id="findAll" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_goods_brand
+    WHERE 1=1
+  </select>
+  <!---->
+  <select id="findByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsBrandBean">
+    SELECT
+    gb.id,
+    gb.name,
+    gb.goods_type as goodsType,
+    gt.name as typeName,
+    gb.status,
+    gb.create_time as createTime,
+    gb.update_time as updateTime
+    FROM t_goods_brand gb LEFT JOIN t_goods_type gt ON (gb.goods_type = gt.id)
+    WHERE 1=1
+    <if test="start != null and rows!=null">
+      limit #{start}, #{rows}
+    </if>
+  </select>
+  <!---->
+  <select id="findCount" parameterType="map" resultType="java.lang.Integer">
+    SELECT
+    count(1)
+    FROM t_goods_brand
+    WHERE 1=1
+  </select>
+</mapper>

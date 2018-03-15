@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.GoodsFormatDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.GoodsFormat">
+    <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <id column="format_id" jdbcType="INTEGER" property="formatId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    goods_id, format_id, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsFormatKey" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_goods_format
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+      AND format_id = #{formatId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsFormatKey">
+    DELETE FROM t_goods_format
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+      AND format_id = #{formatId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsFormat">
+    INSERT INTO t_goods_format
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="formatId != null">
+        format_id,
+      </if>
+        create_time,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="formatId != null">
+        #{formatId,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsFormat">
+    UPDATE t_goods_format
+    <set>
+      update_time = now(),
+    </set>
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+      AND format_id = #{formatId,jdbcType=INTEGER}
+  </update>
+  <!--######################################################################################-->
+  <!--批量插入-->
+  <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.GoodsFormat">
+    INSERT INTO t_goods_format(
+    goods_id, format_id, create_time, update_time
+    )
+    values
+    <if test="goodsFormats != null and goodsFormats.size &gt; 0">
+      <foreach collection="goodsFormats" item="goodsFormat" index="index"
+               open="" close="" separator=",">
+        (
+        #{goodsFormat.goodsId,jdbcType=INTEGER},
+        #{goodsFormat.formatId,jdbcType=INTEGER},
+        now(),
+        now()
+        )
+      </foreach>
+    </if>
+  </insert>
+  <delete id="deleteByGoodsId" parameterType="java.lang.Integer">
+    DELETE FROM t_goods_format
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+</mapper>

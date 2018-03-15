@@ -1,34 +1,24 @@
 package com.honglinktech.zbgj.admin.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.honglinktech.zbgj.bean.UserBean;
+import com.honglinktech.zbgj.common.Page;
+import com.honglinktech.zbgj.common.Response;
+import com.honglinktech.zbgj.entity.User;
+import com.honglinktech.zbgj.entity.UserBasis;
+import com.honglinktech.zbgj.service.UserAddressService;
+import com.honglinktech.zbgj.service.UserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.honglinktech.zbgj.common.Page;
-import com.honglinktech.zbgj.common.Response;
-import com.honglinktech.zbgj.entity.Address;
-import com.honglinktech.zbgj.entity.User;
-import com.honglinktech.zbgj.service.AddressService;
-import com.honglinktech.zbgj.service.UsersService;
-import com.honglinktech.zbgj.utils.HashUtils;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * user接口控制器
@@ -37,30 +27,67 @@ import com.honglinktech.zbgj.utils.HashUtils;
 @RequestMapping("/user")
 @Configuration
 public class UserController extends BaseController {
-    @Autowired  
-    private UsersService usersService;
+
+	@Autowired
+	private UserService userService;
+
     @Autowired
-    private AddressService addressService;
+    private UserAddressService userAddressService;
     
     @Autowired  
     private Environment env;
-    
-    /**
-     * 用户修改
-     * @param status 订单状态
-     * @param type   销售方式
-     * @param pickup 取货方式
-     * @param key    关键字
-     * @param index  分页页数
-     * @param size   分页大小
-     * @param model
-     * @return
-     */
-    @RequiresPermissions("system:user:modify")
+
+	/**
+	 * 分页查询订单
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("user:search")
+	@RequestMapping("/list")
+	public String search(@RequestParam(required = false) Integer status,
+						 @RequestParam(required = false) Integer type,
+						 @RequestParam(required = false) String keyword,
+						 @RequestParam(required = false, defaultValue = "1") int index,
+						 @RequestParam(required = false, defaultValue = "15") int size, Model model) {
+
+		Map whereMap = new HashMap();
+		String url = "list.html?";
+		if (status != null && status != 0) {
+			whereMap.put("status", status);
+			url += ("status="+status+"&");
+		}
+		if (type != null && type != 0) {
+			whereMap.put("type", type);
+			url += ("type="+type+"&");
+		}
+		if (!StringUtils.isEmpty(keyword)) {
+			whereMap.put("keyword", keyword);
+			url += ("keyword="+keyword+"&");
+		}
+		int start = (index - 1) * size;
+		whereMap.put("start", start);
+		whereMap.put("rows", size);
+
+
+		Page<User> page = userService.findPage(start, size, url, whereMap);
+		model.addAttribute("page", page);
+		model.addAttribute("status", status);
+		model.addAttribute("type", type);
+		model.addAttribute("keyword", keyword);
+		return "user/list";
+	}
+	/**
+	 * 用户修改
+	 * @param id
+	 * @param password
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("user:modify")
     @RequestMapping("/modify")
     public String modify(@RequestParam(required = false) int id,@RequestParam(required = false,defaultValue="") String password, Model model) {
-    	Response<User> response = usersService.findBasicUserDataByCode(String.valueOf(id));
-    	if(response.getCode()==0){
+    	Response<UserBean> response = userService.findUserBeanById(id);
+    	if(("000000").equals(response.getCode())){
     		model.addAttribute("item", response.getResult());
     	}else{
     		addError(model, response.getMsg());
@@ -70,111 +97,54 @@ public class UserController extends BaseController {
     }
     
     /**
-     * 保存或者修改
+     * 修改user
      * @param model
      * @return
      */
-    @RequiresPermissions("system:admin:save")
-    @RequestMapping("/saveOrUpdate")
-    public String save(User user, Model model) {
-    	
-    	Response<User> response = usersService.saveOrUpdateUser(user);
-    	user = response.getResult();
-    	if(response.getCode()==0){
-    		addMessage(model, response.getMsg());
-    		model.addAttribute("item", user);
-    	}else{
-    		addError(model, response.getMsg());
-    		model.addAttribute("item", user);
-    	}
-    	
-    	return "redirect:modify.html?id="+user.getId();
-    }
-    
-    /**
-     * 保存或者修改
-     * @param model
-     * @return
-     */
-    @RequiresPermissions("system:user:add")
-    @RequestMapping("/add")
-    public String add(Model model) {
-    	return "user/form";
-    }
-    
-    /**
-     * 重置密码
-     * @param model
-     * @return
-     * @throws UnsupportedEncodingException 
-     * @throws NoSuchAlgorithmException 
-     */
-    @RequiresPermissions("system:admin:save")
-    @RequestMapping("/resetPwd")
-    public String resetPwd(User user, Model model){
-    	String password = "123456";
-    	try {
-			user.setPassword(HashUtils.encryptMD5(HashUtils.encryptMD5(password, ""), ""));
+    @RequiresPermissions("user:save")
+    @RequestMapping("/updateUser")
+    public String updateUser(UserBean userBean, Model model) {
+		if(userBean == null){
+			addError(model, "系统错误请联系工作人员！");
+			return "redirect:list.html?";
+		}
+		try {
+			Response<Integer> response = userService.updateUser(userBean.toUsre(), null);
+			if(("000000").equals(response.getCode())){
+				addMessage(model, response.getMsg());
+			}else{
+				addError(model, response.getMsg());
+			}
+			model.addAttribute("item", userBean);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	Response<User> response = usersService.saveOrUpdateUser(user);
-    	if(response.getCode()==0){
-    		addMessage(model, response.getMsg());
-    	}else{
-    		addError(model, response.getMsg());
-    	}
-    	
-    	return "redirect:modify.html?id="+user.getId()+"&password="+password;
+    	return "redirect:modify.html?id="+userBean.getId();
     }
-    
-    @RequestMapping(value = "/searchPhone", method = {RequestMethod.POST},
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public Map<String, Object> searchPhone(HttpServletRequest request, HttpServletResponse response) {
-    	String phone = request.getParameter("phone");
-    	if(!StringUtils.isEmpty(phone)){
-    	     Response<User> respUserData = usersService.findBasicUserDataByPhone(phone);
-    	     User userData = respUserData.getResult();
-    		 if(userData!=null){
-    			 Response<List<Address>> respAddress= addressService.findAddressByUserId(userData.getId(),null);
-    			 
-    			 Map<String, Object> resp = new HashMap<String, Object>();
-        		 Map<String, Object> result = new HashMap<String, Object>();
-        		 result.put("user", userData);
-        		 result.put("addressList", respAddress.getResult());
-        		 resp.put("ResultInt", 0);
-        		 resp.put("ResultString", "查询成功");
-        		 resp.put("result", result);
-        	     return resp;
-    		 }
-    	}
-    	
-        Map<String, Object> resp = new HashMap<String, Object>();
-        resp.put("ResultInt", 1);
-        resp.put("ResultString", "查询失败");
-        return resp;
-    }
-    @RequiresPermissions("system:user:modify")
-    @RequestMapping("/updateUserAuthInfo")
-    public String updateUserAuthInfo(@RequestParam(required = false) int id,@RequestParam(required = false,defaultValue="false") boolean active, Model model){
-    	
-		String mallId = env.getProperty("system.mallId");
-		int mId = StringUtils.isEmpty(mallId)?0:Integer.valueOf(mallId);
-    	
-		Response<Integer> response;
-		if(active){
-			response = usersService.addUserAuthInfo(mId, id, active, "");
-		}else{
-			response = usersService.updateUserAuthInfo(mId, id, active, "");
+
+	/**
+	 * 修改 UserBasis
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("user:save")
+	@RequestMapping("/updateUserBasis")
+	public String updateUserBasis(UserBean userBean, Model model) {
+		if(userBean == null){
+			addError(model, "系统错误请联系工作人员！");
+			return "redirect:list.html?";
 		}
-    	if(response.getCode() == 0){
-    		addMessage(model, "操作成功");
-    	}else{
-    		addError(model, response.getMsg());
-    	}
-    	
-    	return "redirect:list.html";
-    }
+		try {
+			Response<Integer> response = userService.updateUserBasis(userBean.toUserBasis());
+			if(("000000").equals(response.getCode())){
+				addMessage(model, response.getMsg());
+			}else{
+				addError(model, response.getMsg());
+			}
+			model.addAttribute("item", userBean);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:modify.html?id="+userBean.getId();
+	}
 }

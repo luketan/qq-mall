@@ -26,6 +26,9 @@
     <!-- 自动扫描注解 -->
     <context:component-scan base-package="com.honglinktech.zbgj"/>
 
+    <aop:aspectj-autoproxy />
+    <bean class="com.honglinktech.zbgj.api.intercepter.LogAspect"/>
+
     <!-- dataSource 配置 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
@@ -59,12 +62,24 @@
         <!-- 配置监控统计拦截的filters -->
         <property name="filters" value="stat"/>
     </bean>
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
-	</bean>
-   
+	</bean>-->
+
+    <!-- spring与mybatis整合配置 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:mapper/*Mapper.xml"/>
+    </bean>
+
+    <!-- 扫描所有dao -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.honglinktech.zbgj.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
     <!-- 对dataSource 数据源进行事务管理 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
           p:dataSource-ref="dataSource"/>
@@ -86,16 +101,17 @@
 
     <!-- 事务 aop 配置 -->
     <aop:config>
-        <aop:pointcut id="serviceMethods" expression="execution(* com.honglinktech.zbgj.service.*.*(..)) || execution(* com.honglinktech.zbgj.service.self.*.*(..))"/>
+        <aop:pointcut id="serviceMethods" expression="execution(* com.honglinktech.zbgj.service.impl.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
    <task:scheduled-tasks scheduler="scheduleder">
-        <task:scheduled ref="scheduledTaskManager" method="autoNoticeExpiredOrder" cron="0 0/5 * * * ?"/>
+       <task:scheduled ref="scheduledTaskManager" method="autoNoticeExpiredOrder" cron="0 0/5 * * * ?"/>
+       <task:scheduled ref="scheduledTaskManager" method="autoNoticeExpiredOrder" cron="0 */30 * * * *"/>
     </task:scheduled-tasks>
     <task:scheduler id="scheduleder" pool-size="2"/>
-    
+
 </beans>
 

@@ -7,6 +7,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.api.base.BaseApiController;
+import com.honglinktech.zbgj.entity.ShoppingCart;
+import com.honglinktech.zbgj.service.ShoppingCartService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,20 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.honglinktech.zbgj.api.base.CommonBaseController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.ShoppingCartBean;
 import com.honglinktech.zbgj.bean.request.AddShoppingBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.entity.TShoppingCart;
-import com.honglinktech.zbgj.service.TShoppingCartService;
-import com.honglinktech.zbgj.service.self.ShoppingCartService;
 
 @RestController
 @RequestMapping("/shoppingCart/api")
-public class ShoppingCartController extends CommonBaseController<TShoppingCart,TShoppingCartService> {
+public class ShoppingCartController extends BaseApiController {
 	@Resource
 	private ShoppingCartService shoppingCartService;
 	
@@ -106,10 +105,5 @@ public class ShoppingCartController extends CommonBaseController<TShoppingCart,T
 		return response; 
 	}
 
-	@Override
-	protected TShoppingCartService getService() {
-		return shoppingCartService;
-	}
-	
 	
 }

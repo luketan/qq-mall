@@ -2,14 +2,10 @@ package com.honglinktech.zbgj.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.jdbc.core.RowMapper;
-
-import com.honglinktech.zbgj.entity.TGoods;
-import com.honglinktech.zbgj.entity.TGoodsDis;
+import com.honglinktech.zbgj.entity.Goods;
+import com.honglinktech.zbgj.entity.GoodsDis;
 
 
 /**
@@ -32,7 +28,7 @@ public class GoodsBean implements Serializable{
 	private List<ActivityBean> activityBeanList;
 	private List<FormatBean> formatBeanList;
 	private List<PicBean> picList;
-	private List<TGoodsDis> goodsDisList;
+	private List<GoodsDis> goodsDisList;
 	
 	private GoodsDisCountBean goodsDisCountBean;
 	private List<GoodsDisBean> goodsDisBeanList;
@@ -44,7 +40,7 @@ public class GoodsBean implements Serializable{
 	
 	public GoodsBean(){
  	}
-	public GoodsBean(TGoods tGoods){
+	public GoodsBean(Goods tGoods){
 		this.detail = tGoods.getDetail();
 		this.formerPrice = tGoods.getFormerPrice();
 		this.id = tGoods.getId();
@@ -130,10 +126,10 @@ public class GoodsBean implements Serializable{
 	public void setPicList(List<PicBean> picList) {
 		this.picList = picList;
 	}
-	public List<TGoodsDis> getGoodsDisList() {
+	public List<GoodsDis> getGoodsDisList() {
 		return goodsDisList;
 	}
-	public void setGoodsDisList(List<TGoodsDis> goodsDisList) {
+	public void setGoodsDisList(List<GoodsDis> goodsDisList) {
 		this.goodsDisList = goodsDisList;
 	}
 	public boolean isKeep() {
@@ -160,41 +156,5 @@ public class GoodsBean implements Serializable{
 	public void setGoodsDisBeanList(List<GoodsDisBean> goodsDisBeanList) {
 		this.goodsDisBeanList = goodsDisBeanList;
 	}
-
-
-	public static class GoodsBeanRowMapper implements RowMapper<GoodsBean> {  
-        @Override  
-        public GoodsBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
-        	
-        	GoodsBean goodsBean = new GoodsBean();
-        	goodsBean.setId(rs.getInt("id"));
-        	goodsBean.setImgUrl(rs.getString("img_url"));
-        	goodsBean.setMarkPrice(rs.getBigDecimal("mark_price"));
-        	goodsBean.setName(rs.getString("name"));
-        	goodsBean.setDetail(rs.getString("detail"));
-        	goodsBean.setPrice(rs.getBigDecimal("price"));
-        	goodsBean.setSalesNum(rs.getInt("sales_num"));
-        	goodsBean.setSubName(rs.getString("sub_name"));
-        	goodsBean.setFormerPrice(rs.getBigDecimal("former_price"));
-        	goodsBean.setKeep(rs.getBoolean("keep"));
-        	return goodsBean;
-        }
-    }
-	public static class GoodsSearchBeanRowMapper implements RowMapper<GoodsBean> {  
-        @Override  
-        public GoodsBean mapRow(ResultSet rs, int rowNum) throws SQLException {  
-        	
-        	GoodsBean goodBean = new GoodsBean();
-        	goodBean.setId(rs.getInt("id"));
-        	goodBean.setImgUrl(rs.getString("img_url"));
-        	goodBean.setMarkPrice(rs.getBigDecimal("mark_price"));
-        	goodBean.setName(rs.getString("name"));
-        	goodBean.setPrice(rs.getBigDecimal("price"));
-        	goodBean.setSalesNum(rs.getInt("sales_num"));
-        	goodBean.setSubName(rs.getString("sub_name"));
-        	
-        	return goodBean;
-        }
-    }
 
 }

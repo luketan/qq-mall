@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.GactivityDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.Gactivity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="args" jdbcType="VARCHAR" property="args" />
+    <result column="max" jdbcType="INTEGER" property="max" />
+    <result column="value" jdbcType="INTEGER" property="value" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="available" jdbcType="INTEGER" property="available" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, type, args, max, value, url, detail, available, start_time, end_time, status, 
+    create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_g_activity
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_g_activity
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Gactivity" useGeneratedKeys="true" keyProperty="id">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+    INSERT INTO t_g_activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="args != null and args != ''">
+        args,
+      </if>
+      <if test="max != null">
+        max,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="url != null and url != ''">
+        url,
+      </if>
+      <if test="detail != null and detail != ''">
+        detail,
+      </if>
+      <if test="available != null">
+        available,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+        create_time,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="args != null and args != ''">
+        #{args,jdbcType=VARCHAR},
+      </if>
+      <if test="max != null">
+        #{max,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=INTEGER},
+      </if>
+      <if test="url != null and url != ''">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null and detail != ''">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null">
+        #{available,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Gactivity">
+    UPDATE t_g_activity
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="args != null and args != ''">
+        args = #{args,jdbcType=VARCHAR},
+      </if>
+      <if test="max != null">
+        max = #{max,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=INTEGER},
+      </if>
+      <if test="url != null and url != ''">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null and detail != ''">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null">
+        available = #{available,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--#######################################################################################-->
+  <!---->
+  <select id="findByWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_g_activity
+    WHERE 1=1
+    <if test="start!=null and rows!=null">
+      limit #{start},#{rows}
+    </if>
+  </select>
+  <!---->
+  <select id="findCount" parameterType="map" resultType="java.lang.Integer">
+    SELECT
+    count(1)
+    FROM t_g_activity
+    WHERE 1=1
+  </select>
+  <!---->
+  <select id="findAllByGoodsId" parameterType="map" resultType="com.honglinktech.zbgj.bean.ActivityBean">
+    SELECT
+        a.`id`,
+        a.`name`,
+        a.`type`,
+        a.`args`,
+        a.`max`,
+        a.`value`,
+        a.`url`,
+        a.`detail`,
+        a.`available`,
+        a.`start_time` as startTime,
+        a.`end_time` as endTime,
+        a.`status`,
+        a.`create_time` as createTime,
+        a.`update_time` as updateTime,
+		g.goods_id as goodsId
+    FROM t_g_activity as a LEFT JOIN t_goods_activity g ON(a.id = g.activity_id and g.goods_id = #{goodsId})
+    WHERE 1=1
+    and a.status = 1
+  </select>
+
+
+</mapper>
