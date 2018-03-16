@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="qq-mall-api:war">
+    <output-path>$PROJECT_DIR$/qq-mall-api/target</output-path>
+    <root id="archive" name="qq-mall-api.war">
+      <element id="artifact" artifact-name="qq-mall-api:war exploded" />
+    </root>
+  </artifact>
+</component>

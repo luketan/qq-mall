@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/qq-mall.iml" filepath="$PROJECT_DIR$/qq-mall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qq-mall-admin/qq-mall-admin.iml" filepath="$PROJECT_DIR$/qq-mall-admin/qq-mall-admin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qq-mall-api/qq-mall-api.iml" filepath="$PROJECT_DIR$/qq-mall-api/qq-mall-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qq-mall-common/qq-mall-common.iml" filepath="$PROJECT_DIR$/qq-mall-common/qq-mall-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qq-mall-web/qq-mall-web.iml" filepath="$PROJECT_DIR$/qq-mall-web/qq-mall-web.iml" />
+    </modules>
+  </component>
+</project>

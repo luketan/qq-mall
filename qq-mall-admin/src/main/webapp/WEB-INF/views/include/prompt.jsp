@@ -29,4 +29,35 @@ function GetQueryString(name)
    var r = window.location.search.substr(1).match(reg);
    if(r!=null)return unescape(decodeURI(r[2])); return '';
 }
+
+function promptMessage(message) {
+    var html = '<div id="prompt_message" onclick="deleteEle(this)" style="display:none;withd:100%;height: 60px;line-height: 60px;background-color: green;text-align: center;font-size:16px;color:#fff;">'+
+            message + '</div>';
+    $("body").prepend(html);
+    $("#prompt_message").slideToggle("slow");
+    setTimeout(function(){
+        deleteEle($("#prompt_message"));
+    },2000);
+}
+
+function promptError(error) {
+    var html = '<div id="prompt_error" onclick="deleteEle(this)" style="display:none;withd:100%;height: 60px;line-height: 60px;background-color: red;text-align: center;font-size:16px;color:#fff;">'+
+            (error) + '</div>';
+    $("body").prepend(html);
+    $("#prompt_error").slideToggle("slow");
+    setTimeout(function(){
+        deleteEle($("#prompt_error"));
+    },2000);
+}
+
+function submitFromModal(flag, message) {
+    if (flag) {
+        if (message) {
+            $("#submitFromModal").find('.modal-body').html(message);
+        }
+        $("#submitFromModal").modal();
+    }else{
+        $("#submitFromModal").modal('hide');
+    }
+}
 </script>
