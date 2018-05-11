@@ -142,6 +142,13 @@ public class UserServiceImpl implements UserService{
 		return Result.resultSet(userBeens);
 	}
 
+	@Override
+	public UserVO getByToken(String token) {
+		//TODO redis缓存
+//		userSessionDao.selectByPrimaryKey()
+		return null;
+	}
+
 	/***********************conosle**************************/
 	/**
 	 * console 分页

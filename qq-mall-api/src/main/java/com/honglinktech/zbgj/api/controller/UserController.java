@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.annotation.NoRequireLogin;
 import com.honglinktech.zbgj.entity.ChangeLog;
 import com.honglinktech.zbgj.entity.Coupon;
 import com.honglinktech.zbgj.entity.User;
@@ -51,7 +52,8 @@ public class UserController extends BaseApiController {
 	private FeedBackService feedBackService;
 	@Resource
 	private ChangeLogService changeLogService;
-	
+
+	@NoRequireLogin
 	@RequestMapping(value="login",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<UserLoginVO> login(@RequestBody User user) throws BaseException{

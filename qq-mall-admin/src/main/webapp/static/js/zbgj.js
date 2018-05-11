@@ -35,7 +35,8 @@ var zbgj = {
         $.ajax({
             type:data.type?data.type:"post",//请求方式get/post
             url:data.url,//请求对应的地址
-            contentType: data.contentType?data.contentType:"application/json; charset=UTF-8",
+            //application/json; charset=UTF-8
+            contentType: data.contentType?data.contentType:"application/x-www-form-urlencoded",
             dataType : "json",
             data:reqData,//往服务器传递的参数，
             traditional: true,//这里设置为true

@@ -36,6 +36,13 @@ public interface UserService{
 	 * @return
 	 */
 	Response<List<UserVO>> findRecUsers(Integer userId);
+
+	/**
+	 * 通过token获取用户
+	 * @param token
+	 * @return
+	 */
+	UserVO getByToken(String token);
 /***********************************************console**************************************************/
 	/**
 	 * console 分页
