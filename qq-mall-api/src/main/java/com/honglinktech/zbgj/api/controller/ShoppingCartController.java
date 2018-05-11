@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.annotation.RequireLogin;
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.entity.ShoppingCart;
 import com.honglinktech.zbgj.service.ShoppingCartService;
@@ -26,6 +27,7 @@ import com.honglinktech.zbgj.bean.request.AddShoppingBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 
+@RequireLogin
 @RestController
 @RequestMapping("/shoppingCart/api")
 public class ShoppingCartController extends BaseApiController {

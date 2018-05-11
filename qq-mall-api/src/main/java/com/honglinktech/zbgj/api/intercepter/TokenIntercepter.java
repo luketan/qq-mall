@@ -46,7 +46,6 @@ public class TokenIntercepter implements HandlerInterceptor {
     
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         if (userService == null) {
             //解决service为null无法注入问题
             BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getSession().getServletContext());
@@ -60,6 +59,7 @@ public class TokenIntercepter implements HandlerInterceptor {
         Annotation methodAnnotation=method.getAnnotation(RequireLogin.class);//方法上有该标记
         Annotation methodNologinAnnotation=method.getAnnotation(NoRequireLogin.class);//
 
+        System.out.println("-----zbgj-user------1----: "+request.getHeader("zbgj-user"));
         if((classAnnotation!=null&&methodNologinAnnotation==null)
                 ||(classAnnotation==null&&methodAnnotation!=null)){
             AppAgent agent = null;
@@ -67,6 +67,7 @@ public class TokenIntercepter implements HandlerInterceptor {
             String userInfo = request.getHeader("zbgj-user");
             if (userInfo != null && !userInfo.isEmpty()) {
                 logger.info("zbgj-user: ", userInfo);
+                System.out.println("-----zbgj-user: "+userInfo);
                 agent = JSON.parseObject(userInfo, AppAgent.class);
                 if (agent == null) {
                     write(response, "非法请求！");

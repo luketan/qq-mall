@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import com.honglinktech.zbgj.annotation.NoRequireLogin;
+import com.honglinktech.zbgj.annotation.RequireLogin;
 import com.honglinktech.zbgj.entity.ChangeLog;
 import com.honglinktech.zbgj.entity.Coupon;
 import com.honglinktech.zbgj.entity.User;
@@ -37,6 +38,7 @@ import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 
+@RequireLogin
 @RestController
 @RequestMapping("/user/api")
 public class UserController extends BaseApiController {

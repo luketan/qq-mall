@@ -8,15 +8,17 @@ import com.honglinktech.zbgj.bean.GoodsBean;
 import com.honglinktech.zbgj.bean.GoodsDisBean;
 import com.honglinktech.zbgj.bean.GoodsDisCountBean;
 import com.honglinktech.zbgj.bean.GoodsTypeBean;
+import com.honglinktech.zbgj.common.AppAgent;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.service.GoodsService;
 import com.honglinktech.zbgj.service.GoodsDisService;
 import com.honglinktech.zbgj.service.GoodsService;
 import com.honglinktech.zbgj.service.GoodsTypeService;
 import com.honglinktech.zbgj.service.UserKeepService;
+import com.honglinktech.zbgj.vo.UserVO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,12 +48,13 @@ public class GoodsController extends BaseApiController {
 	 */
 	@RequestMapping(value="findGoodsBeanById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<GoodsBean> findGoodsBeanById(@RequestBody Map<String, String> map, @RequestHeader HttpHeaders headers) throws BaseException{
+	public Response<GoodsBean> findGoodsBeanById(@RequestBody Map<String, String> map,
+			@RequestAttribute("user") UserVO user,
+			@RequestAttribute("agent") AppAgent agent) throws BaseException{
 
-		String userCode =  headers.getFirst("userId");
 		int userId = 0;
-		if(!StringUtils.isEmpty(userCode)){
-			userId = Integer.valueOf(userCode);
+		if(user != null){
+			userId = user.getId();
 		}
 		if(!map.containsKey("id")){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"id");

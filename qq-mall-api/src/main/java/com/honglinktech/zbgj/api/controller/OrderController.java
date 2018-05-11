@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.honglinktech.zbgj.annotation.RequireLogin;
 import com.honglinktech.zbgj.entity.PostDetail;
 import com.honglinktech.zbgj.service.OrderService;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,7 @@ import com.honglinktech.zbgj.bean.OrderBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 
+@RequireLogin
 @RestController
 @RequestMapping("/order/api")
 public class OrderController extends BaseApiController {

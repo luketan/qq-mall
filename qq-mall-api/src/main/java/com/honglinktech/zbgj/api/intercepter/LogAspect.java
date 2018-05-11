@@ -105,6 +105,5 @@ public class LogAspect {
         }
 
         logger.info(logStr);
-        System.out.println("request-log:["+logStr+"]");
     }
 }

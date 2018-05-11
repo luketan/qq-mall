@@ -1,6 +1,7 @@
 package com.honglinktech.zbgj.api.controller;
 
 
+import com.honglinktech.zbgj.annotation.NoRequireLogin;
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.bean.HomeBean;
@@ -24,7 +25,8 @@ import java.util.Map;
 public class HomeController extends BaseApiController {
 	@Resource
 	private ModuleService moduleService;
-	
+
+	@NoRequireLogin
 	@RequestMapping(value="findHome",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<List<HomeBean>> findHome() throws BaseException{

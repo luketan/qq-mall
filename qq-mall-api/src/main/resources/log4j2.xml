@@ -21,6 +21,7 @@
         </root>
         <logger name="com.honglinktech.zbgj" level="${logs.flag}">
             <appender-ref ref="ROLLING"/>
+            <appender-ref ref="CONSOLE"/>
         </logger>
     </loggers>
 </configuration>

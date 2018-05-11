@@ -19,7 +19,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.11</junit.version>
-        <spring.version>4.2.3.RELEASE</spring.version>
+        <spring.version>4.3.2.RELEASE</spring.version>
         <log4j.version>2.3</log4j.version>
         <jackson.version>2.6.1</jackson.version>
         <servlet.version>2.5</servlet.version>

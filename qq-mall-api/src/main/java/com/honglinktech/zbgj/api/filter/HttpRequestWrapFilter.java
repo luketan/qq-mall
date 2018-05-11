@@ -74,9 +74,9 @@ public class HttpRequestWrapFilter implements Filter {
             //logMessage.append(" [RESPONSE:").append(bufferedResponse.getInfo()).append("]");
             logger.info(logMessage);
         } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
+            logger.error(ex, ex);
         } catch (Error er) {
-            logger.error(er.getMessage(), er);
+            logger.error(er, er);
         }
         /*
         catch( Throwable a ) {
