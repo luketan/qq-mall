@@ -172,7 +172,7 @@ public class OrderController extends BaseController {
 	}
 
 	/**
-	 * 取消订单
+	 * 删除订单
 	 * @param model
 	 * @return
 	 */
@@ -193,7 +193,7 @@ public class OrderController extends BaseController {
 			addMessage(model, resp.getMsg());
 		} catch (Exception e) {
 			e.printStackTrace();
-			addMessage(model, "取消订单失败");
+			addMessage(model, "删除订单失败");
 		}
 		return "redirect:list.html";
 	}
