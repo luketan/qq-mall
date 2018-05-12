@@ -26,7 +26,7 @@ public class BaseException extends Exception {
      	this.exceptionEnum = ee;
         
     }
-    public BaseException(String message,String code, ExceptionEnum exceptionEnum) {
+    public BaseException(String message,int code, ExceptionEnum exceptionEnum) {
         super(message);
         this.exceptionEnum = exceptionEnum;
         if(!StringUtils.isEmpty(code)){
@@ -36,7 +36,7 @@ public class BaseException extends Exception {
         	exceptionEnum.setRetString(message);
         }
     }
-	public BaseException(String message,String code, Throwable cause, ExceptionEnum exceptionEnum) {
+	public BaseException(String message,int code, Throwable cause, ExceptionEnum exceptionEnum) {
         super(message, cause);
         this.exceptionEnum = exceptionEnum;
         if(!StringUtils.isEmpty(code)){

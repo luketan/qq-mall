@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.AdvDao">
+
+  <select id="findById" resultType="com.honglinktech.zbgj.entity.Adv">
+    SELECT
+    id,
+    image,
+    url,
+    title,
+    `type`,
+    style_type as styleType,
+    sort,
+    update_time,
+    create_time
+    FROM t_adv
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="find" parameterType="map" resultType="com.honglinktech.zbgj.entity.Adv">
+    SELECT 
+      id,
+      image,
+      url,
+      title,
+      `type`,
+      style_type as styleType,
+      sort,
+      update_time,
+      create_time
+    FROM t_adv
+    WHERE 1 = 1
+      <if test="type!=null">
+        AND `type` = #{type,jdbcType=INTEGER}
+      </if>
+      <if test="styleType!=null">
+        AND `style_type` = #{styleType,jdbcType=INTEGER}
+      </if>
+      ORDER BY style_type asc, sort desc
+      <if test="start!=null and rows!=null">
+        limit #{start},#{rows}
+      </if>
+  </select>
+  <select id="count" parameterType="map" resultType="int">
+    SELECT
+      count(1)
+    FROM t_adv
+    WHERE 1 = 1
+    <if test="type!=null">
+      AND `type` = #{type,jdbcType=INTEGER}
+    </if>
+    <if test="styleType!=null">
+      AND `style_type` = #{styleType,jdbcType=INTEGER}
+    </if>
+  </select>
+
+  <update id="deleteById" parameterType="com.honglinktech.zbgj.entity.HintKey">
+    update t_adv set
+    delete_flag = 0,
+     update_time = now()
+    WHERE id = #{id,jdbcType=INTEGER}
+      AND type = #{type,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Adv">
+    INSERT INTO t_adv(
+    image,
+    url,
+    title,
+    `type`,
+    sort,
+    style_type,
+    delete_flag,
+    update_time,
+    create_time
+    )values(
+    #{image},
+    #{url},
+    #{title},
+    #{type},
+    #{sort},
+    #{styleType},
+    0,
+    now(),
+    now()
+    )
+  </insert>
+
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.Adv">
+    UPDATE t_adv
+    <set>
+      <if test="image != null">
+        image = #{image},
+      </if>
+      <if test="url != null">
+        url = #{url},
+      </if>
+      <if test="title != null">
+        title = #{title},
+      </if>
+      <if test="type != null">
+        type = #{type},
+      </if>
+      <if test="sort != null">
+        sort = #{sort},
+      </if>
+      <if test="styleType != null">
+        style_type = #{styleType},
+      </if>
+      update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,11 +1,17 @@
 package com.honglinktech.zbgj.admin.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Dayong on 16/3/22.
  */
-public class RoleBean {
+public class RoleBean implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2684897613357491207L;
+
     private Integer id;
     private String name;
     private int type;

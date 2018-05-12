@@ -87,7 +87,7 @@ public class UserController extends BaseController {
     @RequestMapping("/modify")
     public String modify(@RequestParam(required = false) int id,@RequestParam(required = false,defaultValue="") String password, Model model) {
     	Response<UserBean> response = userService.findUserBeanById(id);
-    	if(("000000").equals(response.getCode())){
+    	if(0!=response.getCode()){
     		model.addAttribute("item", response.getResult());
     	}else{
     		addError(model, response.getMsg());
@@ -110,7 +110,7 @@ public class UserController extends BaseController {
 		}
 		try {
 			Response<Integer> response = userService.updateUser(userBean.toUsre(), null);
-			if(("000000").equals(response.getCode())){
+			if(0!=response.getCode()){
 				addMessage(model, response.getMsg());
 			}else{
 				addError(model, response.getMsg());
@@ -136,7 +136,7 @@ public class UserController extends BaseController {
 		}
 		try {
 			Response<Integer> response = userService.updateUserBasis(userBean.toUserBasis());
-			if(("000000").equals(response.getCode())){
+			if(0!=response.getCode()){
 				addMessage(model, response.getMsg());
 			}else{
 				addError(model, response.getMsg());

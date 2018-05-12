@@ -187,7 +187,7 @@ public class TokenIntercepter implements HandlerInterceptor {
         Writer writer = null;
         try {
             writer = response.getWriter();
-            writer.write(JSON.toJSONString(Result.fail(ErrorCode.tokenFail+"", "登陆态过期")));
+            writer.write(JSON.toJSONString(Result.fail(ErrorCode.tokenFail, "登陆态过期")));
             writer.flush();
         } catch (IOException e) {
             logger.error(e.getMessage());

@@ -15,4 +15,5 @@
 <script src="${basePath }/static/js/imgFileUpload.js"></script>
 <script src="${basePath }/static/js/lightbox.js"></script>
 <script src="${basePath }/static/libs/my97/WdatePicker.js"></script>
+<script src="${basePath }/static/js/zbgj.js"></script>
  <%@include file="prompt.jsp"%>

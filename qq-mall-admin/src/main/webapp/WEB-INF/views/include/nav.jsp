@@ -188,16 +188,16 @@
                             </ul>
                         </li>
                     </shiro:hasPermission>
-                    <shiro:hasPermission name="advertisement">
-                        <li class="${selectMenu=='advertisement' ? 'active':''}">
+                    <shiro:hasPermission name="adv">
+                        <li class="${selectMenu=='adv' ? 'active':''}">
                             <a href="#"><i class="fa fa-film fa-fw"></i> 广告管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level collapse ${selectMenu=='advertisement' ? 'in':''}"
-                                aria-expanded="${selectMenu=='advertisement' ? 'true':'false'} ">
-                                <shiro:hasPermission name="advertisement:list">
-                                    <li><a href="${basePath }/advertisement/list.html">广告列表</a></li>
+                            <ul class="nav nav-second-level collapse ${selectMenu=='adv' ? 'in':''}"
+                                aria-expanded="${selectMenu=='adv' ? 'true':'false'} ">
+                                <shiro:hasPermission name="adv:list">
+                                    <li><a href="${basePath }/adv/list.html">广告列表</a></li>
                                 </shiro:hasPermission>
-                                <shiro:hasPermission name="advertisement:add">
-                                    <li><a href="${basePath }/advertisement/add.html">添加广告</a></li>
+                                <shiro:hasPermission name="adv:add">
+                                    <li><a href="${basePath }/adv/add.html">添加广告</a></li>
                                 </shiro:hasPermission>
                             </ul>
                         </li>

@@ -3,7 +3,7 @@ package com.honglinktech.zbgj.base;
 
 public class ReturnInfo {
 
-	public String code;
+	public int code;
 	public String msg;
 	public Object result=null;
 	
@@ -26,10 +26,10 @@ public class ReturnInfo {
 		this.msg=exceptionEnum.getRetString(args);
 	}
 	
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 	public String getMsg() {

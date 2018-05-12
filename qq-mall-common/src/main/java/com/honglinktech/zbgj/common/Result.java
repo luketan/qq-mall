@@ -56,7 +56,7 @@ public class Result {
      * @param desc
      * @return
      */
-    public static <T> Response<T> fail(String code, String desc) {
+    public static <T> Response<T> fail(int code, String desc) {
         return new Response<T>(code, desc);
     }
 

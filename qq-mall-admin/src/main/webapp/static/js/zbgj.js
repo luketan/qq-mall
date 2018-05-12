@@ -35,8 +35,7 @@ var zbgj = {
         $.ajax({
             type:data.type?data.type:"post",//请求方式get/post
             url:data.url,//请求对应的地址
-            //application/json; charset=UTF-8
-            contentType: data.contentType?data.contentType:"application/x-www-form-urlencoded",
+            contentType: data.contentType?data.contentType:"application/json; charset=UTF-8",
             dataType : "json",
             data:reqData,//往服务器传递的参数，
             traditional: true,//这里设置为true
@@ -68,7 +67,7 @@ var zbgj = {
         var flag = true;
         $(formData).find("select,input,textarea").each(function(){
             var condition = $(this).attr("condition");
-            console.log("condition========" + condition);
+            //console.log("condition========" + condition);
             if(condition){
                 condition = JSON.parse(condition);
                 if (condition.require && (condition.require==true || condition.require=='true' )) {
@@ -133,7 +132,7 @@ var zbgj = {
     },
     promptMessage:function(message) {
         var _this=this;
-        var html = '<div id="prompt_message" onclick="zbgj.deleteEle(this)" style="position: fixed;top:0;display:none;width:100%;z-index:2;height: 60px;line-height: 60px;background-color: green;text-align: center;font-size:16px;color:#fff;">'+
+        var html = '<div id="prompt_message" onclick="zbgj.deleteEle(this)" style="position: fixed;top:0;display:none;width:100%;z-index:90;height: 60px;line-height: 60px;background-color: green;text-align: center;font-size:16px;color:#fff;">'+
             message + '</div>';
         $("body").prepend(html);
         $("#prompt_message").slideToggle("slow");
@@ -145,7 +144,7 @@ var zbgj = {
     },
     promptError:function(error) {
         var _this=this;
-        var html = '<div id="prompt_error" onclick="zbgj.deleteEle(this)"  style="position: fixed;top:0;display:none;width:100%;z-index:2;height: 60px;line-height: 60px;background-color: red;text-align: center;font-size:16px;color:#fff;">'+
+        var html = '<div id="prompt_error" onclick="zbgj.deleteEle(this)"  style="position: fixed;top:0;display:none;width:100%;z-index:90;height: 60px;line-height: 60px;background-color: red;text-align: center;font-size:16px;color:#fff;">'+
             (error) + '</div>';
         $("body").prepend(html);
         $("#prompt_error").slideToggle("slow");
