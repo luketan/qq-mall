@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.UserBean;
-import com.honglinktech.zbgj.bean.UserLoginBean;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
@@ -85,16 +84,16 @@ public class UserServiceImpl implements UserService{
 
 		//登录成功
 		Map userSeesionMap = new HashMap();
-		UserSession userSession = userSessionDao.selectByPrimaryKey(user.getId());
+		UserSession userSession = userSessionDao.findByUserId(user.getId());
 		String token = TokenProcessor.getInstance().generateToken(String.valueOf(user.getId()), true);
 		if(userSession!=null){//update token
 			userSession.setToken(token);
-			userSessionDao.updateByPrimaryKeySelective(userSession);
+			userSessionDao.update(userSession);
 		}else{//add token
 			userSession = new UserSession();
 			userSession.setToken(token);
 			userSession.setUserId(user.getId());
-			userSessionDao.insertSelective(userSession);
+			userSessionDao.insert(userSession);
 		}
 
 		return Result.resultSet(new UserLoginVO(token, user, userBasis));
@@ -110,7 +109,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Response<String> loginout(Integer id) throws BaseException{
 
-		int result = userSessionDao.deleteByPrimaryKey(id);
+		int result = userSessionDao.delete(id);
 		return Result.success();
 	}
 
@@ -145,8 +144,20 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserVO getByToken(String token) {
 		//TODO redis缓存
-//		userSessionDao.selectByPrimaryKey()
-		return null;
+		UserSession userSession = userSessionDao.findByToken(token);
+		if(userSession == null){
+			//return Result.fail(ExceptionEnum.COMMON_TOKEN_FAIL ,"token失效！");
+			return null;
+		}
+		User user = userDao.selectByPrimaryKey(userSession.getUserId());
+		if(user == null){
+			return null;
+		}
+		UserBasis userBasis =  userBasisDao.selectByPrimaryKey(userSession.getUserId());
+		if(userBasis == null){
+			return null;
+		}
+		return new UserVO(user);
 	}
 
 	/***********************conosle**************************/
@@ -252,9 +263,9 @@ public class UserServiceImpl implements UserService{
 		if(status == 1){ //正常
 
 		}else if(status == 2){ //锁定
-			userSessionDao.deleteByPrimaryKey(userId);
+			userSessionDao.delete(userId);
 		}else if(status == 3){ //拉黑
-			userSessionDao.deleteByPrimaryKey(userId);
+			userSessionDao.delete(userId);
 		}
 		User user = userDao.selectByPrimaryKey(userId);
 		user.setStatus(status);

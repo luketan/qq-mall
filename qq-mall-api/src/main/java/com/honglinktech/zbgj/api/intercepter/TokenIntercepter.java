@@ -3,6 +3,7 @@ package com.honglinktech.zbgj.api.intercepter;
 import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.annotation.NoRequireLogin;
 import com.honglinktech.zbgj.annotation.RequireLogin;
+import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.common.AppAgent;
 import com.honglinktech.zbgj.common.ErrorCode;
 import com.honglinktech.zbgj.common.Result;
@@ -66,7 +67,7 @@ public class TokenIntercepter implements HandlerInterceptor {
             // 先从自定义的header获取，如获取不到再去user-agent查找
             String userInfo = request.getHeader("zbgj-user");
             if (userInfo != null && !userInfo.isEmpty()) {
-                logger.info("zbgj-user: ", userInfo);
+                logger.info("zbgj-user: ", userInfo+", ip:"+getRemoteHost(request));
                 System.out.println("-----zbgj-user: "+userInfo);
                 agent = JSON.parseObject(userInfo, AppAgent.class);
                 if (agent == null) {
@@ -75,14 +76,13 @@ public class TokenIntercepter implements HandlerInterceptor {
                 }
             } else {
                 String userAgent = request.getHeader("User-Agent");
-                logger.info("User-Agent: ", userAgent);
+                logger.info("User-Agent: ", userAgent+", ip:"+getRemoteHost(request));
                 agent = JSON.parseObject(userAgent, AppAgent.class);
                 if (agent == null) {
                     write(response, "非法请求！");
                     return false;
                 }
             }
-
 
             String token = agent.getToken();
             if (StringUtils.isEmpty(token)) {
@@ -100,44 +100,6 @@ public class TokenIntercepter implements HandlerInterceptor {
             request.setAttribute("user", user);
         }
 
-    	String uri = request.getRequestURI();
-    	String token=request.getHeader("token");
-    	String userId=request.getHeader("userId");
-    	System.out.println("token["+token+"],userId["+userId+"]"+getRemoteHost(request));
-    	if(uri.indexOf("/user/login")==-1 &&
-    	   uri.indexOf("/order/kd100callbac")==-1 &&
-    	   uri.indexOf("/order/subscribe")==-1 &&
-    	   uri.indexOf("/order/homeCount")==-1 &&
-    	   uri.indexOf("/home/find/systemPara")==-1&&
-    	   uri.indexOf("/platform/user/findAuthInfo")==-1 &&
-           uri.indexOf("/weixin/")==-1 ){
-    		
-//        	if(StringUtils.isEmpty(token)){
-//        		PrintWriter printWriter = response.getWriter();
-//        		Response<Object> res = Result.fail(ErrorCode.tokenFail, "token不能为空");
-//        		ObjectMapper om = new ObjectMapper();
-//        		printWriter.write(om.writeValueAsString(res));
-//        		printWriter.flush();
-//        		return false;
-//        	}
-        	/*Response<UserSession> userData;
-        	if(!StringUtils.isEmpty(mallId)){
-        		userData = usersService.checkLoginToken(Integer.valueOf(mallId),token);
-        	}else{
-        		userData = usersService.checkLoginToken(0,token);
-        	}
-        	if(userData.getCode()!=0){
-        		response.setCharacterEncoding("UTF-8");  
-        		response.setContentType("application/json; charset=utf-8");  
-        		PrintWriter printWriter = response.getWriter();
-        		Response<Object> res = Result.fail(ErrorCode.tokenFail, userData.getMsg());
-        		ObjectMapper om = new ObjectMapper();
-        		printWriter.write(om.writeValueAsString(res));
-        		printWriter.flush();
-        		return false;
-        	}*/
-    	}
-    	
         return true;
     }
     
@@ -187,15 +149,15 @@ public class TokenIntercepter implements HandlerInterceptor {
         Writer writer = null;
         try {
             writer = response.getWriter();
-            writer.write(JSON.toJSONString(Result.fail(ErrorCode.tokenFail, "登陆态过期")));
+            writer.write(JSON.toJSONString(Result.fail(ExceptionEnum.COMMON_TOKEN_FAIL, "登陆态过期")));
             writer.flush();
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            logger.error(e, e);
         } finally {
             try {
                 writer.close();
             } catch (IOException e) {
-                logger.error(e.getMessage());
+                logger.error(e, e);
             }
         }
     }

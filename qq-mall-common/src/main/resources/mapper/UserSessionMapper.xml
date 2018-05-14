@@ -13,19 +13,26 @@
     user_id, token, update_time, create_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_user_session
     WHERE user_id = #{userId,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="findByToken" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_user_session
+    WHERE token = #{token,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="delete" parameterType="java.lang.Integer">
     DELETE FROM t_user_session
     WHERE user_id = #{userId,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.UserSession">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.UserSession">
     INSERT INTO t_user_session
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -49,7 +56,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.UserSession">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.UserSession">
     UPDATE t_user_session
     <set>
       <if test="token != null and token != ''">
