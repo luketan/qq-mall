@@ -97,7 +97,7 @@ public interface SocietyService{
 	 * @param socNoteId
 	 * @return
 	 */
-	Response<Boolean> socNotePlayingReward(int userId, int recUserId,int value, int socNoteId) ;
+	Response<Boolean> socNotePlayingReward(int userId, int recUserId, int value, int socNoteId) ;
 	/**
 	 * 获取打赏列表
 	 * @param userId
@@ -115,6 +115,6 @@ public interface SocietyService{
 	 * @param whereMap
 	 * @return
 	 */
-	Response<List<SocietyDisBean>> findSocietyDisBySocNoteId(int socNoteId,Integer userId, Integer index, Integer size, Map whereMap) ;
+	Response<List<SocietyDisBean>> findSocietyDisBySocNoteId(int socNoteId, Integer userId, Integer index, Integer size, Map whereMap) ;
 
 }

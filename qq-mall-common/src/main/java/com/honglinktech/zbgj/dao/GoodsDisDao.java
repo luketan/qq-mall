@@ -50,7 +50,7 @@ public interface GoodsDisDao {
      * @param goodsId
      * @return
      */
-    GoodsDisCountBean findGoodsDisCount(@Param(value = "goodsId")Integer goodsId);
+    GoodsDisCountBean findGoodsDisCount(@Param(value = "goodsId") Integer goodsId);
 
     /**
      * 获取商品的评论

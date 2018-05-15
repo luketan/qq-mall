@@ -4,14 +4,9 @@
  */
 package com.honglinktech.zbgj.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Admin implements Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 9033975762456704623L;
+public class Admin {
     /**
      * 自增ID
      */

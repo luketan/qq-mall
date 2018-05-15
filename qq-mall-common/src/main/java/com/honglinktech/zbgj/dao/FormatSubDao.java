@@ -49,19 +49,19 @@ public interface FormatSubDao {
      * @param shoppingId
      * @return
      */
-    List<FormatSubBean> findFormatSubByShoppingId(@Param(value = "shoppingId")Integer shoppingId);
+    List<FormatSubBean> findFormatSubByShoppingId(@Param(value = "shoppingId") Integer shoppingId);
 
     /**
      *
      * @param ids
      * @return
      */
-    List<FormatSubBean> findFormatSubByIds(@Param(value = "ids")List<Integer> ids);
+    List<FormatSubBean> findFormatSubByIds(@Param(value = "ids") List<Integer> ids);
 
     /**
      *
      * @param formatId
      * @return
      */
-    List<FormatSubBean> findFormatSubByFormatId(@Param(value = "formatId")Integer formatId);
+    List<FormatSubBean> findFormatSubByFormatId(@Param(value = "formatId") Integer formatId);
 }

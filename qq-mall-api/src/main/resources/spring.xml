@@ -91,6 +91,7 @@
 	        <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
 	        <tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
 	        <tx:method name="login*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
+            <tx:method name="appletLoginByCode" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
 	        <tx:method name="register*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
 		    <tx:method name="find*" read-only="true"/>
             <tx:method name="select*" read-only="true"/>

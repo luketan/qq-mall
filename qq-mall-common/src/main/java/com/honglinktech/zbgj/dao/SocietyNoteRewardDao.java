@@ -57,5 +57,5 @@ public interface SocietyNoteRewardDao {
      * @param socNoteId
      * @return
      */
-    int findSocietyNoteRewardCount(@Param(value = "socNoteId")Integer socNoteId);
+    int findSocietyNoteRewardCount(@Param(value = "socNoteId") Integer socNoteId);
 }

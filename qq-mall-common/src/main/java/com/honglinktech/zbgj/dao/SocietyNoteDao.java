@@ -52,7 +52,7 @@ public interface SocietyNoteDao {
      * @param socSubInfo
      * @return
      */
-    SocietyNoteBean findSocietyNoteById(@Param(value = "userId")Integer userId, @Param(value = "id")Integer id, @Param(value = "socSubInfo")Boolean socSubInfo);
+    SocietyNoteBean findSocietyNoteById(@Param(value = "userId") Integer userId, @Param(value = "id") Integer id, @Param(value = "socSubInfo") Boolean socSubInfo);
 
     /**
      * 查询列表

@@ -19,7 +19,7 @@ public interface OrderService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<Map<String, Object>> AppReadyOrder(Integer userId,Map map) throws BaseException ;
+	Response<Map<String, Object>> AppReadyOrder(Integer userId, Map map) throws BaseException ;
 	/**
 	 * 生成订单
 	 * @param userId
@@ -52,7 +52,7 @@ public interface OrderService{
 	 * @param id
 	 * @return
 	 */
-	Response<OrderBean> appFindOrderBeanById(Integer userId,Integer id) ;
+	Response<OrderBean> appFindOrderBeanById(Integer userId, Integer id) ;
 
 	/**
 	 * APP获取快递信息

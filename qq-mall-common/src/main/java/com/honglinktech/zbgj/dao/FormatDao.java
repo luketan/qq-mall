@@ -49,5 +49,5 @@ public interface FormatDao {
      * @param goodsId
      * @return
      */
-    List<FormatBean> findFormatByGoodsId(@Param(value = "goodsId")Integer goodsId);
+    List<FormatBean> findFormatByGoodsId(@Param(value = "goodsId") Integer goodsId);
 }

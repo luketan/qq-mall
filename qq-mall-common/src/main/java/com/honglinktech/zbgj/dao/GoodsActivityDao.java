@@ -51,14 +51,14 @@ public interface GoodsActivityDao {
      * @param goodsId
      * @return
      */
-    List<ActivityBean> findActivityByGoodsId(@Param(value = "goodsId")Integer goodsId);
+    List<ActivityBean> findActivityByGoodsId(@Param(value = "goodsId") Integer goodsId);
 
     /**
      * APP通过商品ID获取有效活动 (去重复)
      * @param goodsIds
      * @return
      */
-    List<ActivityBean> findActivityByGoodsIds(@Param(value = "goodsIds")List<Integer> goodsIds);
+    List<ActivityBean> findActivityByGoodsIds(@Param(value = "goodsIds") List<Integer> goodsIds);
 
     /**
      *
@@ -72,5 +72,5 @@ public interface GoodsActivityDao {
      * @param goodsId
      * @return
      */
-    int deleteByGoodsId(@Param(value = "goodsId")Integer goodsId);
+    int deleteByGoodsId(@Param(value = "goodsId") Integer goodsId);
 }

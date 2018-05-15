@@ -51,7 +51,7 @@ public interface PicDao {
      * @param type
      * @return
      */
-    List<PicBean> findBeanList(@Param(value = "objId")Integer objId, @Param(value = "type") Integer type);
+    List<PicBean> findBeanList(@Param(value = "objId") Integer objId, @Param(value = "type") Integer type);
 
     /**
      *

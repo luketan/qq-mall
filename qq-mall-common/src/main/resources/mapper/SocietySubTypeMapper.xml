@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.SocietySubTypeDao">
+
+  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.SocietySubType">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ico" jdbcType="VARCHAR" property="ico" />
+    <result column="ico_color" jdbcType="VARCHAR" property="icoColor" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="synopsis" jdbcType="VARCHAR" property="synopsis" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="hot_num" jdbcType="INTEGER" property="hotNum" />
+    <result column="award_type" jdbcType="INTEGER" property="awardType" />
+    <result column="award_num" jdbcType="INTEGER" property="awardNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, name, ico, ico_color, image, synopsis, type, status, sort, hot_num, award_type, 
+    award_num, create_time, update_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM t_society_sub_type
+    WHERE id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    DELETE FROM t_society_sub_type
+    WHERE id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.SocietySubType"
+          useGeneratedKeys="true" keyProperty="id">
+    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+      SELECT LAST_INSERT_ID() AS ID
+    </selectKey>
+    INSERT INTO t_society_sub_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null and name != ''">
+        name,
+      </if>
+      <if test="ico != null and ico != ''">
+        ico,
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        ico_color,
+      </if>
+      <if test="image != null and image != ''">
+        image,
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        synopsis,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="hotNum != null">
+        hot_num,
+      </if>
+      <if test="awardType != null">
+        award_type,
+      </if>
+      <if test="awardNum != null">
+        award_num,
+      </if>
+        create_time,
+        update_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name != ''">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ico != null and ico != ''">
+        #{ico,jdbcType=VARCHAR},
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        #{icoColor,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null and image != ''">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        #{synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="awardType != null">
+        #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardNum != null">
+        #{awardNum,jdbcType=INTEGER},
+      </if>
+      now(),
+      now(),
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SocietySubType">
+    UPDATE t_society_sub_type
+    <set>
+      <if test="name != null and name != ''">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ico != null and ico != ''">
+        ico = #{ico,jdbcType=VARCHAR},
+      </if>
+      <if test="icoColor != null and icoColor != ''">
+        ico_color = #{icoColor,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null and image != ''">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="synopsis != null and synopsis != ''">
+        synopsis = #{synopsis,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="hotNum != null">
+        hot_num = #{hotNum,jdbcType=INTEGER},
+      </if>
+      <if test="awardType != null">
+        award_type = #{awardType,jdbcType=INTEGER},
+      </if>
+      <if test="awardNum != null">
+        award_num = #{awardNum,jdbcType=INTEGER},
+      </if>
+      update_time = now(),
+    </set>
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <!--**************************************************************************-->
+  <!--APP 获取用户关注的主题-->
+  <select id="findBeanById" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.bean.SocietySubTypeBean">
+    SELECT
+      ss.id,
+      ss.name,
+      ss.ico,
+      ss.ico_color as icoColor,
+      ss.image,
+      ss.synopsis,
+      ss.type,
+      ss.status,
+      ss.sort,
+      ss.hot_num as hotNum,
+      ss.award_type as awardType,
+      ss.award_num as awardNum
+    FROM t_society_sub_type_user ssu LEFT JOIN  t_society_sub_type ss ON(ssu.society_sub_id = ss.id)
+    WHERE ss.status=0 AND ssu.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <!--APP获取用户推荐的主题-->
+  <select id="findRecSocietySubBean" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.bean.SocietySubTypeBean">
+    SELECT
+      ss.id,
+      ss.name,
+      ss.ico,
+      ss.ico_color as icoColor,
+      ss.image,
+      ss.synopsis,
+      ss.type,
+      ss.status,
+      ss.sort,
+      ss.hot_num as hotNum,
+      ss.award_type as awardType,
+      ss.award_num as awardNum
+    FROM t_society_sub_type ss
+    WHERE ss.status=0
+    <if test="userId != null">
+        AND id not in(SELECT ssu.society_sub_id FROM t_society_sub_type_user ssu WHERE ssu.user_id = #{userId,jdbcType=INTEGER})
+    </if>
+  </select>
+  <!--通过主题类型获取主题（包括是否关注）-->
+  <select id="findSocSubBySocTypeId" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.bean.SocietySubTypeBean">
+    SELECT
+    ss.id,
+    ss.name,
+    ss.ico,
+    ss.ico_color as icoColor,
+    ss.image,
+    ss.synopsis,
+    ss.type,
+    ss.status,
+    ss.sort,
+    ss.hot_num as hotNum,
+    ss.award_type as awardType,
+    ss.award_num as awardNum
+    <if test="userId != null and userId > 0">
+        ,ssu.user_id
+    </if>
+    <if test="userId == null">
+      ,NULL AS user_id
+    </if>
+    FROM t_society_sub_type ss
+    WHERE ss.status=0
+    AND ss.type = #{type}
+  </select>
+  <select id="findByWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_society_sub_type
+    WHERE 1=1
+    <if test="status">
+      and status = #{status}
+    </if>
+    <if test="start!=null and rows!=null">
+       limit #{start},#{rows}
+    </if>
+  </select>
+  <select id="findCountByWhere" parameterType="map" resultType="java.lang.Integer">
+    SELECT
+      count(1)
+    FROM t_society_sub_type
+    WHERE 1=1
+    <if test="status">
+      and status = #{status}
+    </if>
+    <if test="start!=null and rows!=null">
+      limit #{start},#{rows}
+    </if>
+  </select>
+</mapper>

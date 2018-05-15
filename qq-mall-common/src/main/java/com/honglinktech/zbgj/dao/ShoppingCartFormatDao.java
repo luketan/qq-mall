@@ -63,5 +63,5 @@ public interface ShoppingCartFormatDao {
      * @param shoppingId
      * @return
      */
-    int deleteByShoppingId(@Param(value = "shoppingId")Integer shoppingId);
+    int deleteByShoppingId(@Param(value = "shoppingId") Integer shoppingId);
 }

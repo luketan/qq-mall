@@ -55,5 +55,5 @@ public interface GoodsFormatDao {
      * @param goodsId
      * @return
      */
-    int deleteByGoodsId(@Param(value = "goodsId")Integer goodsId);
+    int deleteByGoodsId(@Param(value = "goodsId") Integer goodsId);
 }

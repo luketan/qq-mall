@@ -65,14 +65,14 @@ public interface ShoppingCartDao {
      * @param id
      * @return
      */
-    int deleteByIdAndUserId(@Param(value = "userId")Integer userId, @Param(value = "id")Integer id);
+    int deleteByIdAndUserId(@Param(value = "userId") Integer userId, @Param(value = "id") Integer id);
 
     /**
      * 删除选中了的商品
      * @param userId
      * @return
      */
-    int deleteByUserIdAndCheck(@Param(value = "userId")Integer userId);
+    int deleteByUserIdAndCheck(@Param(value = "userId") Integer userId);
 
     /**
      * 修改
@@ -87,5 +87,5 @@ public interface ShoppingCartDao {
      * @param checkAll
      * @return
      */
-    int updateShoppingCartChckboxAll(@Param(value = "userId")Integer userId, @Param(value = "checkAll")Boolean checkAll);
+    int updateShoppingCartChckboxAll(@Param(value = "userId") Integer userId, @Param(value = "checkAll") Boolean checkAll);
 }

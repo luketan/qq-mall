@@ -13,7 +13,7 @@ public interface PicService{
 	 * @param type
 	 * @return
 	 */
-	List<PicBean> findPic(Integer objId,Integer type);
+	List<PicBean> findPic(Integer objId, Integer type);
 	
 	
 	
