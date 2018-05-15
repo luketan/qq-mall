@@ -91,6 +91,7 @@ public class TokenIntercepter implements HandlerInterceptor {
             }
 
             UserVO user = userService.getByToken(token);
+            System.out.print("==========user==============="+JSON.toJSONString(user));
             if (user == null) {
                 writeTokenExpiredResponse(response);
                 return false;

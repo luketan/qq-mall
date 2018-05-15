@@ -49,7 +49,7 @@ public class VersionInfoController extends BaseController {
     public String findById(@RequestParam(required = true) Integer id, Model model) {
         try {
             Response<VersionInfoBean> response = versionInfoService.findById(id);
-            if (response.getCode() == 0) {
+            if (response.getCode() == "000000") {
                 model.addAttribute("item",response.getResult());
             }
         }catch (Exception e) {
@@ -67,7 +67,7 @@ public class VersionInfoController extends BaseController {
     public String save(VersionInfoBean versionInfoBean, Model model) {
         try {
             Response<VersionInfoBean> response = versionInfoService.saveOrUpdate(versionInfoBean);
-            if (response.getCode() == 0) {
+            if (response.getCode() == "000000") {
                 model.addAttribute("message","保存成功！");
             }else{
                 model.addAttribute("error","保存失败！");

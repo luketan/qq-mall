@@ -87,7 +87,7 @@ public class AdminController extends BaseController {
     	}
     	Response<Admin> response = adminService.saveOrUpdateAdmin(admin,roles);
     	admin = response.getResult();
-    	if(0!=response.getCode()){
+    	if("000000".equals(response.getCode())){
     		addMessage(model, response.getMsg());
     		model.addAttribute("item", response.getResult());
     	}else{
@@ -113,7 +113,7 @@ public class AdminController extends BaseController {
 		}
     	Response<Admin> response = adminService.saveOrUpdateAdmin(admin,null);
     	admin = response.getResult();
-		if(0!=response.getCode()){
+		if("000000".equals(response.getCode())){
     		addMessage(model, response.getMsg());
     	}else{
     		addError(model, response.getMsg());
@@ -167,7 +167,7 @@ public class AdminController extends BaseController {
 
     		pwd = HashUtils.encryptMD5(pwd, "");
     		Response<Admin> adminResp = adminService.adminLogin(admin.getLoginName(), pwd);
-			if(0!=adminResp.getCode()){
+			if(!"000000".equals(adminResp.getCode())){
     			addError(model, "原密码错误！");
     			return "admin/updatePwd";
     		}
@@ -183,7 +183,7 @@ public class AdminController extends BaseController {
 
     		admin.setPassword(HashUtils.encryptMD5(HashUtils.encryptMD5(newPwd, ""), ""));
     		Response<Admin> respon = adminService.saveOrUpdateAdmin(admin, null);
-			if(0!=respon.getCode()){
+			if("000000".equals(respon.getCode())){
     			addMessage(model, respon.getMsg());
     		}else{
     			addError(model, respon.getMsg());

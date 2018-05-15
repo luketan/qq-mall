@@ -36,7 +36,7 @@ public class HomeServiceImpl implements HomeService{
     @Override
     public Response<AppletHomeVO> findAppletHome(Integer userId) {
         Map whereMap = new HashMap();
-        whereMap.put("styleTpye", AdvStyleTypeEnum.AppletHome.name());
+        whereMap.put("styleType", AdvStyleTypeEnum.AppletHome.name());
         List<AdvVO> advVOs = advService.findVO(whereMap);
 
         AppletHomeVO appletHomeVO = new AppletHomeVO();

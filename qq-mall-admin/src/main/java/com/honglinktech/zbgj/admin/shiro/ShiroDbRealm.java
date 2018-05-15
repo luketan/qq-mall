@@ -89,7 +89,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
             String password = new String(token.getPassword());
             System.out.println("*****************************************" + username+"____" + password);
             Response<Admin> response = adminService.adminLogin(username, password);
-            if (0!=response.getCode()) {
+            if (!"000000".equals(response.getCode())) {
                 throw new AuthenticationException(response.getMsg());
             }
             Admin admin = response.getResult();

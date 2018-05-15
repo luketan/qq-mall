@@ -52,11 +52,10 @@ public class HomeController extends BaseApiController {
 	@NoRequireLogin
 	@RequestMapping(value="findAppletHome",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response findAppletHome(@RequestAttribute("user") UserVO user,
-												   @RequestAttribute("agent") AppAgent agent) throws BaseException{
+	public Response findAppletHome() throws BaseException{
 
 		try{
-			Response<AppletHomeVO> response = homeService.findAppletHome(user.getId());
+			Response<AppletHomeVO> response = homeService.findAppletHome(null);
 			return response;
 		}catch (Exception e){
 			logger.error(e, e);

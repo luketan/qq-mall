@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>接口地址</label>
-                                        <input type="text" name="apiURL" value="${item.apiUrl}" class="form-control" placeholder="请输入快件查询接口地址">
+                                        <input type="text" name="apiURL" value="${item.apiURL}" class="form-control" placeholder="请输入快件查询接口地址">
                                     </div>
                                     <div class="form-group">
                                         <label>接口帐号</label>

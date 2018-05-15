@@ -34,7 +34,7 @@
 
 <div class="container">
     <form class="form-signin" action="login.html" method="post">
-        <h2 class="form-signin-heading">${site.title}</h2>
+        <h2 class="form-signin-heading">${site.title}<%=session.getId()%></h2>
         <label for="inputUserName" class="sr-only">账号</label>
         <input type="text" id="inputUserName" name="userName" class="form-control" placeholder="请输入您的登录帐号" required
                autofocus>
