@@ -83,4 +83,12 @@ public interface UserService{
 	 */
 	Response<Integer> updateUserStatus(int userId, int status, String remark);
 
+
+	/**
+	 * 微信小程序登录
+	 * @param code
+	 * @return
+	 */
+	Response<UserLoginVO> appletLoginByCode(String code);
+
 }

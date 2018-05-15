@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.UserBean;
+import com.honglinktech.zbgj.bean.UserLoginBean;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
@@ -16,13 +17,18 @@ import com.honglinktech.zbgj.entity.UserBasis;
 import com.honglinktech.zbgj.entity.UserSession;
 import com.honglinktech.zbgj.enums.ChangeLogTypeEnum;
 import com.honglinktech.zbgj.enums.ChangeTypeEnum;
+import com.honglinktech.zbgj.enums.UserTypeEnum;
 import com.honglinktech.zbgj.service.ChangeLogService;
 import com.honglinktech.zbgj.service.UserService;
 import com.honglinktech.zbgj.utils.HashUtils;
+import com.honglinktech.zbgj.utils.HttpUtil;
 import com.honglinktech.zbgj.utils.TokenProcessor;
 import com.honglinktech.zbgj.vo.UserLoginVO;
 import com.honglinktech.zbgj.vo.UserVO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -30,6 +36,8 @@ import java.util.*;
 
 @Component
 public class UserServiceImpl implements UserService{
+
+	private final Logger logger = LogManager.getLogger(getClass());
 
 	@Autowired
 	private UserDao userDao;
@@ -39,6 +47,16 @@ public class UserServiceImpl implements UserService{
 	private UserSessionDao userSessionDao;
 	@Autowired
 	private ChangeLogService changeLogService;
+	/**
+	 * appId
+	 */
+	@Value("${wechat.appletAppId}")
+	private String appletAppId;
+	/**
+	 * AppSecret
+	 */
+	@Value("${wechat.appletAppSecret}")
+	private String appletAppSecret;
 
 	/**
 	 *
@@ -100,6 +118,68 @@ public class UserServiceImpl implements UserService{
 
 	}
 
+	@Override
+	public Response<UserLoginVO> appletLoginByCode(String code) {
+		try {
+			String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appletAppId + "&secret=" + appletAppSecret + "&js_code=" + code + "&grant_type=authorization_code";
+			logger.info("url------------"+url);
+			String respon = HttpUtil.sendGet(url);
+			System.out.println("url------------"+url+"==========="+respon);
+			if (StringUtils.isEmpty(respon)) {
+				return Result.fail("系统错误，请联系工作人员！");
+			}
+			Map<String, String> respMap = JSON.parseObject(respon, new HashMap<String, String>().getClass());
+			if (respMap.containsKey("errcode")) {
+				return Result.fail(respMap.get("errmsg"));
+			}
+			String openId = respMap.get("openid");
+			String sessionKey = respMap.get("session_key");
+			String unionId = respMap.get("unionid");
+			User user = userDao.findByOpenId(openId);
+
+			if (user == null) {
+
+				user = new User();
+				user.setOpenId(openId);
+				user.setType(UserTypeEnum.General.getCode());
+				user.setStatus(1);
+				userDao.insertSelective(user);
+
+				UserBasis userBasis = new UserBasis();
+				userBasis.setId(user.getId());
+				userBasisDao.insertSelective(userBasis);
+			}else{
+				if (user.getStatus() == 2) {//账户被锁定
+					return Result.fail(ExceptionEnum.USER_LOCKED_ERROR, user.getAccount()+",openId:"+user.getOpenId());
+				}
+				if (user.getStatus() == 3) {//账户被拉黑
+					return Result.fail(ExceptionEnum.USER_BLACK_ERROR, user.getAccount()+",openId:"+user.getOpenId());
+				}
+				if (user.getStatus() != 1) {//系统错误
+					return Result.fail(ExceptionEnum.COMMON_ERROE, user.getAccount()+",openId:"+user.getOpenId());
+				}
+			}
+
+			UserSession userSession = userSessionDao.findByUserId(user.getId());
+			String token = TokenProcessor.getInstance().generateToken(String.valueOf(user.getId()), true);
+			if(userSession!=null){//update token
+				userSession.setToken(token);
+				userSessionDao.update(userSession);
+			}else{//add token
+				userSession = new UserSession();
+				userSession.setToken(token);
+				userSession.setUserId(user.getId());
+				userSessionDao.insert(userSession);
+			}
+
+			return Result.resultSet(new UserLoginVO(token, user, null));
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e, e);
+			return Result.fail("系统错误，请联系工作人员！");
+		}
+	}
+
 	/**
 	 *
 	 * @param id
@@ -112,6 +192,26 @@ public class UserServiceImpl implements UserService{
 		int result = userSessionDao.delete(id);
 		return Result.success();
 	}
+
+	@Override
+	public UserVO getByToken(String token) {
+		//TODO redis缓存
+		UserSession userSession = userSessionDao.findByToken(token);
+		if(userSession == null){
+			//return Result.fail(ExceptionEnum.COMMON_TOKEN_FAIL ,"token失效！");
+			return null;
+		}
+		User user = userDao.selectByPrimaryKey(userSession.getUserId());
+		if(user == null){
+			return null;
+		}
+		UserBasis userBasis =  userBasisDao.selectByPrimaryKey(userSession.getUserId());
+		if(userBasis == null){
+			return null;
+		}
+		return new UserVO(user);
+	}
+
 
 	/**
 	 * 获取推荐用户
@@ -139,25 +239,6 @@ public class UserServiceImpl implements UserService{
 			}
 		}
 		return Result.resultSet(userBeens);
-	}
-
-	@Override
-	public UserVO getByToken(String token) {
-		//TODO redis缓存
-		UserSession userSession = userSessionDao.findByToken(token);
-		if(userSession == null){
-			//return Result.fail(ExceptionEnum.COMMON_TOKEN_FAIL ,"token失效！");
-			return null;
-		}
-		User user = userDao.selectByPrimaryKey(userSession.getUserId());
-		if(user == null){
-			return null;
-		}
-		UserBasis userBasis =  userBasisDao.selectByPrimaryKey(userSession.getUserId());
-		if(userBasis == null){
-			return null;
-		}
-		return new UserVO(user);
 	}
 
 	/***********************conosle**************************/

@@ -12,7 +12,6 @@ import com.honglinktech.zbgj.entity.PostCompany;
 import com.honglinktech.zbgj.service.PostService;
 import com.honglinktech.zbgj.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -40,7 +39,6 @@ public class PostServiceImpl implements PostService{
 		return new Page<>(start, rows, total, url, postCompanys);
 	}
 
-	@Cacheable("getPostCompanyById")
 	@Override
 	public Response<PostCompany> findPostCompanyById(int id) {
 		PostCompany postCompany = postCompanyDao.selectByPrimaryKey(id);

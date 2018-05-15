@@ -26,15 +26,16 @@
     <result column="remark" jdbcType="VARCHAR" property="from" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="opent_id" jdbcType="VARCHAR" property="opentId" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, nick_name, account, password, exp, level, sign, head, email, email_is, phone, 
-    phone_is, age, sex, sexu, marr, try_is, type, status, `from`, remark, update_time, create_time
+    id, nick_name, account, password, exp, level, sign, head, email, email_is, phone,
+    phone_is, age, sex, sexu, marr, try_is, type, status, `from`, remark, update_time, create_time, open_id
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    SELECT 
+    SELECT
     <include refid="Base_Column_List" />
     FROM t_user
     WHERE id = #{id,jdbcType=INTEGER}
@@ -111,8 +112,11 @@
       <if test="remark != null and remark != ''">
         `remark`,
       </if>
-        update_time,
-        create_time,
+      <if test="openId != null and openId != ''">
+        `open_id`,
+      </if>
+      update_time,
+      create_time,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -177,6 +181,9 @@
       </if>
       <if test="remark != null and remark != ''">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null and openId != ''">
+        #{openId,jdbcType=VARCHAR},
       </if>
       now(),
       now(),
@@ -246,6 +253,9 @@
       <if test="remark != null and remark != ''">
         `remark` = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="openId != null and openId != ''">
+        `open_id` = #{openId,jdbcType=VARCHAR},
+      </if>
       update_time = now(),
     </set>
     WHERE id = #{id,jdbcType=INTEGER}
@@ -254,40 +264,46 @@
   <!--App-->
   <select id="login" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT
-      <include refid="Base_Column_List" />
+    <include refid="Base_Column_List" />
     FROM t_user
     WHERE (account = #{account} OR email = #{account} OR phone = #{account})
     AND password = #{password}
   </select>
+  <select id="findByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_user
+    WHERE open_id = #{openId}
+  </select>
   <!--APP获取被关注数最多的用户-->
   <select id="findAtteUserByNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-      SELECT
-        <include refid="Base_Column_List" />
-      FROM t_user
-      WHERE id IN (
-          SELECT atte_user_id
-          From t_user_atte ua
-          <if test="userId!=null">
-              WHERE ua.atte_user_id <![CDATA[<>]]> #{userId} AND ua.atte_user_id NOT IN(SELECT atte_user_id FROM t_user_atte WHERE user_id = #{userId})
-          </if>
-          GROUP BY ua.atte_user_id ORDER BY sum(1) DESC
-      )
-      LIMIT #{start}, #{size}
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_user
+    WHERE id IN (
+    SELECT atte_user_id
+    From t_user_atte ua
+    <if test="userId!=null">
+      WHERE ua.atte_user_id <![CDATA[<>]]> #{userId} AND ua.atte_user_id NOT IN(SELECT atte_user_id FROM t_user_atte WHERE user_id = #{userId})
+    </if>
+    GROUP BY ua.atte_user_id ORDER BY sum(1) DESC
+    )
+    LIMIT #{start}, #{size}
   </select>
   <!--APP获取被添加好友数最多的用户-->
   <select id="findFriendUserByNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-      SELECT
-        <include refid="Base_Column_List" />
-      FROM t_user
-      WHERE id IN (
-            SELECT friend_user_id
-            From t_user_friend uf
-            <if test="userId!=null">
-                WHERE uf.friend_user_id <![CDATA[<>]]> #{userId} AND uf.friend_user_id NOT IN(SELECT atte_user_id FROM t_user_atte WHERE user_id = #{userId})
-            </if>
-            GROUP BY uf.friend_user_id ORDER BY sum(1) DESC
-      )
-      LIMIT #{start}, #{size}
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_user
+    WHERE id IN (
+    SELECT friend_user_id
+    From t_user_friend uf
+    <if test="userId!=null">
+      WHERE uf.friend_user_id <![CDATA[<>]]> #{userId} AND uf.friend_user_id NOT IN(SELECT atte_user_id FROM t_user_atte WHERE user_id = #{userId})
+    </if>
+    GROUP BY uf.friend_user_id ORDER BY sum(1) DESC
+    )
+    LIMIT #{start}, #{size}
   </select>
   <!--consle-->
   <select id="findList" parameterType="map" resultMap="BaseResultMap">

@@ -1,4 +1,4 @@
-//package com.honglinktech.zbgj.service.impl;
+package com.honglinktech.zbgj.service.impl;//package com.honglinktech.zbgj.service.impl;
 //
 //import com.honglinktech.zbgj.bean.PaymentBean;
 //import com.honglinktech.zbgj.common.Constants;

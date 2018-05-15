@@ -122,6 +122,11 @@ public class User {
      */
     private Date createTime;
 
+    /**
+     * 微信ID
+     */
+    private String openId;
+
     public Integer getId() {
         return id;
     }
@@ -304,5 +309,13 @@ public class User {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 }
