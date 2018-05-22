@@ -1,6 +1,7 @@
 package com.honglinktech.zbgj.web.controller;
 
 
+import com.honglinktech.zbgj.vo.GoodsVO;
 import com.honglinktech.zbgj.web.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
@@ -45,7 +46,7 @@ public class GoodsController extends BaseApiController {
 	 */
 	@RequestMapping(value="findGoodsBeanById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<GoodsBean> findGoodsBeanById(@RequestBody Map<String, String> map, @RequestHeader HttpHeaders headers) throws BaseException{
+	public Response<GoodsVO> findGoodsBeanById(@RequestBody Map<String, String> map, @RequestHeader HttpHeaders headers) throws BaseException{
 
 		String userCode =  headers.getFirst("userId");
 		int userId = 0;
@@ -58,7 +59,7 @@ public class GoodsController extends BaseApiController {
 		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
 		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
 		
-		Response<GoodsBean> response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, index, size);
+		Response<GoodsVO> response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, index, size);
 		
 		return response; 
 	}
@@ -71,8 +72,8 @@ public class GoodsController extends BaseApiController {
 	 */
 	@RequestMapping(value="findGoodsSearchBeans",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<GoodsBean>> findGoodsSearchBeans(@RequestBody Map<String, String> map) throws BaseException{
-		Response<List<GoodsBean>> response = goodsService.findGoodsVOByWhere(map);
+	public Response<List<GoodsVO>> findGoodsSearchBeans(@RequestBody Map<String, String> map) throws BaseException{
+		Response<List<GoodsVO>> response = goodsService.findGoodsVOByWhere(map);
 		return response; 
 	}
 	
