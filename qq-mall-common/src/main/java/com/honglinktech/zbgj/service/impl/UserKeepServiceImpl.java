@@ -43,7 +43,7 @@ public class UserKeepServiceImpl implements UserKeepService{
 			userKeepDao.deleteKeep(uk);
 			mag = "取消收藏成功！";
 		}else{
-			Goods goods = goodsDao.selectByPrimaryKey(goodsId);
+			Goods goods = goodsDao.findById(goodsId);
 			UserKeep uk = new UserKeep();
 			uk.setObjId(goodsId);
 			uk.setType(Constants.USER_KEEP_TYPE_GOODS);

@@ -28,7 +28,7 @@ public class BrandController extends BaseApiController{
 	@RequestMapping(value="findBrandByTypeId",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ReturnInfo findGoodsBean(@RequestBody GoodsBean goodsBean) throws BaseException{
-//		GoodsBean gb = goodsService.findGoodsInfo(goodsBean.getId());
+
 		ReturnInfo ri = new ReturnInfo(ExceptionEnum.COMMON_SUCCESS,null);
 		return ri; 
 	}

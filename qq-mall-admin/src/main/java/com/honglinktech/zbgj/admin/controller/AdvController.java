@@ -38,6 +38,11 @@ public class AdvController extends BaseController {
         int start = (index - 1) * size;
         Page<Adv> page = advService.findPage(null, start, size, "list.html?");
         model.addAttribute("page", page);
+        List<KV> styleTypeList = new ArrayList<KV>();
+        for(AdvStyleTypeEnum a: AdvStyleTypeEnum.values()) {
+            styleTypeList.add(new KV(a.toString(), a.getName()));
+        }
+        model.addAttribute("styleTypeList", styleTypeList);
         return "adv/list";
     }
 

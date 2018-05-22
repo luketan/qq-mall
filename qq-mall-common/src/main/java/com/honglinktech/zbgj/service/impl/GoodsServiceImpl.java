@@ -1,13 +1,24 @@
 package com.honglinktech.zbgj.service.impl;
 
 import com.honglinktech.zbgj.base.BaseException;
-import com.honglinktech.zbgj.bean.*;
+import com.honglinktech.zbgj.bean.ActivityBean;
+import com.honglinktech.zbgj.bean.FormatBean;
+import com.honglinktech.zbgj.bean.FormatSubBean;
+import com.honglinktech.zbgj.bean.GoodsBean;
+import com.honglinktech.zbgj.bean.GoodsDisBean;
+import com.honglinktech.zbgj.bean.GoodsDisCountBean;
+import com.honglinktech.zbgj.bean.PicBean;
 import com.honglinktech.zbgj.bean.request.GoodsItem;
 import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.dao.*;
+import com.honglinktech.zbgj.dao.FormatDao;
+import com.honglinktech.zbgj.dao.FormatSubDao;
+import com.honglinktech.zbgj.dao.GoodsActivityDao;
+import com.honglinktech.zbgj.dao.GoodsDao;
+import com.honglinktech.zbgj.dao.GoodsFormatDao;
+import com.honglinktech.zbgj.dao.PicDao;
 import com.honglinktech.zbgj.entity.Goods;
 import com.honglinktech.zbgj.entity.GoodsActivity;
 import com.honglinktech.zbgj.entity.GoodsFormat;
@@ -47,8 +58,8 @@ public class GoodsServiceImpl implements GoodsService{
 	private GoodsDisService goodsDisService;
 
 	@Override
-	public Response<GoodsBean> findGoodsBeanById(Integer id, int userId, int index, int size) throws BaseException{
-		GoodsBean goodsBean = goodsDao.appFindKeepById(id, userId);
+	public Response<GoodsVO> findGoodsVOById(Integer id, int userId, int index, int size) throws BaseException{
+		GoodsVO goodsVO = goodsDao.findVOById(id, userId);
 		//活动
 		List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
 		//规格
@@ -60,27 +71,27 @@ public class GoodsServiceImpl implements GoodsService{
 			}
 		}
 		//图片处理
-		List<PicBean> tpicList =  picService.findPic(goodsBean.getId(), Constants.PIC_GOODS);
+		List<PicBean> tpicList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
 		//List<TGoodsDis> tDisList = tgoodsDisDao.findByWhere(" WHERE goods_id = "+goodsBean.getId());
 		//评论处理
 		Response<GoodsDisCountBean> gdcbResp = goodsDisService.findGoodsDisCount(id);
-		goodsBean.setGoodsDisCountBean(gdcbResp.getResult());
+		goodsVO.setGoodsDisCountBean(gdcbResp.getResult());
 		Map<String,String> whereMap = new HashMap<String, String>();
 		whereMap.put("goodsId", id+"");
 		whereMap.put("index", index+"");
 		whereMap.put("size", size+"");
 		Response<List<GoodsDisBean>> gdbResp = goodsDisService.findGoodsDisByPage(whereMap);
-		goodsBean.setGoodsDisBeanList(gdbResp.getResult());
+		goodsVO.setGoodsDisBeanList(gdbResp.getResult());
 		
-		goodsBean.setActivityBeanList(activityBeanList);
-		goodsBean.setFormatBeanList(formatBeanList);
-		goodsBean.setPicList(tpicList);
+		goodsVO.setActivityBeanList(activityBeanList);
+		goodsVO.setFormatBeanList(formatBeanList);
+		goodsVO.setPicList(tpicList);
 		//goodsBean.setGoodsDisList(tDisList);
-		return  Result.resultSet(goodsBean);
+		return  Result.resultSet(goodsVO);
 	}
 
 	@Override
-	public Response<List<GoodsBean>> findGoodsSearchBeans(Map whereMap) throws BaseException{
+	public Response<List<GoodsVO>> findGoodsVOByWhere(Map whereMap) throws BaseException{
 		if(whereMap.containsKey("searchPrice")){
 			String searchPrice = whereMap.get("searchPrice").toString();
 			if(searchPrice.indexOf("+")>0){
@@ -102,13 +113,13 @@ public class GoodsServiceImpl implements GoodsService{
 			whereMap.put("rows", size > 0 ? size : 10);
 		}
 
-		List<GoodsBean> goodsListBeans = goodsDao.findGoodsSearchBeansByMap(whereMap);
+		List<GoodsVO> goodsListBeans = goodsDao.findGoodsByWhere(whereMap);
 		return Result.resultSet(goodsListBeans);
 	}
 
 	@Override
 	public void saveGoods(GoodsItem goodsItem) throws BaseException{
-		int goodsId = goodsDao.insertSelective(goodsItem.getGoods());
+		int goodsId = goodsDao.insert(goodsItem.getGoods());
 		Integer[] goodsFormats = goodsItem.getGoodsFormats();
 		Integer[] goodsActivitys = goodsItem.getGoodsActivitys();
 		String[] goodsImgs = goodsItem.getGoodsImgs();
@@ -148,7 +159,7 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public void updateGoods(GoodsItem goodsItem) throws BaseException{
 		int goodsId = goodsItem.getId();
-		goodsDao.updateByPrimaryKeySelective(goodsItem.getGoods());
+		goodsDao.update(goodsItem.getGoods());
 		Integer[] goodsFormats = goodsItem.getGoodsFormats();
 		Integer[] goodsActivitys = goodsItem.getGoodsActivitys();
 		String[] goodsImgs = goodsItem.getGoodsImgs();
@@ -197,20 +208,20 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public Page<GoodsVO> findGoodsBeanPage(Map whereMap, String url) {
+	public Page<GoodsBean> findGoodsBeanPage(Map whereMap, String url) {
 
 		int rows = Integer.valueOf(whereMap.get("rows").toString());
 		int start =  Integer.valueOf(whereMap.get("start").toString());
-		List<GoodsVO> goodsBeans = goodsDao.findGoodsVOPage(whereMap);
+		List<GoodsBean> goodsBeans = goodsDao.findGoodsPage(whereMap);
 		long count = goodsDao.findGoodsCount(whereMap);
 
-		Page<GoodsVO> page = new Page<GoodsVO>(start, rows, count, url, goodsBeans);
+		Page<GoodsBean> page = new Page<GoodsBean>(start, rows, count, url, goodsBeans);
 		return page;
 	}
 
 	@Override
 	public GoodsVO findGoodsVOById(Integer id) {
-		Goods goods = goodsDao.selectByPrimaryKey(id);
+		Goods goods = goodsDao.findById(id);
 		GoodsVO goodsVO = new GoodsVO(goods);
 		//活动
 		//List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);

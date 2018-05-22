@@ -21,14 +21,14 @@ public interface GoodsService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<GoodsBean> findGoodsBeanById(Integer id, int userId, int index, int size) throws BaseException;
+	Response<GoodsVO> findGoodsVOById(Integer id, int userId, int index, int size) throws BaseException;
 	/**
 	 *
 	 * @param whereMap
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<GoodsBean>> findGoodsSearchBeans(Map whereMap) throws BaseException;
+	Response<List<GoodsVO>> findGoodsVOByWhere(Map whereMap) throws BaseException;
 
 
 	/***************************************************************console******************************************************************/
@@ -51,7 +51,7 @@ public interface GoodsService{
 	 * @param whereMap
 	 * @return
 	 */
-	Page<GoodsVO> findGoodsBeanPage(Map whereMap, String url);
+	Page<GoodsBean> findGoodsBeanPage(Map whereMap, String url);
 
 	/**
 	 * 后台获取商品详情

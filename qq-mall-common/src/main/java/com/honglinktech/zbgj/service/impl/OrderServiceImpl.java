@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService{
 		if(map.containsKey("goodsId") && map.containsKey("num")){
 			//TODO 直接购买
 			int goodsId = Integer.valueOf(map.get("goodsId").toString());
-			Goods goods = goodsDao.selectByPrimaryKey(goodsId);
+			Goods goods = goodsDao.findById(goodsId);
 			
 			ShoppingCartBean scb = new ShoppingCartBean();
 			scb.setNum(Integer.valueOf(map.get("num").toString()));
@@ -231,7 +231,7 @@ public class OrderServiceImpl implements OrderService{
 		if(map.containsKey("goodsId") && map.containsKey("num")){
 			//直接购买
 			int goodsId = Integer.valueOf(map.get("goodsId").toString());
-			Goods goods = goodsDao.selectByPrimaryKey(goodsId);
+			Goods goods = goodsDao.findById(goodsId);
 			
 			ShoppingCartBean scb = new ShoppingCartBean();
 			scb.setNum(Integer.valueOf(map.get("num").toString()));

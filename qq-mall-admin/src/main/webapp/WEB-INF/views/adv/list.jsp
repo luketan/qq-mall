@@ -35,7 +35,7 @@
                                     <th>序号</th>
                                     <th>标题</th>
                                     <th>图片</th>
-                                    <th>地址</th>
+                                    <th>type</th>
                                     <th>类型</th>
                                     <th>排序(降序)</th>
                                     <th>操作</th>
@@ -47,8 +47,13 @@
 	                                    <td>${item.id }</td>
 	                                    <td>${item.title }</td>
 	                                    <td><img src="${item.image }" style="width: 40px"></td>
-	                                    <td>${item.url}</td>
-                                         <td>${item.styleType=='home'?"首页":""}${item.styleType=='search'?"搜索":""}</td>
+	                                    <td>${item.type}</td>
+                                         <td><c:forEach items="${styleTypeList }" var="styleType">
+                                                 <c:if test="${styleType.key == item.styleType}">
+                                                     ${styleType.value}
+                                                 </c:if>
+                                             </c:forEach>
+                                         </td>
 	                                    <td>${item.sort}</td>
 	                                    <td><a href="modify.html?id=${item.id }">编辑</a></td>
 	                                </tr>

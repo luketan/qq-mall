@@ -2,6 +2,7 @@ package com.honglinktech.zbgj.admin.controller;
 
 
 import com.honglinktech.zbgj.bean.ActivityBean;
+import com.honglinktech.zbgj.bean.GoodsBean;
 import com.honglinktech.zbgj.bean.GoodsTagBean;
 import com.honglinktech.zbgj.bean.GoodsTypeBean;
 import com.honglinktech.zbgj.bean.request.GoodsItem;
@@ -74,7 +75,7 @@ public class GoodsController extends BaseController {
 		whereMap.put("rows", size);
 
 
-		Page<GoodsVO> page = goodsService.findGoodsBeanPage(whereMap, url);
+		Page<GoodsBean> page = goodsService.findGoodsBeanPage(whereMap, url);
 		model.addAttribute("page", page);
 		model.addAttribute("status", status);
 		model.addAttribute("type", type);

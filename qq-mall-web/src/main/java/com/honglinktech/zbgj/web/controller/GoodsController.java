@@ -12,7 +12,6 @@ import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.service.GoodsService;
 import com.honglinktech.zbgj.service.GoodsDisService;
-import com.honglinktech.zbgj.service.GoodsService;
 import com.honglinktech.zbgj.service.GoodsTypeService;
 import com.honglinktech.zbgj.service.UserKeepService;
 import org.springframework.http.HttpHeaders;
@@ -59,7 +58,7 @@ public class GoodsController extends BaseApiController {
 		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
 		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
 		
-		Response<GoodsBean> response = goodsService.findGoodsBeanById(Integer.valueOf(map.get("id")), userId, index, size);
+		Response<GoodsBean> response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, index, size);
 		
 		return response; 
 	}
@@ -73,7 +72,7 @@ public class GoodsController extends BaseApiController {
 	@RequestMapping(value="findGoodsSearchBeans",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<List<GoodsBean>> findGoodsSearchBeans(@RequestBody Map<String, String> map) throws BaseException{
-		Response<List<GoodsBean>> response = goodsService.findGoodsSearchBeans(map);
+		Response<List<GoodsBean>> response = goodsService.findGoodsVOByWhere(map);
 		return response; 
 	}
 	

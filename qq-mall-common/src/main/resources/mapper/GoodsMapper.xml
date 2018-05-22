@@ -12,62 +12,65 @@
     <result column="former_price" jdbcType="DECIMAL" property="formerPrice" />
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="discuss_num" jdbcType="INTEGER" property="discussNum" />
-    <result column="promo_name" jdbcType="VARCHAR" property="promoName" />
-    <result column="promo_price" jdbcType="DECIMAL" property="promoPrice" />
-    <result column="promo_is" jdbcType="INTEGER" property="promoIs" />
     <result column="hot_is" jdbcType="INTEGER" property="hotIs" />
     <result column="gifts_is" jdbcType="INTEGER" property="giftsIs" />
     <result column="brand_id" jdbcType="INTEGER" property="brandId" />
-    <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
-    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
     <result column="type_sub_id" jdbcType="INTEGER" property="typeSubId" />
-    <result column="type_sub_name" jdbcType="VARCHAR" property="typeSubName" />
     <result column="collect_num" jdbcType="INTEGER" property="collectNum" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
 
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.honglinktech.zbgj.entity.Goods">
-    <result column="detail" jdbcType="LONGVARCHAR" property="detail" />
-  </resultMap>
-
   <sql id="Base_Column_List">
-    id, name, sub_name, sales_num, keep_num, mark_price, former_price, price, discuss_num, 
-    promo_name, promo_price, promo_is, hot_is, gifts_is, brand_id, brand_name, type_id, 
-    type_name, type_sub_id, type_sub_name, collect_num, status, img_url, sort, update_time, 
+    id,
+    `name`,
+    sub_name,
+    sales_num,
+    keep_num,
+    mark_price,
+    former_price,
+    price,
+    detail,
+    discuss_num,
+    hot_is,
+    gifts_is,
+    brand_id,
+    type_id,
+    type_sub_id,
+    collect_num,
+    status,
+    img_url,
+    sort,
+    update_time,
     create_time
   </sql>
 
-  <sql id="Blob_Column_List">
-    detail
-  </sql>
-
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     FROM t_goods
     WHERE id = #{id,jdbcType=INTEGER}
+    AND delete_flag = 0
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    DELETE FROM t_goods
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    UPDATE t_goods
+    SET
+    delete_flag = 1,
+    update_time = now()
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Goods">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Goods"  useGeneratedKeys="true" keyProperty="id">
     INSERT INTO t_goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="name != null and name != ''">
-        name,
+        `name`,
       </if>
       <if test="subName != null and subName != ''">
         sub_name,
@@ -90,15 +93,6 @@
       <if test="discussNum != null">
         discuss_num,
       </if>
-      <if test="promoName != null and promoName != ''">
-        promo_name,
-      </if>
-      <if test="promoPrice != null">
-        promo_price,
-      </if>
-      <if test="promoIs != null">
-        promo_is,
-      </if>
       <if test="hotIs != null">
         hot_is,
       </if>
@@ -108,20 +102,11 @@
       <if test="brandId != null">
         brand_id,
       </if>
-      <if test="brandName != null and brandName != ''">
-        brand_name,
-      </if>
       <if test="typeId != null">
         type_id,
       </if>
-      <if test="typeName != null and typeName != ''">
-        type_name,
-      </if>
       <if test="typeSubId != null">
         type_sub_id,
-      </if>
-      <if test="typeSubName != null and typeSubName != ''">
-        type_sub_name,
       </if>
       <if test="collectNum != null">
         collect_num,
@@ -142,9 +127,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="name != null and name != ''">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -169,15 +151,6 @@
       <if test="discussNum != null">
         #{discussNum,jdbcType=INTEGER},
       </if>
-      <if test="promoName != null and promoName != ''">
-        #{promoName,jdbcType=VARCHAR},
-      </if>
-      <if test="promoPrice != null">
-        #{promoPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="promoIs != null">
-        #{promoIs,jdbcType=INTEGER},
-      </if>
       <if test="hotIs != null">
         #{hotIs,jdbcType=INTEGER},
       </if>
@@ -187,20 +160,11 @@
       <if test="brandId != null">
         #{brandId,jdbcType=INTEGER},
       </if>
-      <if test="brandName != null and brandName != ''">
-        #{brandName,jdbcType=VARCHAR},
-      </if>
       <if test="typeId != null">
         #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="typeName != null and typeName != ''">
-        #{typeName,jdbcType=VARCHAR},
-      </if>
       <if test="typeSubId != null">
         #{typeSubId,jdbcType=INTEGER},
-      </if>
-      <if test="typeSubName != null and typeSubName != ''">
-        #{typeSubName,jdbcType=VARCHAR},
       </if>
       <if test="collectNum != null">
         #{collectNum,jdbcType=INTEGER},
@@ -222,11 +186,11 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Goods">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.Goods">
     UPDATE t_goods
     <set>
       <if test="name != null and name != ''">
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="subName != null and subName != ''">
         sub_name = #{subName,jdbcType=VARCHAR},
@@ -249,15 +213,6 @@
       <if test="discussNum != null">
         discuss_num = #{discussNum,jdbcType=INTEGER},
       </if>
-      <if test="promoName != null and promoName != ''">
-        promo_name = #{promoName,jdbcType=VARCHAR},
-      </if>
-      <if test="promoPrice != null">
-        promo_price = #{promoPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="promoIs != null">
-        promo_is = #{promoIs,jdbcType=INTEGER},
-      </if>
       <if test="hotIs != null">
         hot_is = #{hotIs,jdbcType=INTEGER},
       </if>
@@ -267,20 +222,11 @@
       <if test="brandId != null">
         brand_id = #{brandId,jdbcType=INTEGER},
       </if>
-      <if test="brandName != null and brandName != ''">
-        brand_name = #{brandName,jdbcType=VARCHAR},
-      </if>
       <if test="typeId != null">
         type_id = #{typeId,jdbcType=INTEGER},
       </if>
-      <if test="typeName != null and typeName != ''">
-        type_name = #{typeName,jdbcType=VARCHAR},
-      </if>
       <if test="typeSubId != null">
         type_sub_id = #{typeSubId,jdbcType=INTEGER},
-      </if>
-      <if test="typeSubName != null and typeSubName != ''">
-        type_sub_name = #{typeSubName,jdbcType=VARCHAR},
       </if>
       <if test="collectNum != null">
         collect_num = #{collectNum,jdbcType=INTEGER},
@@ -294,15 +240,15 @@
       <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
       </if>
-      update_time = now(),
       <if test="detail != null">
         detail = #{detail,jdbcType=LONGVARCHAR},
       </if>
+      update_time = now(),
     </set>
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
 <!--****************************************************************************************************-->
-  <select id="appFindKeepById" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.bean.GoodsBean">
+  <select id="findVOById" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.vo.GoodsVO">
     SELECT
         g.id,
         g.name,
@@ -327,7 +273,7 @@
     g.status=1
     AND id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="findGoodsSearchBeansByMap" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsBean">
+  <select id="findGoodsByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsBean">
     SELECT
       g.id,
       g.name,
@@ -363,7 +309,7 @@
   </select>
   <!--####################################################console###################################################-->
   <!--console.获取商品分页-->
-  <select id="findGoodsVOPage" parameterType="map" resultType="com.honglinktech.zbgj.vo.GoodsVO">
+  <select id="findGoodsPage" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsBean">
     SELECT
     g.id,
     g.name,
