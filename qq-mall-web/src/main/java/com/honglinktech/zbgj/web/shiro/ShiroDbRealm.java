@@ -86,7 +86,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
             String username = token.getUsername();
             String password = new String(token.getPassword());
             Response<UserLoginVO> userLoginDataResponse = userService.login( username, password);
-            if ("000000".equals(userLoginDataResponse)) {
+            if (userLoginDataResponse.getCode()!=0) {
                 throw new AuthenticationException("用户名或密码错误！");
             }
             UserLoginVO userLoginData = userLoginDataResponse.getResult();

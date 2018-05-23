@@ -187,7 +187,7 @@
 
         <profile>
             <id>prod</id>
-           
+
             <build>
                 <filters>
                     <filter>${basedir}/config/pro/config.properties</filter>
@@ -196,7 +196,7 @@
         </profile>
         <profile>
             <id>uat</id>
-			
+
             <build>
                 <filters>
                     <filter>${basedir}/config/uat/config.properties</filter>

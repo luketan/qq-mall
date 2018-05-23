@@ -87,16 +87,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
         try {
             String username = token.getUsername();
             String password = new String(token.getPassword());
-            System.out.println("*****************************************" + username+"____" + password);
             Response<Admin> response = adminService.adminLogin(username, password);
-            if (!"000000".equals(response.getCode())) {
+            if (0!=response.getCode()) {
                 throw new AuthenticationException(response.getMsg());
             }
             Admin admin = response.getResult();
             Session session = SecurityUtils.getSubject().getSession();
             session.setTimeout(3600000);
             session.setAttribute(Constants.LOGIN_ADMIN_DATA, admin);
-            System.out.println(Constants.LOGIN_ADMIN_DATA + "*****************************************admin="+admin);
             return new SimpleAuthenticationInfo(username, password, username);
             //SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, password, username);
             //authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username + username));

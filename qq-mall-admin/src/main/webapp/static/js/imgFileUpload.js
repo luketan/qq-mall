@@ -1,7 +1,7 @@
 /**
  图片上传，图片列表处理
  **/
-var url = "/upload/uploadImg.html";
+var url = "${basePath }/upload/uploadImg.html";
 $('.imgFileUpload').change(function () {
     var self = this;
     var data = new FormData();

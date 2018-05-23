@@ -23,11 +23,12 @@ public class IndexController extends BaseController {
 
     @RequestMapping("index")
     public String index() {
+        System.out.println("===========index==============");
         Subject subject = SecurityUtils.getSubject();
         if (subject.isAuthenticated()) {
             return "index";
         } else {
-            return "redirect:login";
+            return "redirect:login.html";
         }
     }
 
@@ -93,6 +94,6 @@ public class IndexController extends BaseController {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        return "redirect:login";
+        return "redirect:login.html";
     }
 }

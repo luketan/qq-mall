@@ -52,22 +52,6 @@ public class Goods {
      * 评论数量
      */
     private Integer discussNum;
-
-    /**
-     * 促销名字
-     */
-    private String promoName;
-
-    /**
-     * 促销价
-     */
-    private BigDecimal promoPrice;
-
-    /**
-     * 是否促销
-     */
-    private Integer promoIs;
-
     /**
      * 是否热卖
      */
@@ -84,29 +68,14 @@ public class Goods {
     private Integer brandId;
 
     /**
-     * 品牌名称
-     */
-    private String brandName;
-
-    /**
      * 类别ID
      */
     private Integer typeId;
 
     /**
-     * 类别名称
-     */
-    private String typeName;
-
-    /**
      * 子类别(款式)ID
      */
     private Integer typeSubId;
-
-    /**
-     * 子类别(款式)名称
-     */
-    private String typeSubName;
 
     /**
      * 收藏数量
@@ -215,30 +184,6 @@ public class Goods {
         this.discussNum = discussNum;
     }
 
-    public String getPromoName() {
-        return promoName;
-    }
-
-    public void setPromoName(String promoName) {
-        this.promoName = promoName == null ? null : promoName.trim();
-    }
-
-    public BigDecimal getPromoPrice() {
-        return promoPrice;
-    }
-
-    public void setPromoPrice(BigDecimal promoPrice) {
-        this.promoPrice = promoPrice;
-    }
-
-    public Integer getPromoIs() {
-        return promoIs;
-    }
-
-    public void setPromoIs(Integer promoIs) {
-        this.promoIs = promoIs;
-    }
-
     public Integer getHotIs() {
         return hotIs;
     }
@@ -263,14 +208,6 @@ public class Goods {
         this.brandId = brandId;
     }
 
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName == null ? null : brandName.trim();
-    }
-
     public Integer getTypeId() {
         return typeId;
     }
@@ -279,28 +216,12 @@ public class Goods {
         this.typeId = typeId;
     }
 
-    public String getTypeName() {
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName == null ? null : typeName.trim();
-    }
-
     public Integer getTypeSubId() {
         return typeSubId;
     }
 
     public void setTypeSubId(Integer typeSubId) {
         this.typeSubId = typeSubId;
-    }
-
-    public String getTypeSubName() {
-        return typeSubName;
-    }
-
-    public void setTypeSubName(String typeSubName) {
-        this.typeSubName = typeSubName == null ? null : typeSubName.trim();
     }
 
     public Integer getCollectNum() {

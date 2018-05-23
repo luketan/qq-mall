@@ -101,16 +101,22 @@ public class GoodsController extends BaseController {
 	@RequestMapping("/modify")
 	public String modify(@RequestParam(required = false) Integer id, Model model) {
 
-		GoodsVO goodsVO = goodsService.findGoodsVOById(id);
-		model.addAttribute("item", goodsVO);
-		Response<List<GoodsTagBean>> tagResp = goodsTagService.findAllByGoodsId(goodsVO.getId());
-		model.addAttribute("tags", tagResp.getResult());
-		Response<List<ActivityBean>> actResp = goodsActivityService.findAllByGoodsId(goodsVO.getId());
-		model.addAttribute("activitys", actResp.getResult());
-		Response<List<GoodsBrand>> brandResp = goodsBrandService.findAll();
-		model.addAttribute("brands", brandResp.getResult());
-		Response<List<GoodsTypeBean>> typeResp = goodsTypeService.findAll();
-		model.addAttribute("types", typeResp.getResult());
+		Response<GoodsBean> goodsBeanResponse = goodsService.findGoodsBeanById(id);
+		if(goodsBeanResponse.getCode() == 0){
+			GoodsBean goodsBean = goodsBeanResponse.getResult();
+			model.addAttribute("item", goodsBeanResponse.getResult());
+			Response<List<GoodsTagBean>> tagResp = goodsTagService.findAllByGoodsId(goodsBean.getId());
+			model.addAttribute("tags", tagResp.getResult());
+			Response<List<ActivityBean>> actResp = goodsActivityService.findAllByGoodsId(goodsBean.getId());
+			model.addAttribute("activitys", actResp.getResult());
+			Response<List<GoodsBrand>> brandResp = goodsBrandService.findAll();
+			model.addAttribute("brands", brandResp.getResult());
+			Response<List<GoodsTypeBean>> typeResp = goodsTypeService.findAll();
+			model.addAttribute("types", typeResp.getResult());
+		}else{
+			addError(model, goodsBeanResponse.getMsg());
+		}
+
 		return "goods/form";
 	}
 
@@ -128,7 +134,7 @@ public class GoodsController extends BaseController {
 		try {
 			goodsService.saveGoods(goodsItem);
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存商品错误!");
 			GoodsVO goodsVO = new GoodsVO(goods);
 			model.addAttribute("item", goodsVO);

@@ -51,7 +51,7 @@
   </sql>
 
   <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    SELECT 
+    SELECT
     <include refid="Base_Column_List" />
     FROM t_goods
     WHERE id = #{id,jdbcType=INTEGER}
@@ -286,8 +286,8 @@
     <if test="userId != null">
       LEFT JOIN t_user_keep uk ON(g.id = uk.obj_id AND uk.type=1 AND uk.user_id=#{userId}
     </if>
-    WHERE
-    g.status=1
+    WHERE g.delete_flag = 0
+    AND g.status=1
     <if test="typeId!=null">
         AND g.type_id = #{typeId}
     </if>
@@ -320,8 +320,7 @@
     g.img_url as imgUrl,
     g.status
     FROM t_goods g
-    WHERE
-    1=1
+    WHERE g.delete_flag = 0
     <if test="typeId!=null">
       AND g.type_id = #{typeId}
     </if>
@@ -349,8 +348,7 @@
     SELECT
     count(1)
     FROM t_goods g
-    WHERE
-    1=1
+    WHERE g.delete_flag = 0
     <if test="typeId!=null">
       AND g.type_id = #{typeId}
     </if>

@@ -83,9 +83,7 @@ public class GoodsItem extends BaseEntity implements Serializable{
 //		this.styleId = tGoods.getStyleId();
 //		this.styleName = tGoods.getStyleName();
 		this.typeId = tGoods.getTypeId();
-		this.typeName = tGoods.getTypeName();
 		this.brandId = tGoods.getBrandId();
-		this.brandName = tGoods.getBrandName();
 		this.collectNum = tGoods.getCollectNum();
 		this.createTime = tGoods.getCreateTime();
 		this.detail = tGoods.getDetail();
@@ -98,9 +96,6 @@ public class GoodsItem extends BaseEntity implements Serializable{
 		this.markPrice = tGoods.getMarkPrice();
 		this.name = tGoods.getName();
 		this.price = tGoods.getPrice();
-		this.promoIs = tGoods.getPromoIs();
-		this.promoName = tGoods.getPromoName();
-		this.promoPrice = tGoods.getPromoPrice();
 		this.salesNum = tGoods.getSalesNum();
 		this.status = tGoods.getStatus();
 		this.subName = tGoods.getSubName();
@@ -112,9 +107,7 @@ public class GoodsItem extends BaseEntity implements Serializable{
 //		tGoods.setStyleId(this.styleId);
 //		tGoods.setStyleName(this.styleName);
 		goods.setTypeId(this.typeId);
-		goods.setTypeName(this.typeName);
 		goods.setBrandId(this.brandId);
-		goods.setBrandName(this.brandName);
 		goods.setCollectNum(this.collectNum);
 		goods.setCreateTime(this.createTime);
 		goods.setDetail(this.detail);
@@ -127,9 +120,6 @@ public class GoodsItem extends BaseEntity implements Serializable{
 		goods.setMarkPrice(this.markPrice);
 		goods.setName(this.name);
 		goods.setPrice(this.price);
-		goods.setPromoIs(this.promoIs);
-		goods.setPromoName(this.promoName);
-		goods.setPromoPrice(this.promoPrice);
 		goods.setSalesNum(this.salesNum);
 		goods.setStatus(this.status);
 		goods.setSubName(this.subName);

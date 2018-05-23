@@ -219,6 +219,35 @@ public class GoodsServiceImpl implements GoodsService{
 		return page;
 	}
 
+
+	@Override
+	public Response findGoodsBeanById(Integer id) {
+		Goods goods = goodsDao.findById(id);
+		if(goods==null){
+			return Result.fail("没有找到~！");
+		}
+		GoodsBean goodsBean = new GoodsBean(goods);
+
+		//活动
+		//List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
+		//规格
+		List<FormatBean> formatBeanList = formatDao.findFormatByGoodsId(id);
+		if(formatBeanList!=null){
+			for(FormatBean fb:formatBeanList){
+				List<FormatSubBean> formatSubBeanList = formatSubDao.findFormatSubByFormatId(fb.getId());
+				fb.setFormatSubBeanList(formatSubBeanList);
+			}
+		}
+		//图片处理
+		List<PicBean> tpicList =  picService.findPic(goodsBean.getId(), Constants.PIC_GOODS);
+
+		//goodsVO.setActivityBeanList(activityBeanList);
+		goodsBean.setFormatBeanList(formatBeanList);
+		goodsBean.setPicList(tpicList);
+
+		return Result.resultSet(goodsBean);
+	}
+
 	@Override
 	public GoodsVO findGoodsVOById(Integer id) {
 		Goods goods = goodsDao.findById(id);

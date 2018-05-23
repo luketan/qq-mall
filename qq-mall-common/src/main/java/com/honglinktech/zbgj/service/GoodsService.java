@@ -54,6 +54,13 @@ public interface GoodsService{
 	Page<GoodsBean> findGoodsBeanPage(Map whereMap, String url);
 
 	/**
+	 *
+	 * @param id
+	 * @return
+     */
+	Response<GoodsBean> findGoodsBeanById(Integer id);
+
+	/**
 	 * 后台获取商品详情
 	 * @param id
 	 * @return

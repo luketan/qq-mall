@@ -87,7 +87,6 @@ public class OrderServiceImpl implements OrderService{
 			scb.setMarkPrice(goods.getMarkPrice());
 			scb.setPrice(goods.getPrice());
 			scb.setGoodsTypeId(goods.getTypeId());
-			scb.setGoodsTypeName(goods.getTypeName());
 			//规格
 			if(map.containsKey("formatSubIds")){
 				List<Integer> formatSubIds = (List<Integer>)map.get("formatSubIds");
@@ -241,7 +240,6 @@ public class OrderServiceImpl implements OrderService{
 			scb.setMarkPrice(goods.getMarkPrice());
 			scb.setPrice(goods.getPrice());
 			scb.setGoodsTypeId(goods.getTypeId());
-			scb.setGoodsTypeName(goods.getTypeName());
 			//规格
 			if(map.containsKey("formatSubIds")){
 				List<Integer> formatSubIds = (List<Integer>)map.get("formatSubIds");

@@ -59,11 +59,11 @@
                                     <div class="form-group col-lg-6">
                                     	<div class="row">
                                     		<div class="form-group col-lg-4">
-		                                        <label>价格</label>
+		                                        <label>出售价格</label>
 		                                        <input type="text" class="form-control" name="price" onkeyup="value=value.replace(/[^\d\.]/g,'')" placeholder="请输入价格" value="${item.price}">
 	                                        </div>
 	                                        <div class="form-group col-lg-4">
-		                                        <label>原价</label>
+		                                        <label>成本价</label>
 		                                        <input type="text" class="form-control" name="formerPrice" onkeyup="value=value.replace(/[^\d\.]/g,'')" placeholder="请输入原价" value="${item.formerPrice}">
 	                                        </div>
 											<div class="form-group col-lg-4">
@@ -202,16 +202,16 @@
                                     <div class="form-group col-lg-12">
                                         <c:choose>
 	                                        <c:when test="${item.id==null}">
-	                                        	<shiro:hasPermission name="productItem/insert">
+	                                        	<shiro:hasPermission name="goods">
 		                                            <button type="button" class="btn btn-success" id="btnSave">确认添加</button>
 		                                            <button type="reset" class="btn btn-info">重置表单</button>
 	                                            </shiro:hasPermission>
 	                                        </c:when>
 	                                        <c:otherwise>
-	                                        	<shiro:hasPermission name="productItem/update">
+	                                        	<shiro:hasPermission name="goods">
 	                                            	<button type="button" class="btn btn-success" id="btnSave">确认修改</button>
 	                                            </shiro:hasPermission>
-	                                            <shiro:hasPermission name="productItem/delete">
+	                                            <shiro:hasPermission name="goods">
 	                                            	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">删除产品</button>
 	                                            </shiro:hasPermission>
 	                                            <div class="modal fade" id="myModal" tabindex="-1" role="" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
@@ -320,13 +320,12 @@
 	});
     $('#typeId').multiselect("refresh");
 
-	var baseUrl = window.location.href.substring(0,window.location.href.indexOf('productItem')+'productItem'.length);
     $("#btnDelete").click(function(){
-        $("#inputForm").attr("action", baseUrl+"/item/delete.html");
+        $("#inputForm").attr("action", "${basePath }/goods/delete.html");
         $("#inputForm").submit();
     });
     $("#btnSave").click(function(){
-        $("#inputForm").attr("action", baseUrl+"/item/save.html");
+        $("#inputForm").attr("action", "${basePath }/goods/save.html");
         $("#inputForm").submit();
     });
 

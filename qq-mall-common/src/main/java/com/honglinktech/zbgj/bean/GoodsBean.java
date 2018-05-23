@@ -89,11 +89,8 @@ public class GoodsBean implements Serializable {
 		this.hotIs = goods.getHotIs();
 		this.giftsIs = goods.getGiftsIs();
 		this.brandId = goods.getBrandId();
-		this.brandName = goods.getBrandName();
 		this.typeId = goods.getTypeId();
-		this.typeName = goods.getTypeName();
 		this.typeSubId = goods.getTypeSubId();
-		this.typeSubName = goods.getTypeSubName();
 		this.collectNum = goods.getCollectNum();
 		this.status = goods.getStatus();
 		this.imgUrl = goods.getImgUrl();
