@@ -9,6 +9,7 @@ public class AuditingBean {
     private float totalFee;
     private int type;
 
+
     public int getOrderId() {
         return orderId;
     }
