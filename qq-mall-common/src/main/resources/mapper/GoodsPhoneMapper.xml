@@ -33,327 +33,217 @@
        ram,
        front_camera,
        after_camera,
-       battery, cpu, cpu_freq,
-    color, quality, version, net, sim, screen_size,
-size, resolution, update_time,
-    create_date
+       battery,
+       cpu,
+       cpu_freq,
+      color,
+      quality,
+      version,
+      net,
+      sim,
+      screen_size,
+      size,
+      resolution,
+      update_time,
+      create_date
   </sql>
 
-  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    SELECT 
+  <select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT
     <include refid="Base_Column_List" />
-    FROM t_goods
+    FROM t_goods_phone
     WHERE id = #{id,jdbcType=INTEGER}
-    AND delete_flag = 0
   </select>
 
-  <delete id="deleteById" parameterType="java.lang.Integer">
-    UPDATE t_goods
-    SET
-    delete_flag = 1,
-    update_time = now()
+  <update id="deleteById" parameterType="java.lang.Integer" >
+    UPDATE FROM t_goods_phone
     WHERE id = #{id,jdbcType=INTEGER}
-  </delete>
+  </update>
 
-  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Goods"  useGeneratedKeys="true" keyProperty="id">
-    INSERT INTO t_goods
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null and name != ''">
-        `name`,
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.GoodsPhone" >
+    INSERT INTO t_goods_phone
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
       </if>
-      <if test="subName != null and subName != ''">
-        sub_name,
+      <if test="model != null" >
+        model,
       </if>
-      <if test="salesNum != null">
-        sales_num,
+      <if test="imei != null" >
+        imei,
       </if>
-      <if test="keepNum != null">
-        keep_num,
+      <if test="repair != null" >
+        repair,
       </if>
-      <if test="markPrice != null">
-        mark_price,
+      <if test="ram != null" >
+        ram,
       </if>
-      <if test="formerPrice != null">
-        former_price,
+      <if test="frontCamera != null" >
+        front_camera,
       </if>
-      <if test="price != null">
-        price,
+      <if test="afterCamera != null" >
+        after_camera,
       </if>
-      <if test="discussNum != null">
-        discuss_num,
+      <if test="battery != null" >
+        battery,
       </if>
-      <if test="hotIs != null">
-        hot_is,
+      <if test="cpu != null" >
+        cpu,
       </if>
-      <if test="giftsIs != null">
-        gifts_is,
+      <if test="cpuFreq != null" >
+        cpu_freq,
       </if>
-      <if test="brandId != null">
-        brand_id,
+      <if test="color != null" >
+        color,
       </if>
-      <if test="typeId != null">
-        type_id,
+      <if test="quality != null" >
+        quality,
       </if>
-      <if test="typeSubId != null">
-        type_sub_id,
+      <if test="version != null" >
+        version,
       </if>
-      <if test="collectNum != null">
-        collect_num,
+      <if test="net != null" >
+        net,
       </if>
-      <if test="status != null">
-        status,
+      <if test="sim != null" >
+        sim,
       </if>
-      <if test="imgUrl != null and imgUrl != ''">
-        img_url,
+      <if test="screenSize != null" >
+        screen_size,
       </if>
-      <if test="sort != null">
-        sort,
+      <if test="size != null" >
+        size,
       </if>
+      <if test="resolution != null" >
+        resolution,
+      </if>
+      <if test="updateTime != null" >
         update_time,
-        create_time,
-      <if test="detail != null">
-        detail,
+      </if>
+      <if test="createDate != null" >
+        create_date,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null and name != ''">
-        #{name,jdbcType=VARCHAR},
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="subName != null and subName != ''">
-        #{subName,jdbcType=VARCHAR},
+      <if test="model != null" >
+        #{model,jdbcType=VARCHAR},
       </if>
-      <if test="salesNum != null">
-        #{salesNum,jdbcType=INTEGER},
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
       </if>
-      <if test="keepNum != null">
-        #{keepNum,jdbcType=INTEGER},
+      <if test="repair != null" >
+        #{repair,jdbcType=INTEGER},
       </if>
-      <if test="markPrice != null">
-        #{markPrice,jdbcType=DECIMAL},
+      <if test="ram != null" >
+        #{ram,jdbcType=INTEGER},
       </if>
-      <if test="formerPrice != null">
-        #{formerPrice,jdbcType=DECIMAL},
+      <if test="frontCamera != null" >
+        #{frontCamera,jdbcType=INTEGER},
       </if>
-      <if test="price != null">
-        #{price,jdbcType=DECIMAL},
+      <if test="afterCamera != null" >
+        #{afterCamera,jdbcType=INTEGER},
       </if>
-      <if test="discussNum != null">
-        #{discussNum,jdbcType=INTEGER},
+      <if test="battery != null" >
+        #{battery,jdbcType=INTEGER},
       </if>
-      <if test="hotIs != null">
-        #{hotIs,jdbcType=INTEGER},
+      <if test="cpu != null" >
+        #{cpu,jdbcType=VARCHAR},
       </if>
-      <if test="giftsIs != null">
-        #{giftsIs,jdbcType=INTEGER},
+      <if test="cpuFreq != null" >
+        #{cpuFreq,jdbcType=VARCHAR},
       </if>
-      <if test="brandId != null">
-        #{brandId,jdbcType=INTEGER},
+      <if test="color != null" >
+        #{color,jdbcType=VARCHAR},
       </if>
-      <if test="typeId != null">
-        #{typeId,jdbcType=INTEGER},
+      <if test="quality != null" >
+        #{quality,jdbcType=INTEGER},
       </if>
-      <if test="typeSubId != null">
-        #{typeSubId,jdbcType=INTEGER},
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
       </if>
-      <if test="collectNum != null">
-        #{collectNum,jdbcType=INTEGER},
+      <if test="net != null" >
+        #{net,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
+      <if test="sim != null" >
+        #{sim,jdbcType=VARCHAR},
       </if>
-      <if test="imgUrl != null and imgUrl != ''">
-        #{imgUrl,jdbcType=VARCHAR},
+      <if test="screenSize != null" >
+        #{screenSize,jdbcType=DOUBLE},
       </if>
-      <if test="sort != null">
-        #{sort,jdbcType=INTEGER},
+      <if test="size != null" >
+        #{size,jdbcType=VARCHAR},
       </if>
-      now(),
-      now(),
-      <if test="detail != null">
-        #{detail,jdbcType=LONGVARCHAR},
+      <if test="resolution != null" >
+        #{resolution,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
 
-  <update id="update" parameterType="com.honglinktech.zbgj.entity.Goods">
-    UPDATE t_goods
-    <set>
-      <if test="name != null and name != ''">
-        `name` = #{name,jdbcType=VARCHAR},
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.GoodsPhone" >
+    UPDATE t_goods_phone
+    <set >
+      <if test="model != null" >
+        model = #{model,jdbcType=VARCHAR},
       </if>
-      <if test="subName != null and subName != ''">
-        sub_name = #{subName,jdbcType=VARCHAR},
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
       </if>
-      <if test="salesNum != null">
-        sales_num = #{salesNum,jdbcType=INTEGER},
+      <if test="repair != null" >
+        repair = #{repair,jdbcType=INTEGER},
       </if>
-      <if test="keepNum != null">
-        keep_num = #{keepNum,jdbcType=INTEGER},
+      <if test="ram != null" >
+        ram = #{ram,jdbcType=INTEGER},
       </if>
-      <if test="markPrice != null">
-        mark_price = #{markPrice,jdbcType=DECIMAL},
+      <if test="frontCamera != null" >
+        front_camera = #{frontCamera,jdbcType=INTEGER},
       </if>
-      <if test="formerPrice != null">
-        former_price = #{formerPrice,jdbcType=DECIMAL},
+      <if test="afterCamera != null" >
+        after_camera = #{afterCamera,jdbcType=INTEGER},
       </if>
-      <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
+      <if test="battery != null" >
+        battery = #{battery,jdbcType=INTEGER},
       </if>
-      <if test="discussNum != null">
-        discuss_num = #{discussNum,jdbcType=INTEGER},
+      <if test="cpu != null and cpu != ''" >
+        cpu = #{cpu,jdbcType=VARCHAR},
       </if>
-      <if test="hotIs != null">
-        hot_is = #{hotIs,jdbcType=INTEGER},
+      <if test="cpuFreq != null" >
+        cpu_freq = #{cpuFreq,jdbcType=VARCHAR},
       </if>
-      <if test="giftsIs != null">
-        gifts_is = #{giftsIs,jdbcType=INTEGER},
+      <if test="color != null" >
+        color = #{color,jdbcType=VARCHAR},
       </if>
-      <if test="brandId != null">
-        brand_id = #{brandId,jdbcType=INTEGER},
+      <if test="quality != null" >
+        quality = #{quality,jdbcType=INTEGER},
       </if>
-      <if test="typeId != null">
-        type_id = #{typeId,jdbcType=INTEGER},
+      <if test="version != null" >
+        version = #{version,jdbcType=VARCHAR},
       </if>
-      <if test="typeSubId != null">
-        type_sub_id = #{typeSubId,jdbcType=INTEGER},
+      <if test="net != null" >
+        net = #{net,jdbcType=VARCHAR},
       </if>
-      <if test="collectNum != null">
-        collect_num = #{collectNum,jdbcType=INTEGER},
+      <if test="sim != null" >
+        sim = #{sim,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+      <if test="screenSize != null" >
+        screen_size = #{screenSize,jdbcType=DOUBLE},
       </if>
-      <if test="imgUrl != null and imgUrl != ''">
-        img_url = #{imgUrl,jdbcType=VARCHAR},
+      <if test="size != null" >
+        size = #{size,jdbcType=VARCHAR},
       </if>
-      <if test="sort != null">
-        sort = #{sort,jdbcType=INTEGER},
-      </if>
-      <if test="detail != null">
-        detail = #{detail,jdbcType=LONGVARCHAR},
+      <if test="resolution != null" >
+        resolution = #{resolution,jdbcType=VARCHAR},
       </if>
       update_time = now(),
     </set>
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
-<!--****************************************************************************************************-->
-  <select id="findVOById" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.vo.GoodsVO">
-    SELECT
-        g.id,
-        g.name,
-        g.sub_name as subName,
-        g.mark_price as markPrice,
-        g.price,
-        g.sales_num as salesNum,
-        g.img_url as imgUrl,
-        g.detail,
-        g.former_price as formerPrice
-        <if test="userId != null">
-          , IF(uk.id>0,true,false) as keep
-        </if>
-        <if test="userId == null">
-          , 0 as keep
-        </if>
-    FROM t_goods
-    <if test="userId != null">
-        LEFT JOIN t_user_keep uk ON(g.id = uk.obj_id AND uk.type=1 AND uk.user_id=#{userId}
-    </if>
-    WHERE
-    g.status=1
-    AND id = #{id,jdbcType=INTEGER}
-  </select>
-  <select id="findGoodsByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsBean">
-    SELECT
-      g.id,
-      g.name,
-      g.sub_name as subName,
-      g.mark_price as markPrice,
-      g.price,
-      g.sales_num as salesNum,
-      g.img_url as imgUrl
-    FROM t_goods g
-    <if test="userId != null">
-      LEFT JOIN t_user_keep uk ON(g.id = uk.obj_id AND uk.type=1 AND uk.user_id=#{userId}
-    </if>
-    WHERE
-    g.status=1
-    <if test="typeId!=null">
-        AND g.type_id = #{typeId}
-    </if>
-    <if test="typeSubId!=null">
-        AND g.type_sub_Id = #{typeSubId}
-    </if>
-    <if test="minPrice!=null">
-        AND g.price <![CDATA[ >= ]]> #{minPrice}
-    </if>
-    <if test="maxPrice!=null">
-        AND g.price <![CDATA[ <= ]]> #{maxPrice}
-    </if>
-    <if test="orderBy!=null and asc != null">
-        ORDER BY g.#{orderBy},#{asc}
-    </if>
-    <if test="start != null and rows != null">
-        limit #{start},#{rows}
-    </if>
-  </select>
-  <!--####################################################console###################################################-->
-  <!--console.获取商品分页-->
-  <select id="findGoodsPage" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsBean">
-    SELECT
-    g.id,
-    g.name,
-    g.sub_name as subName,
-    g.mark_price as markPrice,
-    g.price,
-    g.sales_num as salesNum,
-    g.img_url as imgUrl,
-    g.status
-    FROM t_goods g
-    WHERE
-    1=1
-    <if test="typeId!=null">
-      AND g.type_id = #{typeId}
-    </if>
-    <if test="status!=null">
-      AND g.status = #{status}
-    </if>
-    <if test="typeSubId!=null">
-      AND g.type_sub_Id = #{typeSubId}
-    </if>
-    <if test="minPrice!=null">
-      AND g.price <![CDATA[ >= ]]> #{minPrice}
-    </if>
-    <if test="maxPrice!=null">
-      AND g.price <![CDATA[ <= ]]> #{maxPrice}
-    </if>
-    <if test="orderBy!=null and asc != null">
-      ORDER BY g.#{orderBy},#{asc}
-    </if>
-    <if test="start != null and rows != null">
-      limit #{start},#{rows}
-    </if>
-  </select>
-  <!--console.获取商品总数-->
-  <select id="findGoodsCount" parameterType="map" resultType="long">
-    SELECT
-    count(1)
-    FROM t_goods g
-    WHERE
-    1=1
-    <if test="typeId!=null">
-      AND g.type_id = #{typeId}
-    </if>
-    <if test="status!=null">
-      AND g.status = #{status}
-    </if>
-    <if test="typeSubId!=null">
-      AND g.type_sub_Id = #{typeSubId}
-    </if>
-    <if test="minPrice!=null">
-      AND g.price <![CDATA[ >= ]]> #{minPrice}
-    </if>
-    <if test="maxPrice!=null">
-      AND g.price <![CDATA[ <= ]]> #{maxPrice}
-    </if>
-  </select>
 </mapper>
