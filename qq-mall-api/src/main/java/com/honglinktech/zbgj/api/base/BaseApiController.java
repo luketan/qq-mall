@@ -73,7 +73,7 @@ public class BaseApiController {
 	@ResponseBody
     @ExceptionHandler
     public ReturnInfo exp(HttpServletRequest request,HttpServletResponse response, Exception ex,Object handler) {
-		logger.error(ex);
+		logger.error(ex, ex);
 		logger.error("==================未知======================"+UUID.randomUUID()+ex.getMessage());
 		ex.printStackTrace();
         return new ReturnInfo(ExceptionEnum.COMMON_ERROE);

@@ -47,12 +47,11 @@ public class GoodsController extends BaseApiController {
 	 * @return
 	 * @throws BaseException
 	 */
-	@RequestMapping(value="findGoodsBeanById",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findGoodsById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<GoodsVO> findGoodsBeanById(@RequestBody Map<String, String> map,
-			@RequestAttribute("user") UserVO user,
-			@RequestAttribute("agent") AppAgent agent) throws BaseException{
-
+	public Response<GoodsVO> findGoodsById(@RequestBody Map<String, String> map) throws BaseException{
+		UserVO user = (UserVO)request.getAttribute("user");
+		AppAgent agent = (AppAgent)request.getAttribute("agent");
 		int userId = 0;
 		if(user != null){
 			userId = user.getId();
@@ -74,7 +73,7 @@ public class GoodsController extends BaseApiController {
 	 * @return
 	 * @throws BaseException
 	 */
-	@RequestMapping(value="findGoodsSearchBeans",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findGoodsList",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<List<GoodsVO>> findGoodsSearchBeans(@RequestBody Map<String, String> map) throws BaseException{
 		Response<List<GoodsVO>> response = goodsService.findGoodsVOByWhere(map);
@@ -126,7 +125,7 @@ public class GoodsController extends BaseApiController {
 	 * @return
 	 * @throws BaseException
 	 */
-	@RequestMapping(value="findGoodsTypeBeanById",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findGoodsTypeById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<GoodsTypeBean> findGoodsTypeBeanById(@RequestBody Map<String, String> map) throws BaseException{
 		if(!map.containsKey("id")){

@@ -17,6 +17,10 @@ import java.util.List;
 *
 **/
 public class GoodsVO implements Serializable{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 2345940821764667532L;
 
 	private Integer id;
 	private String name;
@@ -37,11 +41,8 @@ public class GoodsVO implements Serializable{
 
 	private GoodsDisCountBean goodsDisCountBean;
 	private List<GoodsDisBean> goodsDisBeanList;
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private GoodsPhoneVO goodsPhoneVO;
 	
 	public GoodsVO(){
  	}
@@ -161,5 +162,10 @@ public class GoodsVO implements Serializable{
 	public void setGoodsDisBeanList(List<GoodsDisBean> goodsDisBeanList) {
 		this.goodsDisBeanList = goodsDisBeanList;
 	}
-
+	public GoodsPhoneVO getGoodsPhoneVO() {
+		return goodsPhoneVO;
+	}
+	public void setGoodsPhoneVO(GoodsPhoneVO goodsPhoneVO) {
+		this.goodsPhoneVO = goodsPhoneVO;
+	}
 }

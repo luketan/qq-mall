@@ -7,6 +7,7 @@ package com.honglinktech.zbgj.dao;
 import com.honglinktech.zbgj.bean.GoodsBean;
 import com.honglinktech.zbgj.entity.Goods;
 import com.honglinktech.zbgj.vo.GoodsVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public interface GoodsDao {
      * @param userId
      * @return
      */
-    GoodsVO findVOById(int id, int userId);
+    GoodsVO findVOById(@Param(value = "id") int id, @Param(value = "userId") int userId);
 
     /**
      *

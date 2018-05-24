@@ -61,9 +61,9 @@ public class CommonHttpRequestWrapFilter implements Filter {
 
             chain.doFilter(httpServletRequest, httpServletResponse);
         } catch (Exception ex) {
-            logger.error(ex.toString());
+            logger.error(ex, ex);
         } catch (Error er) {
-            logger.error(er.toString());
+            logger.error(er, er);
         }
         /*
         catch( Throwable a ) {

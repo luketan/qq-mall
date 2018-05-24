@@ -18,10 +18,12 @@ import com.honglinktech.zbgj.dao.FormatSubDao;
 import com.honglinktech.zbgj.dao.GoodsActivityDao;
 import com.honglinktech.zbgj.dao.GoodsDao;
 import com.honglinktech.zbgj.dao.GoodsFormatDao;
+import com.honglinktech.zbgj.dao.GoodsPhoneDao;
 import com.honglinktech.zbgj.dao.PicDao;
 import com.honglinktech.zbgj.entity.Goods;
 import com.honglinktech.zbgj.entity.GoodsActivity;
 import com.honglinktech.zbgj.entity.GoodsFormat;
+import com.honglinktech.zbgj.entity.GoodsPhone;
 import com.honglinktech.zbgj.entity.Pic;
 import com.honglinktech.zbgj.service.GoodsDisService;
 import com.honglinktech.zbgj.service.GoodsService;
@@ -56,10 +58,15 @@ public class GoodsServiceImpl implements GoodsService{
 	private PicService picService;
 	@Resource
 	private GoodsDisService goodsDisService;
+	@Resource
+	private GoodsPhoneDao goodsPhoneDao;
 
 	@Override
 	public Response<GoodsVO> findGoodsVOById(Integer id, int userId, int index, int size) throws BaseException{
 		GoodsVO goodsVO = goodsDao.findVOById(id, userId);
+		if (goodsVO == null) {
+			return Result.fail("没有找到商品！");
+		}
 		//活动
 		List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
 		//规格
@@ -82,7 +89,10 @@ public class GoodsServiceImpl implements GoodsService{
 		whereMap.put("size", size+"");
 		Response<List<GoodsDisBean>> gdbResp = goodsDisService.findGoodsDisByPage(whereMap);
 		goodsVO.setGoodsDisBeanList(gdbResp.getResult());
-		
+		GoodsPhone goodsPhone = goodsPhoneDao.findById(id);
+		if(goodsPhone != null){
+			goodsVO.setGoodsPhoneVO(goodsPhone.toVO());
+		}
 		goodsVO.setActivityBeanList(activityBeanList);
 		goodsVO.setFormatBeanList(formatBeanList);
 		goodsVO.setPicList(tpicList);

@@ -1,14 +1,16 @@
-package com.honglinktech.zbgj.entity;
+package com.honglinktech.zbgj.bean;
 
-import com.honglinktech.zbgj.bean.GoodsPhoneBean;
-import com.honglinktech.zbgj.vo.GoodsPhoneVO;
-
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Administrator on 2018/5/23.
  */
-public class GoodsPhone {
+public class GoodsPhoneBean implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4793035248755882675L;
     /**
      *
      */
@@ -268,75 +270,4 @@ public class GoodsPhone {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
-
-    public GoodsPhone() {
-    }
-
-    public GoodsPhone(GoodsPhoneBean goodsPhoneBean) {
-        this.id = goodsPhoneBean.getId();
-        this.model = goodsPhoneBean.getModel();
-        this.imei = goodsPhoneBean.getImei();
-        this.repair = goodsPhoneBean.getRepair();
-        this.ram = goodsPhoneBean.getRam();
-        this.frontCamera = goodsPhoneBean.getFrontCamera();
-        this.afterCamera = goodsPhoneBean.getAfterCamera();
-        this.battery = goodsPhoneBean.getBattery();
-        this.cpu = goodsPhoneBean.getCpu();
-        this.cpuFreq = goodsPhoneBean.getCpuFreq();
-        this.color = goodsPhoneBean.getColor();
-        this.quality = goodsPhoneBean.getQuality();
-        this.version = goodsPhoneBean.getVersion();
-        this.net = goodsPhoneBean.getNet();
-        this.sim = goodsPhoneBean.getSim();
-        this.screenSize = goodsPhoneBean.getScreenSize();
-        this.size = goodsPhoneBean.getSize();
-        this.resolution = goodsPhoneBean.getResolution();
-    }
-
-    public GoodsPhoneVO toVO(){
-        GoodsPhoneVO goodsPhoneVO = new GoodsPhoneVO();
-        goodsPhoneVO.setId(this.id);
-        goodsPhoneVO.setModel(this.model);
-        goodsPhoneVO.setImei(this.imei);
-        goodsPhoneVO.setRepair(this.repair);
-        goodsPhoneVO.setRam(this.ram);
-        goodsPhoneVO.setFrontCamera(this.frontCamera);
-        goodsPhoneVO.setAfterCamera(this.afterCamera);
-        goodsPhoneVO.setBattery(this.battery);
-        goodsPhoneVO.setCpu(this.cpu);
-        goodsPhoneVO.setCpuFreq(this.cpuFreq);
-        goodsPhoneVO.setColor(this.color);
-        goodsPhoneVO.setQuality(this.quality);
-        goodsPhoneVO.setVersion(this.version);
-        goodsPhoneVO.setNet(this.net);
-        goodsPhoneVO.setSim(this.sim);
-        goodsPhoneVO.setScreenSize(this.screenSize);
-        goodsPhoneVO.setSize(this.size);
-        goodsPhoneVO.setResolution(this.resolution);
-        return goodsPhoneVO;
-    }
-
-    public GoodsPhoneBean toBean(){
-        GoodsPhoneBean goodsPhoneBean = new GoodsPhoneBean();
-        goodsPhoneBean.setId(this.id);
-        goodsPhoneBean.setModel(this.model);
-        goodsPhoneBean.setImei(this.imei);
-        goodsPhoneBean.setRepair(this.repair);
-        goodsPhoneBean.setRam(this.ram);
-        goodsPhoneBean.setFrontCamera(this.frontCamera);
-        goodsPhoneBean.setAfterCamera(this.afterCamera);
-        goodsPhoneBean.setBattery(this.battery);
-        goodsPhoneBean.setCpu(this.cpu);
-        goodsPhoneBean.setCpuFreq(this.cpuFreq);
-        goodsPhoneBean.setColor(this.color);
-        goodsPhoneBean.setQuality(this.quality);
-        goodsPhoneBean.setVersion(this.version);
-        goodsPhoneBean.setNet(this.net);
-        goodsPhoneBean.setSim(this.sim);
-        goodsPhoneBean.setScreenSize(this.screenSize);
-        goodsPhoneBean.setSize(this.size);
-        goodsPhoneBean.setResolution(this.resolution);
-        return goodsPhoneBean;
-    }
-
 }
