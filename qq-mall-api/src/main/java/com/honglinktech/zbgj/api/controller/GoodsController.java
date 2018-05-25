@@ -4,10 +4,8 @@ package com.honglinktech.zbgj.api.controller;
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
-import com.honglinktech.zbgj.bean.GoodsBean;
 import com.honglinktech.zbgj.bean.GoodsDisBean;
 import com.honglinktech.zbgj.bean.GoodsDisCountBean;
-import com.honglinktech.zbgj.bean.GoodsTypeBean;
 import com.honglinktech.zbgj.common.AppAgent;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
@@ -15,11 +13,11 @@ import com.honglinktech.zbgj.service.GoodsDisService;
 import com.honglinktech.zbgj.service.GoodsService;
 import com.honglinktech.zbgj.service.GoodsTypeService;
 import com.honglinktech.zbgj.service.UserKeepService;
+import com.honglinktech.zbgj.vo.GoodsTypeVO;
 import com.honglinktech.zbgj.vo.GoodsVO;
 import com.honglinktech.zbgj.vo.UserVO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -115,8 +113,8 @@ public class GoodsController extends BaseApiController {
 	 */
 	@RequestMapping(value="findGoodsTypeAll",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<GoodsTypeBean>> findGoodsTypeAll() throws BaseException{
-		Response<List<GoodsTypeBean>> response = goodsTypeService.findGoodsTypeAll();
+	public Response<List<GoodsTypeVO>> findGoodsTypeAll() throws BaseException{
+		Response<List<GoodsTypeVO>> response = goodsTypeService.findGoodsTypeVOAll();
 		return response; 
 	}
 	/**
@@ -127,11 +125,11 @@ public class GoodsController extends BaseApiController {
 	 */
 	@RequestMapping(value="findGoodsTypeById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<GoodsTypeBean> findGoodsTypeBeanById(@RequestBody Map<String, String> map) throws BaseException{
+	public Response<GoodsTypeVO> findGoodsTypeById(@RequestBody Map<String, String> map) throws BaseException{
 		if(!map.containsKey("id")){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"id");
 		}
-		Response<GoodsTypeBean> response = goodsTypeService.findGoodsTypeBeanById(Integer.valueOf(map.get("id").toString()));
+		Response<GoodsTypeVO> response = goodsTypeService.findGoodsTypeVOById(Integer.valueOf(map.get("id").toString()));
 		return response; 
 	}
 	

@@ -8,6 +8,7 @@ import com.honglinktech.zbgj.base.BaseDao;
 import com.honglinktech.zbgj.bean.GoodsTypeSubBean;
 import com.honglinktech.zbgj.entity.GoodsType;
 import com.honglinktech.zbgj.entity.GoodsTypeSub;
+import com.honglinktech.zbgj.vo.GoodsTypeSubVO;
 
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,12 @@ public interface GoodsTypeSubDao{
     int updateByPrimaryKeySelective(GoodsTypeSub record);
 
     /************************************************************************************************************************************/
+    /**
+     * 查询商品类型子类型
+     * @param map
+     * @return
+     */
+    List<GoodsTypeSubVO> findVOByWhere(Map map);
     /**
      * 查询商品类型子类型
      * @param map

@@ -12,12 +12,15 @@ import com.honglinktech.zbgj.entity.GoodsTypeSub;
 **/
 public class GoodsTypeBean implements Serializable{
 
-	private Integer id=null;
-	private String name=null;
-	private String ico=null;
-	private String img=null;
-	private String search=null;
-	private String summary=null;
+	private Integer id;
+	private String name;
+	private String ico;
+	private String img;
+	private Boolean rec;
+	private Boolean sale;
+	private Integer sort;
+	private String search;
+	private String summary;
 	
 	private List<GoodsTypeSubBean> goodsTypeSubList;
 	
@@ -28,17 +31,7 @@ public class GoodsTypeBean implements Serializable{
 	
 	public GoodsTypeBean(){
  	}
- 	public GoodsTypeBean(GoodsType goodsType){
- 		this.id = goodsType.getId();
-		this.name = goodsType.getName();
-		this.ico = goodsType.getIco();
-		this.img = goodsType.getImg();
-		this.search = goodsType.getSearch();
-		this.summary = goodsType.getSummary();
-		
- 	}
- 	
-		/**/
+ 	/**/
 	public Integer getId(){
 		 return this.id; 
 	}
@@ -86,5 +79,29 @@ public class GoodsTypeBean implements Serializable{
 
 	public void setGoodsTypeSubList(List<GoodsTypeSubBean> goodsTypeSubList) {
 		this.goodsTypeSubList = goodsTypeSubList;
+	}
+
+	public Boolean getRec() {
+		return rec;
+	}
+
+	public void setRec(Boolean rec) {
+		this.rec = rec;
+	}
+
+	public Boolean getSale() {
+		return sale;
+	}
+
+	public void setSale(Boolean sale) {
+		this.sale = sale;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 }

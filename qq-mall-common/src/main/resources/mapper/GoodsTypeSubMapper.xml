@@ -5,6 +5,10 @@
   <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.GoodsTypeSub">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="sale" jdbcType="BIT" property="sale" />
+    <result column="rec" jdbcType="BIT" property="rec" />
     <result column="goods_type" jdbcType="INTEGER" property="goodsType" />
     <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -12,7 +16,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, name, goods_type, delete_flag, create_time, update_time
+    id, `name`, img, sort, sale, rec, goods_type, delete_flag, create_time, update_time
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -33,8 +37,20 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null and name != ''">
-        name,
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="img != null">
+        `img`,
+      </if>
+      <if test="sort != null">
+        `sort`,
+      </if>
+      <if test="sale != null">
+        `sale`,
+      </if>
+      <if test="rec != null">
+        `rec`,
       </if>
       <if test="goodsType != null">
         goods_type,
@@ -49,8 +65,20 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="sale != null">
+        #{sale,jdbcType=BIT},
+      </if>
+      <if test="rec != null">
+        #{rec,jdbcType=BIT},
       </if>
       <if test="goodsType != null">
         #{goodsType,jdbcType=INTEGER},
@@ -66,8 +94,20 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsTypeSub">
     UPDATE t_goods_type_sub
     <set>
-      <if test="name != null and name != ''">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null">
+        `img` = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        `sort` = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="sale != null">
+        `sale` = #{sale,jdbcType=BIT},
+      </if>
+      <if test="rec != null">
+        `rec` = #{rec,jdbcType=BIT},
       </if>
       <if test="goodsType != null">
         goods_type = #{goodsType,jdbcType=INTEGER},
@@ -86,10 +126,27 @@
     FROM t_goods_type_sub
     WHERE delete_flag = 0
   </select>
+  <select id="findVOByWhere" parameterType="map" resultType="com.honglinktech.zbgj.vo.GoodsTypeSubVO">
+    SELECT
+    gts.id,
+    gts.name,
+    gts.img,
+    gts.goods_type as goodsType,
+    gt.name as typeName
+    FROM t_goods_type_sub gts LEFT JOIN t_goods_type gt ON (gts.goods_type = gt.id)
+    WHERE gts.delete_flag = 0
+    <if test="goodsType != null">
+      and gts.goods_type = #{goodsType,jdbcType=TIMESTAMP}
+    </if>
+    <if test="start!=null and rows!=null">
+      limit #{start},#{rows}
+    </if>
+  </select>
   <select id="findByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsTypeSubBean">
     SELECT
     gts.id,
     gts.name,
+    gts.img,
     gts.goods_type as goodsType,
     gt.name as typeName,
     gts.create_time,

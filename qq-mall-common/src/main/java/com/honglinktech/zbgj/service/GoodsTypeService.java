@@ -6,17 +6,26 @@ import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.GoodsType;
 import com.honglinktech.zbgj.entity.GoodsTypeSub;
+import com.honglinktech.zbgj.vo.GoodsTypeVO;
 
 import java.util.List;
 import java.util.Map;
 
 public interface GoodsTypeService{
+	Response<GoodsTypeVO> findGoodsTypeVOById(int id);
+
 	/**
 	 *
 	 * @param id
 	 * @return
 	 */
 	Response<GoodsTypeBean> findGoodsTypeBeanById(int id);
+
+	/**
+	 * app
+	 * @return
+	 */
+    Response<List<GoodsTypeVO>> findGoodsTypeVOAll();
 
     /**
 	 * 不包含子类型

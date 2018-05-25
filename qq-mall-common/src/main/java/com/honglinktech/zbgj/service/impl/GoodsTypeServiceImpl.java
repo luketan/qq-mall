@@ -11,6 +11,8 @@ import com.honglinktech.zbgj.dao.GoodsTypeSubDao;
 import com.honglinktech.zbgj.entity.GoodsType;
 import com.honglinktech.zbgj.entity.GoodsTypeSub;
 import com.honglinktech.zbgj.service.GoodsTypeService;
+import com.honglinktech.zbgj.vo.GoodsTypeSubVO;
+import com.honglinktech.zbgj.vo.GoodsTypeVO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -30,15 +32,51 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	@Resource
 	private GoodsTypeSubDao goodsTypeSubDao;
 
+	/**
+	 * app
+	 * @return
+	 */
+	@Override
+	public Response<List<GoodsTypeVO>> findGoodsTypeVOAll() {
+		List<GoodsType> goodsTypes = goodsTypeDao.findAll();
+
+		List<GoodsTypeVO> goodsTypeVOs = new ArrayList<>();
+		if (goodsTypes != null) {
+			for (GoodsType goodsType:goodsTypes) {
+				goodsTypeVOs.add(goodsType.toVO());
+			}
+		}
+		return Result.resultSet(goodsTypeVOs);
+	}
+
+	/**
+	 * app
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public Response<GoodsTypeVO> findGoodsTypeVOById(int id) {
+
+		GoodsType goodsType = goodsTypeDao.findById(id);
+		Map whereMap = new HashMap();
+		whereMap.put("goodsType", id);
+		List<GoodsTypeSubVO> gtsList = goodsTypeSubDao.findVOByWhere(whereMap);
+		logger.info(id+"==========findGoodsTypeBeanById=========="+ JSON.toJSONString(goodsType));
+		GoodsTypeVO goodsTypeBean = goodsType.toVO();
+		goodsTypeBean.setGoodsTypeSubList(gtsList);
+
+		return Result.resultSet(goodsTypeBean);
+	}
+
 	@Override
 	public Response<GoodsTypeBean> findGoodsTypeBeanById(int id) {
 
-		GoodsType goodsType = goodsTypeDao.selectByPrimaryKey(id);
+		GoodsType goodsType = goodsTypeDao.findById(id);
 		Map whereMap = new HashMap();
 		whereMap.put("goodsType", id);
 		List<GoodsTypeSubBean> gtsList = goodsTypeSubDao.findByWhere(whereMap);
 		logger.info(id+"==========findGoodsTypeBeanById=========="+ JSON.toJSONString(goodsType));
-		GoodsTypeBean goodsTypeBean = new GoodsTypeBean(goodsType);
+		GoodsTypeBean goodsTypeBean = goodsType.toBean();
 		goodsTypeBean.setGoodsTypeSubList(gtsList);
 		
 		return Result.resultSet(goodsTypeBean);
@@ -53,7 +91,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		Map whereMap = new HashMap();
 		if (goodsTypes != null) {
 			for (GoodsType goodsType:goodsTypes) {
-				GoodsTypeBean goodsTypeBean = new GoodsTypeBean(goodsType);
+				GoodsTypeBean goodsTypeBean = goodsType.toBean();
 				whereMap.put("goodsType", goodsTypeBean.getId());
 				List<GoodsTypeSubBean> gtsList = goodsTypeSubDao.findByWhere(whereMap);
 				goodsTypeBean.setGoodsTypeSubList(gtsList);
@@ -62,7 +100,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		}
 		return Result.resultSet(goodsTypeBeans);
 	}
-
+//-----------------------------------------
 	/**
 	 * console
 	 * @return
@@ -74,7 +112,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		List<GoodsTypeBean> goodsTypeBeans = new ArrayList<>();
 		if (goodsTypes != null) {
 			for (GoodsType goodsType:goodsTypes) {
-				goodsTypeBeans.add(new GoodsTypeBean(goodsType));
+				goodsTypeBeans.add(goodsType.toBean());
 			}
 		}
 		return Result.resultSet(goodsTypeBeans);
@@ -88,9 +126,9 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	@Override
 	public Response<GoodsType> saveOrUpdate(GoodsType goodsType) {
 		if(goodsType.getId()!=null && goodsType.getId() > 0){
-			goodsTypeDao.updateByPrimaryKeySelective(goodsType);
+			goodsTypeDao.update(goodsType);
 		}else{
-			goodsTypeDao.insertSelective(goodsType);
+			goodsTypeDao.insert(goodsType);
 		}
 		return Result.resultSet(goodsType);
 	}
@@ -146,7 +184,6 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	 * console 子类
 	 * @param index
 	 * @param size
-	 * @param s
 	 * @param whereMap
 	 * @return
 	 */

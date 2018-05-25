@@ -45,7 +45,6 @@ public class GoodsTagBean implements Serializable{
 	 *
 	 */
 	private String title;
-
 	/**
 	 *
 	 */

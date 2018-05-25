@@ -7,6 +7,8 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="ico" jdbcType="VARCHAR" property="ico" />
     <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="rec" jdbcType="BIT" property="rec" />
+    <result column="sale" jdbcType="BIT" property="sale" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="summary" jdbcType="VARCHAR" property="summary" />
     <result column="search" jdbcType="VARCHAR" property="search" />
@@ -16,22 +18,22 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, name, ico, img, sort, summary, search, delete_flag, update_time, create_time
+    id, name, ico, img, rec, sale, sort, summary, search, delete_flag, update_time, create_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     FROM t_goods_type
-    WHERE id = #{id,jdbcType=INTEGER}
+    WHERE delete_flag = 0 AND id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    DELETE FROM t_goods_type
+  <update id="deleteById" parameterType="java.lang.Integer">
+    UPDATE t_goods_type set delete_flag = 1,update_time = now()
     WHERE id = #{id,jdbcType=INTEGER}
-  </delete>
+  </update>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsType">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.GoodsType">
     INSERT INTO t_goods_type
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -48,6 +50,12 @@
       </if>
       <if test="sort != null">
         sort,
+      </if>
+      <if test="rec != null">
+        rec,
+      </if>
+      <if test="sale != null">
+        sale,
       </if>
       <if test="summary != null and summary != ''">
         summary,
@@ -68,11 +76,17 @@
       <if test="name != null and name != ''">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="ico != null and ico != ''">
+      <if test="ico != null">
         #{ico,jdbcType=VARCHAR},
       </if>
-      <if test="img != null and img != ''">
+      <if test="img != null">
         #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="rec != null">
+        #{rec,jdbcType=BIT},
+      </if>
+      <if test="sale != null">
+        #{sale,jdbcType=BIT},
       </if>
       <if test="sort != null">
         #{sort,jdbcType=INTEGER},
@@ -91,36 +105,55 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsType">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.GoodsType">
     UPDATE t_goods_type
     <set>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="ico != null and ico != ''">
+      <if test="ico != nul">
         ico = #{ico,jdbcType=VARCHAR},
       </if>
-      <if test="img != null and img != ''">
+      <if test="img != null">
         img = #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="rec != null">
+        rec = #{rec,jdbcType=BIT},
+      </if>
+      <if test="sale != null">
+        sale = #{sale,jdbcType=BIT},
       </if>
       <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
       </if>
-      <if test="summary != null and summary != ''">
+      <if test="summary != null">
         summary = #{summary,jdbcType=VARCHAR},
       </if>
-      <if test="search != null and search != ''">
+      <if test="search != null">
         search = #{search,jdbcType=VARCHAR},
       </if>
-      <if test="deleteFlag != null">
-        delete_flag = #{deleteFlag,jdbcType=INTEGER},
-      </if>
-        update_time = now(),
+      update_time = now(),
     </set>
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
 
-  <!--*************************************************************************************************************************-->
+  <select id="findVOByWhere" resultType="com.honglinktech.zbgj.vo.GoodsTypeVO">
+    SELECT
+      g.id,
+      g.name,
+      g.ico,
+      g.img,
+      g.search
+    FROM t_goods_type g
+    WHERE g.delete_flag = 0
+    AND g.sale = 1
+    <if test="rec != null">
+      AND g.rec = #{rec}
+    </if>
+    ORDER BY g.sort is NULL,g.sort ASC,g.update_time desc
+  </select>
+
+  <!--**********console***************************************************************************************************************-->
   <!--查询所有商品类别-->
   <select id="findAll" resultMap="BaseResultMap">
     SELECT
@@ -134,10 +167,7 @@
     SELECT
     <include refid="Base_Column_List" />
     FROM t_goods_type
-    WHERE 1=1
-    <if test="deleteFlag!=null">
-      and delete_flag = 0
-    </if>
+    WHERE delete_flag = 0
     <if test="start!=null and rows!=null">
         limit #{start},#{rows}
     </if>
@@ -147,10 +177,7 @@
     SELECT
     count(1)
     FROM t_goods_type
-    WHERE 1=1
-    <if test="deleteFlag!=null">
-      and delete_flag = 0
-    </if>
+    WHERE delete_flag = 0
   </select>
 
 </mapper>

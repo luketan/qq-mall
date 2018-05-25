@@ -4,6 +4,9 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import com.honglinktech.zbgj.bean.GoodsTypeBean;
+import com.honglinktech.zbgj.vo.GoodsTypeVO;
+
 import java.util.Date;
 
 public class GoodsType {
@@ -26,6 +29,14 @@ public class GoodsType {
      * 类型图片
      */
     private String img;
+    /**
+     *
+     */
+    private Boolean sale;
+    /**
+     *
+     */
+    private Boolean rec;
 
     /**
      * 排序
@@ -136,4 +147,44 @@ public class GoodsType {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+    public Boolean getSale() {
+        return sale;
+    }
+
+    public void setSale(Boolean sale) {
+        this.sale = sale;
+    }
+
+    public Boolean getRec() {
+        return rec;
+    }
+
+    public void setRec(Boolean rec) {
+        this.rec = rec;
+    }
+
+    public GoodsTypeVO toVO(){
+        GoodsTypeVO goodsTypeVO = new GoodsTypeVO();
+        goodsTypeVO.setId(this.id);
+        goodsTypeVO.setName(this.name);
+        goodsTypeVO.setIco(this.ico);
+        goodsTypeVO.setImg(this.img);
+        goodsTypeVO.setSearch(this.search);
+        return goodsTypeVO;
+    }
+
+    public GoodsTypeBean toBean(){
+        GoodsTypeBean goodsTypeBean = new GoodsTypeBean();
+        goodsTypeBean.setId(this.id);
+        goodsTypeBean.setName(this.name);
+        goodsTypeBean.setIco(this.ico);
+        goodsTypeBean.setImg(this.img);
+        goodsTypeBean.setSearch(this.search);
+        goodsTypeBean.setSummary(this.summary);
+        goodsTypeBean.setSale(this.sale);
+        goodsTypeBean.setRec(this.rec);
+        return goodsTypeBean;
+    }
+
 }

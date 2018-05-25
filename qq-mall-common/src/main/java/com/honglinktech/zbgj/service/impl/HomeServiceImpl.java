@@ -2,11 +2,14 @@ package com.honglinktech.zbgj.service.impl;
 
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
+import com.honglinktech.zbgj.dao.GoodsTypeDao;
 import com.honglinktech.zbgj.enums.AdvStyleTypeEnum;
 import com.honglinktech.zbgj.service.AdvService;
+import com.honglinktech.zbgj.service.GoodsTypeService;
 import com.honglinktech.zbgj.service.HomeService;
 import com.honglinktech.zbgj.vo.AdvVO;
 import com.honglinktech.zbgj.vo.AppletHomeVO;
+import com.honglinktech.zbgj.vo.GoodsTypeVO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ public class HomeServiceImpl implements HomeService{
 
     @Autowired
     private AdvService advService;
+
+    @Autowired
+    private GoodsTypeDao goodsTypeDao;
     /**
      *
      * @return
@@ -39,8 +45,13 @@ public class HomeServiceImpl implements HomeService{
         whereMap.put("styleType", AdvStyleTypeEnum.AppletHome.name());
         List<AdvVO> advVOs = advService.findVO(whereMap);
 
+        Map gtWhereMap = new HashMap();
+        gtWhereMap.put("rec", true);
+        List<GoodsTypeVO> goodsTypeVOs = goodsTypeDao.findVOByWhere(gtWhereMap);
+
         AppletHomeVO appletHomeVO = new AppletHomeVO();
         appletHomeVO.setAdvs(advVOs);
+        appletHomeVO.setGoodsTypes(goodsTypeVOs);
         return Result.resultSet(appletHomeVO);
     }
 }
