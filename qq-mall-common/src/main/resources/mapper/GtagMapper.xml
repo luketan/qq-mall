@@ -7,7 +7,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="img" jdbcType="VARCHAR" property="img" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sale" jdbcType="INTEGER" property="sale" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
     <result column="show_main" jdbcType="INTEGER" property="showMain" />
@@ -16,22 +16,23 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, name, type, img, status, title, subtitle, show_main, update_time, create_time
+    id, name, type, img, sale, title, subtitle, show_main, update_time, create_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_g_tag
     WHERE id = #{id,jdbcType=INTEGER}
+    AND delete_flag = 0
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    DELETE FROM t_g_tag
+  <update id="deleteById" parameterType="java.lang.Integer">
+    update t_g_tag set delete_flag = 0 , update_time = now()
     WHERE id = #{id,jdbcType=INTEGER}
-  </delete>
+  </update>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Gtag" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Gtag" useGeneratedKeys="true" keyProperty="id">
     <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
       SELECT LAST_INSERT_ID() AS ID
     </selectKey>
@@ -49,8 +50,8 @@
       <if test="img != null and img != ''">
         img,
       </if>
-      <if test="status != null">
-        status,
+      <if test="sale != null">
+        sale,
       </if>
       <if test="title != null and title != ''">
         title,
@@ -77,8 +78,8 @@
       <if test="img != null and img != ''">
         #{img,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
+      <if test="sale != null">
+        #{sale,jdbcType=BIT},
       </if>
       <if test="title != null and title != ''">
         #{title,jdbcType=VARCHAR},
@@ -94,25 +95,25 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Gtag">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.Gtag">
     UPDATE t_g_tag
     <set>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="img != null and img != ''">
+      <if test="img != null">
         img = #{img,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+      <if test="sale != null">
+        sale = #{sale,jdbcType=BIT},
       </if>
-      <if test="title != null and title != ''">
+      <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="subtitle != null and subtitle != ''">
+      <if test="subtitle != null">
         subtitle = #{subtitle,jdbcType=VARCHAR},
       </if>
       <if test="showMain != null">
@@ -129,7 +130,7 @@
     SELECT
     <include refid="Base_Column_List" />
     FROM t_g_tag
-    WHERE 1=1
+    WHERE delete_flag = 0
     <if test="start!=null and rows!=null">
       limit #{start},#{rows}
     </if>
@@ -139,7 +140,7 @@
     SELECT
     count(1)
     FROM t_g_tag
-    WHERE 1=1
+    WHERE delete_flag = 0
   </select>
   <!---->
   <select id="findAllByGoodsId" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsTagBean">
@@ -148,7 +149,7 @@
       t.`name`,
       t.`type`,
       t.`img`,
-      t.`status`,
+      t.`sale`,
       t.`title`,
       t.`subtitle`,
       t.`show_main` as showMain,
@@ -157,7 +158,8 @@
       g.goods_id as goodsId
     FROM t_g_tag as t LEFT JOIN t_goods_tag g ON(t.id = g.tag_id and g.goods_id = #{goodsId})
     WHERE 1=1
-    and t.status = 1
+    and t.sale = 1
+    and t.delete_flag = 0
   </select>
 
 </mapper>

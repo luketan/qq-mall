@@ -8,6 +8,7 @@ import com.honglinktech.zbgj.bean.GoodsTypeBean;
 import com.honglinktech.zbgj.bean.request.GoodsItem;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
+import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.entity.Goods;
 import com.honglinktech.zbgj.entity.GoodsBrand;
 import com.honglinktech.zbgj.service.*;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -128,27 +130,14 @@ public class GoodsController extends BaseController {
 	 */
 	@RequiresPermissions("goods:save")
 	@RequestMapping("/save")
-	public String save(Goods goods, Model model)  {
-
-		GoodsItem goodsItem = new GoodsItem(goods);
+	@ResponseBody
+	public Response save(GoodsBean goodsBean, Model model)  {
 		try {
-			goodsService.saveGoods(goodsItem);
+			return goodsService.saveGoods(goodsBean, null, null, null);
 		}catch (Exception e){
 			logger.error(e, e);
-			model.addAttribute("error", "保存商品错误!");
-			GoodsVO goodsVO = new GoodsVO(goods);
-			model.addAttribute("item", goodsVO);
-			Response<List<GoodsTagBean>> tagResp = goodsTagService.findAllByGoodsId(goodsVO.getId());
-			model.addAttribute("tags", tagResp.getResult());
-			Response<List<ActivityBean>> actResp = goodsActivityService.findAllByGoodsId(goodsVO.getId());
-			model.addAttribute("activitys", actResp.getResult());
-			Response<List<GoodsBrand>> brandResp = goodsBrandService.findAll();
-			model.addAttribute("brands", brandResp.getResult());
-			Response<List<GoodsTypeBean>> typeResp = goodsTypeService.findAll();
-			model.addAttribute("types", typeResp.getResult());
-			return "goods/form";
 		}
-		return "redirect:modify.html?id=" + goodsItem.getId();
+		return Result.fail("系统错误联系工作人员！");
 	}
 	
 }

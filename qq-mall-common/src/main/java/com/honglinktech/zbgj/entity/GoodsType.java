@@ -184,6 +184,7 @@ public class GoodsType {
         goodsTypeBean.setSummary(this.summary);
         goodsTypeBean.setSale(this.sale);
         goodsTypeBean.setRec(this.rec);
+        goodsTypeBean.setSort(this.sort);
         return goodsTypeBean;
     }
 

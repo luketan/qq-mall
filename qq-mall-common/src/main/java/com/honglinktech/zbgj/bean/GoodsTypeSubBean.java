@@ -17,6 +17,11 @@ public class GoodsTypeSubBean {
      */
     private String name;
 
+    private String img;
+    private Boolean rec;
+    private Boolean sale;
+    private Integer sort;
+
     /**
      * 商品类型
      */
@@ -96,5 +101,37 @@ public class GoodsTypeSubBean {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Boolean getRec() {
+        return rec;
+    }
+
+    public void setRec(Boolean rec) {
+        this.rec = rec;
+    }
+
+    public Boolean getSale() {
+        return sale;
+    }
+
+    public void setSale(Boolean sale) {
+        this.sale = sale;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

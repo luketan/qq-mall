@@ -44,12 +44,14 @@
                                 	 <tr>
 	                                    <td>${item.id }</td>
 	                                    <td>${item.name }</td>
-	                                    <td>${item.type==1?"打折":""}
-	                                         ${item.type==2?"包邮":""}
-	                                         ${item.type==3?"赠送":""}
-	                                         ${item.type==4?"满减":""}</td>
+	                                    <td>
+                                            <c:forEach items="${activityTypeList }" var="activityType">
+                                                <c:if test="${activityType.code == item.type}">
+                                                    ${activityType.value}
+                                                </c:if>
+                                            </c:forEach></td>
 	                                    <td>${item.available == 1?"有":"无"}</td>
-	                                    <td>${item.status == 1?"正常":"删除"}</td>
+	                                    <td>${item.sale == true?"正常":"下架"}</td>
                                          <td><fmt:formatDate value="${item.updateTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 	                                    <td><a href="modify.html?id=${item.id }">编辑</a></td>
 	                                </tr>

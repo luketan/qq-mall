@@ -59,8 +59,8 @@
                                     <div class="form-group">
                                         <label>时效性</label>
                                         <select class="form-control" name="available">
-                                            <option ${item.available==0?"selected=selected":"" } value="0">有</option>
-                                            <option ${item.available==1?"selected=selected":"" } value="1">无</option>
+                                            <option ${item.available==1?"selected=selected":"" } value="1">有</option>
+                                            <option ${item.available==0?"selected=selected":"" } value="0">无</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-6">
@@ -75,9 +75,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label>状态</label>
-                                        <select class="form-control" name="status">
-                                            <option ${item.status==1?"selected=selected":"" } value="0">正常</option>
-                                            <option ${item.status==2?"selected=selected":"" } value="1">删除</option>
+                                        <select class="form-control" name="sale">
+                                            <option ${item.sale==true?"selected=selected":"" } value="true">正常</option>
+                                            <option ${item.sale==false?"selected=selected":"" } value="false">下架</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-success">确认${item.id>0?'修改':'添加' }</button>

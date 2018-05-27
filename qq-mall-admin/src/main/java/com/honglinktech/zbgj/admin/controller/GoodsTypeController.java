@@ -91,7 +91,7 @@ public class GoodsTypeController extends BaseController {
 			GoodsType retGoodsType = goodsTypeResp.getResult();
 			return "redirect:modify.html?id=" + retGoodsType.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			model.addAttribute("item", goodsType);
 			return "goodsType/form";
@@ -163,7 +163,7 @@ public class GoodsTypeController extends BaseController {
 			GoodsTypeSub retGoodsTypeSub = goodsTypeSubResp.getResult();
 			return "redirect:subModify.html?id=" + retGoodsTypeSub.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			model.addAttribute("item", goodsTypeSub);
 			return "goodsType/subForm";

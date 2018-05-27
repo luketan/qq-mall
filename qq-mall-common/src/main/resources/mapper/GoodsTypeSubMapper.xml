@@ -19,19 +19,21 @@
     id, `name`, img, sort, sale, rec, goods_type, delete_flag, create_time, update_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_goods_type_sub
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    DELETE FROM t_goods_type_sub
+  <update id="deleteById" parameterType="java.lang.Integer">
+    UPDATE t_goods_type_sub
+      delete_flag = 1,
+      update_time = now()
     WHERE id = #{id,jdbcType=INTEGER}
-  </delete>
+  </update>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsTypeSub">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.GoodsTypeSub">
     INSERT INTO t_goods_type_sub
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -91,7 +93,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsTypeSub">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.GoodsTypeSub">
     UPDATE t_goods_type_sub
     <set>
       <if test="name != null">
@@ -138,6 +140,12 @@
     <if test="goodsType != null">
       and gts.goods_type = #{goodsType,jdbcType=TIMESTAMP}
     </if>
+    <if test="sale != null">
+      and gts.sale = #{sale,jdbcType=BIT}
+    </if>
+    <if test="rec != null">
+      and gts.rec = #{rec,jdbcType=BIT}
+    </if>
     <if test="start!=null and rows!=null">
       limit #{start},#{rows}
     </if>
@@ -147,6 +155,9 @@
     gts.id,
     gts.name,
     gts.img,
+    gts.sort,
+    gts.sale,
+    gts.rec,
     gts.goods_type as goodsType,
     gt.name as typeName,
     gts.create_time,
@@ -155,6 +166,12 @@
     WHERE gts.delete_flag = 0
     <if test="goodsType != null">
       and gts.goods_type = #{goodsType,jdbcType=TIMESTAMP}
+    </if>
+    <if test="sale != null">
+      and gts.sale = #{sale,jdbcType=BIT}
+    </if>
+    <if test="rec != null">
+      and gts.rec = #{rec,jdbcType=BIT}
     </if>
     <if test="start!=null and rows!=null">
       limit #{start},#{rows}
@@ -166,7 +183,13 @@
     FROM t_goods_type_sub
     WHERE delete_flag = 0
     <if test="goodsType != null">
-      and goods_type = #{goodsType,jdbcType=TIMESTAMP}
+      and gts.goods_type = #{goodsType,jdbcType=TIMESTAMP}
+    </if>
+    <if test="sale != null">
+      and gts.sale = #{sale,jdbcType=BIT}
+    </if>
+    <if test="rec != null">
+      and gts.rec = #{rec,jdbcType=BIT}
     </if>
   </select>
 </mapper>

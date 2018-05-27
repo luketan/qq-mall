@@ -65,7 +65,7 @@ public class BaseApiController {
 	@ResponseBody
     @ExceptionHandler
     public ReturnInfo exp(HttpServletRequest request,HttpServletResponse response, BaseException ex,Object handler) {
-		logger.error(ex);
+		logger.error(ex, ex);
 		logger.error("================baseException=============="+ex.getMessage()+"|"+ex.getExceptionEnum().getLogString());
 		ex.printStackTrace();
         return new ReturnInfo(ex.getExceptionEnum());

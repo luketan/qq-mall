@@ -108,7 +108,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         } catch (AuthorizationException e) {
             throw new AuthenticationException(e.getMessage());
         } catch (Exception e) {
-            logger.error(e);
+            logger.error(e, e);
             throw new AuthenticationException("登录失败!");
         }
     }

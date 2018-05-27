@@ -128,33 +128,40 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public void saveGoods(GoodsItem goodsItem) throws BaseException{
-		int goodsId = goodsDao.insert(goodsItem.getGoods());
-		Integer[] goodsFormats = goodsItem.getGoodsFormats();
-		Integer[] goodsActivitys = goodsItem.getGoodsActivitys();
-		String[] goodsImgs = goodsItem.getGoodsImgs();
-		List<GoodsActivity> goodsActivityList = new ArrayList<GoodsActivity>();
-		if(goodsActivitys!=null){
+	public Response saveGoods(GoodsBean goodsBean, Integer[] goodsFormats, Integer[] goodsActivitys, String[] goodsImgs) throws BaseException{
+		Goods goods = new Goods(goodsBean);
+		if(goods.getId() != null && goods.getId() > 0){
+			goodsDao.update(goods);
+		}else{
+			goodsDao.insert(goods);
+		}
+		int goodsId = goods.getId();
+
+		if(goodsActivitys != null && goodsActivitys.length > 0){
+			List<GoodsActivity> goodsActivityList = new ArrayList<GoodsActivity>();
 			for(Integer activityId:goodsActivitys){
 				GoodsActivity ga = new GoodsActivity();
 				ga.setActivityId(activityId);
 				ga.setGoodsId(goodsId);
 				goodsActivityList.add(ga);
 			}
+			goodsActivityDao.saveBatch(goodsActivityList);
 		}
-		goodsActivityDao.saveBatch(goodsActivityList);
-		List<GoodsFormat> goodsFormatList = new ArrayList<GoodsFormat>();
-		if(goodsFormats!=null){
+
+		if(goodsFormats != null && goodsFormats.length > 0){
+			List<GoodsFormat> goodsFormatList = new ArrayList<GoodsFormat>();
 			for(Integer formatId:goodsFormats){
 				GoodsFormat gf = new GoodsFormat();
 				gf.setFormatId(formatId);
 				gf.setGoodsId(goodsId);
 				goodsFormatList.add(gf);
 			}
+			goodsFormatDao.saveBatch(goodsFormatList);
 		}
-		goodsFormatDao.saveBatch(goodsFormatList);
-		List<Pic> goodsImgList = new ArrayList<Pic>();
-		if(goodsImgs!=null){
+
+
+		if(goodsImgs!=null && goodsImgs.length > 0){
+			List<Pic> goodsImgList = new ArrayList<Pic>();
 			for(String goodsImg:goodsImgs){
 				Pic tpic = new Pic();
 				tpic.setObjId(goodsId);
@@ -162,12 +169,15 @@ public class GoodsServiceImpl implements GoodsService{
 				tpic.setType(Constants.PIC_GOODS);
 				goodsImgList.add(tpic);
 			}
+			picDao.saveBatch(goodsImgList);
 		}
-		picDao.saveBatch(goodsImgList);
+
+		goodsBean.setId(goods.getId());
+		return Result.resultSet(goodsBean);
 	}
 
 	@Override
-	public void updateGoods(GoodsItem goodsItem) throws BaseException{
+	public Response updateGoods(GoodsItem goodsItem) throws BaseException{
 		int goodsId = goodsItem.getId();
 		goodsDao.update(goodsItem.getGoods());
 		Integer[] goodsFormats = goodsItem.getGoodsFormats();
@@ -215,6 +225,7 @@ public class GoodsServiceImpl implements GoodsService{
 		delPicWhere.put("type", Constants.PIC_GOODS);
 		picDao.deleteByWhere(delPicWhere);
 		picDao.saveBatch(goodsImgList);
+		return Result.success();
 	}
 
 	@Override

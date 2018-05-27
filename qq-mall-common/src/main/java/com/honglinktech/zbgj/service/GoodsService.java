@@ -32,19 +32,15 @@ public interface GoodsService{
 
 
 	/***************************************************************console******************************************************************/
-	/**
-	 *
-	 * @param goodsItem
-	 * @throws BaseException
-	 */
-	void saveGoods(GoodsItem goodsItem) throws BaseException;
+
+	Response saveGoods(GoodsBean goodsBean, Integer[] goodsFormats, Integer[] goodsActivitys, String[] goodsImgs) throws BaseException;
 
 	/**
 	 *
 	 * @param goodsItem
 	 * @throws BaseException
 	 */
-	void updateGoods(GoodsItem goodsItem) throws BaseException;
+	Response updateGoods(GoodsItem goodsItem) throws BaseException;
 
 	/**
 	 * 后台分页查询商品

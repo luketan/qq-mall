@@ -162,7 +162,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	 */
 	@Override
 	public Response<GoodsTypeSub> findSubById(Integer id) {
-		GoodsTypeSub goodsTypeSub = goodsTypeSubDao.selectByPrimaryKey(id);
+		GoodsTypeSub goodsTypeSub = goodsTypeSubDao.findById(id);
 		return Result.resultSet(goodsTypeSub);
 	}
 
@@ -173,9 +173,9 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	@Override
 	public Response<GoodsTypeSub> saveOrUpdateSub(GoodsTypeSub goodsTypeSub) {
 		if(goodsTypeSub.getId()!=null && goodsTypeSub.getId() > 0){
-			goodsTypeSubDao.updateByPrimaryKeySelective(goodsTypeSub);
+			goodsTypeSubDao.update(goodsTypeSub);
 		}else{
-			goodsTypeSubDao.insertSelective(goodsTypeSub);
+			goodsTypeSubDao.insert(goodsTypeSub);
 		}
 		return Result.resultSet(goodsTypeSub);
 	}

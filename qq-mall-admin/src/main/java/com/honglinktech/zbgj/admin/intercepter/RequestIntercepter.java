@@ -24,14 +24,12 @@ public class RequestIntercepter implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        System.out.println("=======RequestIntercepter====index=============="+SecurityUtils.getSubject().getSession().getAttribute(Constants.LOGIN_ADMIN_DATA));
         uri = request.getRequestURI();
         if (uri.contains("login") || uri.contains("logout")) {
             return true;
         } else {
             Session session = SecurityUtils.getSubject().getSession();
             Admin admin = (Admin) session.getAttribute(Constants.LOGIN_ADMIN_DATA);
-            System.out.println("=======RequestIntercepter====index=2=============="+admin);
             if (admin == null) {
                 response.sendRedirect("logout.html");
                 return false;

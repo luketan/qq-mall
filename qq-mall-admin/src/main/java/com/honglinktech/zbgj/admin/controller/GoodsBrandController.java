@@ -100,7 +100,7 @@ GoodsBrandController extends BaseController {
 			GoodsBrand item = itemResp.getResult();
 			return "redirect:modify.html?id=" + item.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			model.addAttribute("item", goodsBrand);
 			return "goodsBrand/form";

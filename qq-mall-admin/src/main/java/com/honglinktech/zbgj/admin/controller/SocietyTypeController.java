@@ -88,7 +88,7 @@ public class SocietyTypeController extends BaseController {
 			SocietyType item = itemResp.getResult();
 			return "redirect:modify.html?id=" + item.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			model.addAttribute("item", societyType);
 			return "societyType/form";
@@ -159,7 +159,7 @@ public class SocietyTypeController extends BaseController {
 			SocietySubType retSocietySubTypeSub = societySubTypeResp.getResult();
 			return "redirect:subModify.html?id=" + retSocietySubTypeSub.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			Response<List<SocietyType>> societyTypesResp= societyTypeService.findAll();
 			model.addAttribute("societyTypes", societyTypesResp.getResult());

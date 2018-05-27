@@ -63,7 +63,7 @@ public class BaseApiController {
 	@ResponseBody
     @ExceptionHandler
     public ReturnInfo exp(HttpServletRequest request,HttpServletResponse response, BaseException ex,Object handler) {
-		logger.error(ex);
+		logger.error(ex, ex);
 		logger.error("================baseException=============="+ex.getMessage()+"|"+ex.getExceptionEnum().getLogString());
 		ex.printStackTrace();
         return new ReturnInfo(ex.getExceptionEnum());
@@ -71,7 +71,7 @@ public class BaseApiController {
 	@ResponseBody
     @ExceptionHandler
     public ReturnInfo exp(HttpServletRequest request,HttpServletResponse response, Exception ex,Object handler) {
-		logger.error(ex);
+		logger.error(ex, ex);
 		logger.error("==================未知======================"+UUID.randomUUID()+ex.getMessage());
 		ex.printStackTrace();
         return new ReturnInfo(ExceptionEnum.COMMON_ERROE);

@@ -99,10 +99,10 @@ public class GoodsTagController extends BaseController {
 		try {
 			Response<Gtag> tagResp = goodsTagService.saveOrUpdate(tag);
 			Gtag retTag = tagResp.getResult();
-			logger.info("Gtag.save============"+retTag.getId());
+			logger.info(JSON.toJSONString(tag)+"====Gtag.save============"+retTag.getId());
 			return "redirect:modify.html?id=" + retTag.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			model.addAttribute("item", tag);
 			return "goodsTag/form";

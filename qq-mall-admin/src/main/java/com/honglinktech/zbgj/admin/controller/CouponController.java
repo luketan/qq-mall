@@ -114,7 +114,7 @@ public class CouponController extends BaseController {
 			Coupon item = itemResp.getResult();
 			return "redirect:modify.html?id=" + item.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			model.addAttribute("item", coupon);
 			return "coupon/form";

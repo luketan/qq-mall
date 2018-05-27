@@ -1,10 +1,14 @@
 package com.honglinktech.zbgj.admin.controller;
 
 
+import com.honglinktech.zbgj.common.CV;
+import com.honglinktech.zbgj.common.KV;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.Gactivity;
 import com.honglinktech.zbgj.entity.Gtag;
+import com.honglinktech.zbgj.enums.ActivityTypeEnum;
+import com.honglinktech.zbgj.enums.AdvStyleTypeEnum;
 import com.honglinktech.zbgj.service.GoodsActivityService;
 import com.honglinktech.zbgj.service.GoodsTagService;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -50,6 +56,13 @@ public class GoodsActivityController extends BaseController {
 		Page<Gactivity> page = goodsActivityService.findPageByWhere(index, size, "list.html?keyword="+keyword+"&", whereMap);
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
+
+		List<CV> activityTypeList = new ArrayList<CV>();
+		for(ActivityTypeEnum a: ActivityTypeEnum.values()) {
+			activityTypeList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("activityTypeList", activityTypeList);
+
 		return "goodsActivity/list";
 	}
 
@@ -64,6 +77,13 @@ public class GoodsActivityController extends BaseController {
 
 		Response<Gactivity>  itemResp = goodsActivityService.findById(id);
 		model.addAttribute("item", itemResp.getResult());
+
+		List<CV> activityTypeList = new ArrayList<CV>();
+		for(ActivityTypeEnum a: ActivityTypeEnum.values()) {
+			activityTypeList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("activityTypeList", activityTypeList);
+
 		return "goodsActivity/form";
 	}
 	/**
@@ -74,6 +94,13 @@ public class GoodsActivityController extends BaseController {
 	 */
 	@RequestMapping("/add")
 	public String add(Model model) {
+
+		List<CV> activityTypeList = new ArrayList<CV>();
+		for(ActivityTypeEnum a: ActivityTypeEnum.values()) {
+			activityTypeList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("activityTypeList", activityTypeList);
+
 		return "goodsActivity/form";
 	}
 	/**
@@ -96,7 +123,7 @@ public class GoodsActivityController extends BaseController {
 			Gactivity item = itemResp.getResult();
 			return "redirect:modify.html?id=" + item.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			model.addAttribute("item", activity);
 			return "goodsActivity/form";

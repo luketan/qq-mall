@@ -46,15 +46,15 @@
                                     <div class="form-group">
                                         <label>是否线上首页</label>
                                         <select class="form-control" name="showMain">
-                                            <option ${item.status==0?"selected=selected":"" } value="1">否</option>
-                                            <option ${item.status==1?"selected=selected":"" } value="2">是</option>
+                                            <option ${item.showMain==1?"selected=selected":"" } value="1">否</option>
+                                            <option ${item.showMain==2?"selected=selected":"" } value="2">是</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>状态</label>
-                                        <select class="form-control" name="type">
-                                        	<option ${item.status==1?"selected=selected":"" } value="1">正常</option>
-                                        	<option ${item.status==2?"selected=selected":"" } value="2">删除</option>
+                                        <select class="form-control" name="sale">
+                                        	<option ${item.sale==true?"selected=selected":"" } value="true">正常</option>
+                                        	<option ${item.sale==false?"selected=selected":"" } value="false">下架</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-success">确认${item.id>0?'修改':'添加' }</button>

@@ -16,6 +16,23 @@ public class GoodsTypeSub {
      * 类型名称
      */
     private String name;
+    /**
+     *
+     */
+    private String img;
+
+    /**
+     *
+     */
+    private Integer sort;
+    /**
+     *
+     */
+    private Boolean sale;
+    /**
+     *
+     */
+    private Boolean rec;
 
     /**
      * 商品类型
@@ -83,5 +100,37 @@ public class GoodsTypeSub {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Boolean getSale() {
+        return sale;
+    }
+
+    public void setSale(Boolean sale) {
+        this.sale = sale;
+    }
+
+    public Boolean getRec() {
+        return rec;
+    }
+
+    public void setRec(Boolean rec) {
+        this.rec = rec;
     }
 }

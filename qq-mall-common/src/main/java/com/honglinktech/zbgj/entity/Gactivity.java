@@ -63,9 +63,14 @@ public class Gactivity {
     private Date endTime;
 
     /**
-     * 状态(1正常，2删除)
+     * 状态(1正常，0下架)
      */
-    private Integer status;
+    private Boolean sale;
+
+    /**
+     * 备注
+     */
+    private String remark;
 
     /**
      * 创建时间
@@ -165,12 +170,20 @@ public class Gactivity {
         this.endTime = endTime;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public Boolean getSale() {
+        return sale;
+    }
+
+    public void setSale(Boolean sale) {
+        this.sale = sale;
     }
 
     public Date getCreateTime() {

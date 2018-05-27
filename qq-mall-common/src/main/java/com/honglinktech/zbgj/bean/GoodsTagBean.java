@@ -40,7 +40,7 @@ public class GoodsTagBean implements Serializable{
 	/**
 	 * 状态
 	 */
-	private Integer status;
+	private Boolean sale;
 	/**
 	 *
 	 */
@@ -98,12 +98,12 @@ public class GoodsTagBean implements Serializable{
 		this.img = img == null ? null : img.trim();
 	}
 
-	public Integer getStatus() {
-		return status;
+	public Boolean getSale() {
+		return sale;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setSale(Boolean sale) {
+		this.sale = sale;
 	}
 
 	public String getTitle() {

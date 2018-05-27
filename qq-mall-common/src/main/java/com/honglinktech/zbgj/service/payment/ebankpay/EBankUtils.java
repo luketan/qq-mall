@@ -118,7 +118,7 @@ public class EBankUtils {
             return result;
 
         } catch (Exception ex) {
-            logger.error(ex.toString());
+            logger.error(ex, ex);
             return null;
         }
     }

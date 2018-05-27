@@ -189,8 +189,7 @@ public class AdminController extends BaseController {
     			addError(model, respon.getMsg());
     		}
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e);
+			logger.error(e, e);
 			addError(model, e.getMessage());
 		}
 

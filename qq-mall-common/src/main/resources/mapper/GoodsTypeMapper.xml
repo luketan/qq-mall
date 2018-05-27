@@ -111,7 +111,7 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="ico != nul">
+      <if test="ico != null">
         ico = #{ico,jdbcType=VARCHAR},
       </if>
       <if test="img != null">
@@ -150,6 +150,9 @@
     <if test="rec != null">
       AND g.rec = #{rec}
     </if>
+    <if test="sale != null">
+      and g.sale = #{sale,jdbcType=BIT}
+    </if>
     ORDER BY g.sort is NULL,g.sort ASC,g.update_time desc
   </select>
 
@@ -166,8 +169,14 @@
   <select id="findByWhere" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
-    FROM t_goods_type
-    WHERE delete_flag = 0
+    FROM t_goods_type g
+    WHERE g.delete_flag = 0
+    <if test="rec != null">
+      AND g.rec = #{rec}
+    </if>
+    <if test="sale != null">
+      and g.sale = #{sale,jdbcType=BIT}
+    </if>
     <if test="start!=null and rows!=null">
         limit #{start},#{rows}
     </if>
@@ -176,8 +185,14 @@
   <select id="findCount" resultType="java.lang.Integer" >
     SELECT
     count(1)
-    FROM t_goods_type
-    WHERE delete_flag = 0
+    FROM t_goods_type g
+    WHERE  g.delete_flag = 0
+    <if test="rec != null">
+      AND g.rec = #{rec}
+    </if>
+    <if test="sale != null">
+      and g.sale = #{sale,jdbcType=BIT}
+    </if>
   </select>
 
 </mapper>

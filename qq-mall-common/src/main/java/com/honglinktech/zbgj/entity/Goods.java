@@ -4,6 +4,8 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import com.honglinktech.zbgj.bean.GoodsBean;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -111,6 +113,33 @@ public class Goods {
      * 商品详情
      */
     private String detail;
+
+    public Goods() {
+    }
+
+    public Goods(GoodsBean goodBeans) {
+        this.id = goodBeans.getId();
+        this.name = goodBeans.getName();
+        this.subName = goodBeans.getSubName();
+        this.salesNum = goodBeans.getSalesNum();
+        this.keepNum = goodBeans.getKeepNum();
+        this.markPrice = goodBeans.getMarkPrice();
+        this.formerPrice = goodBeans.getFormerPrice();
+        this.price = goodBeans.getPrice();
+        this.discussNum = goodBeans.getDiscussNum();
+        this.hotIs = goodBeans.getHotIs();
+        this.giftsIs = goodBeans.getGiftsIs();
+        this.brandId = goodBeans.getBrandId();
+        this.typeId = goodBeans.getTypeId();
+        this.typeSubId = goodBeans.getTypeSubId();
+        this.collectNum = goodBeans.getCollectNum();
+        this.status = goodBeans.getStatus();
+        this.imgUrl = goodBeans.getImgUrl();
+        this.sort = goodBeans.getSort();
+        this.updateTime = goodBeans.getUpdateTime();
+        this.createTime = goodBeans.getCreateTime();
+        this.detail = goodBeans.getDetail();
+    }
 
     public Integer getId() {
         return id;

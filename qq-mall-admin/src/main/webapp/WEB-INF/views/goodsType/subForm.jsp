@@ -39,6 +39,32 @@
                                             </c:forEach>
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label>推荐</label>
+                                        <select class="form-control" name="rec">
+                                            <option  ${item.rec==false?'selected=selected':'' } value="false">不推荐</option>
+                                            <option  ${item.rec==true?'selected=selected':'' }  value="true">推荐</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>可用</label>
+                                        <select class="form-control" name="sale">
+                                            <option  ${item.sale==false?'selected=selected':'' } value="false">不可用</option>
+                                            <option  ${item.sale==true?'selected=selected':'' }  value="true">可用</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>图片</label>
+                                        <div>
+                                            <img src="${item.img }" width="30%">
+                                            <input class="form-control" name="img" value="${item.img }" placeholder="请输入图片">
+                                            <input type="file" class="imgFileUpload" id="imagefile2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>排序</label>
+                                        <input class="form-control" name="sort" value="${item.sort }" placeholder="请输入排序">
+                                    </div>
                                     <c:if test="${item.id>0 }">
 	                                    <button type="submit" class="btn btn-success">确认${item.id>0?'修改':'添加' }</button>
 	                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">删除</button>

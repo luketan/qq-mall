@@ -83,7 +83,7 @@ public class FeedBackController extends BaseController {
 			}
 			return "redirect:modify.html?id=" + feedBack.getId();
 		}catch (Exception e){
-			logger.error(e);
+			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
 			Response<FeedBackBean> itemResp = feedBackService.findFeedBackById(null, feedBack.getId());
 			model.addAttribute("item", itemResp.getResult());

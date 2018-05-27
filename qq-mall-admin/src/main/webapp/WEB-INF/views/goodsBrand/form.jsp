@@ -43,7 +43,7 @@
                                         <label>状态</label>
                                         <select class="form-control" name="status">
                                             <option ${item.status==1?"selected=selected":"" } value="1">正常</option>
-                                            <option ${item.status==2?"selected=selected":"" } value="2">删除</option>
+                                            <option ${item.status==0?"selected=selected":"" } value="0">下架</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-success">确认${item.id>0?'修改':'添加' }</button>

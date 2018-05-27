@@ -325,8 +325,22 @@
         $("#inputForm").submit();
     });
     $("#btnSave").click(function(){
-        $("#inputForm").attr("action", "${basePath }/goods/save.html");
-        $("#inputForm").submit();
+		zbgj.ajax({
+			url: "${basePath }/goods/save.html",
+			formData:$("#inputForm"),
+			contentType: "application/x-www-form-urlencoded",   // http content type
+			callback:function(data){
+				var id = $("#inputForm").find("input[name='id']").val();
+				if(id && id>0){
+					zbgj.promptMessage("修改成功！");
+				}else{
+					zbgj.promptMessage("保存成功！");
+					setTimeout(function(){
+						window.location.href = 'modify.html?id=' + data.id;
+					},1000);
+				}
+			}
+		});
     });
 
     var formatIndex = ${formatIndex},formatSubIndex = ${formatSubIndex}

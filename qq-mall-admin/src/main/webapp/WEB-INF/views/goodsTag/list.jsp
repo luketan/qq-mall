@@ -44,7 +44,7 @@
 	                                    <td>${item.id }</td>
 	                                    <td>${item.name }</td>
 	                                    <td><img src="${item.img }" style="width: 40px"></td>
-	                                    <td>${item.status==1?"正常":"删除"}</td>
+	                                    <td>${item.sale?"正常":"下架"}</td>
 	                                    <td><fmt:formatDate value="${item.updateTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 	                                    <td><a href="modify.html?id=${item.id }">编辑</a></td>
 	                                </tr>

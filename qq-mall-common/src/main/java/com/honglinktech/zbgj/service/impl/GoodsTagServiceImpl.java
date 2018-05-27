@@ -25,10 +25,10 @@ public class GoodsTagServiceImpl implements GoodsTagService{
     @Override
     public Response<Gtag> saveOrUpdate(Gtag gtag) {
         int count = 0;
-        if(gtag.getId()  != null && gtag.getId() > 0){
-            count = gtagDao.updateByPrimaryKeySelective(gtag);
+        if(gtag.getId() != null && gtag.getId() > 0){
+            count = gtagDao.update(gtag);
         }else{
-            count = gtagDao.insertSelective(gtag);
+            count = gtagDao.insert(gtag);
         }
         return Result.resultSet(gtag);
     }
@@ -62,7 +62,7 @@ public class GoodsTagServiceImpl implements GoodsTagService{
 
     @Override
     public Response<Gtag> findById(Integer id) {
-        Gtag tag = gtagDao.selectByPrimaryKey(id);
+        Gtag tag = gtagDao.findById(id);
         return Result.resultSet(tag);
     }
 }

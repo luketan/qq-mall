@@ -23,6 +23,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         商品类型列表
+                        <a a href="add.html" class="btn btn-primary btn-xs pull-right" role="button">新增新增</a>
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -32,6 +33,8 @@
                                 <tr>
                                     <th>序号</th>
                                     <th>名称</th>
+                                    <th>推荐</th>
+                                    <th>可用</th>
                                     <th>排序</th>
                                     <th>操作</th>
                                 </tr>
@@ -41,6 +44,8 @@
                                 	 <tr>
 	                                    <td>${item.id }</td>
 	                                    <td>${item.name }</td>
+                                         <td>${item.rec?"推荐":"不推荐"}</td>
+                                         <td>${item.sale?"可用":"不可用"}</td>
 	                                    <td>${item.sort}</td>
 	                                    <td><a href="modify.html?id=${item.id }">编辑</a></td>
 	                                </tr>

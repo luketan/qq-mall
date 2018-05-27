@@ -103,7 +103,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
             throw new AuthenticationException(e.getMessage());
         } catch (Exception e) {
         	e.printStackTrace();
-            logger.error(e);
+            logger.error(e, e);
             throw new AuthenticationException("登录失败!");
         }
     }

@@ -1,5 +1,6 @@
 package com.honglinktech.zbgj.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.bean.ActivityBean;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
@@ -7,6 +8,8 @@ import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.dao.GactivityDao;
 import com.honglinktech.zbgj.entity.Gactivity;
 import com.honglinktech.zbgj.service.GoodsActivityService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -19,16 +22,19 @@ import java.util.Map;
 @Component
 public class GoodsActivityServiceImpl implements GoodsActivityService {
 
+    protected final Logger logger = LogManager.getLogger(getClass());
+
     @Resource
     private GactivityDao gactivityDao;
 
     @Override
     public Response<Gactivity> saveOrUpdate(Gactivity activity) {
         int count = 0;
+        logger.info("===========saveOrUpdate============"+ JSON.toJSONString(activity));
         if(activity.getId()  != null && activity.getId() > 0){
-            count = gactivityDao.updateByPrimaryKeySelective(activity);
+            count = gactivityDao.update(activity);
         }else{
-            count = gactivityDao.insertSelective(activity);
+            count = gactivityDao.insert(activity);
         }
         return Result.resultSet(activity);
     }
@@ -62,7 +68,7 @@ public class GoodsActivityServiceImpl implements GoodsActivityService {
 
     @Override
     public Response<Gactivity> findById(Integer id) {
-        Gactivity gactivity = gactivityDao.selectByPrimaryKey(id);
+        Gactivity gactivity = gactivityDao.findById(id);
         return Result.resultSet(gactivity);
     }
 }
