@@ -13,11 +13,11 @@ public enum GoodsStatusEnum {
     ;
 
     private int code;
-    private String content;
+    private String name;
 
-    GoodsStatusEnum(int code, String content) {
+    GoodsStatusEnum(int code, String name) {
         this.code = code;
-        this.content = content;
+        this.name = name;
     }
 
     public int getCode() {
@@ -28,11 +28,11 @@ public enum GoodsStatusEnum {
         this.code = code;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
 }

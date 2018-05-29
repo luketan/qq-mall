@@ -26,7 +26,7 @@
     <!-- Navigation -->
     <%@include file="../include/nav.jsp"%>
 
-    <div id="page-wrapper">
+    <div id="page-wrapper" style="margin-bottom:20px;">
         <!-- /.row -->
         <div class="row">
             <div class="col-lg-12">
@@ -85,13 +85,29 @@
 										</select>
                                     </div>
 									<div class="form-group col-lg-6">
+										<div class="row">
+											<div class="form-group col-lg-6">
+												<label>是否热卖</label>
+												<select name="hotIs" class="form-control">
+													<option value="0" >否</option>
+													<option value="1" ${item.hotIs == 1?'selected="selected"':''}>是</option>
+												</select>
+											</div>
+											<div class="form-group col-lg-6">
+												<label>是否精品</label>
+												<select name="giftsIs" class="form-control">
+													<option value="0" >否</option>
+													<option value="1" ${item.giftsIs == 1?'selected="selected"':''}>是</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-lg-6">
 										<label>状态</label>
 										<select name="status" class="form-control">
-											<option value="1" ${item.status == 1?'selected="selected"':''}>正常</option>
-											<option value="2" ${item.status == 2?'selected="selected"':''}>已售完</option>
-											<option value="3" ${item.status == 3?'selected="selected"':''}>已下架</option>
-											<option value="4" ${item.status == 4?'selected="selected"':''}>删除</option>
-											<option value="5" ${item.status == 5?'selected="selected"':''}>待审核</option>
+											<c:forEach items="${goodsStatusList }" var="goodsStatus">
+												<option value="${goodsStatus.code}" ${item.status == goodsStatus.code?'selected="selected"':''}>${goodsStatus.value}</option>
+											</c:forEach>
 										</select>
 									</div>
                                     <div class="form-group col-lg-6">
@@ -199,43 +215,6 @@
                                         </div>
                                         <input class="multiImgFileUpload" style="margin-top: 20px" type="file">
                                     </div>
-                                    <div class="form-group col-lg-12">
-                                        <c:choose>
-	                                        <c:when test="${item.id==null}">
-	                                        	<shiro:hasPermission name="goods">
-		                                            <button type="button" class="btn btn-success" id="btnSave">确认添加</button>
-		                                            <button type="reset" class="btn btn-info">重置表单</button>
-	                                            </shiro:hasPermission>
-	                                        </c:when>
-	                                        <c:otherwise>
-	                                        	<shiro:hasPermission name="goods">
-	                                            	<button type="button" class="btn btn-success" id="btnSave">确认修改</button>
-	                                            </shiro:hasPermission>
-	                                            <shiro:hasPermission name="goods">
-	                                            	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">删除产品</button>
-	                                            </shiro:hasPermission>
-	                                            <div class="modal fade" id="myModal" tabindex="-1" role="" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-	                                                <div class="modal-dialog">
-	                                                    <div class="modal-content">
-	                                                        <div class="modal-header">
-	                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	                                                            <h4 class="modal-title" id="myModalLabel">删除确认</h4>
-	                                                        </div>
-	                                                        <div class="modal-body">
-	                                                        	    确认要删除改记录吗?
-	                                                        </div>
-	                                                        <div class="modal-footer">
-	                                                            <button id="btnDelete" type="button" class="btn btn-danger">删除</button>
-	                                                            <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-	                                                        </div>
-	                                                    </div>
-	                                                    <!-- /.modal-content -->
-	                                                </div>
-	                                                <!-- /.modal-dialog -->
-	                                            </div>
-	                                        </c:otherwise>
-                                    	</c:choose>
-                                    	</div>
                                 </form>
                             </div>
                             <!-- /.col-lg-6 (nested) -->
@@ -250,6 +229,43 @@
         </div>
         <!-- /.row -->
     </div>
+	<div class="form-group col-lg-12" style="position:fixed;bottom:0px;right:0;text-align: right;padding:14px 20px 0 0;margin:0px;height:60px;">
+		<c:choose>
+			<c:when test="${item.id==null}">
+				<shiro:hasPermission name="goods">
+					<button type="button" class="btn btn-success" id="btnSave">确认添加</button>
+					<button type="reset" class="btn btn-info">重置表单</button>
+				</shiro:hasPermission>
+			</c:when>
+			<c:otherwise>
+				<shiro:hasPermission name="goods">
+					<button type="button" class="btn btn-success" id="btnSave">确认修改</button>
+				</shiro:hasPermission>
+				<shiro:hasPermission name="goods">
+					<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">删除产品</button>
+				</shiro:hasPermission>
+				<div class="modal fade" id="myModal" tabindex="-1" role="" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h4 class="modal-title" id="myModalLabel">删除确认</h4>
+							</div>
+							<div class="modal-body">
+								确认要删除改记录吗?
+							</div>
+							<div class="modal-footer">
+								<button id="btnDelete" type="button" class="btn btn-danger">删除</button>
+								<button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+			</c:otherwise>
+		</c:choose>
+	</div>
     <!-- /#page-wrapper -->
 </div>
 <div class="modal fade" id="deleteSpeModal" tabindex="-1" role="" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">

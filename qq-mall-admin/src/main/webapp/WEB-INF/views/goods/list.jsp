@@ -47,11 +47,12 @@
                                             <td style="padding:0;text-align:center;vertical-align:middle;"><a href="${item.imgUrl}" class="lightbox" title="${item.name}"><img src="${item.imgUrl}" style="width:22px;"></a></td>
                                             <td>${item.name}</td>
                                             <td>${item.price}</td>
-                                            <td>${item.status == 1?"正常":""}
-                                                    ${item.status == 2?"已售完":""}
-                                                    ${item.status == 3?"已下架":""}
-                                                    ${item.status == 4?"删除":""}
-                                                    ${item.status == 5?"待审核":""}
+                                            <td>
+                                                <c:forEach items="${goodsStatusList }" var="goodsStatus">
+                                                    <c:if test="${goodsStatus.code == item.status}">
+                                                        ${goodsStatus.value}
+                                                    </c:if>
+                                                </c:forEach>
                                             </td>
                                             <td><a href="modify.html?id=${item.id}">编辑</a></td>
                                         </tr>

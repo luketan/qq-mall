@@ -1,16 +1,19 @@
 package com.honglinktech.zbgj.admin.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.bean.ActivityBean;
 import com.honglinktech.zbgj.bean.GoodsBean;
 import com.honglinktech.zbgj.bean.GoodsTagBean;
 import com.honglinktech.zbgj.bean.GoodsTypeBean;
 import com.honglinktech.zbgj.bean.request.GoodsItem;
-import com.honglinktech.zbgj.common.Page;
-import com.honglinktech.zbgj.common.Response;
-import com.honglinktech.zbgj.common.Result;
+import com.honglinktech.zbgj.common.*;
+import com.honglinktech.zbgj.entity.Format;
+import com.honglinktech.zbgj.entity.FormatSub;
 import com.honglinktech.zbgj.entity.Goods;
 import com.honglinktech.zbgj.entity.GoodsBrand;
+import com.honglinktech.zbgj.enums.AdvStyleTypeEnum;
+import com.honglinktech.zbgj.enums.GoodsStatusEnum;
 import com.honglinktech.zbgj.service.*;
 import com.honglinktech.zbgj.vo.GoodsVO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +52,7 @@ public class GoodsController extends BaseController {
 	 *
 	 * @param status 订单状态
 	 * @param type   销售方式
-	 * @param key    关键字
+	 * @param keyword    关键字
 	 * @param index  分页页数
 	 * @param size   分页大小
 	 * @param model
@@ -58,17 +62,21 @@ public class GoodsController extends BaseController {
 	@RequestMapping("/list")
 	public String search(@RequestParam(required = false) Integer status,
 						 @RequestParam(required = false) Integer type,
-						 @RequestParam(required = false) String key,
+						 @RequestParam(required = false) String keyword,
 						 @RequestParam(required = false, defaultValue = "1") int index,
 						 @RequestParam(required = false, defaultValue = "15") int size, Model model) {
 
 		Map whereMap = new HashMap();
 		String url = "list.html?";
+		if (!StringUtils.isEmpty(keyword)) {
+			whereMap.put("keyword", keyword);
+			url+=("keyword="+keyword+"&");
+		}
 		if (status != null && status != 0) {
 			whereMap.put("status", status);
 			url+=("status="+status+"&");
 		}
-		if (!StringUtils.isEmpty(key)) {
+		if (!StringUtils.isEmpty(type)) {
 			whereMap.put("type", type);
 			url+=("type="+type+"&");
 		}
@@ -81,7 +89,14 @@ public class GoodsController extends BaseController {
 		model.addAttribute("page", page);
 		model.addAttribute("status", status);
 		model.addAttribute("type", type);
-		model.addAttribute("key", key);
+		model.addAttribute("keyword", keyword);
+
+		List<CV> goodsStatusList = new ArrayList<CV>();
+		for(GoodsStatusEnum a: GoodsStatusEnum.values()) {
+			goodsStatusList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("goodsStatusList", goodsStatusList);
+
 		return "goods/list";
 	}
 	/**
@@ -91,6 +106,21 @@ public class GoodsController extends BaseController {
 	 */
 	@RequestMapping("/add")
 	public String add(Model model) {
+		Response<List<GoodsTagBean>> tagResp = goodsTagService.findAllByGoodsId(null);
+		model.addAttribute("tags", tagResp.getResult());
+		Response<List<ActivityBean>> actResp = goodsActivityService.findAllByGoodsId(null);
+		model.addAttribute("activitys", actResp.getResult());
+		Response<List<GoodsBrand>> brandResp = goodsBrandService.findAll();
+		model.addAttribute("brands", brandResp.getResult());
+		Response<List<GoodsTypeBean>> typeResp = goodsTypeService.findAll();
+		model.addAttribute("types", typeResp.getResult());
+
+		List<CV> goodsStatusList = new ArrayList<CV>();
+		for(GoodsStatusEnum a: GoodsStatusEnum.values()) {
+			goodsStatusList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("goodsStatusList", goodsStatusList);
+
 		return "goods/form";
 	}
 	/**
@@ -119,6 +149,12 @@ public class GoodsController extends BaseController {
 			addError(model, goodsBeanResponse.getMsg());
 		}
 
+		List<CV> goodsStatusList = new ArrayList<CV>();
+		for(GoodsStatusEnum a: GoodsStatusEnum.values()) {
+			goodsStatusList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("goodsStatusList", goodsStatusList);
+
 		return "goods/form";
 	}
 
@@ -133,6 +169,107 @@ public class GoodsController extends BaseController {
 	@ResponseBody
 	public Response save(GoodsBean goodsBean, Model model)  {
 		try {
+			String[] activityIds = request.getParameterValues("activityIds");
+			String[] tagIds = request.getParameterValues("tagIds");
+			String[] picUrl = request.getParameterValues("picUrl");
+			Integer[] goodsActivityIds = null;
+			Integer[] goodsTagIds = null;
+			if(activityIds != null && activityIds.length > 0){
+				goodsActivityIds = new Integer[activityIds.length];
+				for(int i=0;i<activityIds.length;i++){
+					goodsActivityIds[i] = Integer.valueOf(activityIds[i]);
+				}
+			}
+			if(tagIds != null && tagIds.length > 0){
+				goodsTagIds = new Integer[tagIds.length];
+				for(int i=0;i<tagIds.length;i++){
+					goodsTagIds[i] = Integer.valueOf(tagIds[i]);
+				}
+			}
+
+			logger.info("activityIds============"+ JSON.toJSONString(activityIds));
+			logger.info("tagIds============"+ JSON.toJSONString(tagIds));
+			logger.info("picUrl============"+ JSON.toJSONString(picUrl));
+
+			//款式处理
+			List<Format> formatList = new ArrayList<Format>();//样式
+			String[] formatFlagIds = request.getParameterValues("formatFlagIds");
+			if(formatFlagIds!=null && formatFlagIds.length>0){
+				for(int i=0;i<formatFlagIds.length;i++){
+					String formatFlagId = formatFlagIds[i];
+					if(!StringUtils.isEmpty(formatFlagId)){
+						Format proItemFormat = new Format();
+						List<FormatSub> formatSubs = new ArrayList<FormatSub>();
+
+						String formatId = request.getParameter("formatIds_"+formatFlagId);
+						String formatName = request.getParameter("formatName_"+formatFlagId);
+						String needFee = request.getParameter("needValue_"+formatFlagId);
+						String type = request.getParameter("type_"+formatFlagId);
+						String[] formatSubFlagIds = request.getParameterValues("formatSubFlagId_"+formatFlagId);
+
+						System.out.println("*formatFlagId:"+formatFlagId);
+						System.out.println("formatIds_"+formatFlagId+"|formatIds:"+formatId);
+						System.out.println("formatName_"+formatFlagId+"|formatName:"+formatName);
+						System.out.println("needFee_"+formatFlagId+"|needFee:"+needFee);
+						System.out.println("type_"+formatFlagId+"|type:"+type);
+						System.out.println("--------------------------------");
+						if(formatSubFlagIds != null && formatSubFlagIds.length > 0){
+							for(int j=0; j<formatSubFlagIds.length;j++){
+								String formatSubFlagId = formatSubFlagIds[j];
+								String formatSubId = request.getParameter("formatSubIds_"+formatFlagId+"_"+formatSubFlagId);
+								String formatSubName = request.getParameter("formatSubName_"+formatFlagId+"_"+formatSubFlagId);
+								String formatSubSelect = request.getParameter("select_"+formatFlagId+"_"+formatSubFlagId);
+								String formatSubFee = request.getParameter("price_"+formatFlagId+"_"+formatSubFlagId);
+								String formatSubVipFee = request.getParameter("vipPrice_"+formatFlagId+"_"+formatSubFlagId);
+								String formatSubPrefix= request.getParameter("prefix_"+formatFlagId+"_"+formatSubFlagId);
+								String formatSubStartValue= request.getParameter("startValue_"+formatFlagId+"_"+formatSubFlagId);
+								String formatSubEndValue= request.getParameter("endValue_"+formatFlagId+"_"+formatSubFlagId);
+								String formatSubSpeShowUnit = request.getParameter("speShowUnit_"+formatFlagId+"_"+formatSubFlagId);
+								String[] relyFormatSubIds = request.getParameterValues("relyFormatSubId_"+formatFlagId+"_"+formatSubFlagId);
+								System.out.println("formatSubId_"+formatFlagId+"_"+formatSubFlagId+"|formatSubId:"+formatSubId);
+								System.out.println("formatSubName_"+formatFlagId+"_"+formatSubFlagId+"|formatSubName:"+formatSubName);
+								System.out.println("formatSubSelect_"+formatFlagId+"_"+formatSubFlagId+"|formatSubSelect:"+formatSubSelect);
+								System.out.println("formatSubFee_"+formatFlagId+"_"+formatSubFlagId+"|formatSubFee:"+formatSubFee);
+								System.out.println("formatSubVipFee_"+formatFlagId+"_"+formatSubFlagId+"|formatSubVipFee:"+formatSubVipFee);
+								System.out.println("formatSubPrefix_"+formatFlagId+"_"+formatSubFlagId+"|formatSubPrefix:"+formatSubPrefix);
+								System.out.println("formatSubStartValue_"+formatFlagId+"_"+formatSubFlagId+"|formatSubStartValue:"+formatSubStartValue);
+								System.out.println("formatSubEndValue_"+formatFlagId+"_"+formatSubFlagId+"|formatSubEndValue:"+formatSubEndValue);
+								System.out.println("formatSubSpeShowUnit_"+formatFlagId+"_"+formatSubFlagId+"|formatSubSpeShowUnit:"+formatSubSpeShowUnit);
+								System.out.println("relyFormatSubId_"+formatFlagId+"_"+formatSubFlagId+"|relyFormatSubIds:"+relyFormatSubIds+(relyFormatSubIds!=null?com.alibaba.fastjson.JSONArray.toJSONString(relyFormatSubIds):"@"));
+								System.out.println("==============================================================");
+
+								FormatSub formatSub = new FormatSub();
+								formatSub.setFormatSubFalg(formatSubFlagId);
+								formatSub.setId(StringUtils.isEmpty(formatSubId)?null:Integer.valueOf(formatSubId));
+								formatSub.setName(formatSubName);
+								formatSub.setSelect(Boolean.valueOf(formatSubSelect));
+								formatSub.setFee(new BigDecimal(StringUtils.isEmpty(formatSubFee)?"0":formatSubFee));
+								formatSub.setVipFee(new BigDecimal(StringUtils.isEmpty(formatSubVipFee)?"0":formatSubVipFee));
+								formatSub.setPrefix(formatSubPrefix);
+								formatSub.setStartValue(new BigDecimal(StringUtils.isEmpty(formatSubStartValue)?"0":formatSubStartValue));
+								formatSub.setEndValue(new BigDecimal(StringUtils.isEmpty(formatSubEndValue)?"0":formatSubEndValue));
+								formatSub.setSpeShowUnit(formatSubSpeShowUnit);
+								if(relyFormatSubIds != null){
+									List<Integer> relyIds = new ArrayList<Integer>();
+									for(String relyId:relyFormatSubIds){
+										relyIds.add(Integer.valueOf(relyId));
+									}
+									formatSub.setRelyFormatSubIds(relyIds);
+								}
+								formatSubs.add(formatSub);
+							}
+						}
+						System.out.println("*************************************************************");
+						proItemFormat.setId(StringUtils.isEmpty(formatId)?null:Integer.valueOf(formatId));
+						proItemFormat.setName(formatName);
+						proItemFormat.setNeedFee(Boolean.valueOf(needFee));
+						proItemFormat.setFormatSubs(formatSubs);
+						proItemFormat.setType(Integer.valueOf(type));
+						formatList.add(proItemFormat);
+					}
+				}
+			}
+
 			return goodsService.saveGoods(goodsBean, null, null, null);
 		}catch (Exception e){
 			logger.error(e, e);
