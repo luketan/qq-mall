@@ -263,7 +263,7 @@ public class GoodsServiceImpl implements GoodsService{
 		List<PicBean> tpicList =  picService.findPic(goodsBean.getId(), Constants.PIC_GOODS);
 
 		//goodsVO.setActivityBeanList(activityBeanList);
-		goodsBean.setFormatBeanList(formatBeanList);
+		goodsBean.setFormatList(formatBeanList);
 		goodsBean.setPicList(tpicList);
 
 		return Result.resultSet(goodsBean);

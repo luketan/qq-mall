@@ -161,7 +161,7 @@ public class GoodsController extends BaseController {
 
 	/**
 	 * 保存或者修改商品
-	 * @param goods
+	 * @param goodsBean
 	 * @param model
 	 * @return
 	 */
@@ -187,10 +187,6 @@ public class GoodsController extends BaseController {
 					goodsTagIds[i] = Integer.valueOf(tagIds[i]);
 				}
 			}
-
-			logger.info("activityIds============"+ JSON.toJSONString(activityIds));
-			logger.info("tagIds============"+ JSON.toJSONString(tagIds));
-			logger.info("picUrl============"+ JSON.toJSONString(picUrl));
 
 			//款式处理
 			List<Format> formatList = new ArrayList<Format>();//样式
@@ -225,7 +221,7 @@ public class GoodsController extends BaseController {
 								String[] relyFormatSubIds = request.getParameterValues("relyFormatSubId_"+formatFlagId+"_"+formatSubFlagId);
 
 								FormatSub formatSub = new FormatSub();
-								formatSub.setFormatSubFalg(formatSubFlagId);
+//								formatSub.setFormatSubFalg(formatSubFlagId);
 								formatSub.setId(StringUtils.isEmpty(formatSubId)?null:Integer.valueOf(formatSubId));
 								formatSub.setName(formatSubName);
 								formatSub.setSelect(Integer.valueOf(formatSubSelect));
@@ -236,7 +232,7 @@ public class GoodsController extends BaseController {
 									for(String relyId:relyFormatSubIds){
 										relyIds.add(Integer.valueOf(relyId));
 									}
-									formatSub.setRelyFormatSubIds(relyIds);
+//									formatSub.setRelyFormatSubIds(relyIds);
 								}
 								formatSubs.add(formatSub);
 							}
@@ -246,7 +242,7 @@ public class GoodsController extends BaseController {
 						proItemFormat.setName(formatName);
 						proItemFormat.setNeedPrice(Integer.valueOf(needFee));
 						proItemFormat.setFormatSubs(formatSubs);
-						proItemFormat.setType(Integer.valueOf(type));
+//						proItemFormat.setType(Integer.valueOf(type));
 						formatList.add(proItemFormat);
 					}
 				}

@@ -8,16 +8,41 @@
 
     <title>${item.id==null?"添加商品":"修改商品"} - ${site.title}</title>
     <%@include file="../include/head.jsp"%>
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.min.css">
     <link href="${basePath }/static/css/form.css" rel="stylesheet">
     <script src="${basePath }/static/libs/ckeditor/ckeditor.js"></script>
     <style>
-    .zbgj-input-clear td{
-    	padding-left: 0px !important;
-    	padding-right: 0px !important;
-    }
-    .zbgj-input-clear .form-control{
-    	   padding:0 !important;
-    }
+		.zbgj-input-clear td{
+			padding-left: 0px !important;
+			padding-right: 0px !important;
+		}
+		.zbgj-input-clear .form-control{
+			padding:0 !important;
+		}
+		.formatBodyClass button{
+			float:right;
+		}
+		.formatBodyClass tr{
+			background-color:#fff !important;
+		}
+		.formatHeadClass td{
+			background-color:#ccc !important;
+		}
+		.formatBodyClass input{
+			max-width:90px;display:inline;margin-right:0px;
+		}
+		.formatBodyClass select{
+			max-width:90px;display:inline;margin-right:0px;
+		}
+		.formatHeadClass span{
+			font-weight:700;
+		}
+		.formatHeadClass input{
+			max-width:90px;display:inline;margin-right:8px;
+		}
+		.formatHeadClass select{
+			max-width:90px;display:inline;margin-right:8px;
+		}
     </style>
 </head>
 
@@ -138,46 +163,66 @@
                                             </div>
                                         </div>
                                     </c:if>
-                                    <div class="form-group col-lg-12">
-                                        <label style="margin-bottom:-10px;margin-top: 10px">款式</label>
-									    <div id="formatBody">
-									        <c:set var="formatSubIndex" value="0"></c:set>
-									   	    <c:forEach items="${item.formatBeanList}" var="format" varStatus="pStatus">
-									   	    	<div class="row" style="padding-left:15px;margin-top:10px;">
-										   	    		<div class="input-group" style="width: 80px;float:left;margin-right:10px;">
-											   	    		<input name="formartIds" type="hidden" value="${pStatus.index+1}">
-											   	    		<input placeholder="款式名称" style="padding-left:0;padding-right:0;" name="formatName_${pStatus.index+1}" class="form-control" value="${format.name }">
-										   	    		</div>
-										   	  			<c:forEach items="${format.formatSubBeanList}" var="formatSub" varStatus="status">
-                                                            <c:set var="formatSubIndex" value="${formatSubIndex+1 }"/>
-										   	  				<div style="width: 260px;float:left;margin-right:10px;">
-										   	  					<div class="input-group">
-										   	  					  <input type="hidden" name="formatSubIds_${pStatus.index+1}" value="${formatSubIndex+(status.index+1)}">
-															      <input placeholder="名称" name="formatSubName_${formatSubIndex+(status.index+1)}" class="form-control" style="width:20%;padding-left:0;padding-right:0;" type="text" value="${formatSub.name}">
-															      <input placeholder="价格" onkeyup="value=value.replace(/[^\d\.]/g,'')" name="formatPrice_${formatSubIndex+(status.index+1)}" class="form-control" style="width:20%;padding-left:0;padding-right:0;" type="text" value="${formatSub.price}">
-															      <select name="formatSubSelect_${formatSubIndex+(status.index+1)}" style="width:20%;padding-left:0;padding-right:0;" class="input-group-addon">
-															      		<option value="true" ${formatSub.select==1?'selected = "selected"':''}>可用</option>
-															      		<option value="false" ${formatSub.select==0?'selected = "selected"':''}>不可用</option>
-															      </select>
-															      <input type="button" onclick="formatSubDelete(this)" value="删除">
-															    </div>
-										   	  				</div>
-										   	  			</c:forEach>
-										   	  			<div style="width:230px;float:left;margin-left:10px;">
-										   	  				<label style="width:30px;float:left;display:block;height:34px;line-height:34px;">工费</label>
-										   	  				<select style="width:90px;float:left;margin-right:10px;" style="padding-left:0;padding-right:0;" name="formatNeedPrice_${pStatus.index+1}" class="form-control">
-											   	    			<option ${format.needPrice?'':'selected=selected' } value="false">不可用</option>
-											   	    			<option ${!format.needPrice?'':'selected=selected' } value="true">可用</option>
-											   	    		</select>
-										   	  				<input type="button" onclick="formatSubAdd(this,${pStatus.index+1})" value="添加">
-										   	  				<input type="button" onclick="formatDelete(this)" value="删除">
-										   	  			</div>
-									   	  		</div>
-									   	  	</c:forEach>
-									   	  	<c:set var="formatIndex" value="${fn:length(item.formatBeanList)}"></c:set>
-									    </div>
-                                        <input type="button" onclick="formatAdd()" value="添加款式">
-                                    </div>
+									<div class="col-lg-12" style="">
+										<label>规格 <span style="color:red;font-size:18px;float:left;line-height:14px">*</span> </label>
+										<table class="table table-striped table-bordered table-hover" style="margin-bottom:0;"padding-bottom:0px;">
+										<thead>
+										<tr>
+											<th>单项名称</th>
+											<th>价格</th>
+											<th>Vip价格</th>
+											<th>是否可选</th>
+											<th>关联</th>
+											<th>操作</th>
+										</tr>
+										</thead>
+										<tbody class="formatBodyClass" >
+										<c:set var="formatIndex" value="0"/>
+										<c:forEach items="${item.formatList }" var="format" varStatus="formatStatus">
+											<tr class="formatHeadClass">
+												<td colspan="10">
+													<input type="hidden" name="formatFlagIds" value="${formatStatus.index}">
+													<input type="hidden" class="formatIds" name="formatIds_${formatStatus.index}" value="${format.id}">
+													<span>规格名称</span>
+													<input type="text" name="formatName_${formatStatus.index}" placeholder="规格名称" class="form-control" value="${format.name }">
+													<span>需要价格</span>
+													<select name="needValue_${formatStatus.index}" class="form-control">
+														<option value="0" ${format.needPrice==0?'selected="selected"':'' }>否</option>
+														<option value="1" ${format.needPrice==1?'selected="selected"':'' }> 是</option>
+													</select>
+													<button type="button" class="btn btn-danger btn-sm" onclick="deleteFormat(this)">删除规格</button>
+													<button type="button" class="btn btn-primary btn-sm" onclick="addFormatSub(this,${formatStatus.index})">添加单项</button>
+												</td>
+											</tr>
+											<c:forEach items="${format.formatSubBeanList }" var="formatSub" varStatus="formatSubStatus">
+												<c:set var="formatIndex" value="${formatIndex+1 }"/>
+												<tr class="formatSubClass">
+													<td style="text-align:right;">
+														<c:set var="formatSubFlagId" value="${formatIndex}"></c:set>
+														<input type="hidden" name="formatSubFlagId_${formatStatus.index}" value="${formatSubFlagId}" class="formatSubFlagIdClass">
+														<input type="hidden" name="formatSubIds_${formatStatus.index}_${formatSubFlagId}" value="${formatSub.id}" class="formatSubIdClass">
+														<input type="text" name="formatSubName_${formatStatus.index}_${formatSubFlagId}" placeholder="单项名称" value="${formatSub.name}" class="form-control formatSubNameClass"></td>
+													<td><input type="text" name="price_${formatStatus.index}_${formatSubFlagId}" placeholder="价格" class="form-control formatSubPriceClass" value="${formatSub.price}"></td>
+													<td><input type="text" name="vipPrice_${formatStatus.index}_${formatSubFlagId}" placeholder="Vip价格" class="form-control formatSubVipPriceClass" value="${formatSub.vipPrice}"></td>
+													<td><select name="select_${formatStatus.index}_${formatSubFlagId}" class="form-control" style="">
+														<option ${formatSub.select == 1?'selected="selected"':'' } value="1">可选</option>
+														<option ${formatSub.select == 0?'selected="selected"':'' } value="0">不可选</option>
+													</select></td>
+													<td><select name="relyFormatSubId_${formatStatus.index}_${formatSubFlagId}" class="selectpicker show-tick form-control formatSelect" multiple data-size="5" data-live-search="false">
+													</select>
+													</td>
+													<td><button type="button" class="btn btn-danger btn-sm" onclick="deleteFormatSub(this)">删除</button></td>
+												</tr>
+											</c:forEach>
+											<c:set var="formatSubIndex" value="${formatSubIndex+fn:length(format.formatSubBeanList)}"></c:set>
+										</c:forEach>
+
+										</tbody>
+										</table>
+									</div>
+									<div class="col-lg-12" style="padding-top:0px;margin-top:0px;text-align: left;padding-bottom:20px;">
+										<button type="button" class="btn btn-primary btn-sm" onclick="addFormat()">添加规格</button>
+									</div>
                                     <div class="form-group col-lg-12">
                                         <label>商品详情</label>
                                         <div>
@@ -289,6 +334,7 @@
 </div>
 	                                            
 <%@include file="../include/footer.jsp"%>
+<script src="//cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
 <script type="application/javascript">
 	$('#typeId').multiselect({
 		enableClickableOptGroups: true,
@@ -359,62 +405,264 @@
 		});
     });
 
-    var formatIndex = ${formatIndex},formatSubIndex = ${formatSubIndex}
-    function formatDelete(self){//款式删除
- 		self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
- 	}
-	function formatAdd(){//款式添加
-        formatIndex = formatIndex+1;
-        formatSubIndex = formatSubIndex+1;
-		var html='<div class="row" style="padding-left:15px;margin-top:10px;">'+
-		   	    	'<div style="width: 80px;float:left;margin-right:10px;">'+
-				   		'<input name="formatIds" type="hidden" value="'+(formatIndex)+'">'+
-				   		'<input placeholder="款式名称" name="formatName_'+formatIndex+'" class="form-control" value="">'+
-				   	'</div>'+
-			 		'<div style="width: 260px;float:left;margin-right:10px;">'+
-	  					'<div class="input-group">'+
-	  					  '<input type="hidden" name="formatSubIds_'+(formatSubIndex)+'" value="'+formatSubIndex+'">'+
-					      '<input placeholder="名称" name="formatSubName_'+formatSubIndex+'" class="form-control" style="width: 20%;padding-left:0;padding-right:0;" type="text">'+
-					      '<input placeholder="工费" name="formatSubPrice_'+formatSubIndex+'" onkeyup="value=value.replace(/[^\\d\\.]/g,\'\')" class="form-control" style="width: 20%;padding-left:0;padding-right:0;" type="text">'+
-					      '<select name="formatSubSelect_'+formatSubIndex+'" style="width:20%;padding-left:0;padding-right:0;" class="input-group-addon" >'+
-					      		'<option value="true">可用</option>'+
-					      		'<option value="false">不可用</option>'+
-					      '</select>'+
-					      '<input type="button" onclick="formatDelete(this)" value="删除">'+
-					    '</div>'+
-	  				'</div>'+
-	  				'<div style="width:230px;float:left;margin-left:10px;">'+
-	   	  				'<label style="width:30px;float:left;display:block;height:34px;line-height:34px;">工费</label>'+
-	   	  				'<select style="width:90px;float:left;margin-right:10px;" name="formatNeedPrice_'+(formatIndex)+'" class="form-control">'+
-		   	    			'<option selected="selected" value="false">不可用</option>'+
-		   	    			'<option value="true">可用</option>'+
-		   	    		'</select>'+
-	   	  				'<input type="button" onclick="formatSubAdd(this)" value="添加">'+
-	   	  				'<input type="button" onclick="formatDelete(this)" value="删除">'+
-	   	  			'</div>'
-				'</div>';
- 		$("#formatBody").append(html);
- 	}
-	
-	function formatSubDelete(self){//删除
-		self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
- 	}
-	function formatSubAdd(self){//添加
-        formatSubIndex = formatSubIndex+1;
- 		var html =  '<div style="width: 260px;float:left;margin-right:10px;">'+
- 						'<div class="input-group">'+
-						  '<input type="hidden" name="formatIds_'+(formatIndex)+'" value="'+formatIndex+'">'+
-					      '<input placeholder="名称" name="formatSubName_'+formatIndex+'" class="form-control" style="width:20%;padding-left:0;padding-right:0;" type="text" value="">'+
-					      '<input placeholder="价格" name="formatSubPrice_'+formatIndex+'" class="form-control" style="width:20%;padding-left:0;padding-right:0;" type="text">'+
-					      '<select name="formatSubSelect_'+formatIndex+'" style="width:20%;padding-left:0;padding-right:0;" class="input-group-addon">'+
-					      		'<option value="true">可用</option>'+
-					      		'<option value="false">不可用</option>'+
-					      '</select>'+
-					      '<input type="button" onclick="formatSubDelete(this)" value="删除">'+
-					    '</div>'+
-				   '</div>';
-		$(self.parentNode).before(html);
- 	}
+	//规格处理.....................................................................、
+	//关联处理........
+	var selectpickerOption="";
+	$('.formatSubClass').each(function(){
+		var formatSubName = $(this).find('.formatSubNameClass');
+		var formatSubId = $(this).find('.formatSubIdClass');
+		var formatSubFlagId = $(this).find('.formatSubFlagIdClass');
+		selectpickerOption+='<option value="'+formatSubFlagId.val()+'">'+
+				(formatSubName.val())+
+				'</option>'
+	});
+	$('.formatSelect').each(function(){
+		var so = selectpickerOption;
+		var self = $(this).parent().parent();
+		var formatSubFlag = self.find(".formatSubFlagIdClass");
+		var regExp = new RegExp('<option value=\"'+formatSubFlag.val()+'\">.*?<\/option>')
+		so = so.replace(regExp,'');
+		so = selectNext(self, so);
+		so = selectPrev(self, so);
+		$(this).html(so);
+	});
+	function selectNext(self,selectpickerOptions){
+		var obj = $(self).next();
+		if(!obj || obj.hasClass("formatHeadClass")){
+			return selectpickerOptions;
+		}else{
+			var formatSubFlag = obj.find(".formatSubFlagIdClass");
+			if(!formatSubFlag || !formatSubFlag.val()){
+				return selectpickerOptions;
+			}
+			var regExp = new RegExp('<option value=\"'+formatSubFlag.val()+'\">.*?<\/option>');
+			console.log("next:"+regExp);
+			selectpickerOptions = selectpickerOptions.replace(regExp,'');
+			return selectNext(obj, selectpickerOptions);
+		}
+	}
+	function selectPrev(self, selectpickerOptions){
+		var obj = $(self).prev();
+		if(!obj || obj.hasClass("formatHeadClass")){
+			return selectpickerOptions;
+		}else{
+			var formatSubFlag = obj.find(".formatSubFlagIdClass");
+			if(!formatSubFlag || !formatSubFlag.val()){
+				return selectpickerOptions;
+			}
+			var regExp = new RegExp('<option value=\"'+formatSubFlag.val()+'\">.*?<\/option>');
+			console.log("prev:"+regExp);
+			selectpickerOptions = selectpickerOptions.replace(regExp,'');
+			return selectPrev(obj, selectpickerOptions);
+		}
+	}
+	$('.formatSelect').selectpicker({
+		noneSelectedText: '可选依赖',//没有值的时候button显示值
+	});
+	//初始化数据
+	var foramtList = ("${item.formatList}")?("${item.formatList}"):''+[];
+	if(foramtList && foramtList.length>0){
+		for(var i=0; i<foramtList.length; i++){
+			var format = foramtList[i];
+			if(format.formatSubs && format.formatSubs.length>0){
+				for(var j=0;j<format.formatSubs.length;j++){
+					var relyIds = format.formatSubs[j].relyFormatSubIds;
+					if(relyIds && relyIds.length>0){
+						//获取依赖规格ID
+						var formatSubFlagIndex = [];
+						for(var k=0; k<relyIds.length; k++){
+							var regExp = new RegExp('<input type=\"hidden\" name=\"formatSubIds.*?value=\"'+relyIds[k]+'\" class=\"formatSubIdClass\">')
+							var formatSubs = $(".formatSubClass");
+							formatSubs.each(function(){
+								if(regExp.exec($(this).html())){
+									formatSubFlagIndex.push(parseInt($($(this).find('.formatSubFlagIdClass')).val()));
+								}
+							});
+						}
+						//获取依赖规格ID 结束
+						var regExp = new RegExp('<input type=\"hidden\" name=\"formatSubIds.*?value=\"'+format.formatSubs[j].id+'\" class=\"formatSubIdClass\">')
+						var formatSubs = $(".formatSubClass");
+						formatSubs.each(function(){
+							if(regExp.exec($(this).html())){
+								$($(this).find('.formatSelect')).selectpicker('val', formatSubFlagIndex);
+								$($(this).find('.formatSelect')).selectpicker('refresh');
+								console.log($($(this).find('.formatSelect')).val());
+							}
+						});
+					}
+				}
+			}
+		}
+	}
+	$('.formatSelect').on('show.bs.select',function(e){
+		console.log('.show.bs.select.................');
+	})
+	$('.formatSelect').on('shown.bs.select',function(e){
+		console.log('.shown.bs.select.................');
+	})
+	//关联处理结束.................
+
+	var formatIndex = parseInt(${formatIndex}+''?${formatIndex}+'':0);
+	var formatSubIndex = parseInt(${formatSubIndex}+''?${formatSubIndex}+'':0);
+	function addFormat(){//款式添加
+		formatIndex = formatIndex+1;
+		var html='<tr class="formatHeadClass">'+
+				'<td colspan="10">'+
+				'<input type="hidden" class="formatIds" name="formatIds" value="">'+
+				'<input type="hidden" name="formatFlagIds" value="'+formatIndex+'">'+
+				'<span>规格名称</span>'+
+				'<input type="text" name="formatName_'+formatIndex+'" placeholder="规格名称" class="form-control" value="${format.name }">'+
+				'<span>需要价格</span>'+
+				'<select name="needValue_'+formatIndex+'" class="form-control">'+
+				'<option value="false">否</option>'+
+				'<option value="true">是</option>'+
+				'</select>'+
+				'<button type="button" class="btn btn-danger btn-sm" onclick="deleteFormat(this)">删除规格</button>'+
+				'<button type="button" class="btn btn-primary btn-sm" onclick="addFormatSub(this,'+formatIndex+')">添加单项</button>'+
+				'</td>'+
+				'</tr>';
+		$(".formatBodyClass").append(html);
+	}
+	function addFormatSub(self,fIndex){//添加
+		formatSubIndex = formatSubIndex+1;
+		var html='<tr class="formatSubClass">'+
+				'<td style="text-align:right;">'+
+				'<input type="hidden" name="formatSubFlagId_'+fIndex+'" value="'+formatSubIndex+'" class="formatSubFlagIdClass">'+
+				'<input type="hidden" name="formatSubIds_'+fIndex+'_'+formatSubIndex+'" value="" class="formatSubIdClass">'+
+				'<input type="text" name="formatSubName_'+fIndex+'_'+formatSubIndex+'" placeholder="单项名称" class="form-control formatSubNameClass"></td>'+
+				'<td><input type="text" name="price_'+fIndex+'_'+formatSubIndex+'" placeholder="价格" class="form-control formatSubPriceClass"></td>'+
+				'<td><input type="text" name="vipPrice_'+fIndex+'_'+formatSubIndex+'" placeholder="Vip价格" class="form-control formatSubVipPriceClass"></td>'+
+				'<td><select name="select_'+fIndex+'_'+formatSubIndex+'" class="form-control" >'+
+				'<option value="1">可选</option>'+
+				'<option value="0">不可选</option>'+
+				'</select></td>'+
+				'<td>'+
+				'<select name="relyFormatSubId_'+fIndex+'_'+formatSubIndex+'" class="selectpicker show-tick formatSelect form-control" multiple data-live-search="false" value="[1,2]">'+
+				'</select>'+
+				'</td>'+
+				'<td><button type="button" class="btn btn-danger btn-sm" onclick="deleteFormatSub(this)">删除</button></td>'+
+				'</tr>';
+		$('.formatHeadClass').each(function(index){
+			if(this==self.parentNode.parentNode){
+				if((index+1)>($('.formatHeadClass').length-1)){
+					$(".formatBodyClass").append(html);
+				}else{
+					$($('.formatHeadClass')[index+1]).before(html)
+				}
+				return false;
+			}
+			if(($('.formatHeadClass').length-1)==index){
+				$(".formatBodyClass").append(html);
+			}
+		})
+		$('.formatSelect').selectpicker({
+			noneSelectedText: '可选依赖',//没有值的时候button显示值
+		});
+	}
+	/***/
+	function deleteFormatSub(self){//删除
+		BootstrapDialog.confirm({
+			title:'删除 ',
+			message:'确认删除当前选中的记录吗?',
+			type: BootstrapDialog.TYPE_DANGER,
+			closable: true, //
+			draggable: true, //
+			btnCancelLabel: '取消', //
+			btnOKLabel: '确认', //
+			btnOKClass: 'btn-warning', //
+			callback: function(result) {
+				if(result) {
+					var spId = $(self.parentNode.parentNode).find('.formatSubIdClass').val();
+					if(spId && spId>0){
+						$.ajax({
+							type: "POST",
+							url: "${basePath }/goods/deleteFormatSub.html?id="+spId,
+							timeout: 400000,
+							data: null,
+							cache: false,
+							contentType: false,
+							processData: false,
+							success:function(result){
+
+								result = JSON.parse(result);
+								if(result.code==0){
+									self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
+								}else{
+									alert(result.msg);
+								}
+
+							},
+							error:function(xhr, errmsg){
+								console.log("ajax-err-[]->"+JSON.stringify(errmsg)+"|"+xhr);
+								alert('error');
+							}
+						});
+					}else{
+						self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
+					}
+				}else {
+				}
+			}
+		});
+	}
+	/***/
+	function deleteFormat(self){//款式删除
+		BootstrapDialog.confirm({
+			title:'删除 ',
+			message:'确认删除当前选中的记录吗?',
+			type: BootstrapDialog.TYPE_DANGER,
+			closable: true, //
+			draggable: true, //
+			btnCancelLabel: '取消', //
+			btnOKLabel: '确认', //
+			btnOKClass: 'btn-warning', //
+			callback: function(result) {
+				if(result) {
+					var spId = $(self.parentNode.parentNode).find('.formatIds').val();
+					if(spId && spId>0){
+						$.ajax({
+							type: "POST",
+							url: "${basePath }/goods/deleteFormat.html?id="+spId,
+							timeout: 400000,
+							data: null,
+							cache: false,
+							contentType: false,
+							processData: false,
+							success:function(result){
+
+								result = JSON.parse(result);
+								if(result.code==0){
+									var nextEle = self.parentNode.parentNode.nextElementSibling;
+									$(self.parentNode.parentNode).remove();
+									while (nextEle && !$(nextEle).hasClass('formatHeadClass')) {
+										var nextEleNext = nextEle.nextElementSibling;
+										$(nextEle).remove();
+										nextEle = nextEleNext;
+									}
+								}else{
+									alert(result.msg);
+								}
+
+							},
+							error:function(xhr, errmsg){
+								console.log("ajax-err-[]->"+JSON.stringify(errmsg)+"|"+xhr);
+								alert('error');
+							}
+						});
+					}else{
+						var nextEle = self.parentNode.parentNode.nextElementSibling;
+						$(self.parentNode.parentNode).remove();
+						while (nextEle && !$(nextEle).hasClass('formatHeadClass')) {
+							var nextEleNext = nextEle.nextElementSibling;
+							$(nextEle).remove();
+							nextEle = nextEleNext;
+						}
+					}
+				}else {
+				}
+			}
+		});
+	}
   
 </script>
 </body>

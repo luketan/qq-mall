@@ -67,7 +67,7 @@ public class GoodsBean implements Serializable {
 	private String detail;
 
 	private List<ActivityBean> activityBeanList;
-	private List<FormatBean> formatBeanList;
+	private List<FormatBean> formatList;
 	private List<PicBean> picList;
 	private List<GoodsDis> goodsDisList;
 
@@ -300,12 +300,12 @@ public class GoodsBean implements Serializable {
 		this.activityBeanList = activityBeanList;
 	}
 
-	public List<FormatBean> getFormatBeanList() {
-		return formatBeanList;
+	public List<FormatBean> getFormatList() {
+		return formatList;
 	}
 
-	public void setFormatBeanList(List<FormatBean> formatBeanList) {
-		this.formatBeanList = formatBeanList;
+	public void setFormatList(List<FormatBean> formatList) {
+		this.formatList = formatList;
 	}
 
 	public List<PicBean> getPicList() {
