@@ -5,6 +5,7 @@
 package com.honglinktech.zbgj.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Format {
     /**
@@ -46,6 +47,11 @@ public class Format {
      * 修改时间
      */
     private Date updateTime;
+
+    /**
+     *
+     */
+    private List<FormatSub> formatSubs;
 
     public Integer getId() {
         return id;
@@ -109,5 +115,13 @@ public class Format {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<FormatSub> getFormatSubs() {
+        return formatSubs;
+    }
+
+    public void setFormatSubs(List<FormatSub> formatSubs) {
+        this.formatSubs = formatSubs;
     }
 }

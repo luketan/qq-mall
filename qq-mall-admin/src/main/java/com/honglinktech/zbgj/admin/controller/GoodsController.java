@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -221,34 +222,15 @@ public class GoodsController extends BaseController {
 								String formatSubSelect = request.getParameter("select_"+formatFlagId+"_"+formatSubFlagId);
 								String formatSubFee = request.getParameter("price_"+formatFlagId+"_"+formatSubFlagId);
 								String formatSubVipFee = request.getParameter("vipPrice_"+formatFlagId+"_"+formatSubFlagId);
-								String formatSubPrefix= request.getParameter("prefix_"+formatFlagId+"_"+formatSubFlagId);
-								String formatSubStartValue= request.getParameter("startValue_"+formatFlagId+"_"+formatSubFlagId);
-								String formatSubEndValue= request.getParameter("endValue_"+formatFlagId+"_"+formatSubFlagId);
-								String formatSubSpeShowUnit = request.getParameter("speShowUnit_"+formatFlagId+"_"+formatSubFlagId);
 								String[] relyFormatSubIds = request.getParameterValues("relyFormatSubId_"+formatFlagId+"_"+formatSubFlagId);
-								System.out.println("formatSubId_"+formatFlagId+"_"+formatSubFlagId+"|formatSubId:"+formatSubId);
-								System.out.println("formatSubName_"+formatFlagId+"_"+formatSubFlagId+"|formatSubName:"+formatSubName);
-								System.out.println("formatSubSelect_"+formatFlagId+"_"+formatSubFlagId+"|formatSubSelect:"+formatSubSelect);
-								System.out.println("formatSubFee_"+formatFlagId+"_"+formatSubFlagId+"|formatSubFee:"+formatSubFee);
-								System.out.println("formatSubVipFee_"+formatFlagId+"_"+formatSubFlagId+"|formatSubVipFee:"+formatSubVipFee);
-								System.out.println("formatSubPrefix_"+formatFlagId+"_"+formatSubFlagId+"|formatSubPrefix:"+formatSubPrefix);
-								System.out.println("formatSubStartValue_"+formatFlagId+"_"+formatSubFlagId+"|formatSubStartValue:"+formatSubStartValue);
-								System.out.println("formatSubEndValue_"+formatFlagId+"_"+formatSubFlagId+"|formatSubEndValue:"+formatSubEndValue);
-								System.out.println("formatSubSpeShowUnit_"+formatFlagId+"_"+formatSubFlagId+"|formatSubSpeShowUnit:"+formatSubSpeShowUnit);
-								System.out.println("relyFormatSubId_"+formatFlagId+"_"+formatSubFlagId+"|relyFormatSubIds:"+relyFormatSubIds+(relyFormatSubIds!=null?com.alibaba.fastjson.JSONArray.toJSONString(relyFormatSubIds):"@"));
-								System.out.println("==============================================================");
 
 								FormatSub formatSub = new FormatSub();
 								formatSub.setFormatSubFalg(formatSubFlagId);
 								formatSub.setId(StringUtils.isEmpty(formatSubId)?null:Integer.valueOf(formatSubId));
 								formatSub.setName(formatSubName);
-								formatSub.setSelect(Boolean.valueOf(formatSubSelect));
-								formatSub.setFee(new BigDecimal(StringUtils.isEmpty(formatSubFee)?"0":formatSubFee));
-								formatSub.setVipFee(new BigDecimal(StringUtils.isEmpty(formatSubVipFee)?"0":formatSubVipFee));
-								formatSub.setPrefix(formatSubPrefix);
-								formatSub.setStartValue(new BigDecimal(StringUtils.isEmpty(formatSubStartValue)?"0":formatSubStartValue));
-								formatSub.setEndValue(new BigDecimal(StringUtils.isEmpty(formatSubEndValue)?"0":formatSubEndValue));
-								formatSub.setSpeShowUnit(formatSubSpeShowUnit);
+								formatSub.setSelect(Integer.valueOf(formatSubSelect));
+								formatSub.setPrice(new BigDecimal(StringUtils.isEmpty(formatSubFee)?"0":formatSubFee));
+								formatSub.setVipPrice(new BigDecimal(StringUtils.isEmpty(formatSubVipFee)?"0":formatSubVipFee));
 								if(relyFormatSubIds != null){
 									List<Integer> relyIds = new ArrayList<Integer>();
 									for(String relyId:relyFormatSubIds){
@@ -262,7 +244,7 @@ public class GoodsController extends BaseController {
 						System.out.println("*************************************************************");
 						proItemFormat.setId(StringUtils.isEmpty(formatId)?null:Integer.valueOf(formatId));
 						proItemFormat.setName(formatName);
-						proItemFormat.setNeedFee(Boolean.valueOf(needFee));
+						proItemFormat.setNeedPrice(Integer.valueOf(needFee));
 						proItemFormat.setFormatSubs(formatSubs);
 						proItemFormat.setType(Integer.valueOf(type));
 						formatList.add(proItemFormat);
