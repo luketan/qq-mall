@@ -22,19 +22,19 @@
     create_time, update_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_format_sub
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteById" parameterType="java.lang.Integer">
     DELETE FROM t_format_sub
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.FormatSub">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.FormatSub">
     INSERT INTO t_format_sub
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -106,7 +106,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.FormatSub">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.FormatSub">
     UPDATE t_format_sub
     <set>
       <if test="formatId != null">
@@ -190,4 +190,8 @@
      WHERE format_id = #{formatId}
      ORDER BY sort is null,sort ASC
   </select>
+
+  <update id="delete" parameterType="java.lang.Integer">
+    UPDATE t_format_sub set delete_flag = 1, update_time = now() WHERE id = #{id}
+  </update>
 </mapper>

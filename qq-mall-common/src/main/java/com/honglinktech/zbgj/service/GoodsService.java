@@ -62,4 +62,8 @@ public interface GoodsService{
 	 * @return
 	 */
 	GoodsVO findGoodsVOById(Integer id);
+
+    Response<String> deleteFormat(Integer id);
+
+	Response<String> deleteFormatSub(Integer id);
 }

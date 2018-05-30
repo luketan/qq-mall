@@ -195,7 +195,7 @@ public class GoodsController extends BaseController {
 				for(int i=0;i<formatFlagIds.length;i++){
 					String formatFlagId = formatFlagIds[i];
 					if(!StringUtils.isEmpty(formatFlagId)){
-						Format proItemFormat = new Format();
+						Format format = new Format();
 						List<FormatSub> formatSubs = new ArrayList<FormatSub>();
 
 						String formatId = request.getParameter("formatIds_"+formatFlagId);
@@ -238,12 +238,12 @@ public class GoodsController extends BaseController {
 							}
 						}
 						System.out.println("*************************************************************");
-						proItemFormat.setId(StringUtils.isEmpty(formatId)?null:Integer.valueOf(formatId));
-						proItemFormat.setName(formatName);
-						proItemFormat.setNeedPrice(Integer.valueOf(needFee));
-						proItemFormat.setFormatSubs(formatSubs);
+						format.setId(StringUtils.isEmpty(formatId)?null:Integer.valueOf(formatId));
+						format.setName(formatName);
+						format.setNeedPrice(Integer.valueOf(needFee));
+						format.setFormatSubs(formatSubs);
 //						proItemFormat.setType(Integer.valueOf(type));
-						formatList.add(proItemFormat);
+						formatList.add(format);
 					}
 				}
 			}

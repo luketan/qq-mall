@@ -292,4 +292,33 @@ public class GoodsServiceImpl implements GoodsService{
 
 		return goodsVO;
 	}
+
+	/**
+	 * ajax删除产品规格
+	 *
+	 * @return
+	 */
+	@Override
+	public Response<String> deleteFormat(Integer id) {
+		int result = formatDao.delete(id);
+		if(result > 0){
+			return Result.success("删除成功~");
+		}else{
+			return Result.fail("删除失败~");
+		}
+	}
+	/**
+	 * ajax删除产品规格子项
+	 *
+	 * @return
+	 */
+	@Override
+	public Response<String> deleteFormatSub(Integer id) {
+		int result = formatSubDao.delete(id);
+		if(result > 0){
+			return Result.success("删除成功~");
+		}else{
+			return Result.fail("删除失败~");
+		}
+	}
 }
