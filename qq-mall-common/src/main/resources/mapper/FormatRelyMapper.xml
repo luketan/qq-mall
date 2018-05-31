@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//configs.mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.honglinktech.zbgj.dao.FormatRelyDao">
+
+    <!--根据id查询-->
+    <select id="findByFormatSubId"
+            parameterType="int"
+            resultType="int">
+        select
+        fr.rely_format_sub_id AS relyFormatSubId
+        from tb_format_rely as fr where fr.format_sub_id = #{formatSubId}
+    </select>
+    <!-- 保存 -->
+    <insert id="save" parameterType="com.honglinktech.zbgj.entity.FormatRely">
+        INSERT INTO tb_format_rely
+        (
+        `format_sub_id`,
+        `rely_format_sub_id`
+        )
+        VALUES
+        (
+        #{formatSubId},
+        #{relyFormatSubId}
+        )
+    </insert>
+    <!-- 更新-->
+    <update id="update"
+            parameterType="com.honglinktech.zbgj.entity.FormatRely">
+        UPDATE tb_format_rely
+        SET
+        WHERE
+        format_sub_id = #{formatSubId}
+    </update>
+    <!-- 删除-->
+    <delete id="deleteByFormatSubId"
+            parameterType="int">
+        delete from  tb_format_rely
+        WHERE
+        format_sub_id = #{formatSubId}
+    </delete>
+    
+</mapper>

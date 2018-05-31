@@ -58,7 +58,7 @@ public interface PicDao {
      * @param pics
      * @return
      */
-    int saveBatch(List<Pic> pics);
+    int saveBatch(@Param(value = "pics") List<Pic> pics);
 
     /**
      *

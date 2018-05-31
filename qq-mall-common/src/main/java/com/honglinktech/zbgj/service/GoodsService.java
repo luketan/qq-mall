@@ -5,6 +5,7 @@ import com.honglinktech.zbgj.bean.GoodsBean;
 import com.honglinktech.zbgj.bean.request.GoodsItem;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
+import com.honglinktech.zbgj.entity.Format;
 import com.honglinktech.zbgj.vo.GoodsVO;
 
 import java.util.List;
@@ -33,14 +34,14 @@ public interface GoodsService{
 
 	/***************************************************************console******************************************************************/
 
-	Response saveGoods(GoodsBean goodsBean, Integer[] goodsFormats, Integer[] goodsActivitys, String[] goodsImgs) throws BaseException;
+	Response saveGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags,  Integer[] goodsActivitys, String[] goodsImgs) throws BaseException;
 
 	/**
 	 *
 	 * @param goodsItem
 	 * @throws BaseException
 	 */
-	Response updateGoods(GoodsItem goodsItem) throws BaseException;
+	Response updateGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags,  Integer[] goodsActivitys, String[] goodsImgs) throws BaseException;
 
 	/**
 	 * 后台分页查询商品

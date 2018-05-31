@@ -185,10 +185,10 @@
 													<input type="hidden" class="formatIds" name="formatIds_${formatStatus.index}" value="${format.id}">
 													<span>规格名称</span>
 													<input type="text" name="formatName_${formatStatus.index}" placeholder="规格名称" class="form-control" value="${format.name }">
-													<span>需要价格</span>
+													<span>需要价格${format.needPrice}==</span>
 													<select name="needValue_${formatStatus.index}" class="form-control">
 														<option value="0" ${format.needPrice==0?'selected="selected"':'' }>否</option>
-														<option value="1" ${format.needPrice==1?'selected="selected"':'' }> 是</option>
+														<option value="1" ${format.needPrice==1?'selected="selected"':'' }>是</option>
 													</select>
 													<button type="button" class="btn btn-danger btn-sm" onclick="deleteFormat(this)">删除规格</button>
 													<button type="button" class="btn btn-primary btn-sm" onclick="addFormatSub(this,${formatStatus.index})">添加单项</button>

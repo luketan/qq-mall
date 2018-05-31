@@ -140,7 +140,7 @@
   </insert>
   <delete id="deleteByWhere" parameterType="map">
       DELETE FROM t_pic
-      WHERE objectId = #{objectId,jdbcType=INTEGER}
-      AND type = #{type,jdbcType=INTEGER}
+      WHERE obj_id = #{objectId,jdbcType=INTEGER}
+      AND `type` = #{type,jdbcType=INTEGER}
   </delete>
 </mapper>

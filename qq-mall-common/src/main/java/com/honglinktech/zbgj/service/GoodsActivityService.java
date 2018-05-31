@@ -7,7 +7,6 @@ import com.honglinktech.zbgj.entity.Admin;
 import com.honglinktech.zbgj.entity.AdminRole;
 import com.honglinktech.zbgj.entity.Gactivity;
 import com.honglinktech.zbgj.entity.GoodsActivity;
-import com.honglinktech.zbgj.entity.GoodsActivityKey;
 
 import java.util.List;
 import java.util.Map;

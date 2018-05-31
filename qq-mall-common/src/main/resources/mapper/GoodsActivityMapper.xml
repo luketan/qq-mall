@@ -6,14 +6,13 @@
     <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
     <id column="activity_id" jdbcType="INTEGER" property="activityId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    goods_id, activity_id, create_time, update_time
+    goods_id, activity_id, create_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsActivityKey" resultMap="BaseResultMap">
+  <select id="findById" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_goods_activity
@@ -21,13 +20,13 @@
       AND activity_id = #{activityId,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsActivityKey">
+  <delete id="deleteById">
     DELETE FROM t_goods_activity
     WHERE goods_id = #{goodsId,jdbcType=INTEGER}
       AND activity_id = #{activityId,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
     INSERT INTO t_goods_activity
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="goodsId != null">
@@ -37,7 +36,6 @@
         activity_id,
       </if>
         create_time,
-        update_time,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="goodsId != null">
@@ -47,11 +45,10 @@
         #{activityId,jdbcType=INTEGER},
       </if>
         now(),
-        now(),
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
     UPDATE t_goods_activity
     <set>
         update_time = now(),
@@ -62,7 +59,7 @@
 
   <!--**************************************************************************************************************************************************-->
   <!--APP通过商品ID获取有效活动-->
-  <select id="findActivityByGoodsId" parameterType="com.honglinktech.zbgj.entity.GoodsActivityKey" resultType="com.honglinktech.zbgj.bean.ActivityBean">
+  <select id="findActivityByGoodsId" resultType="com.honglinktech.zbgj.bean.ActivityBean">
     SELECT
       act.id,
       act.name,
@@ -101,7 +98,7 @@
   <!--批量插入-->
   <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
     INSERT INTO t_goods_format(
-        goods_id, activity_id, create_time, update_time
+        goods_id, activity_id, create_time
     )
     values
     <if test="goodsActivitys != null and goodsActivitys.size &gt; 0">
@@ -110,7 +107,6 @@
         (
         #{goodsActivity.goodsId,jdbcType=INTEGER},
         #{goodsActivity.activityId,jdbcType=INTEGER},
-        now(),
         now()
         )
       </foreach>

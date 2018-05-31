@@ -204,12 +204,6 @@ public class GoodsController extends BaseController {
 						String type = request.getParameter("type_"+formatFlagId);
 						String[] formatSubFlagIds = request.getParameterValues("formatSubFlagId_"+formatFlagId);
 
-						System.out.println("*formatFlagId:"+formatFlagId);
-						System.out.println("formatIds_"+formatFlagId+"|formatIds:"+formatId);
-						System.out.println("formatName_"+formatFlagId+"|formatName:"+formatName);
-						System.out.println("needFee_"+formatFlagId+"|needFee:"+needFee);
-						System.out.println("type_"+formatFlagId+"|type:"+type);
-						System.out.println("--------------------------------");
 						if(formatSubFlagIds != null && formatSubFlagIds.length > 0){
 							for(int j=0; j<formatSubFlagIds.length;j++){
 								String formatSubFlagId = formatSubFlagIds[j];
@@ -221,7 +215,7 @@ public class GoodsController extends BaseController {
 								String[] relyFormatSubIds = request.getParameterValues("relyFormatSubId_"+formatFlagId+"_"+formatSubFlagId);
 
 								FormatSub formatSub = new FormatSub();
-//								formatSub.setFormatSubFalg(formatSubFlagId);
+								formatSub.setFormatSubFalg(formatSubFlagId);
 								formatSub.setId(StringUtils.isEmpty(formatSubId)?null:Integer.valueOf(formatSubId));
 								formatSub.setName(formatSubName);
 								formatSub.setSelect(Integer.valueOf(formatSubSelect));
@@ -232,23 +226,29 @@ public class GoodsController extends BaseController {
 									for(String relyId:relyFormatSubIds){
 										relyIds.add(Integer.valueOf(relyId));
 									}
-//									formatSub.setRelyFormatSubIds(relyIds);
+									formatSub.setRelyFormatSubIds(relyIds);
 								}
 								formatSubs.add(formatSub);
 							}
 						}
-						System.out.println("*************************************************************");
 						format.setId(StringUtils.isEmpty(formatId)?null:Integer.valueOf(formatId));
 						format.setName(formatName);
 						format.setNeedPrice(Integer.valueOf(needFee));
 						format.setFormatSubs(formatSubs);
-//						proItemFormat.setType(Integer.valueOf(type));
 						formatList.add(format);
 					}
 				}
 			}
-
-			return goodsService.saveGoods(goodsBean, null, null, null);
+			logger.info("goodsBean==========="+JSON.toJSONString(goodsBean));
+			logger.info("formatList==========="+JSON.toJSONString(formatList));
+			logger.info("goodsActivityIds==========="+JSON.toJSONString(goodsActivityIds));
+			logger.info("goodsTagIds==========="+JSON.toJSONString(goodsTagIds));
+			logger.info("picUrl==========="+JSON.toJSONString(picUrl));
+			if(goodsBean.getId() != null && goodsBean.getId() > 0){
+				return goodsService.updateGoods(goodsBean, formatList, goodsActivityIds, goodsTagIds, picUrl);
+			}else{
+				return goodsService.saveGoods(goodsBean, formatList, goodsActivityIds, goodsTagIds, picUrl);
+			}
 		}catch (Exception e){
 			logger.error(e, e);
 		}

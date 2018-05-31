@@ -6,7 +6,17 @@ package com.honglinktech.zbgj.entity;
 
 import java.util.Date;
 
-public class GoodsTag extends GoodsTagKey {
+public class GoodsTag{
+
+    /**
+     * 商品ID
+     */
+    private Integer goodsId;
+
+    /**
+     * 标签ID
+     */
+    private Integer tagId;
     /**
      * 创建时间
      */
@@ -16,6 +26,22 @@ public class GoodsTag extends GoodsTagKey {
      * 修改时间
      */
     private Date updateTime;
+
+    public Integer getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public Integer getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(Integer tagId) {
+        this.tagId = tagId;
+    }
 
     public Date getCreateTime() {
         return createTime;

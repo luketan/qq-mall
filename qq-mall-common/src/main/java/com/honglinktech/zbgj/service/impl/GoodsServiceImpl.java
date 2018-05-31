@@ -14,16 +14,22 @@ import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.dao.FormatDao;
+import com.honglinktech.zbgj.dao.FormatRelyDao;
 import com.honglinktech.zbgj.dao.FormatSubDao;
 import com.honglinktech.zbgj.dao.GoodsActivityDao;
 import com.honglinktech.zbgj.dao.GoodsDao;
 import com.honglinktech.zbgj.dao.GoodsFormatDao;
 import com.honglinktech.zbgj.dao.GoodsPhoneDao;
+import com.honglinktech.zbgj.dao.GoodsTagDao;
 import com.honglinktech.zbgj.dao.PicDao;
+import com.honglinktech.zbgj.entity.Format;
+import com.honglinktech.zbgj.entity.FormatRely;
+import com.honglinktech.zbgj.entity.FormatSub;
 import com.honglinktech.zbgj.entity.Goods;
 import com.honglinktech.zbgj.entity.GoodsActivity;
 import com.honglinktech.zbgj.entity.GoodsFormat;
 import com.honglinktech.zbgj.entity.GoodsPhone;
+import com.honglinktech.zbgj.entity.GoodsTag;
 import com.honglinktech.zbgj.entity.Pic;
 import com.honglinktech.zbgj.service.GoodsDisService;
 import com.honglinktech.zbgj.service.GoodsService;
@@ -60,6 +66,10 @@ public class GoodsServiceImpl implements GoodsService{
 	private GoodsDisService goodsDisService;
 	@Resource
 	private GoodsPhoneDao goodsPhoneDao;
+	@Resource
+	private FormatRelyDao formatRelyDao;
+	@Resource
+	private GoodsTagDao goodsTagDao;
 
 	@Override
 	public Response<GoodsVO> findGoodsVOById(Integer id, int userId, int index, int size) throws BaseException{
@@ -128,15 +138,11 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public Response saveGoods(GoodsBean goodsBean, Integer[] goodsFormats, Integer[] goodsActivitys, String[] goodsImgs) throws BaseException{
+	public Response saveGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags, Integer[] goodsActivitys, String[] goodsImgs) throws BaseException{
 		Goods goods = new Goods(goodsBean);
-		if(goods.getId() != null && goods.getId() > 0){
-			goodsDao.update(goods);
-		}else{
-			goodsDao.insert(goods);
-		}
+		goodsDao.insert(goods);
 		int goodsId = goods.getId();
-
+		//
 		if(goodsActivitys != null && goodsActivitys.length > 0){
 			List<GoodsActivity> goodsActivityList = new ArrayList<GoodsActivity>();
 			for(Integer activityId:goodsActivitys){
@@ -148,18 +154,59 @@ public class GoodsServiceImpl implements GoodsService{
 			goodsActivityDao.saveBatch(goodsActivityList);
 		}
 
-		if(goodsFormats != null && goodsFormats.length > 0){
-			List<GoodsFormat> goodsFormatList = new ArrayList<GoodsFormat>();
-			for(Integer formatId:goodsFormats){
-				GoodsFormat gf = new GoodsFormat();
-				gf.setFormatId(formatId);
-				gf.setGoodsId(goodsId);
-				goodsFormatList.add(gf);
+		//
+		if(goodsTags != null && goodsTags.length > 0){
+			List<GoodsTag> goodsTagList = new ArrayList<GoodsTag>();
+			for(Integer tagId:goodsTags){
+				GoodsTag gt = new GoodsTag();
+				gt.setTagId(tagId);
+				gt.setGoodsId(goodsId);
+				goodsTagList.add(gt);
 			}
-			goodsFormatDao.saveBatch(goodsFormatList);
+			goodsTagDao.saveBatch(goodsTagList);
 		}
 
+		//
+		if(formats!=null){
+			for(Format format : formats){
+				format.setGoodsId(goods.getId());
+				formatDao.insert(format);
+				if(format != null && format.getFormatSubs() != null){
+					for(FormatSub fs : format.getFormatSubs()){
+						fs.setFormatId(format.getId());
+						formatSubDao.insert(fs);
+					}
+				}
+			}
+			//依赖关系处理
+			for(int i=0; i<formats.size(); i++){
+				Format fomart = formats.get(i);
+				if(fomart.getFormatSubs()!=null){
+					for(FormatSub fs:fomart.getFormatSubs()){
+						formatRelyDao.deleteByFormatSubId(fs.getId());
+						if(fs.getRelyFormatSubIds()!=null){
+							for(Integer relyId:fs.getRelyFormatSubIds()){
+								for(Format format2:formats){
+									if(format2.getFormatSubs()!=null){
+										for(FormatSub fs2:format2.getFormatSubs()){
+											if(fs2.getFormatSubFalg().equals(""+relyId)){
+												FormatRely formatRely = new FormatRely();
+												formatRely.setRelyFormatSubId(fs2.getId());
+												formatRely.setFormatSubId(fs.getId());
+												formatRelyDao.save(formatRely);
+												break;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 
+		//图片处理
 		if(goodsImgs!=null && goodsImgs.length > 0){
 			List<Pic> goodsImgList = new ArrayList<Pic>();
 			for(String goodsImg:goodsImgs){
@@ -177,39 +224,91 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public Response updateGoods(GoodsItem goodsItem) throws BaseException{
-		int goodsId = goodsItem.getId();
-		goodsDao.update(goodsItem.getGoods());
-		Integer[] goodsFormats = goodsItem.getGoodsFormats();
-		Integer[] goodsActivitys = goodsItem.getGoodsActivitys();
-		String[] goodsImgs = goodsItem.getGoodsImgs();
-		
-		List<GoodsActivity> goodsActivityList = new ArrayList<GoodsActivity>();
-		if(goodsActivitys!=null){
+	public Response updateGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags, Integer[] goodsActivitys, String[] goodsImgs) throws BaseException{
+		Goods goods = new Goods(goodsBean);
+		goodsDao.update(goods);
+		int goodsId = goods.getId();
+		//
+		goodsActivityDao.deleteByGoodsId(goodsId);
+		if(goodsActivitys != null && goodsActivitys.length > 0){
+			List<GoodsActivity> goodsActivityList = new ArrayList<GoodsActivity>();
 			for(Integer activityId:goodsActivitys){
 				GoodsActivity ga = new GoodsActivity();
 				ga.setActivityId(activityId);
 				ga.setGoodsId(goodsId);
 				goodsActivityList.add(ga);
 			}
+			goodsActivityDao.saveBatch(goodsActivityList);
 		}
-		goodsActivityDao.deleteByGoodsId(goodsId);
-		goodsActivityDao.saveBatch(goodsActivityList);
+		//
+		goodsTagDao.deleteByGoodsId(goodsId);
+		if(goodsTags != null && goodsTags.length > 0){
+			List<GoodsTag> goodsTagList = new ArrayList<GoodsTag>();
+			for(Integer tagId:goodsTags){
+				GoodsTag gt = new GoodsTag();
+				gt.setTagId(tagId);
+				gt.setGoodsId(goodsId);
+				goodsTagList.add(gt);
+			}
+			goodsTagDao.saveBatch(goodsTagList);
+		}
+		//
+		if(formats!=null){
+			for(Format format : formats){
+				if(format != null){
+					format.setGoodsId(goodsId);
+					if(format.getId()!=null && format.getId()>0){
+						formatDao.update(format);
+					}else{
+						formatDao.insert(format);
+					}
+					if(format.getFormatSubs() != null){
+						for(FormatSub fs : format.getFormatSubs()){
+							fs.setFormatId(format.getId());
+							if(fs.getId()!=null && fs.getId()>0){
+								formatSubDao.update(fs);
+							}else{
+								formatSubDao.insert(fs);
+							}
 
-		List<GoodsFormat> goodsFormatList = new ArrayList<GoodsFormat>();
-		if(goodsFormats!=null){
-			for(Integer formatId:goodsFormats){
-				GoodsFormat gf = new GoodsFormat();
-				gf.setFormatId(formatId);
-				gf.setGoodsId(goodsId);
-				goodsFormatList.add(gf);
+						}
+					}
+				}
+			}
+			//依赖关系处理
+			for(int i=0; i<formats.size(); i++){
+				Format fomart = formats.get(i);
+				if(fomart.getFormatSubs()!=null){
+					for(FormatSub fs:fomart.getFormatSubs()){
+						formatRelyDao.deleteByFormatSubId(fs.getId());
+						if(fs.getRelyFormatSubIds()!=null){
+							for(Integer relyId:fs.getRelyFormatSubIds()){
+								for(Format format2:formats){
+									if(format2.getFormatSubs()!=null){
+										for(FormatSub fs2:format2.getFormatSubs()){
+											if(fs2.getFormatSubFalg().equals(""+relyId)){
+												FormatRely formatRely = new FormatRely();
+												formatRely.setRelyFormatSubId(fs2.getId());
+												formatRely.setFormatSubId(fs.getId());
+												formatRelyDao.save(formatRely);
+												break;
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
-		goodsFormatDao.deleteByGoodsId(goodsId);
-		goodsFormatDao.saveBatch(goodsFormatList);
-		
-		System.out.println(goodsImgs);
-		System.out.println(goodsImgs.length);
+
+		//图片处理
+		Map delPicWhere = new HashMap();
+		delPicWhere.put("objectId", goodsId);
+		delPicWhere.put("type", Constants.PIC_GOODS);
+		picDao.deleteByWhere(delPicWhere);
+
 		List<Pic> goodsImgList = new ArrayList<Pic>();
 		if(goodsImgs!=null){
 			for(String goodsImg:goodsImgs){
@@ -219,12 +318,9 @@ public class GoodsServiceImpl implements GoodsService{
 				pic.setType(Constants.PIC_GOODS);
 				goodsImgList.add(pic);
 			}
+			picDao.saveBatch(goodsImgList);
 		}
-		Map delPicWhere = new HashMap();
-		delPicWhere.put("objectId", goodsId);
-		delPicWhere.put("type", Constants.PIC_GOODS);
-		picDao.deleteByWhere(delPicWhere);
-		picDao.saveBatch(goodsImgList);
+
 		return Result.success();
 	}
 
@@ -251,6 +347,8 @@ public class GoodsServiceImpl implements GoodsService{
 
 		//活动
 		//List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
+		//goodsVO.setActivityBeanList(activityBeanList);
+
 		//规格
 		List<FormatBean> formatBeanList = formatDao.findFormatByGoodsId(id);
 		if(formatBeanList!=null){
@@ -259,12 +357,15 @@ public class GoodsServiceImpl implements GoodsService{
 				fb.setFormatSubBeanList(formatSubBeanList);
 			}
 		}
+		goodsBean.setFormatList(formatBeanList);
+
 		//图片处理
 		List<PicBean> tpicList =  picService.findPic(goodsBean.getId(), Constants.PIC_GOODS);
-
-		//goodsVO.setActivityBeanList(activityBeanList);
-		goodsBean.setFormatList(formatBeanList);
 		goodsBean.setPicList(tpicList);
+
+
+
+
 
 		return Result.resultSet(goodsBean);
 	}

@@ -13,7 +13,7 @@
     goods_id, format_id, create_time, update_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsFormatKey" resultMap="BaseResultMap">
+  <select id="findById"  resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_goods_format
@@ -21,13 +21,13 @@
       AND format_id = #{formatId,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsFormatKey">
+  <delete id="deleteById">
     DELETE FROM t_goods_format
     WHERE goods_id = #{goodsId,jdbcType=INTEGER}
       AND format_id = #{formatId,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsFormat">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.GoodsFormat">
     INSERT INTO t_goods_format
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="goodsId != null">
@@ -51,7 +51,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsFormat">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.GoodsFormat">
     UPDATE t_goods_format
     <set>
       update_time = now(),

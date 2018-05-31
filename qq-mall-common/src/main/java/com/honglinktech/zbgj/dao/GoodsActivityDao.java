@@ -6,7 +6,6 @@ package com.honglinktech.zbgj.dao;
 
 import com.honglinktech.zbgj.bean.ActivityBean;
 import com.honglinktech.zbgj.entity.GoodsActivity;
-import com.honglinktech.zbgj.entity.GoodsActivityKey;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -14,13 +13,13 @@ import java.util.List;
 public interface GoodsActivityDao {
 
 
-    int deleteByPrimaryKey(GoodsActivityKey key);
+    int deleteByPrimaryKey(@Param(value = "goodsId") Integer goodsId, @Param(value = "activityId") Integer activityId);
 
 
     int insert(GoodsActivity record);
 
 
-    GoodsActivity findById(GoodsActivityKey key);
+    GoodsActivity findById(@Param(value = "goodsId") Integer goodsId, @Param(value = "activityId") Integer activityId);
 
 
     int update(GoodsActivity record);

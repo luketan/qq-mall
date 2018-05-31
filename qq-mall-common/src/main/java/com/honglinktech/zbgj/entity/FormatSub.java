@@ -6,6 +6,7 @@ package com.honglinktech.zbgj.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class FormatSub {
     /**
@@ -67,6 +68,9 @@ public class FormatSub {
      * 修改时间
      */
     private Date updateTime;
+
+    private List<Integer> relyFormatSubIds;
+    private String formatSubFalg;
 
     public Integer getId() {
         return id;
@@ -162,5 +166,21 @@ public class FormatSub {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Integer> getRelyFormatSubIds() {
+        return relyFormatSubIds;
+    }
+
+    public void setRelyFormatSubIds(List<Integer> relyFormatSubIds) {
+        this.relyFormatSubIds = relyFormatSubIds;
+    }
+
+    public String getFormatSubFalg() {
+        return formatSubFalg;
+    }
+
+    public void setFormatSubFalg(String formatSubFalg) {
+        this.formatSubFalg = formatSubFalg;
     }
 }

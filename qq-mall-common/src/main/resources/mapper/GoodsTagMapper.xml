@@ -6,14 +6,13 @@
     <id column="goods_id" jdbcType="INTEGER" property="goodsId" />
     <id column="tag_id" jdbcType="INTEGER" property="tagId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    goods_id, tag_id, create_time, update_time
+    goods_id, tag_id, create_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsTagKey" resultMap="BaseResultMap">
+  <select id="findById" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_goods_tag
@@ -21,13 +20,18 @@
       AND tag_id = #{tagId,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="com.honglinktech.zbgj.entity.GoodsTagKey">
+  <delete id="deleteById">
     DELETE FROM t_goods_tag
-    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
-      AND tag_id = #{tagId,jdbcType=INTEGER}
+    WHERE 1=1
+      <if test="goodsId != null">
+        AND goods_id = #{goodsId,jdbcType=INTEGER}
+      </if>
+      <if test="tagId != null">
+        AND tag_id = #{tagId,jdbcType=INTEGER}
+      </if>
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.GoodsTag">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.GoodsTag">
     INSERT INTO t_goods_tag
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="goodsId != null">
@@ -36,8 +40,7 @@
       <if test="tagId != null">
         tag_id,
       </if>
-        create_time,
-        update_time,
+        create_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="goodsId != null">
@@ -47,11 +50,10 @@
         #{tagId,jdbcType=INTEGER},
       </if>
       now(),
-      now(),
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.GoodsTag">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.GoodsTag">
     UPDATE t_goods_tag
     <set>
         update_time = now(),
@@ -59,4 +61,28 @@
     WHERE goods_id = #{goodsId,jdbcType=INTEGER}
       AND tag_id = #{tagId,jdbcType=INTEGER}
   </update>
+
+
+  <delete id="deleteByGoodsId">
+    DELETE FROM t_goods_tag
+    WHERE goods_id = #{goodsId,jdbcType=INTEGER}
+  </delete>
+
+  <!--批量插入-->
+  <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.GoodsTag">
+    INSERT INTO t_goods_tag(
+    goods_id, tag_id, create_time
+    )
+    values
+    <if test="goodsTags != null and goodsTags.size &gt; 0">
+      <foreach collection="goodsTags" item="goodsTag" index="index"
+               open="" close="" separator=",">
+        (
+        #{goodsTag.goodsId,jdbcType=INTEGER},
+        #{goodsTag.tagId,jdbcType=INTEGER},
+        now()
+        )
+      </foreach>
+    </if>
+  </insert>
 </mapper>

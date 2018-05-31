@@ -6,7 +6,18 @@ package com.honglinktech.zbgj.entity;
 
 import java.util.Date;
 
-public class UserFriend extends UserFriendKey {
+public class UserFriend{
+
+    /**
+     * 用户ID
+     */
+    private Integer userId;
+
+    /**
+     * 好友ID
+     */
+    private Integer friendUserId;
+
     /**
      * 类型（1：好友申请，2：好友，3陌生人）
      */
@@ -41,6 +52,22 @@ public class UserFriend extends UserFriendKey {
      * 创建时间
      */
     private Date createTime;
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getFriendUserId() {
+        return friendUserId;
+    }
+
+    public void setFriendUserId(Integer friendUserId) {
+        this.friendUserId = friendUserId;
+    }
 
     public Integer getType() {
         return type;
