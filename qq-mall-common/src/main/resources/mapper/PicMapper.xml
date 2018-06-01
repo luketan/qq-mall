@@ -44,10 +44,10 @@
       <if test="urlType != null">
         url_type,
       </if>
-      <if test="picTitle != null and picTitle != ''">
+      <if test="picTitle != null">
         pic_title,
       </if>
-      <if test="picUrl != null and picUrl != ''">
+      <if test="picUrl != null">
         pic_url,
       </if>
         create_time,
@@ -66,10 +66,10 @@
       <if test="urlType != null">
         #{urlType,jdbcType=INTEGER},
       </if>
-      <if test="picTitle != null and picTitle != ''">
+      <if test="picTitle != null">
         #{picTitle,jdbcType=VARCHAR},
       </if>
-      <if test="picUrl != null and picUrl != ''">
+      <if test="picUrl != null">
         #{picUrl,jdbcType=VARCHAR},
       </if>
       now(),
@@ -89,10 +89,10 @@
       <if test="urlType != null">
         url_type = #{urlType,jdbcType=INTEGER},
       </if>
-      <if test="picTitle != null and picTitle != ''">
+      <if test="picTitle != null">
         pic_title = #{picTitle,jdbcType=VARCHAR},
       </if>
-      <if test="picUrl != null and picUrl != ''">
+      <if test="picUrl != null">
         pic_url = #{picUrl,jdbcType=VARCHAR},
       </if>
       update_time = now(),

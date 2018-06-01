@@ -43,13 +43,13 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         `name`,
       </if>
-      <if test="condition != null and condition != ''">
+      <if test="condition != null">
         `condition`,
       </if>
-      <if test="detail != null and detail != ''">
+      <if test="detail != null">
         detail,
       </if>
       <if test="goodsType != null">
@@ -77,13 +77,13 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="condition != null and condition != ''">
+      <if test="condition != null">
         #{condition,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null and detail != ''">
+      <if test="detail != null">
         #{detail,jdbcType=VARCHAR},
       </if>
       <if test="goodsType != null">
@@ -112,13 +112,13 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Coupon">
     UPDATE t_coupon
     <set>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="condition != null and condition != ''">
+      <if test="condition != null">
         `condition` = #{condition,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null and detail != ''">
+      <if test="detail != null">
         detail = #{detail,jdbcType=VARCHAR},
       </if>
       <if test="goodsType != null">

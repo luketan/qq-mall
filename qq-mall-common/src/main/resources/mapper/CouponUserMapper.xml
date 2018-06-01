@@ -45,7 +45,7 @@
       <if test="checked != null">
         checked,
       </if>
-      <if test="code != null and code != ''">
+      <if test="code != null">
         code,
       </if>
       <if test="status != null">
@@ -66,7 +66,7 @@
       <if test="checked != null">
         #{checked,jdbcType=INTEGER},
       </if>
-      <if test="code != null and code != ''">
+      <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
@@ -88,7 +88,7 @@
       <if test="checked != null">
         checked = #{checked,jdbcType=INTEGER},
       </if>
-      <if test="code != null and code != ''">
+      <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="status != null">

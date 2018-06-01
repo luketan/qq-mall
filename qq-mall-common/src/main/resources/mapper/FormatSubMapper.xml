@@ -43,10 +43,10 @@
       <if test="formatId != null">
         format_id,
       </if>
-      <if test="formatName != null and formatName != ''">
+      <if test="formatName != null">
         format_name,
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name,
       </if>
       <if test="price != null">
@@ -58,7 +58,7 @@
       <if test="select != null">
         select,
       </if>
-      <if test="args != null and args != ''">
+      <if test="args != null">
         args,
       </if>
       <if test="deleteFlag != null">
@@ -77,10 +77,10 @@
       <if test="formatId != null">
         #{formatId,jdbcType=INTEGER},
       </if>
-      <if test="formatName != null and formatName != ''">
+      <if test="formatName != null">
         #{formatName,jdbcType=VARCHAR},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
@@ -92,7 +92,7 @@
       <if test="select != null">
         #{select,jdbcType=INTEGER},
       </if>
-      <if test="args != null and args != ''">
+      <if test="args != null">
         #{args,jdbcType=VARCHAR},
       </if>
       <if test="deleteFlag != null">
@@ -112,10 +112,10 @@
       <if test="formatId != null">
         format_id = #{formatId,jdbcType=INTEGER},
       </if>
-      <if test="formatName != null and formatName != ''">
+      <if test="formatName != null">
         format_name = #{formatName,jdbcType=VARCHAR},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
@@ -127,7 +127,7 @@
       <if test="select != null">
         `select` = #{select,jdbcType=INTEGER},
       </if>
-      <if test="args != null and args != ''">
+      <if test="args != null">
         args = #{args,jdbcType=VARCHAR},
       </if>
       <if test="deleteFlag != null">

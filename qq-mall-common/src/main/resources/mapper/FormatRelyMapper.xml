@@ -9,11 +9,11 @@
             resultType="int">
         select
         fr.rely_format_sub_id AS relyFormatSubId
-        from tb_format_rely as fr where fr.format_sub_id = #{formatSubId}
+        from t_format_rely as fr where fr.format_sub_id = #{formatSubId}
     </select>
     <!-- 保存 -->
     <insert id="save" parameterType="com.honglinktech.zbgj.entity.FormatRely">
-        INSERT INTO tb_format_rely
+        INSERT INTO t_format_rely
         (
         `format_sub_id`,
         `rely_format_sub_id`
@@ -27,7 +27,7 @@
     <!-- 更新-->
     <update id="update"
             parameterType="com.honglinktech.zbgj.entity.FormatRely">
-        UPDATE tb_format_rely
+        UPDATE t_format_rely
         SET
         WHERE
         format_sub_id = #{formatSubId}
@@ -35,7 +35,7 @@
     <!-- 删除-->
     <delete id="deleteByFormatSubId"
             parameterType="int">
-        delete from  tb_format_rely
+        delete from t_format_rely
         WHERE
         format_sub_id = #{formatSubId}
     </delete>

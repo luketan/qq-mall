@@ -43,13 +43,13 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name,
       </if>
-      <if test="code != null and code != ''">
+      <if test="code != null">
         code,
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         remark,
       </if>
         create_time,
@@ -62,13 +62,13 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="code != null and code != ''">
+      <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
       now(),
@@ -82,13 +82,13 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.SystemConfig">
     UPDATE t_system_config
     <set>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="code != null and code != ''">
+      <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
       update_time = now(),

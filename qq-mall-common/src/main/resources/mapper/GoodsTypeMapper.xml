@@ -39,13 +39,13 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name,
       </if>
-      <if test="ico != null and ico != ''">
+      <if test="ico != null">
         ico,
       </if>
-      <if test="img != null and img != ''">
+      <if test="img != null">
         img,
       </if>
       <if test="sort != null">
@@ -57,10 +57,10 @@
       <if test="sale != null">
         sale,
       </if>
-      <if test="summary != null and summary != ''">
+      <if test="summary != null">
         summary,
       </if>
-      <if test="search != null and search != ''">
+      <if test="search != null">
         search,
       </if>
       <if test="deleteFlag != null">
@@ -73,7 +73,7 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="ico != null">
@@ -91,10 +91,10 @@
       <if test="sort != null">
         #{sort,jdbcType=INTEGER},
       </if>
-      <if test="summary != null and summary != ''">
+      <if test="summary != null">
         #{summary,jdbcType=VARCHAR},
       </if>
-      <if test="search != null and search != ''">
+      <if test="search != null">
         #{search,jdbcType=VARCHAR},
       </if>
       <if test="deleteFlag != null">

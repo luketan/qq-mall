@@ -48,16 +48,16 @@
       <if test="goodsId != null">
         goods_id,
       </if>
-      <if test="goodsName != null and goodsName != ''">
+      <if test="goodsName != null">
         goods_name,
       </if>
-      <if test="goodsImg != null and goodsImg != ''">
+      <if test="goodsImg != null">
         goods_img,
       </if>
-      <if test="formats != null and formats != ''">
+      <if test="formats != null">
         formats,
       </if>
-      <if test="activitys != null and activitys != ''">
+      <if test="activitys != null">
         activitys,
       </if>
       <if test="num != null">
@@ -69,7 +69,7 @@
       <if test="marketPrice != null">
         market_price,
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         remark,
       </if>
       <if test="disIs != null">
@@ -88,16 +88,16 @@
       <if test="goodsId != null">
         #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="goodsName != null and goodsName != ''">
+      <if test="goodsName != null">
         #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="goodsImg != null and goodsImg != ''">
+      <if test="goodsImg != null">
         #{goodsImg,jdbcType=VARCHAR},
       </if>
-      <if test="formats != null and formats != ''">
+      <if test="formats != null">
         #{formats,jdbcType=VARCHAR},
       </if>
-      <if test="activitys != null and activitys != ''">
+      <if test="activitys != null">
         #{activitys,jdbcType=VARCHAR},
       </if>
       <if test="num != null">
@@ -109,7 +109,7 @@
       <if test="marketPrice != null">
         #{marketPrice,jdbcType=DECIMAL},
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
       <if test="disIs != null">
@@ -129,16 +129,16 @@
       <if test="goodsId != null">
         goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="goodsName != null and goodsName != ''">
+      <if test="goodsName != null">
         goods_name = #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="goodsImg != null and goodsImg != ''">
+      <if test="goodsImg != null">
         goods_img = #{goodsImg,jdbcType=VARCHAR},
       </if>
-      <if test="formats != null and formats != ''">
+      <if test="formats != null">
         formats = #{formats,jdbcType=VARCHAR},
       </if>
-      <if test="activitys != null and activitys != ''">
+      <if test="activitys != null">
         activitys = #{activitys,jdbcType=VARCHAR},
       </if>
       <if test="num != null">
@@ -150,7 +150,7 @@
       <if test="marketPrice != null">
         market_price = #{marketPrice,jdbcType=DECIMAL},
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="disIs != null">

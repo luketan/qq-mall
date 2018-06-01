@@ -46,10 +46,10 @@
       <if test="goodsId != null">
         goods_id,
       </if>
-      <if test="goodsName != null and goodsName != ''">
+      <if test="goodsName != null">
         goods_name,
       </if>
-      <if test="imageUrl != null and imageUrl != ''">
+      <if test="imageUrl != null">
         image_url,
       </if>
       <if test="price != null">
@@ -61,7 +61,7 @@
       <if test="formatId != null">
         format_id,
       </if>
-      <if test="formatName != null and formatName != ''">
+      <if test="formatName != null">
         format_name,
       </if>
       <if test="num != null">
@@ -83,10 +83,10 @@
       <if test="goodsId != null">
         #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="goodsName != null and goodsName != ''">
+      <if test="goodsName != null">
         #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null and imageUrl != ''">
+      <if test="imageUrl != null">
         #{imageUrl,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
@@ -98,7 +98,7 @@
       <if test="formatId != null">
         #{formatId,jdbcType=INTEGER},
       </if>
-      <if test="formatName != null and formatName != ''">
+      <if test="formatName != null">
         #{formatName,jdbcType=VARCHAR},
       </if>
       <if test="num != null">
@@ -122,10 +122,10 @@
       <if test="goodsId != null">
         goods_id = #{goodsId,jdbcType=INTEGER},
       </if>
-      <if test="goodsName != null and goodsName != ''">
+      <if test="goodsName != null">
         goods_name = #{goodsName,jdbcType=VARCHAR},
       </if>
-      <if test="imageUrl != null and imageUrl != ''">
+      <if test="imageUrl != null">
         image_url = #{imageUrl,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
@@ -137,7 +137,7 @@
       <if test="formatId != null">
         format_id = #{formatId,jdbcType=INTEGER},
       </if>
-      <if test="formatName != null and formatName != ''">
+      <if test="formatName != null">
         format_name = #{formatName,jdbcType=VARCHAR},
       </if>
       <if test="num != null">
@@ -215,10 +215,10 @@
       user_id = #{userId,jdbcType=INTEGER},
       goods_id = #{goodsId,jdbcType=INTEGER},
       <set>
-        <if test="goodsName != null and goodsName != ''">
+        <if test="goodsName != null">
           goods_name = #{goodsName,jdbcType=VARCHAR},
         </if>
-        <if test="imageUrl != null and imageUrl != ''">
+        <if test="imageUrl != null">
           image_url = #{imageUrl,jdbcType=VARCHAR},
         </if>
         <if test="price != null">
@@ -230,7 +230,7 @@
         <if test="formatId != null">
           format_id = #{formatId,jdbcType=INTEGER},
         </if>
-        <if test="formatName != null and formatName != ''">
+        <if test="formatName != null">
           format_name = #{formatName,jdbcType=VARCHAR},
         </if>
         <if test="num != null">

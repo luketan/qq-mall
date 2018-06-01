@@ -40,13 +40,13 @@
       <if test="activityId != null">
         activity_id,
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name,
       </if>
-      <if test="url != null and url != ''">
+      <if test="url != null">
         url,
       </if>
-      <if test="detail != null and detail != ''">
+      <if test="detail != null">
         detail,
       </if>
         create_time,
@@ -61,13 +61,13 @@
       <if test="activityId != null">
         #{activityId,jdbcType=INTEGER},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="url != null and url != ''">
+      <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null and detail != ''">
+      <if test="detail != null">
         #{detail,jdbcType=VARCHAR},
       </if>
        now(),
@@ -83,13 +83,13 @@
       <if test="activityId != null">
         activity_id = #{activityId,jdbcType=INTEGER},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="url != null and url != ''">
+      <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
       </if>
-      <if test="detail != null and detail != ''">
+      <if test="detail != null">
         detail = #{detail,jdbcType=VARCHAR},
       </if>
       create_time = now(),

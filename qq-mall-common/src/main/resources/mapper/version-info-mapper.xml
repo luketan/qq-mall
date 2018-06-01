@@ -41,10 +41,10 @@
           useGeneratedKeys="true" keyProperty="id">
     INSERT INTO t_version_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="lowestVersion != null and lowestVersion != ''" >
+      <if test="lowestVersion != null" >
         lowest_version,
       </if>
-      <if test="latestVersion != null and latestVersion != ''" >
+      <if test="latestVersion != null" >
         latest_version,
       </if>
       <if test="title != null" >
@@ -62,16 +62,16 @@
       <if test="updateInfo != null" >
         update_info,
       </if>
-      <if test="updateUrl != null and updateUrl != ''" >
+      <if test="updateUrl != null" >
         update_url,
       </if>
-      <if test="fileSize != null and fileSize != ''" >
+      <if test="fileSize != null" >
         file_size,
       </if>
-      <if test="type != null and type != ''" >
+      <if test="type != null" >
         type,
       </if>
-      <if test="osType != null and osType != ''" >
+      <if test="osType != null" >
         os_type,
       </if>
       <if test="enforce != null" >
@@ -102,16 +102,16 @@
       <if test="sha != null" >
         #{sha,jdbcType=VARCHAR},
       </if>
-      <if test="updateUrl != null and updateUrl != ''" >
+      <if test="updateUrl != null" >
         #{updateUrl,jdbcType=VARCHAR},
       </if>
-      <if test="fileSize != null and fileSize != ''" >
+      <if test="fileSize != null" >
         #{fileSize,jdbcType=VARCHAR},
       </if>
-      <if test="type != null and type != ''" >
+      <if test="type != null" >
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="osType != null and osType != ''" >
+      <if test="osType != null" >
         #{osType,jdbcType=VARCHAR},
       </if>
       <if test="enforce != null" >

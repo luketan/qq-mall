@@ -212,7 +212,7 @@
       <if test="battery != null" >
         battery = #{battery,jdbcType=INTEGER},
       </if>
-      <if test="cpu != null and cpu != ''" >
+      <if test="cpu != null" >
         cpu = #{cpu,jdbcType=VARCHAR},
       </if>
       <if test="cpuFreq != null" >

@@ -69,10 +69,10 @@
   <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Goods"  useGeneratedKeys="true" keyProperty="id">
     INSERT INTO t_goods
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null and name != ''">
+      <if test="name != null">
         `name`,
       </if>
-      <if test="subName != null and subName != ''">
+      <if test="subName != null">
         sub_name,
       </if>
       <if test="salesNum != null">
@@ -114,7 +114,7 @@
       <if test="status != null">
         status,
       </if>
-      <if test="imgUrl != null and imgUrl != ''">
+      <if test="imgUrl != null">
         img_url,
       </if>
       <if test="sort != null">
@@ -127,10 +127,10 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="subName != null and subName != ''">
+      <if test="subName != null">
         #{subName,jdbcType=VARCHAR},
       </if>
       <if test="salesNum != null">
@@ -172,7 +172,7 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="imgUrl != null and imgUrl != ''">
+      <if test="imgUrl != null">
         #{imgUrl,jdbcType=VARCHAR},
       </if>
       <if test="sort != null">
@@ -189,10 +189,10 @@
   <update id="update" parameterType="com.honglinktech.zbgj.entity.Goods">
     UPDATE t_goods
     <set>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         `name` = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="subName != null and subName != ''">
+      <if test="subName != null">
         sub_name = #{subName,jdbcType=VARCHAR},
       </if>
       <if test="salesNum != null">
@@ -234,7 +234,7 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="imgUrl != null and imgUrl != ''">
+      <if test="imgUrl != null">
         img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
       <if test="sort != null">

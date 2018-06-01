@@ -49,22 +49,22 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="userName != null and userName != ''">
+      <if test="userName != null">
         user_name,
       </if>
       <if test="goodsFormatId != null">
         goods_format_id,
       </if>
-      <if test="goodsFormat != null and goodsFormat != ''">
+      <if test="goodsFormat != null">
         goods_format,
       </if>
-      <if test="content != null and content != ''">
+      <if test="content != null">
         content,
       </if>
       <if test="replyTime != null">
         reply_time,
       </if>
-      <if test="typeValue != null and typeValue != ''">
+      <if test="typeValue != null">
         type_value,
       </if>
       <if test="disValue != null">
@@ -95,22 +95,22 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="userName != null and userName != ''">
+      <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
       <if test="goodsFormatId != null">
         #{goodsFormatId,jdbcType=INTEGER},
       </if>
-      <if test="goodsFormat != null and goodsFormat != ''">
+      <if test="goodsFormat != null">
         #{goodsFormat,jdbcType=VARCHAR},
       </if>
-      <if test="content != null and content != ''">
+      <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
       <if test="replyTime != null">
         #{replyTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="typeValue != null and typeValue != ''">
+      <if test="typeValue != null">
         #{typeValue,jdbcType=VARCHAR},
       </if>
       <if test="disValue != null">
@@ -142,22 +142,22 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="userName != null and userName != ''">
+      <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="goodsFormatId != null">
         goods_format_id = #{goodsFormatId,jdbcType=INTEGER},
       </if>
-      <if test="goodsFormat != null and goodsFormat != ''">
+      <if test="goodsFormat != null">
         goods_format = #{goodsFormat,jdbcType=VARCHAR},
       </if>
-      <if test="content != null and content != ''">
+      <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="replyTime != null">
         reply_time = #{replyTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="typeValue != null and typeValue != ''">
+      <if test="typeValue != null">
         type_value = #{typeValue,jdbcType=VARCHAR},
       </if>
       <if test="disValue != null">

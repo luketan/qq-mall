@@ -41,22 +41,22 @@
       <if test="id != null">
         id,
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name,
       </if>
       <if test="type != null">
         type,
       </if>
-      <if test="img != null and img != ''">
+      <if test="img != null">
         img,
       </if>
       <if test="sale != null">
         sale,
       </if>
-      <if test="title != null and title != ''">
+      <if test="title != null">
         title,
       </if>
-      <if test="subtitle != null and subtitle != ''">
+      <if test="subtitle != null">
         subtitle,
       </if>
       <if test="showMain != null">
@@ -69,22 +69,22 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
-      <if test="img != null and img != ''">
+      <if test="img != null">
         #{img,jdbcType=VARCHAR},
       </if>
       <if test="sale != null">
         #{sale,jdbcType=BIT},
       </if>
-      <if test="title != null and title != ''">
+      <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="subtitle != null and subtitle != ''">
+      <if test="subtitle != null">
         #{subtitle,jdbcType=VARCHAR},
       </if>
       <if test="showMain != null">

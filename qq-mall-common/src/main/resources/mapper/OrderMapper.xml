@@ -69,7 +69,7 @@
       <if test="id != null">
         id,
       </if>
-      <if test="orderCode != null and orderCode != ''">
+      <if test="orderCode != null">
         order_code,
       </if>
       <if test="userId != null">
@@ -84,7 +84,7 @@
       <if test="paymentId != null">
         payment_Id,
       </if>
-      <if test="paymentName != null and paymentName != ''">
+      <if test="paymentName != null">
         payment_name,
       </if>
       <if test="payStatus != null">
@@ -96,10 +96,10 @@
       <if test="postId != null">
         post_id,
       </if>
-      <if test="postName != null and postName != ''">
+      <if test="postName != null">
         post_name,
       </if>
-      <if test="postCode != null and postCode != ''">
+      <if test="postCode != null">
         post_code,
       </if>
       <if test="postMoney != null">
@@ -114,19 +114,19 @@
       <if test="invoiceIs != null">
         invoice_is,
       </if>
-      <if test="invoiceHead != null and invoiceHead != ''">
+      <if test="invoiceHead != null">
         invoice_head,
       </if>
       <if test="addressId != null">
         address_id,
       </if>
-      <if test="address != null and address != ''">
+      <if test="address != null">
         address,
       </if>
       <if test="couponId != null">
         coupon_id,
       </if>
-      <if test="coupon != null and coupon != ''">
+      <if test="coupon != null">
         coupon,
       </if>
       <if test="push != null">
@@ -141,10 +141,10 @@
       <if test="form != null">
         form,
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         remark,
       </if>
-      <if test="explain != null and explain != ''">
+      <if test="explain != null">
         explain,
       </if>
         update_time,
@@ -157,7 +157,7 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="orderCode != null and orderCode != ''">
+      <if test="orderCode != null">
         #{orderCode,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
@@ -172,7 +172,7 @@
       <if test="paymentId != null">
         #{paymentId,jdbcType=INTEGER},
       </if>
-      <if test="paymentName != null and paymentName != ''">
+      <if test="paymentName != null">
         #{paymentName,jdbcType=VARCHAR},
       </if>
       <if test="payStatus != null">
@@ -184,10 +184,10 @@
       <if test="postId != null">
         #{postId,jdbcType=INTEGER},
       </if>
-      <if test="postName != null and postName != ''">
+      <if test="postName != null">
         #{postName,jdbcType=VARCHAR},
       </if>
-      <if test="postCode != null and postCode != ''">
+      <if test="postCode != null">
         #{postCode,jdbcType=VARCHAR},
       </if>
       <if test="postMoney != null">
@@ -202,19 +202,19 @@
       <if test="invoiceIs != null">
         #{invoiceIs,jdbcType=INTEGER},
       </if>
-      <if test="invoiceHead != null and invoiceHead != ''">
+      <if test="invoiceHead != null">
         #{invoiceHead,jdbcType=VARCHAR},
       </if>
       <if test="addressId != null">
         #{addressId,jdbcType=INTEGER},
       </if>
-      <if test="address != null and address != ''">
+      <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
       <if test="couponId != null">
         #{couponId,jdbcType=INTEGER},
       </if>
-      <if test="coupon != null and coupon != ''">
+      <if test="coupon != null">
         #{coupon,jdbcType=VARCHAR},
       </if>
       <if test="push != null">
@@ -229,10 +229,10 @@
       <if test="form != null">
         #{form,jdbcType=INTEGER},
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="explain != null and explain != ''">
+      <if test="explain != null">
         #{explain,jdbcType=VARCHAR},
       </if>
       now(),
@@ -246,7 +246,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Order">
     UPDATE t_order
     <set>
-      <if test="orderCode != null and orderCode != ''">
+      <if test="orderCode != null">
         order_code = #{orderCode,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
@@ -261,7 +261,7 @@
       <if test="paymentId != null">
         payment_Id = #{paymentId,jdbcType=INTEGER},
       </if>
-      <if test="paymentName != null and paymentName != ''">
+      <if test="paymentName != null">
         payment_name = #{paymentName,jdbcType=VARCHAR},
       </if>
       <if test="payStatus != null">
@@ -273,10 +273,10 @@
       <if test="postId != null">
         post_id = #{postId,jdbcType=INTEGER},
       </if>
-      <if test="postName != null and postName != ''">
+      <if test="postName != null">
         post_name = #{postName,jdbcType=VARCHAR},
       </if>
-      <if test="postCode != null and postCode != ''">
+      <if test="postCode != null">
         post_code = #{postCode,jdbcType=VARCHAR},
       </if>
       <if test="postMoney != null">
@@ -291,19 +291,19 @@
       <if test="invoiceIs != null">
         invoice_is = #{invoiceIs,jdbcType=INTEGER},
       </if>
-      <if test="invoiceHead != null and invoiceHead != ''">
+      <if test="invoiceHead != null">
         invoice_head = #{invoiceHead,jdbcType=VARCHAR},
       </if>
       <if test="addressId != null">
         address_id = #{addressId,jdbcType=INTEGER},
       </if>
-      <if test="address != null and address != ''">
+      <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="couponId != null">
         coupon_id = #{couponId,jdbcType=INTEGER},
       </if>
-      <if test="coupon != null and coupon != ''">
+      <if test="coupon != null">
         coupon = #{coupon,jdbcType=VARCHAR},
       </if>
       <if test="push != null">
@@ -318,10 +318,10 @@
       <if test="form != null">
         form = #{form,jdbcType=INTEGER},
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
-      <if test="explain != null and explain != ''">
+      <if test="explain != null">
         explain = #{explain,jdbcType=VARCHAR},
       </if>
       update_time = now(),
