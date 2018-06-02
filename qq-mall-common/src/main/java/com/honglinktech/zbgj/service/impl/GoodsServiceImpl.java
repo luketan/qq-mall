@@ -1,40 +1,20 @@
 package com.honglinktech.zbgj.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.base.BaseException;
-import com.honglinktech.zbgj.bean.ActivityBean;
-import com.honglinktech.zbgj.bean.FormatBean;
-import com.honglinktech.zbgj.bean.FormatSubBean;
-import com.honglinktech.zbgj.bean.GoodsBean;
-import com.honglinktech.zbgj.bean.GoodsDisBean;
-import com.honglinktech.zbgj.bean.GoodsDisCountBean;
-import com.honglinktech.zbgj.bean.PicBean;
-import com.honglinktech.zbgj.bean.request.GoodsItem;
+import com.honglinktech.zbgj.bean.*;
 import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.dao.FormatDao;
-import com.honglinktech.zbgj.dao.FormatRelyDao;
-import com.honglinktech.zbgj.dao.FormatSubDao;
-import com.honglinktech.zbgj.dao.GoodsActivityDao;
-import com.honglinktech.zbgj.dao.GoodsDao;
-import com.honglinktech.zbgj.dao.GoodsFormatDao;
-import com.honglinktech.zbgj.dao.GoodsPhoneDao;
-import com.honglinktech.zbgj.dao.GoodsTagDao;
-import com.honglinktech.zbgj.dao.PicDao;
-import com.honglinktech.zbgj.entity.Format;
-import com.honglinktech.zbgj.entity.FormatRely;
-import com.honglinktech.zbgj.entity.FormatSub;
-import com.honglinktech.zbgj.entity.Goods;
-import com.honglinktech.zbgj.entity.GoodsActivity;
-import com.honglinktech.zbgj.entity.GoodsFormat;
-import com.honglinktech.zbgj.entity.GoodsPhone;
-import com.honglinktech.zbgj.entity.GoodsTag;
-import com.honglinktech.zbgj.entity.Pic;
+import com.honglinktech.zbgj.dao.*;
+import com.honglinktech.zbgj.entity.*;
 import com.honglinktech.zbgj.service.GoodsDisService;
 import com.honglinktech.zbgj.service.GoodsService;
 import com.honglinktech.zbgj.service.PicService;
 import com.honglinktech.zbgj.vo.GoodsVO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -45,6 +25,9 @@ import java.util.Map;
 
 @Component
 public class GoodsServiceImpl implements GoodsService{
+
+
+	protected final Logger logger = LogManager.getLogger(getClass());
 
 	@Resource
 	private GoodsDao goodsDao;
@@ -87,9 +70,8 @@ public class GoodsServiceImpl implements GoodsService{
 				fb.setFormatSubBeanList(formatSubBeanList);
 			}
 		}
-		//图片处理
-		List<PicBean> tpicList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
-		//List<TGoodsDis> tDisList = tgoodsDisDao.findByWhere(" WHERE goods_id = "+goodsBean.getId());
+		goodsVO.setFormatBeanList(formatBeanList);
+
 		//评论处理
 		Response<GoodsDisCountBean> gdcbResp = goodsDisService.findGoodsDisCount(id);
 		goodsVO.setGoodsDisCountBean(gdcbResp.getResult());
@@ -99,12 +81,16 @@ public class GoodsServiceImpl implements GoodsService{
 		whereMap.put("size", size+"");
 		Response<List<GoodsDisBean>> gdbResp = goodsDisService.findGoodsDisByPage(whereMap);
 		goodsVO.setGoodsDisBeanList(gdbResp.getResult());
+
+		//参数配置
 		GoodsPhone goodsPhone = goodsPhoneDao.findById(id);
 		if(goodsPhone != null){
 			goodsVO.setGoodsPhoneVO(goodsPhone.toVO());
 		}
 		goodsVO.setActivityBeanList(activityBeanList);
-		goodsVO.setFormatBeanList(formatBeanList);
+
+		//图片处理
+		List<PicBean> tpicList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
 		goodsVO.setPicList(tpicList);
 		//goodsBean.setGoodsDisList(tDisList);
 		return  Result.resultSet(goodsVO);
@@ -138,10 +124,16 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public Response saveGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags, Integer[] goodsActivitys, String[] goodsImgs) throws BaseException{
+	public Response saveGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags, Integer[] goodsActivitys, String[] goodsImgs) throws Exception{
 		Goods goods = new Goods(goodsBean);
 		goodsDao.insert(goods);
 		int goodsId = goods.getId();
+		//
+		if(goodsBean.getGoodsPhone() != null){
+			GoodsPhone goodsPhone = new GoodsPhone(goodsBean.getGoodsPhone());
+			goodsPhone.setId(goodsId);
+			goodsPhoneDao.update(goodsPhone);
+		}
 		//
 		if(goodsActivitys != null && goodsActivitys.length > 0){
 			List<GoodsActivity> goodsActivityList = new ArrayList<GoodsActivity>();
@@ -224,10 +216,16 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public Response updateGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags, Integer[] goodsActivitys, String[] goodsImgs) throws BaseException{
+	public Response updateGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags, Integer[] goodsActivitys, String[] goodsImgs) throws Exception{
 		Goods goods = new Goods(goodsBean);
 		goodsDao.update(goods);
 		int goodsId = goods.getId();
+		//
+		if(goodsBean.getGoodsPhone() != null){
+			GoodsPhone goodsPhone = new GoodsPhone(goodsBean.getGoodsPhone());
+			goodsPhone.setId(goodsId);
+			goodsPhoneDao.update(goodsPhone);
+		}
 		//
 		goodsActivityDao.deleteByGoodsId(goodsId);
 		if(goodsActivitys != null && goodsActivitys.length > 0){
@@ -316,6 +314,7 @@ public class GoodsServiceImpl implements GoodsService{
 				pic.setObjId(goodsId);
 				pic.setPicUrl(goodsImg);
 				pic.setType(Constants.PIC_GOODS);
+				pic.setUrlType(Constants.PIC_URL_TYPE_HTTP);
 				goodsImgList.add(pic);
 			}
 			picDao.saveBatch(goodsImgList);
@@ -363,8 +362,11 @@ public class GoodsServiceImpl implements GoodsService{
 		List<PicBean> tpicList =  picService.findPic(goodsBean.getId(), Constants.PIC_GOODS);
 		goodsBean.setPicList(tpicList);
 
-
-
+		//参数配置
+		GoodsPhone goodsPhone = goodsPhoneDao.findById(id);
+		if(goodsPhone != null){
+			goodsBean.setGoodsPhone(goodsPhone.toBean());
+		}
 
 
 		return Result.resultSet(goodsBean);

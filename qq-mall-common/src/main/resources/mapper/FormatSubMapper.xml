@@ -18,7 +18,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, format_id, format_name, name, price, vip_price, select, args, delete_flag, sort, 
+    id, format_id, format_name, name, price, vip_price, `select`, args, delete_flag, sort,
     create_time, update_time
   </sql>
 
@@ -34,7 +34,7 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.FormatSub">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.FormatSub" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO t_format_sub
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -56,7 +56,7 @@
         vip_price,
       </if>
       <if test="select != null">
-        select,
+        `select`,
       </if>
       <if test="args != null">
         args,

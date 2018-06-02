@@ -70,8 +70,8 @@ $('.multiImgFileUpload').change(function () {
                  ); */
                 $("#lunboImg").append(
                     '<div style="display: table;padding: 10px;width: 100%">' +
-                    '<div style="display: table-cell;width: 20%;vertical-align:middle;">' +
-                    '<img src="' + result.result.url + '" width="100%">' +
+                    '<div style="display: table-cell;width: 200px;vertical-align:middle;">' +
+                    '<img src="' + result.result.url + '" width="200px">' +
                     '</div>' +
                     '<div style="display: table-cell;width: 70%;vertical-align:top;padding-left: 10px">' +
                     '<input type="text" class="form-control" style="width: 50%;display: none;"  name="images" placeholder="请选择宝贝图片" value="' + result.result.url + '" onchange="javascript:this.parentNode.parentNode.querySelector(\'img\').src=this.value">' +

@@ -37,17 +37,27 @@ public class GoodsPhone {
     /**
      * 前摄像头
      */
-    private Integer frontCamera;
+    private String frontCamera;
 
     /**
      * 后摄像头
      */
-    private Integer afterCamera;
+    private String afterCamera;
 
     /**
      * 电池容量
      */
-    private Integer battery;
+    private String battery;
+
+    /**
+     * 电池效率
+     */
+    private String batteryEffe;
+
+    /**
+     * 充电次数
+     */
+    private String batteryNum;
 
     /**
      * cpu
@@ -75,6 +85,11 @@ public class GoodsPhone {
     private String version;
 
     /**
+     * 系统版本
+     */
+    private String systemVersion;
+
+    /**
      * 网络
      */
     private String net;
@@ -87,7 +102,7 @@ public class GoodsPhone {
     /**
      * 屏幕尺寸
      */
-    private Double screenSize;
+    private String screenSize;
 
     /**
      * 尺寸
@@ -102,12 +117,8 @@ public class GoodsPhone {
     /**
      * 更新时间
      */
-    private Date updateTime;
+    private Date generateTime;
 
-    /**
-     * 创建时间
-     */
-    private Date createDate;
 
     public Integer getId() {
         return id;
@@ -149,28 +160,44 @@ public class GoodsPhone {
         this.ram = ram;
     }
 
-    public Integer getFrontCamera() {
+    public String getFrontCamera() {
         return frontCamera;
     }
 
-    public void setFrontCamera(Integer frontCamera) {
+    public void setFrontCamera(String frontCamera) {
         this.frontCamera = frontCamera;
     }
 
-    public Integer getAfterCamera() {
+    public String getAfterCamera() {
         return afterCamera;
     }
 
-    public void setAfterCamera(Integer afterCamera) {
+    public void setAfterCamera(String afterCamera) {
         this.afterCamera = afterCamera;
     }
 
-    public Integer getBattery() {
+    public String getBattery() {
         return battery;
     }
 
-    public void setBattery(Integer battery) {
+    public void setBattery(String battery) {
         this.battery = battery;
+    }
+
+    public String getBatteryEffe() {
+        return batteryEffe;
+    }
+
+    public void setBatteryEffe(String batteryEffe) {
+        this.batteryEffe = batteryEffe;
+    }
+
+    public String getBatteryNum() {
+        return batteryNum;
+    }
+
+    public void setBatteryNum(String batteryNum) {
+        this.batteryNum = batteryNum;
     }
 
     public String getCpu() {
@@ -213,6 +240,14 @@ public class GoodsPhone {
         this.version = version;
     }
 
+    public String getSystemVersion() {
+        return systemVersion;
+    }
+
+    public void setSystemVersion(String systemVersion) {
+        this.systemVersion = systemVersion;
+    }
+
     public String getNet() {
         return net;
     }
@@ -229,11 +264,11 @@ public class GoodsPhone {
         this.sim = sim;
     }
 
-    public Double getScreenSize() {
+    public String getScreenSize() {
         return screenSize;
     }
 
-    public void setScreenSize(Double screenSize) {
+    public void setScreenSize(String screenSize) {
         this.screenSize = screenSize;
     }
 
@@ -253,20 +288,12 @@ public class GoodsPhone {
         this.resolution = resolution;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getGenerateTime() {
+        return generateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setGenerateTime(Date generateTime) {
+        this.generateTime = generateTime;
     }
 
     public GoodsPhone() {
@@ -281,16 +308,20 @@ public class GoodsPhone {
         this.frontCamera = goodsPhoneBean.getFrontCamera();
         this.afterCamera = goodsPhoneBean.getAfterCamera();
         this.battery = goodsPhoneBean.getBattery();
+        this.batteryEffe = goodsPhoneBean.getBatteryEffe();
+        this.batteryNum = goodsPhoneBean.getBatteryNum();
         this.cpu = goodsPhoneBean.getCpu();
         this.cpuFreq = goodsPhoneBean.getCpuFreq();
         this.color = goodsPhoneBean.getColor();
         this.quality = goodsPhoneBean.getQuality();
         this.version = goodsPhoneBean.getVersion();
+        this.systemVersion = goodsPhoneBean.getSystemVersion();
         this.net = goodsPhoneBean.getNet();
         this.sim = goodsPhoneBean.getSim();
         this.screenSize = goodsPhoneBean.getScreenSize();
         this.size = goodsPhoneBean.getSize();
         this.resolution = goodsPhoneBean.getResolution();
+        this.generateTime = goodsPhoneBean.getGenerateTime();
     }
 
     public GoodsPhoneVO toVO(){
@@ -303,16 +334,20 @@ public class GoodsPhone {
         goodsPhoneVO.setFrontCamera(this.frontCamera);
         goodsPhoneVO.setAfterCamera(this.afterCamera);
         goodsPhoneVO.setBattery(this.battery);
+        goodsPhoneVO.setBatteryEffe(this.batteryEffe);
+        goodsPhoneVO.setBatteryNum(this.batteryNum);
         goodsPhoneVO.setCpu(this.cpu);
         goodsPhoneVO.setCpuFreq(this.cpuFreq);
         goodsPhoneVO.setColor(this.color);
         goodsPhoneVO.setQuality(this.quality);
         goodsPhoneVO.setVersion(this.version);
+        goodsPhoneVO.setSystemVersion(this.systemVersion);
         goodsPhoneVO.setNet(this.net);
         goodsPhoneVO.setSim(this.sim);
         goodsPhoneVO.setScreenSize(this.screenSize);
         goodsPhoneVO.setSize(this.size);
         goodsPhoneVO.setResolution(this.resolution);
+        goodsPhoneVO.setGenerateTime(this.generateTime);
         return goodsPhoneVO;
     }
 
@@ -326,16 +361,20 @@ public class GoodsPhone {
         goodsPhoneBean.setFrontCamera(this.frontCamera);
         goodsPhoneBean.setAfterCamera(this.afterCamera);
         goodsPhoneBean.setBattery(this.battery);
+        goodsPhoneBean.setBatteryEffe(this.batteryEffe);
+        goodsPhoneBean.setBatteryNum(this.batteryNum);
         goodsPhoneBean.setCpu(this.cpu);
         goodsPhoneBean.setCpuFreq(this.cpuFreq);
         goodsPhoneBean.setColor(this.color);
         goodsPhoneBean.setQuality(this.quality);
         goodsPhoneBean.setVersion(this.version);
+        goodsPhoneBean.setSystemVersion(this.systemVersion);
         goodsPhoneBean.setNet(this.net);
         goodsPhoneBean.setSim(this.sim);
         goodsPhoneBean.setScreenSize(this.screenSize);
         goodsPhoneBean.setSize(this.size);
         goodsPhoneBean.setResolution(this.resolution);
+        goodsPhoneBean.setGenerateTime(this.generateTime);
         return goodsPhoneBean;
     }
 

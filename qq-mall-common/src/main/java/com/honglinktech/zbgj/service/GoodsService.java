@@ -34,14 +34,14 @@ public interface GoodsService{
 
 	/***************************************************************console******************************************************************/
 
-	Response saveGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags,  Integer[] goodsActivitys, String[] goodsImgs) throws BaseException;
+	Response saveGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags,  Integer[] goodsActivitys, String[] goodsImgs) throws Exception;
 
 	/**
 	 *
 	 * @param goodsItem
 	 * @throws BaseException
 	 */
-	Response updateGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags,  Integer[] goodsActivitys, String[] goodsImgs) throws BaseException;
+	Response updateGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags,  Integer[] goodsActivitys, String[] goodsImgs) throws Exception;
 
 	/**
 	 * 后台分页查询商品

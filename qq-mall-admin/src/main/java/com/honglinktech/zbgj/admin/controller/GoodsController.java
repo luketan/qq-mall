@@ -15,14 +15,12 @@ import com.honglinktech.zbgj.entity.GoodsBrand;
 import com.honglinktech.zbgj.enums.AdvStyleTypeEnum;
 import com.honglinktech.zbgj.enums.GoodsStatusEnum;
 import com.honglinktech.zbgj.service.*;
+import com.honglinktech.zbgj.utils.DateUtil;
 import com.honglinktech.zbgj.vo.GoodsVO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -105,6 +103,7 @@ public class GoodsController extends BaseController {
 	 * @param model
 	 * @return
 	 */
+	@RequiresPermissions("goods:save")
 	@RequestMapping("/add")
 	public String add(Model model) {
 		Response<List<GoodsTagBean>> tagResp = goodsTagService.findAllByGoodsId(null);
@@ -130,13 +129,14 @@ public class GoodsController extends BaseController {
 	 * @param model
 	 * @return
 	 */
-	@RequiresPermissions("goods:update")
+	@RequiresPermissions("goods:search")
 	@RequestMapping("/modify")
 	public String modify(@RequestParam(required = false) Integer id, Model model) {
 
 		Response<GoodsBean> goodsBeanResponse = goodsService.findGoodsBeanById(id);
 		if(goodsBeanResponse.getCode() == 0){
 			GoodsBean goodsBean = goodsBeanResponse.getResult();
+			logger.info("============goodsBean=============" + JSON.toJSONString(goodsBean));
 			model.addAttribute("item", goodsBeanResponse.getResult());
 			Response<List<GoodsTagBean>> tagResp = goodsTagService.findAllByGoodsId(goodsBean.getId());
 			model.addAttribute("tags", tagResp.getResult());
@@ -239,20 +239,60 @@ public class GoodsController extends BaseController {
 					}
 				}
 			}
+			String goodsPhoneGenerateTimeStr = request.getParameter("goodsPhoneGenerateTime");
+			if(!StringUtils.isEmpty(goodsPhoneGenerateTimeStr)){
+				if(goodsBean.getGoodsPhone()!=null){
+					goodsBean.getGoodsPhone().setGenerateTime(DateUtil.parseDate(goodsPhoneGenerateTimeStr, true));
+				}
+			}
 			logger.info("goodsBean==========="+JSON.toJSONString(goodsBean));
 			logger.info("formatList==========="+JSON.toJSONString(formatList));
 			logger.info("goodsActivityIds==========="+JSON.toJSONString(goodsActivityIds));
 			logger.info("goodsTagIds==========="+JSON.toJSONString(goodsTagIds));
 			logger.info("picUrl==========="+JSON.toJSONString(picUrl));
 			if(goodsBean.getId() != null && goodsBean.getId() > 0){
-				return goodsService.updateGoods(goodsBean, formatList, goodsActivityIds, goodsTagIds, picUrl);
+				return goodsService.updateGoods(goodsBean, formatList, goodsTagIds, goodsActivityIds, picUrl);
 			}else{
-				return goodsService.saveGoods(goodsBean, formatList, goodsActivityIds, goodsTagIds, picUrl);
+				return goodsService.saveGoods(goodsBean, formatList, goodsTagIds, goodsActivityIds, picUrl);
 			}
 		}catch (Exception e){
 			logger.error(e, e);
 		}
 		return Result.fail("系统错误联系工作人员！");
+	}
+
+
+	/**
+	 * ajax删除样式
+	 * @return
+	 */
+	@RequiresPermissions("goods:update")
+	@RequestMapping(value = "/deleteFormat", method = {RequestMethod.POST})
+	@ResponseBody
+	public Response<String> deleteFormat(Integer id, Model model) {
+		Response<String> respone = goodsService.deleteFormat(id);
+		if(respone.getCode()==0){
+			addMessage(model, respone.getMsg());
+		}else{
+			addError(model, respone.getMsg());
+		}
+		return respone;
+	}
+	/**
+	 * ajax删除产品样式子项
+	 * @return
+	 */
+	@RequiresPermissions("goods:update")
+	@RequestMapping(value = "/deleteFormatSub", method = {RequestMethod.POST})
+	@ResponseBody
+	public Response<String> deleteFormatSub(Integer id, Model model) {
+		Response<String> respone = goodsService.deleteFormatSub(id);
+		if(respone.getCode()==0){
+			addMessage(model, respone.getMsg());
+		}else{
+			addError(model, respone.getMsg());
+		}
+		return respone;
 	}
 	
 }

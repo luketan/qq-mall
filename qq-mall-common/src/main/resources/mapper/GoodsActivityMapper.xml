@@ -97,7 +97,7 @@
   </select>
   <!--批量插入-->
   <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.GoodsActivity">
-    INSERT INTO t_goods_format(
+    INSERT INTO t_goods_activity(
         goods_id, activity_id, create_time
     )
     values

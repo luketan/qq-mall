@@ -185,7 +185,7 @@
 													<input type="hidden" class="formatIds" name="formatIds_${formatStatus.index}" value="${format.id}">
 													<span>规格名称</span>
 													<input type="text" name="formatName_${formatStatus.index}" placeholder="规格名称" class="form-control" value="${format.name }">
-													<span>需要价格${format.needPrice}==</span>
+													<span>需要价格</span>
 													<select name="needValue_${formatStatus.index}" class="form-control">
 														<option value="0" ${format.needPrice==0?'selected="selected"':'' }>否</option>
 														<option value="1" ${format.needPrice==1?'selected="selected"':'' }>是</option>
@@ -229,37 +229,156 @@
                                             <textarea name="description" class="form-control" id="detail" style="width: 100%;height:80px">${item.detail}</textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group col-lg-12" style="">
-                                        <label>主图文件</label>
-                                        <div>
-	                                        <img src="${item.imgUrl}" style="width: 200px;">
-	                                        <input type="text" class="form-control" id="mainImage" name="imgUrl" placeholder="请选择主图文件" value="${item.imgUrl}">
-	                                        <input class="imgFileUpload" type="file">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-lg-12">
-                                        <label>宝贝图片</label>
-                                        <div id="lunboImg">
-                                            <c:forEach items="${item.picList}" var="image">
-                                                <div style="display: table;padding: 10px;width: 100%">
-                                                 	 <div style="display: table-cell;width: 20%;vertical-align:middle;">
-                                                     	<img src="${image.picUrl }" width="100%">
-                                                     </div>
-                                                     <div style="display: table-cell;width: 70%;vertical-align:top;padding-left: 10px">
-                                                    	 <input type="text" class="form-control" style="width: 50%;display: none;"  name="picUrl" placeholder="请选择宝贝图片" value="${image.picUrl}" onchange="javascript:this.parentNode.parentNode.querySelector('img').src=this.value">
-                                               	                      <%--   排序：<input style="width:10%" name="sorts" value="${image.sort}"> --%>
-                                               	         <br>
-                                               	       	 <%--  设为首图<input type="radio" name="mainImgRad" ${image.images==item.image?'checked="checked"':""} value="${image.images}" onclick="javascript:$('#mainImage').val(this.value)"><br>
-                                               	         <br> --%>
-                                               	         <input type="button" value="上移" onclick="moveUp(this)">&nbsp;
-                                               	         <input type="button" value="下移" onclick="moveDown(this)">&nbsp;
-                                               	         <input type="button" value="删除" onclick="javascript:this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)">
-                                                 	 </div>
-                                                 </div>
-                                              </c:forEach>
-                                        </div>
-                                        <input class="multiImgFileUpload" style="margin-top: 20px" type="file">
-                                    </div>
+									<div class="form-group col-lg-12" style="">
+										<div class="panel panel-default" style="margin-bottom:0px;">
+											<div class="panel-heading">
+												<h4 class="panel-title">
+													<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+														参数
+													</a>
+												</h4>
+											</div>
+											<div id="collapseOne" class="panel-collapse collapse ${item.id!=null && item.id>0?'out':'in'}">
+												<div class="panel-body" style="padding-left:0px; padding-right:0px;">
+													<div class="form-group col-lg-3">
+														<label>型号</label>
+														<input type="text" class="form-control" name="goodsPhone.model"  value="${item.goodsPhone!=null?item.goodsPhone.model:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>IMEI</label>
+														<input type="text" class="form-control" name="goodsPhone.imei"  value="${item.goodsPhone!=null?item.goodsPhone.imei:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>维修次数</label>
+														<input type="text" class="form-control" name="goodsPhone.repair"  value="${item.goodsPhone!=null?item.goodsPhone.repair:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>内存</label>
+														<input type="text" class="form-control" name="goodsPhone.ram"  value="${item.goodsPhone!=null?item.goodsPhone.ram:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>前摄像头</label>
+														<input type="text" class="form-control" name="goodsPhone.frontCamera"  value="${item.goodsPhone!=null?item.goodsPhone.frontCamera:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>后摄像头</label>
+														<input type="text" class="form-control" name="goodsPhone.afterCamera"  value="${item.goodsPhone!=null?item.goodsPhone.afterCamera:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>电池容量</label>
+														<input type="text" class="form-control" name="goodsPhone.battery"  value="${item.goodsPhone!=null?item.goodsPhone.battery:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>电池效率</label>
+														<input type="text" class="form-control" name="goodsPhone.batteryEffe"  value="${item.goodsPhone!=null?item.goodsPhone.batteryEffe:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>充电次数</label>
+														<input type="text" class="form-control" name="goodsPhone.batteryNum"  value="${item.goodsPhone!=null?item.goodsPhone.batteryNum:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>cpu</label>
+														<input type="text" class="form-control" name="goodsPhone.cpu"  value="${item.goodsPhone!=null?item.goodsPhone.cpu:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>cpu频率</label>
+														<input type="text" class="form-control" name="goodsPhone.cpuFreq"  value="${item.goodsPhone!=null?item.goodsPhone.cpuFreq:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>颜色</label>
+														<input type="text" class="form-control" name="goodsPhone.color"  value="${item.goodsPhone!=null?item.goodsPhone.color:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>成色</label>
+														<input type="text" class="form-control" name="goodsPhone.quality"  value="${item.goodsPhone!=null?item.goodsPhone.quality:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>版本</label>
+														<input type="text" class="form-control" name="goodsPhone.version"  value="${item.goodsPhone!=null?item.goodsPhone.version:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>系统版本</label>
+														<input type="text" class="form-control" name="goodsPhone.systemVersion"  value="${item.goodsPhone!=null?item.goodsPhone.systemVersion:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>网络</label>
+														<input type="text" class="form-control" name="goodsPhone.net"  value="${item.goodsPhone!=null?item.goodsPhone.net:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>sim卡规格</label>
+														<input type="text" class="form-control" name="goodsPhone.sim"  value="${item.goodsPhone!=null?item.goodsPhone.sim:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>屏幕尺寸</label>
+														<input type="text" class="form-control" name="goodsPhone.screenSize"  value="${item.goodsPhone!=null?item.goodsPhone.screenSize:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>尺寸</label>
+														<input type="text" class="form-control" name="goodsPhone.size"  value="${item.goodsPhone!=null?item.goodsPhone.size:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>分辨率</label>
+														<input type="text" class="form-control" name="goodsPhone.resolution"  value="${item.goodsPhone!=null?item.goodsPhone.resolution:''}">
+													</div>
+													<div class="form-group col-lg-3">
+														<label>生产时间</label>
+														<c:if test="${item.goodsPhone != null && item.goodsPhone.generateTime != null}">
+															<input type="text" class="form-control" name="goodsPhoneGenerateTime"  value="<fmt:formatDate value="${item.goodsPhone.generateTime}" pattern="yyyy-MM-dd"/>">
+														</c:if>
+														<c:if test="${item.goodsPhone == null || item.goodsPhone.generateTime == null}">
+															<input type="text" class="form-control" name="goodsPhoneGenerateTime"  value="">
+														</c:if>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-lg-12" style="">
+										<div class="panel panel-default" style="margin-bottom:0px;">
+											<div class="panel-heading">
+												<h4 class="panel-title">
+													<a data-toggle="collapse" data-parent="#accordion" href="#collapseImg">
+														图片&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													</a>
+												</h4>
+											</div>
+											<div id="collapseImg" class="panel-collapse collapse ${item.id!=null && item.id>0?'out':'in'}">
+												<div class="panel-body" style="padding-left:0px; padding-right:0px;">
+													<div class="form-group col-lg-12" style="">
+														<label>主图文件</label>
+														<div>
+															<img src="${item.imgUrl}" style="width: 200px;">
+															<input type="text" class="form-control" id="mainImage" name="imgUrl" placeholder="请选择主图文件" value="${item.imgUrl}">
+															<input class="imgFileUpload" type="file">
+														</div>
+													</div>
+													<div class="form-group col-lg-12">
+														<label>宝贝图片</label>
+														<div id="lunboImg">
+															<c:forEach items="${item.picList}" var="image">
+																<div style="display: table;padding: 10px;width: 100%">
+																	<div style="display: table-cell;width: 200px;vertical-align:middle;">
+																		<img src="${image.picUrl }" width="200px">
+																	</div>
+																	<div style="display: table-cell;width: 70%;vertical-align:top;padding-left: 10px">
+																		<input type="text" class="form-control" style="width: 50%;display: none;"  name="picUrl" placeholder="请选择宝贝图片" value="${image.picUrl}" onchange="javascript:this.parentNode.parentNode.querySelector('img').src=this.value">
+																			<%--   排序：<input style="width:10%" name="sorts" value="${image.sort}"> --%>
+																		<br>
+																			<%--  设为首图<input type="radio" name="mainImgRad" ${image.images==item.image?'checked="checked"':""} value="${image.images}" onclick="javascript:$('#mainImage').val(this.value)"><br>
+                                                                         <br> --%>
+																		<input type="button" value="上移" onclick="moveUp(this)">&nbsp;
+																		<input type="button" value="下移" onclick="moveDown(this)">&nbsp;
+																		<input type="button" value="删除" onclick="javascript:this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)">
+																	</div>
+																</div>
+															</c:forEach>
+														</div>
+														<input class="multiImgFileUpload" style="margin-top: 20px" type="file">
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
                                 </form>
                             </div>
                             <!-- /.col-lg-6 (nested) -->
@@ -313,25 +432,6 @@
 	</div>
     <!-- /#page-wrapper -->
 </div>
-<div class="modal fade" id="deleteSpeModal" tabindex="-1" role="" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="title">删除确认</h4>
-            </div>
-            <div class="modal-body">
-            	    确认要删除这条规格吗?
-            </div>
-            <div class="modal-footer">
-                <button id="deleteSpeOK" type="button" class="btn btn-danger">删除</button>
-                <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 	                                            
 <%@include file="../include/footer.jsp"%>
 <script src="//cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.min.js"></script>
@@ -383,8 +483,51 @@
     $('#typeId').multiselect("refresh");
 
     $("#btnDelete").click(function(){
-        $("#inputForm").attr("action", "${basePath }/goods/delete.html");
-        $("#inputForm").submit();
+		$("#inputForm").attr("action", "${basePath }/goods/delete.html");
+		$("#inputForm").submit();
+		BootstrapDialog.confirm({
+			title:'删除 ',
+			message:'确认删除当前选中的记录吗?',
+			type: BootstrapDialog.TYPE_DANGER,
+			closable: true, //
+			draggable: true, //
+			btnCancelLabel: '取消', //
+			btnOKLabel: '确认', //
+			btnOKClass: 'btn-warning', //
+			callback: function(result) {
+				if(result) {
+					var spId = $(self.parentNode.parentNode).find('.formatSubIdClass').val();
+					if(spId && spId>0){
+						$.ajax({
+							type: "POST",
+							url: "${basePath }/goods/deleteFormatSub.html?id="+spId,
+							timeout: 400000,
+							data: null,
+							cache: false,
+							contentType: false,
+							processData: false,
+							success:function(result){
+
+								result = JSON.parse(result);
+								if(result.code==0){
+									self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
+								}else{
+									alert(result.msg);
+								}
+
+							},
+							error:function(xhr, errmsg){
+								console.log("ajax-err-[]->"+JSON.stringify(errmsg)+"|"+xhr);
+								alert('error');
+							}
+						});
+					}else{
+						self.parentNode.parentNode.parentNode.removeChild(self.parentNode.parentNode);
+					}
+				}else {
+				}
+			}
+		});
     });
     $("#btnSave").click(function(){
 		zbgj.ajax({
@@ -514,8 +657,8 @@
 				'<input type="text" name="formatName_'+formatIndex+'" placeholder="规格名称" class="form-control" value="${format.name }">'+
 				'<span>需要价格</span>'+
 				'<select name="needValue_'+formatIndex+'" class="form-control">'+
-				'<option value="false">否</option>'+
-				'<option value="true">是</option>'+
+				'<option value="0">否</option>'+
+				'<option value="1">是</option>'+
 				'</select>'+
 				'<button type="button" class="btn btn-danger btn-sm" onclick="deleteFormat(this)">删除规格</button>'+
 				'<button type="button" class="btn btn-primary btn-sm" onclick="addFormatSub(this,'+formatIndex+')">添加单项</button>'+
@@ -537,7 +680,7 @@
 				'<option value="0">不可选</option>'+
 				'</select></td>'+
 				'<td>'+
-				'<select name="relyFormatSubId_'+fIndex+'_'+formatSubIndex+'" class="selectpicker show-tick formatSelect form-control" multiple data-live-search="false" value="[1,2]">'+
+				'<select name="relyFormatSubId_'+fIndex+'_'+formatSubIndex+'" class="selectpicker show-tick formatSelect form-control" multiple data-live-search="false" ">'+
 				'</select>'+
 				'</td>'+
 				'<td><button type="button" class="btn btn-danger btn-sm" onclick="deleteFormatSub(this)">删除</button></td>'+

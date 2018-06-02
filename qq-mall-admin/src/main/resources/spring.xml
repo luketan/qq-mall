@@ -71,7 +71,7 @@
     <!-- spring与mybatis整合配置 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath*:mapper/*Mapper.xml"/>
+        <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
     </bean>
 
     <!-- 扫描所有dao -->
@@ -80,13 +80,14 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 	
-    <!-- 对dataSource 数据源进行事务管理 -->
+    <!-- 对dataSource 数据源进行事务管理  org.springframework.jdbc.datasource.DataSourceTransactionManager-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
           p:dataSource-ref="dataSource"/>
 
     <!-- 事务管理 通知 -->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
             <tx:method name="insert*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
             <tx:method name="update*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
             <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
@@ -97,7 +98,7 @@
         </tx:attributes>
     </tx:advice>
 
-    <!-- 事务 aop 配置 -->
+    <!-- 事务 aop 配置 事物无效是数据库不是InnoDB -->
     <aop:config>
         <aop:pointcut id="serviceMethods" expression="execution(* com.honglinktech.zbgj.service.impl.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
@@ -129,7 +130,7 @@
     <task:scheduler id="scheduleder" pool-size="2"/>
 
     <!-- 引入同文件夹下的redis属性配置文件 -->
-    <import resource="redis-context.xml"/>
+   <!-- <import resource="redis-context.xml"/>-->
 
 </beans>
 

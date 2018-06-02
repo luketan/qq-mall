@@ -32,9 +32,6 @@
   <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Pic">
     INSERT INTO t_pic
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="objId != null">
         obj_id,
       </if>
@@ -54,9 +51,6 @@
         update_time,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="objId != null">
         #{objId,jdbcType=INTEGER},
       </if>
@@ -119,19 +113,18 @@
   <!--批量插入-->
   <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.Pic">
     INSERT INTO t_pic(
-        id, obj_id, type, url_type, pic_title, pic_url, create_time, update_time
+        obj_id, `type`, url_type, pic_title, pic_url, create_time, update_time
     )
     values
     <if test="pics != null and pics.size &gt; 0">
       <foreach collection="pics" item="pic" index="index"
                open="" close="" separator=",">
         (
-        #{pics.id,jdbcType=INTEGER},
-        #{pics.objId,jdbcType=INTEGER},
-        #{pics.type,jdbcType=INTEGER},
-        #{pics.urlType,jdbcType=INTEGER},
-        #{pics.picTitle,jdbcType=VARCHAR},
-        #{pics.picUrl,jdbcType=VARCHAR},
+        #{pic.objId,jdbcType=INTEGER},
+        #{pic.type,jdbcType=INTEGER},
+        #{pic.urlType,jdbcType=INTEGER},
+        #{pic.picTitle,jdbcType=VARCHAR},
+        #{pic.picUrl,jdbcType=VARCHAR},
         now(),
         now()
         )

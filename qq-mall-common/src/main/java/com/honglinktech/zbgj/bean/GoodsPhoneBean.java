@@ -11,6 +11,7 @@ public class GoodsPhoneBean implements Serializable {
      *
      */
     private static final long serialVersionUID = 4793035248755882675L;
+
     /**
      *
      */
@@ -39,17 +40,27 @@ public class GoodsPhoneBean implements Serializable {
     /**
      * 前摄像头
      */
-    private Integer frontCamera;
+    private String frontCamera;
 
     /**
      * 后摄像头
      */
-    private Integer afterCamera;
+    private String afterCamera;
 
     /**
      * 电池容量
      */
-    private Integer battery;
+    private String battery;
+
+    /**
+     * 电池效率
+     */
+    private String batteryEffe;
+
+    /**
+     * 充电次数
+     */
+    private String batteryNum;
 
     /**
      * cpu
@@ -77,6 +88,11 @@ public class GoodsPhoneBean implements Serializable {
     private String version;
 
     /**
+     * 系统版本
+     */
+    private String systemVersion;
+
+    /**
      * 网络
      */
     private String net;
@@ -89,7 +105,7 @@ public class GoodsPhoneBean implements Serializable {
     /**
      * 屏幕尺寸
      */
-    private Double screenSize;
+    private String screenSize;
 
     /**
      * 尺寸
@@ -104,12 +120,7 @@ public class GoodsPhoneBean implements Serializable {
     /**
      * 更新时间
      */
-    private Date updateTime;
-
-    /**
-     * 创建时间
-     */
-    private Date createDate;
+    private Date generateTime;
 
     public Integer getId() {
         return id;
@@ -151,28 +162,44 @@ public class GoodsPhoneBean implements Serializable {
         this.ram = ram;
     }
 
-    public Integer getFrontCamera() {
+    public String getFrontCamera() {
         return frontCamera;
     }
 
-    public void setFrontCamera(Integer frontCamera) {
+    public void setFrontCamera(String frontCamera) {
         this.frontCamera = frontCamera;
     }
 
-    public Integer getAfterCamera() {
+    public String getAfterCamera() {
         return afterCamera;
     }
 
-    public void setAfterCamera(Integer afterCamera) {
+    public void setAfterCamera(String afterCamera) {
         this.afterCamera = afterCamera;
     }
 
-    public Integer getBattery() {
+    public String getBattery() {
         return battery;
     }
 
-    public void setBattery(Integer battery) {
+    public void setBattery(String battery) {
         this.battery = battery;
+    }
+
+    public String getBatteryEffe() {
+        return batteryEffe;
+    }
+
+    public void setBatteryEffe(String batteryEffe) {
+        this.batteryEffe = batteryEffe;
+    }
+
+    public String getBatteryNum() {
+        return batteryNum;
+    }
+
+    public void setBatteryNum(String batteryNum) {
+        this.batteryNum = batteryNum;
     }
 
     public String getCpu() {
@@ -215,6 +242,14 @@ public class GoodsPhoneBean implements Serializable {
         this.version = version;
     }
 
+    public String getSystemVersion() {
+        return systemVersion;
+    }
+
+    public void setSystemVersion(String systemVersion) {
+        this.systemVersion = systemVersion;
+    }
+
     public String getNet() {
         return net;
     }
@@ -231,11 +266,11 @@ public class GoodsPhoneBean implements Serializable {
         this.sim = sim;
     }
 
-    public Double getScreenSize() {
+    public String getScreenSize() {
         return screenSize;
     }
 
-    public void setScreenSize(Double screenSize) {
+    public void setScreenSize(String screenSize) {
         this.screenSize = screenSize;
     }
 
@@ -255,19 +290,11 @@ public class GoodsPhoneBean implements Serializable {
         this.resolution = resolution;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public Date getGenerateTime() {
+        return generateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setGenerateTime(Date generateTime) {
+        this.generateTime = generateTime;
     }
 }

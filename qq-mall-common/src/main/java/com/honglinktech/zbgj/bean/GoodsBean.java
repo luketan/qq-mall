@@ -73,6 +73,8 @@ public class GoodsBean implements Serializable {
 
 	private List<GoodsDisBean> goodsDisBeanList;
 
+	private GoodsPhoneBean goodsPhone;
+
 	
 	public GoodsBean(){
  	}
@@ -330,5 +332,13 @@ public class GoodsBean implements Serializable {
 
 	public void setGoodsDisBeanList(List<GoodsDisBean> goodsDisBeanList) {
 		this.goodsDisBeanList = goodsDisBeanList;
+	}
+
+	public GoodsPhoneBean getGoodsPhone() {
+		return goodsPhone;
+	}
+
+	public void setGoodsPhone(GoodsPhoneBean goodsPhone) {
+		this.goodsPhone = goodsPhone;
 	}
 }

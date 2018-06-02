@@ -40,26 +40,22 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        System.out.println("&*&*&*&****&*");
         Session session = SecurityUtils.getSubject().getSession();
         Object permissions = session.getAttribute(Constants.PERMISSIONS);
         if (permissions != null) {
-            System.out.println("&*&*&*&****&*permissions=null");
             return (SimpleAuthorizationInfo) permissions;
         } else {
             // TODO 这里可以考虑把权限的信息都放到内存里面
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
             Admin admin = (Admin) session.getAttribute(Constants.LOGIN_ADMIN_DATA);
-            System.out.println("&*&*&*&****&*admin=null");
+
             if (admin != null) {
                 // 获取当前管理员的登录名称
                 Integer adminId = admin.getId();
                 List<String> permissionList = new ArrayList<String>();
-                System.out.println(adminId+"++++&*&*&*&****&*permissionList=null"+permissionList);
                 if (adminId != null || adminId > 0) {
                     List<Security> list = securityService.findSecurityByAdminId(adminId);
                     for (Security security : list) {
-                        System.out.println(security.getName());
                         permissionList.add(security.getCode());
                     }
                     // 给当前管理员设置角色
