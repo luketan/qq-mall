@@ -607,9 +607,9 @@
 	if(foramtList && foramtList.length>0){
 		for(var i=0; i<foramtList.length; i++){
 			var format = foramtList[i];
-			if(format.formatSubs && format.formatSubs.length>0){
-				for(var j=0;j<format.formatSubs.length;j++){
-					var relyIds = format.formatSubs[j].relyFormatSubIds;
+			if(format.formatSubBeanList && format.formatSubBeanList.length>0){
+				for(var j=0;j<format.formatSubBeanList.length;j++){
+					var relyIds = format.formatSubBeanList[j].relyFormatSubIds;
 					if(relyIds && relyIds.length>0){
 						//获取依赖规格ID
 						var formatSubFlagIndex = [];
@@ -623,7 +623,7 @@
 							});
 						}
 						//获取依赖规格ID 结束
-						var regExp = new RegExp('<input type=\"hidden\" name=\"formatSubIds.*?value=\"'+format.formatSubs[j].id+'\" class=\"formatSubIdClass\">')
+						var regExp = new RegExp('<input type=\"hidden\" name=\"formatSubIds.*?value=\"'+format.formatSubBeanList[j].id+'\" class=\"formatSubIdClass\">')
 						var formatSubs = $(".formatSubClass");
 						formatSubs.each(function(){
 							if(regExp.exec($(this).html())){

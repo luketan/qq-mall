@@ -56,7 +56,7 @@ public class FormatBean implements Serializable{
 		this.formatSubBeanList = formatSubBeanList;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder("{");
 		sb.append("\"id\":")
@@ -69,5 +69,5 @@ public class FormatBean implements Serializable{
 				.append(formatSubBeanList);
 		sb.append('}');
 		return sb.toString();
-	}
+	}*/
 }
