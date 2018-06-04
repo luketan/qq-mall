@@ -55,4 +55,19 @@ public class FormatBean implements Serializable{
 	public void setFormatSubBeanList(List<FormatSubBean> formatSubBeanList) {
 		this.formatSubBeanList = formatSubBeanList;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("{");
+		sb.append("\"id\":")
+				.append(id);
+		sb.append(",\"name\":\"")
+				.append(name).append('\"');
+		sb.append(",\"needPrice\":")
+				.append(needPrice);
+		sb.append(",\"formatSubBeanList\":")
+				.append(formatSubBeanList);
+		sb.append('}');
+		return sb.toString();
+	}
 }

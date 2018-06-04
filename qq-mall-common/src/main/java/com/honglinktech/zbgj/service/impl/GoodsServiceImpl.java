@@ -66,8 +66,13 @@ public class GoodsServiceImpl implements GoodsService{
 		List<FormatBean> formatBeanList = formatDao.findFormatByGoodsId(id);
 		if(formatBeanList!=null){
 			for(FormatBean fb:formatBeanList){
-				List<FormatSubBean> formatSubBeanList = formatSubDao.findFormatSubByFormatId(fb.getId());
-				fb.setFormatSubBeanList(formatSubBeanList);
+				List<FormatSubBean> formatSubs = formatSubDao.findFormatSubByFormatId(fb.getId());
+				if(formatSubs != null){
+					for(FormatSubBean fs:formatSubs){
+						fs.setRelyFormatSubIds(formatRelyDao.findByFormatSubId(fs.getId()));
+					}
+				}
+				fb.setFormatSubBeanList(formatSubs);
 			}
 		}
 		goodsVO.setFormatBeanList(formatBeanList);
@@ -92,7 +97,6 @@ public class GoodsServiceImpl implements GoodsService{
 		//图片处理
 		List<PicBean> tpicList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
 		goodsVO.setPicList(tpicList);
-		//goodsBean.setGoodsDisList(tDisList);
 		return  Result.resultSet(goodsVO);
 	}
 
@@ -352,8 +356,13 @@ public class GoodsServiceImpl implements GoodsService{
 		List<FormatBean> formatBeanList = formatDao.findFormatByGoodsId(id);
 		if(formatBeanList!=null){
 			for(FormatBean fb:formatBeanList){
-				List<FormatSubBean> formatSubBeanList = formatSubDao.findFormatSubByFormatId(fb.getId());
-				fb.setFormatSubBeanList(formatSubBeanList);
+				List<FormatSubBean> formatSubs = formatSubDao.findFormatSubByFormatId(fb.getId());
+				if(formatSubs != null){
+					for(FormatSubBean fs:formatSubs){
+						fs.setRelyFormatSubIds(formatRelyDao.findByFormatSubId(fs.getId()));
+					}
+				}
+				fb.setFormatSubBeanList(formatSubs);
 			}
 		}
 		goodsBean.setFormatList(formatBeanList);

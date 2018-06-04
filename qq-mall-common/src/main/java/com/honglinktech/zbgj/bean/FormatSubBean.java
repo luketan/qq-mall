@@ -2,12 +2,17 @@ package com.honglinktech.zbgj.bean;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 /**
 *规格种类
 **/
 public class FormatSubBean implements Serializable{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -7087041852856674413L;
 
 	private Integer id=null;
 	private String name=null;
@@ -19,10 +24,8 @@ public class FormatSubBean implements Serializable{
 	
 	private String formatName;
 	private Boolean needPrice;
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private List<Integer> relyFormatSubIds;
 	
 	public FormatSubBean(){
  	}
@@ -94,5 +97,11 @@ public class FormatSubBean implements Serializable{
 	}
 	public void setNeedPrice(Boolean needPrice) {
 		this.needPrice = needPrice;
+	}
+	public List<Integer> getRelyFormatSubIds() {
+		return relyFormatSubIds;
+	}
+	public void setRelyFormatSubIds(List<Integer> relyFormatSubIds) {
+		this.relyFormatSubIds = relyFormatSubIds;
 	}
 }
