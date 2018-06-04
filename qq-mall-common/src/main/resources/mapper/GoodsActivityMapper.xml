@@ -70,7 +70,7 @@
       act.value,
       act.url
     FROM t_goods_activity ga join t_g_activity act on ga.activity_id = act.id
-    WHERE act.status=1 AND ((act.available = 1 AND act.start_time <![CDATA[ <= ]]> NOW() AND act.end_time <![CDATA[ >= ]]> NOW()) OR act.available = 0) AND ga.goods_id = #{goodsId}
+    WHERE act.delete_flag=0 AND act.sale = 1 AND ((act.available = 1 AND act.start_time <![CDATA[ <= ]]> NOW() AND act.end_time <![CDATA[ >= ]]> NOW()) OR act.available = 0) AND ga.goods_id = #{goodsId}
   </select>
   <!--APP通过商品ID获取有效活动 (去重复)-->
   <select id="findActivityByGoodsIds"  resultType="com.honglinktech.zbgj.bean.ActivityBean">
@@ -84,7 +84,7 @@
       act.value,
       act.url
     FROM t_goods_activity ga join t_g_activity act on ga.activity_id = act.id
-    WHERE act.status=1
+    WHERE act.delete_flag=0 AND act.sale = 1
     AND ((act.available = 1 AND act.start_time <![CDATA[ <= ]]> NOW() AND act.end_time <![CDATA[ >= ]]> NOW()) OR act.available = 0)
     AND ga.goods_id = #{goodsId}
     <if test="goodsIds != null and goodsIds.size &gt; 0">
