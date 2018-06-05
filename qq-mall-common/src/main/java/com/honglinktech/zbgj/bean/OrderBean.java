@@ -11,30 +11,30 @@ import com.honglinktech.zbgj.entity.UserAddress;
 @SuppressWarnings("unused")
 public class OrderBean {
 
-	private Integer id=null;
-	private String orderCode=null;
-	private Integer userId=null;
-	private Integer addressId=null;
-	private BigDecimal money=null;
-	private BigDecimal totalMoney=null;
-	private BigDecimal lostPostMoney=null;
-	private BigDecimal lostMoney=null;
-	private Integer paymentId=null;
-	private String paymentName = null;
-	private Integer payStatus=null;
-	private Integer status=null;
-	private Integer postId=null;
-	private String postName=null;
-	private String postCode=null;
-	private BigDecimal postMoney=null;
-	private Integer invoiceIs=null;
-	private String invoiceHead=null;
-	private Integer push=null;
-	private Integer readIs=null;
-	private Integer deleteFlag=null;
-	private Integer form=null;
-	private String remark=null;
-	private Date createTime=null;
+	private Integer id;
+	private String orderCode;
+	private Integer userId;
+	private Integer addressId;
+	private BigDecimal money;
+	private BigDecimal totalMoney;
+	private BigDecimal lostPostMoney;
+	private BigDecimal lostMoney;
+	private Integer paymentId;
+	private String paymentName;
+	private Integer payStatus;
+	private Integer status;
+	private Integer postId;
+	private String postName;
+	private String postCode;
+	private BigDecimal postMoney;
+	private Integer invoiceIs;
+	private String invoiceHead;
+	private Integer push;
+	private Integer readIs;
+	private Integer deleteFlag;
+	private Integer form;
+	private String remark;
+	private Date createTime;
 	
 	private List<OrderItem> orderItemList;
 	private UserAddress tuserAddress;
@@ -46,35 +46,7 @@ public class OrderBean {
 	
 	public OrderBean(){
  	}
-  	
-	public OrderBean(Order torder) {
-		if(torder!=null){
-			this.id = torder.getId();
-			this.orderCode = torder.getOrderCode();
-			this.userId = torder.getUserId();
-			this.addressId = torder.getAddressId();
-			this.money = torder.getMoney();
-			this.totalMoney = torder.getTotalMoney();
-			this.paymentId = torder.getPaymentId();
-			this.paymentName = torder.getPaymentName();
-			this.payStatus = torder.getPayStatus();
-			this.status = torder.getStatus();
-			this.postId = torder.getPostId();
-			this.postName = torder.getPostName();
-			this.postCode = torder.getPostCode();
-			this.postMoney = torder.getPostMoney();
-			this.lostPostMoney = torder.getLostPostMoney();
-			this.lostMoney  = torder.getLostMoney();
-			this.invoiceIs = torder.getInvoiceIs();
-			this.invoiceHead = torder.getInvoiceHead();
-			this.push = torder.getPush();
-			this.readIs = torder.getReadIs();
-			this.deleteFlag = torder.getDeleteFlag();
-			this.form = torder.getForm();
-			this.remark = torder.getRemark();
-			this.createTime = torder.getCreateTime();
-		}
-	}
+
 	/**/
 	public Integer getId(){
 		 return this.id; 

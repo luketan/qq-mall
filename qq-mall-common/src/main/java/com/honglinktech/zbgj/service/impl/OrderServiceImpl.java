@@ -14,6 +14,7 @@ import com.honglinktech.zbgj.entity.*;
 import com.honglinktech.zbgj.enums.OrderStatusEnum;
 import com.honglinktech.zbgj.service.*;
 import com.honglinktech.zbgj.utils.RandomUtil;
+import com.honglinktech.zbgj.vo.OrderVO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class OrderServiceImpl implements OrderService{
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<Map<String, Object>> AppReadyOrder(Integer userId,Map map) throws BaseException {
+	public Response<Map<String, Object>> findOrderView(Integer userId, Map map) throws BaseException {
 		Map<String, Object> restultMap = new HashMap<String, Object>();
 		List<ShoppingCartBean> shoppingCartBeanList;
 		if(map.containsKey("goodsId") && map.containsKey("num")){
@@ -224,7 +225,7 @@ public class OrderServiceImpl implements OrderService{
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<Map<String, Object>> submitOrder(Integer userId, Map<String, Object> map) throws BaseException {
+	public Response<Map<String, Object>> saveSubmitOrder(Integer userId, Map<String, Object> map) throws BaseException {
 		List<ShoppingCartBean> shoppingCartBeanList;
 		boolean isByShoppingCart = false;
 		if(map.containsKey("goodsId") && map.containsKey("num")){
@@ -271,8 +272,8 @@ public class OrderServiceImpl implements OrderService{
 			
 		}
 		
-		Order torder = new Order();
-		torder.setUserId(userId);
+		Order order = new Order();
+		order.setUserId(userId);
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
 //		List<OrderItemFormat> torderItemFormats = new ArrayList<OrderItemFormat>();
 //		List<OrderActivity> torderActivitys = new ArrayList<OrderActivity>();
@@ -320,16 +321,16 @@ public class OrderServiceImpl implements OrderService{
 				if(coupon.getGoodsType()==0){//全场适用
 					if(coupon.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){
 						couponMoney = couponMoney.add(new BigDecimal(coupon.getValue()));
-						torder.setCouponId(coupon.getId());
-						torder.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
+						order.setCouponId(coupon.getId());
+						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
 						couponId = coupon.getId();
 					}
 				}else if(goodsTypeValueMap.containsKey(coupon.getGoodsType()+"")){//指定商品类型使用
 					double value = goodsTypeValueMap.get(coupon.getGoodsType()+"").doubleValue();
 					if(value>=coupon.getMax() || coupon.getMax()==0){
 						couponMoney = couponMoney.add(new BigDecimal(coupon.getValue()));
-						torder.setCouponId(coupon.getId());
-						torder.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
+						order.setCouponId(coupon.getId());
+						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
 						couponId = coupon.getId();
 					}
 				}
@@ -368,7 +369,7 @@ public class OrderServiceImpl implements OrderService{
 					}
 				}
 				Gson gson = new Gson();
-				torder.setActivitys(gson.toJson(activityBeanList));
+				order.setActivitys(gson.toJson(activityBeanList));
 			}
 		}
 		//活动结束end
@@ -380,24 +381,24 @@ public class OrderServiceImpl implements OrderService{
 		if(address == null){
 			return Result.fail(ExceptionEnum.GOODS_ORDER_ADDRESS_NOT_FIND, addressId.toString());
 		}
-		torder.setAddressId(address.getId());
-		torder.setAddress(address.getProvinceName()+address.getCityName()+address.getRegionName()+" "+address.getRoad());
-		torder.setLostMoney(lostMoney);
-		torder.setLostPostMoney(lostPostMoney);
-		torder.setPostMoney(Constants.POST_MONEY);
+		order.setAddressId(address.getId());
+		order.setAddress(address.getProvinceName()+address.getCityName()+address.getRegionName()+" "+address.getRoad());
+		order.setLostMoney(lostMoney);
+		order.setLostPostMoney(lostPostMoney);
+		order.setPostMoney(Constants.POST_MONEY);
 		BigDecimal totalMoney = goodsTotalPrice.add(Constants.POST_MONEY).subtract(lostPostMoney).subtract(couponMoney).subtract(lostMoney);
-		torder.setTotalMoney(totalMoney);
-		torder.setMoney(goodsTotalPrice);
+		order.setTotalMoney(totalMoney);
+		order.setMoney(goodsTotalPrice);
 		//ordercode
 		String header = "";
         String format = sdf.format(new Date());
         String random = RandomUtil.genRandomSmscode(4);
         String orderCode = String.format("%s%s%s", header, format, random);
-		torder.setOrderCode(orderCode);
-		torder.setPayStatus(0);
-		torder.setRemark(String.valueOf(map.get("remark")));
-		torder.setStatus(OrderStatusEnum.waitPayment.getCode());
-		torder.setTotalMoney(totalMoney);
+		order.setOrderCode(orderCode);
+		order.setPayStatus(0);
+		order.setRemark(String.valueOf(map.get("remark")));
+		order.setStatus(OrderStatusEnum.waitPayment.getCode());
+		order.setTotalMoney(totalMoney);
 		//支付方式
 		Map payMentMap = new HashMap();
 		payMentMap.put("id", Integer.valueOf(paymentId.toString()));
@@ -406,9 +407,9 @@ public class OrderServiceImpl implements OrderService{
 			return Result.fail(ExceptionEnum.GOODS_ORDER_PAYMENT_NOT_FIND, paymentId.toString());
 		}
 		PaymentBean payment = payments.get(0);
-		torder.setPaymentId(payment.getId());
-		torder.setPaymentName(payment.getName());
-		int orderId = orderDao.insertSelective(torder);
+		order.setPaymentId(payment.getId());
+		order.setPaymentName(payment.getName());
+		int orderId = orderDao.insert(order);
 		if(orderItems!=null){
 			for(OrderItem orderItem:orderItems){
 				orderItem.setOrderId(orderId);
@@ -435,7 +436,7 @@ public class OrderServiceImpl implements OrderService{
 	 * @return
 	 */
 	@Override
-	public Response<String> orderCheckedPayment(Integer userId, Integer paymentId) {
+	public Response<String> findCheckedPayment(Integer userId, Integer paymentId) {
 
 		paymentUserDao.deleteByUsreId(userId);
 		PaymentUser paymentUser = new PaymentUser();
@@ -456,7 +457,7 @@ public class OrderServiceImpl implements OrderService{
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<List<OrderBean>> appFindOrderBeanList(Integer userId, Integer index, Integer size) throws BaseException{
+	public Response<List<OrderVO>> findOrderVOList(Integer userId, Integer index, Integer size) throws BaseException{
 
 		Map whereMap = new HashMap();
 		whereMap.put("userId", new String[]{String.valueOf(userId)});
@@ -466,17 +467,20 @@ public class OrderServiceImpl implements OrderService{
 		whereMap.put("start", (index-1)*size);
 		whereMap.put("rows", size);
 
-		List<OrderBean> orderBeans = orderDao.appFindOrderBeanList(whereMap);
+		List<Order> orderBeans = orderDao.findOrderByWhere(whereMap);
+		List<OrderVO> orderVOs = new ArrayList<>();
 		if(orderBeans!=null){
-			for(OrderBean orderBean:orderBeans){
+			for(Order order:orderBeans){
+				OrderVO orderVO = order.toVO();
 				Map orderItemWhere = new HashMap();
-				orderItemWhere.put("orderId", orderBean.getId());
+				orderItemWhere.put("orderId", orderVO.getId());
 				List<OrderItem> orderItems = orderItemDao.findByWhere(orderItemWhere);
-				orderBean.setOrderItemList(orderItems);
+				orderVO.setOrderItemList(orderItems);
+				orderVOs.add(orderVO);
 			}
 		}
 		
-		return Result.resultSet(orderBeans);
+		return Result.resultSet(orderVOs);
 	}
 
 	/**
@@ -486,37 +490,38 @@ public class OrderServiceImpl implements OrderService{
 	 * @return
 	 */
 	@Override
-	public Response<OrderBean> appFindOrderBeanById(Integer userId,Integer id) {
+	public Response<OrderVO> findOrderVOById(Integer userId, Integer id) {
 		if(userId == null || userId.intValue()<=0){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR, "错误的请求！","userId",String.valueOf(userId));
 		}
 		if(id == null || id.intValue()<=0){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR, "错误的请求！","orderId",String.valueOf(id));
 		}
-		Map whereMap = new HashMap();
-		whereMap.put("userId", userId);
-		whereMap.put("id", id);
 
-		Order order = orderDao.selectByPrimaryKey(id);
+		Order order = orderDao.findById(id);
+		if(order == null){
+			return Result.fail(ExceptionEnum.ORDER_NOT_EXIST_ERROR);
+		}
 		if(userId != null && order.getUserId().intValue() != userId.intValue()){
 			return Result.fail(ExceptionEnum.COMMON_ERROE, "错误的请求！",order.getUserId()+"!="+userId);
 		}
+
 		
-		OrderBean orderBean = new OrderBean(order);
+		OrderVO orderVO = order.toVO();
 		Map orderItemWhere = new HashMap();
-		orderItemWhere.put("orderId", orderBean.getId());
+		orderItemWhere.put("orderId", orderVO.getId());
 		List<OrderItem> orderItems = orderItemDao.findByWhere(orderItemWhere);
-		orderBean.setOrderItemList(orderItems);
+		orderVO.setOrderItemList(orderItems);
 
 		Map userAddressMap = new HashMap();
-		userAddressMap.put("id", orderBean.getAddressId());
+		userAddressMap.put("id", orderVO.getAddressId());
 		List<UserAddress> userAddresss = userAddressDao.findByWhere(userAddressMap);
 		if (userAddresss != null && userAddresss.size() > 0) {
-			orderBean.setTuserAddress(userAddresss.get(0));
+			orderVO.setTuserAddress(userAddresss.get(0));
 		}
 		
 		//TODO 活动，购物券，红包处理
-		return Result.resultSet(orderBean);
+		return Result.resultSet(orderVO);
 	}
 
 	/**
@@ -525,7 +530,7 @@ public class OrderServiceImpl implements OrderService{
 	 * @return
 	 */
 	@Override
-	public Response<List<PostDetail>> appFindPostDetail(String postCode) {
+	public Response<List<PostDetail>> findPostDetail(String postCode) {
 		Map whereMap = new HashMap();
 		whereMap.put("postCode", postCode);
 		whereMap.put("deleteFlag", "N");
@@ -544,7 +549,7 @@ public class OrderServiceImpl implements OrderService{
 		if (order == null || order.getId() == null || order.getId() <= 0) {
 			return Result.fail(ExceptionEnum.ORDER_UPDATE_STATUS_ERROR,JSON.toJSONString(order));
 		}
-		int result = orderDao.updateByPrimaryKeySelective(order);
+		int result = orderDao.update(order);
 		return Result.resultSet(result);
 	}
 
@@ -556,7 +561,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Response<OrderBean> findOrderBeanById(int id) {
 
-		return appFindOrderBeanById(null, id);
+		return null;
 	}
 
 	/**
@@ -566,7 +571,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public int countNewOrder() {
 		Map whereMap =  new HashMap();
-		whereMap.put("status", 1);
+		whereMap.put("status", OrderStatusEnum.WaitShip.getCode());
 		int count = orderDao.findCount(whereMap);
 		return count;
 	}

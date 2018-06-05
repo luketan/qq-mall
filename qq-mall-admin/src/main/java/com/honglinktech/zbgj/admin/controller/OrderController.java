@@ -1,5 +1,6 @@
 package com.honglinktech.zbgj.admin.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.bean.OrderBean;
 import com.honglinktech.zbgj.bean.OrderSimpleBean;
 import com.honglinktech.zbgj.common.Page;
@@ -87,9 +88,14 @@ public class OrderController extends BaseController {
     @RequiresPermissions("order")
     @RequestMapping("/detail")
     public String orderDetail(@RequestParam(required = false)int orderId, Model model) {
-	    	Response<OrderBean> orderDetailBean = orderService.findOrderBeanById(orderId);
-	    	model.addAttribute("order", orderDetailBean.getResult());
-	        return "order/detail";
+		Response<OrderBean> response = orderService.findOrderBeanById(orderId);
+		logger.info("=========orderDetail========"+JSON.toJSON(response));
+		if(response.getCode() == 0){
+			model.addAttribute("order", response.getResult());
+		}else{
+			addError(model, response.getMsg());
+		}
+		return "order/detail";
     }
 
 	/**

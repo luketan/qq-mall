@@ -49,7 +49,7 @@
     activitys
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     SELECT 
     <include refid="Base_Column_List" />
     ,
@@ -58,12 +58,12 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteById" parameterType="java.lang.Integer">
     DELETE FROM t_order
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Order">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Order">
     INSERT INTO t_order
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -243,7 +243,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Order">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.Order">
     UPDATE t_order
     <set>
       <if test="orderCode != null">
@@ -333,8 +333,8 @@
   </update>
 
   <!--********************************************************************************************-->
-  <!--app查询订单详情-->
-  <select id="appFindOrderBeanList" parameterType="map" resultType="com.honglinktech.zbgj.bean.OrderBean">
+  <!--条件查询列表-->
+  <select id="findOrderByWhere" parameterType="map" resultType="com.honglinktech.zbgj.entity.Order">
     SELECT
        o.id,
        o.order_code as orderCode,
@@ -445,9 +445,6 @@
     </if>
     <if test="keyword != null">
       AND (o.order_code like CONCAT('%','${keyword}','%' ) OR u.account like CONCAT('%','${keyword}','%' ) OR u.phone like CONCAT('%','${keyword}','%' ))
-    </if>
-    <if test="deleteFlag != null">
-      AND o.delete_flag = #{deleteFlag}
     </if>
     <if test="payStatus != null">
       AND o.pay_status = #{payStatus}

@@ -34,8 +34,8 @@ public enum ExceptionEnum {
 	//society 040000
 
 	//order
-	ORDER_UPDATE_STATUS_ERROR(300002,"订单状态修改失败！","订单状态修改失败，id:{0}!");
-	;
+	ORDER_UPDATE_STATUS_ERROR(300002,"订单状态修改失败！","订单状态修改失败，id:{0}!"),
+	ORDER_NOT_EXIST_ERROR(300003,"订单不存在！","订单不存在，id:{0}!");
 	
 	
 	private int retCode;

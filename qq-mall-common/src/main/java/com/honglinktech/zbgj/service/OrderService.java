@@ -7,6 +7,7 @@ import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.Order;
 import com.honglinktech.zbgj.entity.PostDetail;
+import com.honglinktech.zbgj.vo.OrderVO;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public interface OrderService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<Map<String, Object>> AppReadyOrder(Integer userId, Map map) throws BaseException ;
+	Response<Map<String, Object>> findOrderView(Integer userId, Map map) throws BaseException ;
 	/**
 	 * 生成订单
 	 * @param userId
@@ -27,14 +28,14 @@ public interface OrderService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<Map<String, Object>> submitOrder(Integer userId, Map<String, Object> map) throws BaseException ;
+	Response<Map<String, Object>> saveSubmitOrder(Integer userId, Map<String, Object> map) throws BaseException ;
 	/**
 	 * 选择支付方式
 	 * @param userId
 	 * @param paymentId
 	 * @return
 	 */
-	Response<String> orderCheckedPayment(Integer userId, Integer paymentId) ;
+	Response<String> findCheckedPayment(Integer userId, Integer paymentId) ;
 
 	/**
 	 * APP获取订单列表
@@ -44,7 +45,7 @@ public interface OrderService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<OrderBean>> appFindOrderBeanList(Integer userId, Integer index, Integer size) throws BaseException;
+	Response<List<OrderVO>> findOrderVOList(Integer userId, Integer index, Integer size) throws BaseException;
 
 	/**
 	 * APP获取订单的详情
@@ -52,14 +53,14 @@ public interface OrderService{
 	 * @param id
 	 * @return
 	 */
-	Response<OrderBean> appFindOrderBeanById(Integer userId, Integer id) ;
+	Response<OrderVO> findOrderVOById(Integer userId, Integer id) ;
 
 	/**
 	 * APP获取快递信息
 	 * @param postCode
 	 * @return
 	 */
-	Response<List<PostDetail>> appFindPostDetail(String postCode) ;
+	Response<List<PostDetail>> findPostDetail(String postCode) ;
 
 	/**********************************************console**************************/
 	/**

@@ -4,6 +4,10 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import com.honglinktech.zbgj.bean.OrderBean;
+import com.honglinktech.zbgj.vo.OrderVO;
+import com.sun.org.apache.xpath.internal.operations.Or;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -410,4 +414,92 @@ public class Order {
     public void setActivitys(String activitys) {
         this.activitys = activitys == null ? null : activitys.trim();
     }
+
+    public Order(){}
+    public Order(OrderBean orderBean){
+        if(orderBean!=null){
+            this.id = orderBean.getId();
+            this.orderCode = orderBean.getOrderCode();
+            this.userId = orderBean.getUserId();
+            this.addressId = orderBean.getAddressId();
+            this.money = orderBean.getMoney();
+            this.totalMoney = orderBean.getTotalMoney();
+            this.paymentId = orderBean.getPaymentId();
+            this.paymentName = orderBean.getPaymentName();
+            this.payStatus = orderBean.getPayStatus();
+            this.status = orderBean.getStatus();
+            this.postId = orderBean.getPostId();
+            this.postName = orderBean.getPostName();
+            this.postCode = orderBean.getPostCode();
+            this.postMoney = orderBean.getPostMoney();
+            this.lostPostMoney = orderBean.getLostPostMoney();
+            this.lostMoney  = orderBean.getLostMoney();
+            this.invoiceIs = orderBean.getInvoiceIs();
+            this.invoiceHead = orderBean.getInvoiceHead();
+            this.push = orderBean.getPush();
+            this.readIs = orderBean.getReadIs();
+            this.deleteFlag = orderBean.getDeleteFlag();
+            this.form = orderBean.getForm();
+            this.remark = orderBean.getRemark();
+            this.createTime = orderBean.getCreateTime();
+        }
+    }
+
+    public OrderVO toVO(){
+        OrderVO orderVO = new OrderVO();
+        orderVO.setId(this.getId());
+        orderVO.setOrderCode(this.getOrderCode());
+        orderVO.setUserId(this.getUserId());
+        orderVO.setAddressId(this.getAddressId());
+        orderVO.setMoney(this.getMoney());
+        orderVO.setTotalMoney(this.getTotalMoney());
+        orderVO.setPaymentId(this.getPaymentId());
+        orderVO.setPaymentName(this.getPaymentName());
+        orderVO.setPayStatus(this.getPayStatus());
+        orderVO.setPayStatus(this.getStatus());
+        orderVO.setPostId(this.getPostId());
+        orderVO.setPostName(this.getPostName());
+        orderVO.setPostCode(this.getPostCode());
+        orderVO.setPostMoney(this.getPostMoney());
+        orderVO.setLostPostMoney(this.getLostPostMoney());
+        orderVO.setLostMoney(this.getLostMoney());
+        orderVO.setInvoiceIs(this.getInvoiceIs());
+        orderVO.setInvoiceHead(this.getInvoiceHead());
+        orderVO.setPush(this.getPush());
+        orderVO.setReadIs(this.getReadIs());
+        orderVO.setForm(this.getForm());
+        orderVO.setRemark(this.getRemark());
+        orderVO.setCreateTime(this.getCreateTime());
+        return orderVO;
+    }
+
+    public OrderBean toBean(){
+        OrderBean orderVO = new OrderBean();
+        orderVO.setId(this.getId());
+        orderVO.setOrderCode(this.getOrderCode());
+        orderVO.setUserId(this.getUserId());
+        orderVO.setAddressId(this.getAddressId());
+        orderVO.setMoney(this.getMoney());
+        orderVO.setTotalMoney(this.getTotalMoney());
+        orderVO.setPaymentId(this.getPaymentId());
+        orderVO.setPaymentName(this.getPaymentName());
+        orderVO.setPayStatus(this.getPayStatus());
+        orderVO.setPayStatus(this.getStatus());
+        orderVO.setPostId(this.getPostId());
+        orderVO.setPostName(this.getPostName());
+        orderVO.setPostCode(this.getPostCode());
+        orderVO.setPostMoney(this.getPostMoney());
+        orderVO.setLostPostMoney(this.getLostPostMoney());
+        orderVO.setLostMoney(this.getLostMoney());
+        orderVO.setInvoiceIs(this.getInvoiceIs());
+        orderVO.setInvoiceHead(this.getInvoiceHead());
+        orderVO.setPush(this.getPush());
+        orderVO.setReadIs(this.getReadIs());
+        orderVO.setForm(this.getForm());
+        orderVO.setRemark(this.getRemark());
+        orderVO.setCreateTime(this.getCreateTime());
+        return orderVO;
+    }
+
+
 }
