@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-import com.honglinktech.zbgj.entity.Order;
-import com.honglinktech.zbgj.entity.OrderItem;
-import com.honglinktech.zbgj.entity.UserAddress;
+import com.honglinktech.zbgj.entity.*;
 
 @SuppressWarnings("unused")
 public class OrderBean {
@@ -37,7 +35,9 @@ public class OrderBean {
 	private Date createTime;
 	
 	private List<OrderItem> orderItemList;
-	private UserAddress tuserAddress;
+	private List<Gactivity> goodsActivities;
+
+	private UserAddress userAddress;
 	
 	/**
 	 * 
@@ -214,12 +214,7 @@ public class OrderBean {
 	public void setOrderItemList(List<OrderItem> orderItemList) {
 		this.orderItemList = orderItemList;
 	}
-	public UserAddress getTuserAddress() {
-		return tuserAddress;
-	}
-	public void setTuserAddress(UserAddress tuserAddress) {
-		this.tuserAddress = tuserAddress;
-	}
+
 	public String getOrderStatus(){
 		String orderStatus = "";
 		switch (this.status.intValue()) {

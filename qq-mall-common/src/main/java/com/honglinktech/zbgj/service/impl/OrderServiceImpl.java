@@ -491,10 +491,10 @@ public class OrderServiceImpl implements OrderService{
 	 */
 	@Override
 	public Response<OrderVO> findOrderVOById(Integer userId, Integer id) {
-		if(userId == null || userId.intValue()<=0){
+		if(userId == null || userId<=0){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR, "错误的请求！","userId",String.valueOf(userId));
 		}
-		if(id == null || id.intValue()<=0){
+		if(id == null || id<=0){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR, "错误的请求！","orderId",String.valueOf(id));
 		}
 
@@ -561,7 +561,13 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Response<OrderBean> findOrderBeanById(int id) {
 
-		return null;
+		Order order = orderDao.findById(id);
+		if(order == null){
+			return Result.fail("订单不存在！");
+		}
+		OrderBean orderBean = order.toBean();
+
+		return Result.resultSet(orderBean);
 	}
 
 	/**

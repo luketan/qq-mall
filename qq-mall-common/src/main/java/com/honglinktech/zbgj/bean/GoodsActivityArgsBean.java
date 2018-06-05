@@ -7,7 +7,7 @@ import com.honglinktech.zbgj.common.Constants;
 
 
 /**
-*规格种类
+*
 **/
 public class GoodsActivityArgsBean implements Serializable{
 
