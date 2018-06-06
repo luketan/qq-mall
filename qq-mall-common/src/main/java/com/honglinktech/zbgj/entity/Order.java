@@ -28,16 +28,6 @@ public class Order {
     private Integer userId;
 
     /**
-     * 商品总价
-     */
-    private BigDecimal money;
-
-    /**
-     * 订单总价
-     */
-    private BigDecimal totalMoney;
-
-    /**
      * 支付方式（1是支付宝支付，2是微信支付,3货到付款）
      */
     private Integer paymentId;
@@ -51,6 +41,10 @@ public class Order {
      * 订单状态(0未支付,1支付成功,2支付未成功)
      */
     private Integer payStatus;
+    /**
+     *
+     */
+    private String payReason;
 
     /**
      * 订单状态(1待付款，2待发货，3运送中，4已完成)
@@ -73,17 +67,32 @@ public class Order {
     private String postCode;
 
     /**
+     * 商品总价
+     */
+    private BigDecimal money;
+
+    /**
+     * 订单总价
+     */
+    private BigDecimal totalMoney;
+
+    /**
      * 邮费
      */
     private BigDecimal postMoney;
 
     /**
-     * 运费减免
+     * 活动减免减免
      */
-    private BigDecimal lostPostMoney;
+    private BigDecimal lostActivityMoney;
 
     /**
-     * 优惠金额
+     * 优惠券减免
+     */
+    private BigDecimal lostCouponMoney;
+
+    /**
+     * 其他优惠金额，积分，红包
      */
     private BigDecimal lostMoney;
 
@@ -118,11 +127,6 @@ public class Order {
     private Integer couponId;
 
     /**
-     * 优惠券信息
-     */
-    private String coupon;
-
-    /**
      * 消息推送记录(0为推送，1已推送)
      */
     private Integer push;
@@ -130,25 +134,20 @@ public class Order {
     /**
      * 订单状态是否已读(0未读，1已读)
      */
-    private Integer readIs;
-
-    /**
-     * 删除标志
-     */
-    private Integer deleteFlag;
+    private Integer read;
 
     /**
      * 订单来源(1直接购买,2社区赠送,3一元购)
      */
-    private Integer form;
+    private String form;
 
     /**
-     * 备注
+     * 用户备注
      */
     private String remark;
 
     /**
-     * 订单说明
+     * 后台说明
      */
     private String explain;
 
@@ -161,11 +160,6 @@ public class Order {
      * 创建时间
      */
     private Date createTime;
-
-    /**
-     * 活动l列表
-     */
-    private String activitys;
 
     public Integer getId() {
         return id;
@@ -180,7 +174,7 @@ public class Order {
     }
 
     public void setOrderCode(String orderCode) {
-        this.orderCode = orderCode == null ? null : orderCode.trim();
+        this.orderCode = orderCode;
     }
 
     public Integer getUserId() {
@@ -189,22 +183,6 @@ public class Order {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public BigDecimal getMoney() {
-        return money;
-    }
-
-    public void setMoney(BigDecimal money) {
-        this.money = money;
-    }
-
-    public BigDecimal getTotalMoney() {
-        return totalMoney;
-    }
-
-    public void setTotalMoney(BigDecimal totalMoney) {
-        this.totalMoney = totalMoney;
     }
 
     public Integer getPaymentId() {
@@ -220,7 +198,7 @@ public class Order {
     }
 
     public void setPaymentName(String paymentName) {
-        this.paymentName = paymentName == null ? null : paymentName.trim();
+        this.paymentName = paymentName;
     }
 
     public Integer getPayStatus() {
@@ -229,6 +207,14 @@ public class Order {
 
     public void setPayStatus(Integer payStatus) {
         this.payStatus = payStatus;
+    }
+
+    public String getPayReason() {
+        return payReason;
+    }
+
+    public void setPayReason(String payReason) {
+        this.payReason = payReason;
     }
 
     public Integer getStatus() {
@@ -252,7 +238,7 @@ public class Order {
     }
 
     public void setPostName(String postName) {
-        this.postName = postName == null ? null : postName.trim();
+        this.postName = postName;
     }
 
     public String getPostCode() {
@@ -260,7 +246,23 @@ public class Order {
     }
 
     public void setPostCode(String postCode) {
-        this.postCode = postCode == null ? null : postCode.trim();
+        this.postCode = postCode;
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public void setMoney(BigDecimal money) {
+        this.money = money;
+    }
+
+    public BigDecimal getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(BigDecimal totalMoney) {
+        this.totalMoney = totalMoney;
     }
 
     public BigDecimal getPostMoney() {
@@ -271,12 +273,20 @@ public class Order {
         this.postMoney = postMoney;
     }
 
-    public BigDecimal getLostPostMoney() {
-        return lostPostMoney;
+    public BigDecimal getLostActivityMoney() {
+        return lostActivityMoney;
     }
 
-    public void setLostPostMoney(BigDecimal lostPostMoney) {
-        this.lostPostMoney = lostPostMoney;
+    public void setLostActivityMoney(BigDecimal lostActivityMoney) {
+        this.lostActivityMoney = lostActivityMoney;
+    }
+
+    public BigDecimal getLostCouponMoney() {
+        return lostCouponMoney;
+    }
+
+    public void setLostCouponMoney(BigDecimal lostCouponMoney) {
+        this.lostCouponMoney = lostCouponMoney;
     }
 
     public BigDecimal getLostMoney() {
@@ -300,7 +310,7 @@ public class Order {
     }
 
     public void setInvoiceHead(String invoiceHead) {
-        this.invoiceHead = invoiceHead == null ? null : invoiceHead.trim();
+        this.invoiceHead = invoiceHead;
     }
 
     public Integer getAddressId() {
@@ -316,7 +326,7 @@ public class Order {
     }
 
     public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+        this.address = address;
     }
 
     public String getZipcode() {
@@ -335,14 +345,6 @@ public class Order {
         this.couponId = couponId;
     }
 
-    public String getCoupon() {
-        return coupon;
-    }
-
-    public void setCoupon(String coupon) {
-        this.coupon = coupon == null ? null : coupon.trim();
-    }
-
     public Integer getPush() {
         return push;
     }
@@ -351,27 +353,19 @@ public class Order {
         this.push = push;
     }
 
-    public Integer getReadIs() {
-        return readIs;
+    public Integer getRead() {
+        return read;
     }
 
-    public void setReadIs(Integer readIs) {
-        this.readIs = readIs;
+    public void setRead(Integer read) {
+        this.read = read;
     }
 
-    public Integer getDeleteFlag() {
-        return deleteFlag;
-    }
-
-    public void setDeleteFlag(Integer deleteFlag) {
-        this.deleteFlag = deleteFlag;
-    }
-
-    public Integer getForm() {
+    public String getForm() {
         return form;
     }
 
-    public void setForm(Integer form) {
+    public void setForm(String form) {
         this.form = form;
     }
 
@@ -380,7 +374,7 @@ public class Order {
     }
 
     public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+        this.remark = remark;
     }
 
     public String getExplain() {
@@ -388,7 +382,7 @@ public class Order {
     }
 
     public void setExplain(String explain) {
-        this.explain = explain == null ? null : explain.trim();
+        this.explain = explain;
     }
 
     public Date getUpdateTime() {
@@ -407,41 +401,37 @@ public class Order {
         this.createTime = createTime;
     }
 
-    public String getActivitys() {
-        return activitys;
-    }
-
-    public void setActivitys(String activitys) {
-        this.activitys = activitys == null ? null : activitys.trim();
-    }
-
     public Order(){}
     public Order(OrderBean orderBean){
         if(orderBean!=null){
             this.id = orderBean.getId();
             this.orderCode = orderBean.getOrderCode();
             this.userId = orderBean.getUserId();
-            this.addressId = orderBean.getAddressId();
-            this.money = orderBean.getMoney();
-            this.totalMoney = orderBean.getTotalMoney();
             this.paymentId = orderBean.getPaymentId();
             this.paymentName = orderBean.getPaymentName();
             this.payStatus = orderBean.getPayStatus();
+            this.payReason = orderBean.getPayReason();
             this.status = orderBean.getStatus();
             this.postId = orderBean.getPostId();
             this.postName = orderBean.getPostName();
             this.postCode = orderBean.getPostCode();
+            this.money = orderBean.getMoney();
+            this.totalMoney = orderBean.getTotalMoney();
             this.postMoney = orderBean.getPostMoney();
-            this.lostPostMoney = orderBean.getLostPostMoney();
+            this.lostActivityMoney  = orderBean.getLostActivityMoney();
+            this.lostCouponMoney  = orderBean.getLostCouponMoney();
             this.lostMoney  = orderBean.getLostMoney();
             this.invoiceIs = orderBean.getInvoiceIs();
             this.invoiceHead = orderBean.getInvoiceHead();
+            this.addressId = orderBean.getAddressId();
+            this.address = orderBean.getAddress();
+            this.zipcode = orderBean.getZipcode();
+            this.couponId = orderBean.getCouponId();
             this.push = orderBean.getPush();
-            this.readIs = orderBean.getReadIs();
-            this.deleteFlag = orderBean.getDeleteFlag();
+            this.read = orderBean.getRead();
             this.form = orderBean.getForm();
+            this.explain = orderBean.getExplain();
             this.remark = orderBean.getRemark();
-            this.createTime = orderBean.getCreateTime();
         }
     }
 
@@ -450,55 +440,63 @@ public class Order {
         orderVO.setId(this.getId());
         orderVO.setOrderCode(this.getOrderCode());
         orderVO.setUserId(this.getUserId());
-        orderVO.setAddressId(this.getAddressId());
-        orderVO.setMoney(this.getMoney());
-        orderVO.setTotalMoney(this.getTotalMoney());
         orderVO.setPaymentId(this.getPaymentId());
         orderVO.setPaymentName(this.getPaymentName());
         orderVO.setPayStatus(this.getPayStatus());
-        orderVO.setPayStatus(this.getStatus());
+        orderVO.setPayReason(this.getPayReason());
+        orderVO.setStatus(this.getStatus());
         orderVO.setPostId(this.getPostId());
         orderVO.setPostName(this.getPostName());
         orderVO.setPostCode(this.getPostCode());
+        orderVO.setMoney(this.getMoney());
+        orderVO.setTotalMoney(this.getTotalMoney());
         orderVO.setPostMoney(this.getPostMoney());
-        orderVO.setLostPostMoney(this.getLostPostMoney());
+        orderVO.setLostActivityMoney(this.getLostActivityMoney());
+        orderVO.setLostCouponMoney(this.getLostCouponMoney());
         orderVO.setLostMoney(this.getLostMoney());
         orderVO.setInvoiceIs(this.getInvoiceIs());
         orderVO.setInvoiceHead(this.getInvoiceHead());
+        orderVO.setAddressId(this.getAddressId());
+        orderVO.setAddress(this.getAddress());
+        orderVO.setZipcode(this.getZipcode());
+        orderVO.setCouponId(this.getCouponId());
         orderVO.setPush(this.getPush());
-        orderVO.setReadIs(this.getReadIs());
-        orderVO.setForm(this.getForm());
+        orderVO.setRead(this.getRead());
         orderVO.setRemark(this.getRemark());
-        orderVO.setCreateTime(this.getCreateTime());
         return orderVO;
     }
 
     public OrderBean toBean(){
-        OrderBean orderVO = new OrderBean();
-        orderVO.setId(this.getId());
-        orderVO.setOrderCode(this.getOrderCode());
-        orderVO.setUserId(this.getUserId());
-        orderVO.setAddressId(this.getAddressId());
-        orderVO.setMoney(this.getMoney());
-        orderVO.setTotalMoney(this.getTotalMoney());
-        orderVO.setPaymentId(this.getPaymentId());
-        orderVO.setPaymentName(this.getPaymentName());
-        orderVO.setPayStatus(this.getPayStatus());
-        orderVO.setPayStatus(this.getStatus());
-        orderVO.setPostId(this.getPostId());
-        orderVO.setPostName(this.getPostName());
-        orderVO.setPostCode(this.getPostCode());
-        orderVO.setPostMoney(this.getPostMoney());
-        orderVO.setLostPostMoney(this.getLostPostMoney());
-        orderVO.setLostMoney(this.getLostMoney());
-        orderVO.setInvoiceIs(this.getInvoiceIs());
-        orderVO.setInvoiceHead(this.getInvoiceHead());
-        orderVO.setPush(this.getPush());
-        orderVO.setReadIs(this.getReadIs());
-        orderVO.setForm(this.getForm());
-        orderVO.setRemark(this.getRemark());
-        orderVO.setCreateTime(this.getCreateTime());
-        return orderVO;
+        OrderBean orderBean = new OrderBean();
+        orderBean.setId(this.getId());
+        orderBean.setOrderCode(this.getOrderCode());
+        orderBean.setUserId(this.getUserId());
+        orderBean.setPaymentId(this.getPaymentId());
+        orderBean.setPaymentName(this.getPaymentName());
+        orderBean.setPayStatus(this.getPayStatus());
+        orderBean.setPayReason(this.getPayReason());
+        orderBean.setStatus(this.getStatus());
+        orderBean.setPostId(this.getPostId());
+        orderBean.setPostName(this.getPostName());
+        orderBean.setPostCode(this.getPostCode());
+        orderBean.setMoney(this.getMoney());
+        orderBean.setTotalMoney(this.getTotalMoney());
+        orderBean.setPostMoney(this.getPostMoney());
+        orderBean.setLostActivityMoney(this.getLostActivityMoney());
+        orderBean.setLostCouponMoney(this.getLostCouponMoney());
+        orderBean.setLostMoney(this.getLostMoney());
+        orderBean.setInvoiceIs(this.getInvoiceIs());
+        orderBean.setInvoiceHead(this.getInvoiceHead());
+        orderBean.setAddressId(this.getAddressId());
+        orderBean.setAddress(this.getAddress());
+        orderBean.setZipcode(this.getZipcode());
+        orderBean.setCouponId(this.getCouponId());
+        orderBean.setPush(this.getPush());
+        orderBean.setRead(this.getRead());
+        orderBean.setForm(this.getForm());
+        orderBean.setRemark(this.getRemark());
+        orderBean.setCreateTime(this.getCreateTime());
+        return orderBean;
     }
 
 

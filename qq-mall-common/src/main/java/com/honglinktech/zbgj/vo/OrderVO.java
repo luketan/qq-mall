@@ -1,5 +1,7 @@
 package com.honglinktech.zbgj.vo;
 
+import com.honglinktech.zbgj.bean.CouponBean;
+import com.honglinktech.zbgj.bean.OrderItemBean;
 import com.honglinktech.zbgj.entity.Order;
 import com.honglinktech.zbgj.entity.OrderItem;
 import com.honglinktech.zbgj.entity.UserAddress;
@@ -8,41 +10,147 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class OrderVO {
-
-	private Integer id;
-	private String orderCode;
-	private Integer userId;
-	private Integer addressId;
-	private BigDecimal money;
-	private BigDecimal totalMoney;
-	private BigDecimal lostPostMoney;
-	private BigDecimal lostMoney;
-	private Integer paymentId;
-	private String paymentName;
-	private Integer payStatus;
-	private Integer status;
-	private Integer postId;
-	private String postName;
-	private String postCode;
-	private BigDecimal postMoney;
-	private Integer invoiceIs;
-	private String invoiceHead;
-	private Integer push;
-	private Integer readIs;
-	private Integer deleteFlag;
-	private Integer form;
-	private String remark;
-	private Date createTime;
-
-	private List<OrderItem> orderItemList;
-	private UserAddress tuserAddress;
 
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 *
+	 */
+	private Integer id;
+
+	/**
+	 * 订单编号
+	 */
+	private String orderCode;
+
+	/**
+	 *
+	 */
+	private Integer userId;
+
+	/**
+	 * 支付方式（1是支付宝支付，2是微信支付,3货到付款）
+	 */
+	private Integer paymentId;
+
+	/**
+	 *
+	 */
+	private String paymentName;
+
+	/**
+	 * 订单状态(0未支付,1支付成功,2支付未成功)
+	 */
+	private Integer payStatus;
+	/**
+	 *
+	 */
+	private String payReason;
+
+	/**
+	 * 订单状态(1待付款，2待发货，3运送中，4已完成)
+	 */
+	private Integer status;
+
+	/**
+	 * 快递公司ID
+	 */
+	private Integer postId;
+
+	/**
+	 * 快递公司名称
+	 */
+	private String postName;
+
+	/**
+	 * 快递单号
+	 */
+	private String postCode;
+
+	/**
+	 * 商品总价
+	 */
+	private BigDecimal money;
+
+	/**
+	 * 订单总价
+	 */
+	private BigDecimal totalMoney;
+
+	/**
+	 * 邮费
+	 */
+	private BigDecimal postMoney;
+
+	/**
+	 * 活动减免减免
+	 */
+	private BigDecimal lostActivityMoney;
+
+	/**
+	 * 优惠券减免
+	 */
+	private BigDecimal lostCouponMoney;
+
+	/**
+	 * 其他优惠金额，积分，红包
+	 */
+	private BigDecimal lostMoney;
+
+	/**
+	 * 是否需要发票
+	 */
+	private Integer invoiceIs;
+
+	/**
+	 * 发票抬头
+	 */
+	private String invoiceHead;
+
+	/**
+	 *
+	 */
+	private Integer addressId;
+
+	/**
+	 * 地址详细信息
+	 */
+	private String address;
+
+	/**
+	 * 邮编
+	 */
+	private String zipcode;
+
+	/**
+	 * 优惠券id
+	 */
+	private Integer couponId;
+
+	/**
+	 * 消息推送记录(0为推送，1已推送)
+	 */
+	private Integer push;
+
+	/**
+	 * 订单状态是否已读(0未读，1已读)
+	 */
+	private Integer read;
+
+	/**
+	 * 用户备注
+	 */
+	private String remark;
+	/**
+	 * 创建时间
+	 */
+	private Date createTime;
+
+	private List<OrderItemBean> orderItems;
+	private CouponBean coupon;
 
 	public OrderVO(){
  	}
@@ -69,10 +177,10 @@ public class OrderVO {
 	}
 	/**/
 	public Integer getAddressId(){
-		 return this.addressId; 
+		 return this.addressId;
 	}
 	public void setAddressId(Integer addressId){
-		  this.addressId = addressId; 
+		  this.addressId = addressId;
 	}
 	/*总价*/
 	public BigDecimal getMoney(){
@@ -139,12 +247,6 @@ public class OrderVO {
 	public void setTotalMoney(BigDecimal totalMoney) {
 		this.totalMoney = totalMoney;
 	}
-	public BigDecimal getLostPostMoney() {
-		return lostPostMoney;
-	}
-	public void setLostPostMoney(BigDecimal lostPostMoney) {
-		this.lostPostMoney = lostPostMoney;
-	}
 	public BigDecimal getLostMoney() {
 		return lostMoney;
 	}
@@ -172,27 +274,15 @@ public class OrderVO {
 	public void setPush(Integer push){
 		  this.push = push; 
 	}
-	/*订单状态是否已读(0未读，1已读)*/
-	public Integer getReadIs(){
-		 return this.readIs; 
+
+	public Integer getRead() {
+		return read;
 	}
-	public void setReadIs(Integer readIs){
-		  this.readIs = readIs; 
+
+	public void setRead(Integer read) {
+		this.read = read;
 	}
-	/*删除标志*/
-	public Integer getDeleteFlag(){
-		 return this.deleteFlag; 
-	}
-	public void setDeleteFlag(Integer deleteFlag){
-		  this.deleteFlag = deleteFlag; 
-	}
-	/*订单来源(1直接购买,2社区赠送,3一元购)*/
-	public Integer getForm(){
-		 return this.form; 
-	}
-	public void setForm(Integer form){
-		  this.form = form; 
-	}
+
 	/*备注*/
 	public String getRemark(){
 		 return this.remark; 
@@ -207,48 +297,74 @@ public class OrderVO {
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	public List<OrderItem> getOrderItemList() {
-		return orderItemList;
-	}
-	public void setOrderItemList(List<OrderItem> orderItemList) {
-		this.orderItemList = orderItemList;
-	}
-	public UserAddress getTuserAddress() {
-		return tuserAddress;
-	}
-	public void setTuserAddress(UserAddress tuserAddress) {
-		this.tuserAddress = tuserAddress;
-	}
-	public String getOrderStatus(){
-		String orderStatus = "";
-		switch (this.status.intValue()) {
-			case 1:
-				orderStatus = "待付款";
-				break;
-			case 2:
-				orderStatus = "待发货";
-				break;
-			case 3:
-				orderStatus = "运送中";
-				break;
-			case 4:
-				orderStatus = "已完成";
-				break;
-			case 7:
-				orderStatus = "已取消";
-				break;
-			default:
-				break;
-		}
-		return orderStatus;
-	}
-
 	public String getPaymentName() {
 		return paymentName;
 	}
-
 	public void setPaymentName(String paymentName) {
 		this.paymentName = paymentName;
 	}
-	
+
+	public String getPayReason() {
+		return payReason;
+	}
+
+	public void setPayReason(String payReason) {
+		this.payReason = payReason;
+	}
+
+	public BigDecimal getLostActivityMoney() {
+		return lostActivityMoney;
+	}
+
+	public void setLostActivityMoney(BigDecimal lostActivityMoney) {
+		this.lostActivityMoney = lostActivityMoney;
+	}
+
+	public BigDecimal getLostCouponMoney() {
+		return lostCouponMoney;
+	}
+
+	public void setLostCouponMoney(BigDecimal lostCouponMoney) {
+		this.lostCouponMoney = lostCouponMoney;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public Integer getCouponId() {
+		return couponId;
+	}
+
+	public void setCouponId(Integer couponId) {
+		this.couponId = couponId;
+	}
+
+	public List<OrderItemBean> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItemBean> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	public CouponBean getCoupon() {
+		return coupon;
+	}
+
+	public void setCoupon(CouponBean coupon) {
+		this.coupon = coupon;
+	}
 }

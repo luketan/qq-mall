@@ -2,333 +2,198 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.honglinktech.zbgj.dao.OrderDao">
 
-  <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.Order">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="money" jdbcType="DECIMAL" property="money" />
-    <result column="total_money" jdbcType="DECIMAL" property="totalMoney" />
-    <result column="payment_Id" jdbcType="INTEGER" property="paymentId" />
-    <result column="payment_name" jdbcType="VARCHAR" property="paymentName" />
-    <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="post_id" jdbcType="INTEGER" property="postId" />
-    <result column="post_name" jdbcType="VARCHAR" property="postName" />
-    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
-    <result column="post_money" jdbcType="DECIMAL" property="postMoney" />
-    <result column="lost_post_money" jdbcType="DECIMAL" property="lostPostMoney" />
-    <result column="lost_money" jdbcType="DECIMAL" property="lostMoney" />
-    <result column="invoice_is" jdbcType="INTEGER" property="invoiceIs" />
-    <result column="invoice_head" jdbcType="VARCHAR" property="invoiceHead" />
-    <result column="address_id" jdbcType="INTEGER" property="addressId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="coupon_id" jdbcType="INTEGER" property="couponId" />
-    <result column="coupon" jdbcType="VARCHAR" property="coupon" />
-    <result column="push" jdbcType="INTEGER" property="push" />
-    <result column="read_is" jdbcType="INTEGER" property="readIs" />
-    <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
-    <result column="form" jdbcType="INTEGER" property="form" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="explain" jdbcType="VARCHAR" property="explain" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-  </resultMap>
-
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.honglinktech.zbgj.entity.Order">
-    <result column="activitys" jdbcType="LONGVARCHAR" property="activitys" />
-  </resultMap>
-
-  <sql id="Base_Column_List">
-    id, order_code, user_id, money, total_money, payment_Id, payment_name, pay_status, 
-    status, post_id, post_name, post_code, post_money, lost_post_money, lost_money, invoice_is, 
-    invoice_head, address_id, address, coupon_id, coupon, push, read_is, delete_flag, 
-    form, remark, explain, update_time, create_time
-  </sql>
-
-  <sql id="Blob_Column_List">
-    activitys
-  </sql>
-
-  <select id="findById" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="findById" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.entity.Order">
     SELECT 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    FROM t_order
-    WHERE id = #{id,jdbcType=INTEGER}
+    o.id,
+    o.order_code as orderCode,
+    o.user_id as userId,
+    o.payment_id as paymentId,
+    o.payment_name as paymentName,
+    o.pay_status as payStatus,
+    o.pay_reason as payReason,
+    o.status,
+    o.post_id as postId,
+    o.post_name as postName,
+    o.post_code as postCode,
+    o.money,
+    o.total_money as totalMoney,
+    o.post_money as postMoney,
+    o.lost_activity_money as lostActivityMoney,
+    o.lost_coupon_money as lostCouponMoney,
+    o.lost_money as lostMoney,
+    o.invoice_is as invoiceIs,
+    o.invoice_head as invoiceHead,
+    o.address_id as addressId,
+    o.address,
+    o.zipcode,
+    o.coupon_id as couponId,
+    o.push,
+    o.read,
+    o.form,
+    o.remark,
+    o.explain,
+    o.update_time as updateTime,
+    o.create_time as createTime
+    FROM t_order o
+    WHERE o.id = #{id,jdbcType=INTEGER}
+    AND o.delete_flag = 0
   </select>
 
-  <delete id="deleteById" parameterType="java.lang.Integer">
-    DELETE FROM t_order
+  <update id="deleteById" parameterType="java.lang.Integer">
+    update t_order set delete_flag = 1
     WHERE id = #{id,jdbcType=INTEGER}
-  </delete>
+  </update>
 
   <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Order">
-    INSERT INTO t_order
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="orderCode != null">
-        order_code,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="money != null">
-        money,
-      </if>
-      <if test="totalMoney != null">
-        total_money,
-      </if>
-      <if test="paymentId != null">
-        payment_Id,
-      </if>
-      <if test="paymentName != null">
-        payment_name,
-      </if>
-      <if test="payStatus != null">
-        pay_status,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="postId != null">
-        post_id,
-      </if>
-      <if test="postName != null">
-        post_name,
-      </if>
-      <if test="postCode != null">
-        post_code,
-      </if>
-      <if test="postMoney != null">
-        post_money,
-      </if>
-      <if test="lostPostMoney != null">
-        lost_post_money,
-      </if>
-      <if test="lostMoney != null">
-        lost_money,
-      </if>
-      <if test="invoiceIs != null">
-        invoice_is,
-      </if>
-      <if test="invoiceHead != null">
-        invoice_head,
-      </if>
-      <if test="addressId != null">
-        address_id,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-      <if test="couponId != null">
-        coupon_id,
-      </if>
-      <if test="coupon != null">
-        coupon,
-      </if>
-      <if test="push != null">
-        push,
-      </if>
-      <if test="readIs != null">
-        read_is,
-      </if>
-      <if test="deleteFlag != null">
-        delete_flag,
-      </if>
-      <if test="form != null">
-        form,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="explain != null">
-        explain,
-      </if>
-        update_time,
-        create_time,
-      <if test="activitys != null">
-        activitys,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="orderCode != null">
-        #{orderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="money != null">
-        #{money,jdbcType=DECIMAL},
-      </if>
-      <if test="totalMoney != null">
-        #{totalMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="paymentId != null">
-        #{paymentId,jdbcType=INTEGER},
-      </if>
-      <if test="paymentName != null">
-        #{paymentName,jdbcType=VARCHAR},
-      </if>
-      <if test="payStatus != null">
-        #{payStatus,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="postId != null">
-        #{postId,jdbcType=INTEGER},
-      </if>
-      <if test="postName != null">
-        #{postName,jdbcType=VARCHAR},
-      </if>
-      <if test="postCode != null">
-        #{postCode,jdbcType=VARCHAR},
-      </if>
-      <if test="postMoney != null">
-        #{postMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="lostPostMoney != null">
-        #{lostPostMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="lostMoney != null">
-        #{lostMoney,jdbcType=DECIMAL},
-      </if>
-      <if test="invoiceIs != null">
-        #{invoiceIs,jdbcType=INTEGER},
-      </if>
-      <if test="invoiceHead != null">
-        #{invoiceHead,jdbcType=VARCHAR},
-      </if>
-      <if test="addressId != null">
-        #{addressId,jdbcType=INTEGER},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="couponId != null">
-        #{couponId,jdbcType=INTEGER},
-      </if>
-      <if test="coupon != null">
-        #{coupon,jdbcType=VARCHAR},
-      </if>
-      <if test="push != null">
-        #{push,jdbcType=INTEGER},
-      </if>
-      <if test="readIs != null">
-        #{readIs,jdbcType=INTEGER},
-      </if>
-      <if test="deleteFlag != null">
-        #{deleteFlag,jdbcType=INTEGER},
-      </if>
-      <if test="form != null">
-        #{form,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="explain != null">
-        #{explain,jdbcType=VARCHAR},
-      </if>
-      now(),
-      now(),
-      <if test="activitys != null">
-        #{activitys,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
+    INSERT INTO t_order(
+    id,
+    order_code,
+    user_id,
+    payment_id,
+    payment_name,
+    pay_status,
+    pay_reason,
+    status,
+    post_id,
+    post_name,
+    post_code,
+    money,
+    total_money,
+    post_money,
+    lost_activity_money,
+    lost_coupon_money,
+    lost_money,
+    invoice_is,
+    invoice_head,
+    address_id,
+    address,
+    zipcode,
+    coupon_id,
+    push,
+    `read`,
+    `form`,
+    remark,
+    explain,
+    update_time,
+    create_time
+    )VALUES(
+    #{id},
+    #{orderCode},
+    #{userId},
+    #{paymentId},
+    #{paymentName},
+    #{payStatus},
+    #{payReason},
+    #{status},
+    #{postId},
+    #{postName},
+    #{postCode},
+    #{money},
+    #{totalMoney},
+    #{postMoney},
+    #{lostActivityMoney},
+    #{lostCouponMoney},
+    #{lostMoney},
+    #{invoiceIs},
+    #{invoiceHead},
+    #{addressId},
+    #{address},
+    #{zipcode},
+    #{couponId},
+    #{push},
+    #{read},
+    #{form,
+    #{remark},
+    #{explain},
+    now(),
+    now()
+    )
   </insert>
 
   <update id="update" parameterType="com.honglinktech.zbgj.entity.Order">
     UPDATE t_order
-    <set>
       <if test="orderCode != null">
-        order_code = #{orderCode,jdbcType=VARCHAR},
+        order_code = #{orderCode},
       </if>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="money != null">
-        money = #{money,jdbcType=DECIMAL},
-      </if>
-      <if test="totalMoney != null">
-        total_money = #{totalMoney,jdbcType=DECIMAL},
+        user_id = #{userId},
       </if>
       <if test="paymentId != null">
-        payment_Id = #{paymentId,jdbcType=INTEGER},
+        payment_Id = #{paymentId},
       </if>
       <if test="paymentName != null">
-        payment_name = #{paymentName,jdbcType=VARCHAR},
+        payment_name = #{paymentName},
       </if>
       <if test="payStatus != null">
-        pay_status = #{payStatus,jdbcType=INTEGER},
+        pay_status = #{payStatus},
+      </if>
+      <if test="payReason != null">
+        pay_reason = #{payReason},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        status = #{status},
       </if>
       <if test="postId != null">
-        post_id = #{postId,jdbcType=INTEGER},
+        post_id = #{postId},
       </if>
       <if test="postName != null">
-        post_name = #{postName,jdbcType=VARCHAR},
+        post_name = #{postName},
       </if>
       <if test="postCode != null">
-        post_code = #{postCode,jdbcType=VARCHAR},
+        post_code = #{postCode},
+      </if>
+      <if test="money != null">
+        money = #{money},
+      </if>
+      <if test="totalMoney != null">
+        total_money = #{totalMoney},
       </if>
       <if test="postMoney != null">
-        post_money = #{postMoney,jdbcType=DECIMAL},
+        post_money = #{postMoney},
       </if>
-      <if test="lostPostMoney != null">
-        lost_post_money = #{lostPostMoney,jdbcType=DECIMAL},
+      <if test="lostActivityMoney != null">
+        lost_activity_money = #{lostActivityMoney},
+      </if>
+      <if test="lostCouponMoney != null">
+        lost_coupon_money = #{lostCouponMoney},
       </if>
       <if test="lostMoney != null">
-        lost_money = #{lostMoney,jdbcType=DECIMAL},
+        lost_money = #{lostMoney},
       </if>
       <if test="invoiceIs != null">
-        invoice_is = #{invoiceIs,jdbcType=INTEGER},
+        invoice_is = #{invoiceIs},
       </if>
       <if test="invoiceHead != null">
-        invoice_head = #{invoiceHead,jdbcType=VARCHAR},
+        invoice_head = #{invoiceHead},
       </if>
       <if test="addressId != null">
-        address_id = #{addressId,jdbcType=INTEGER},
+        address_id = #{addressId},
       </if>
       <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
+        address = #{address},
+      </if>
+      <if test="zipcode != null">
+        zipcode = #{zipcode},
       </if>
       <if test="couponId != null">
-        coupon_id = #{couponId,jdbcType=INTEGER},
-      </if>
-      <if test="coupon != null">
-        coupon = #{coupon,jdbcType=VARCHAR},
+        coupon_id = #{couponId},
       </if>
       <if test="push != null">
-        push = #{push,jdbcType=INTEGER},
+        push = #{push},
       </if>
-      <if test="readIs != null">
-        read_is = #{readIs,jdbcType=INTEGER},
-      </if>
-      <if test="deleteFlag != null">
-        delete_flag = #{deleteFlag,jdbcType=INTEGER},
+      <if test="read != null">
+        `read` = #{read},
       </if>
       <if test="form != null">
-        form = #{form,jdbcType=INTEGER},
+        `form` = #{form},
       </if>
       <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
+        remark = #{remark},
       </if>
       <if test="explain != null">
-        explain = #{explain,jdbcType=VARCHAR},
+        explain = #{explain},
       </if>
-      update_time = now(),
-      <if test="activitys != null">
-        activitys = #{activitys,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
+      update_time = now()
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
 
@@ -336,34 +201,36 @@
   <!--条件查询列表-->
   <select id="findOrderByWhere" parameterType="map" resultType="com.honglinktech.zbgj.entity.Order">
     SELECT
-       o.id,
-       o.order_code as orderCode,
-       o.user_id as userId,
-       o.money,
-       o.total_money as totalMoney,
-       o.payment_Id as paymentId,
-       o.payment_name as paymentName,
-       o.pay_status as payStatus,
-       o.status,
-       o.post_id as postId,
-       o.post_name as postName,
-       o.post_code as postCode,
-       o.post_money as postMoney,
-       o.lost_post_money as lostPostMoney,
-       o.lost_money as lostMoney,
-       o.invoice_is as invoiceIs,
-       o.invoice_head as invoiceHead,
-       o.address_id as addressId,
-       o.address,
-       o.coupon_id as couponId,
-       o.coupon,
-       o.push,
-       o.read_is as readIs,
-       o.form,
-       o.remark,
-       o.explain,
-       o.update_time as updateTime,
-       o.create_time as createTime
+    o.id,
+    o.order_code as orderCode,
+    o.user_id as userId,
+    o.payment_id as paymentId,
+    o.payment_name as paymentName,
+    o.pay_status as payStatus,
+    o.pay_reason as payReason,
+    o.status,
+    o.post_id as postId,
+    o.post_name as postName,
+    o.post_code as postCode,
+    o.money,
+    o.total_money as totalMoney,
+    o.post_money as postMoney,
+    o.lost_activity_money as lostActivityMoney,
+    o.lost_coupon_money as lostCouponMoney,
+    o.lost_money as lostMoney,
+    o.invoice_is as invoiceIs,
+    o.invoice_head as invoiceHead,
+    o.address_id as addressId,
+    o.address,
+    o.zipcode,
+    o.coupon_id as couponId,
+    o.push,
+    o.read,
+    o.form,
+    o.remark,
+    o.explain,
+    o.update_time as updateTime,
+    o.create_time as createTime
     FROM t_order o
     WHERE o.delete_flag = 0
     <if test="userId != null">
@@ -376,7 +243,7 @@
        ORDER BY o.#{orderBy}, #{asc}
     </if>
     <if test="orderBy == null || asc == null">
-        ORDER BY o.create_time, desc
+        ORDER BY o.id, desc
     </if>
     <if test="start == null || rows == null">
         limit #{start},#{rows}
@@ -394,17 +261,15 @@
       o.money,
       o.total_money as totalMoney,
       o.payment_Id as paymentId,
-      pay.name as paymentName,
+      o.payment_name as paymentName,
       o.pay_status as payStatus,
       o.status,
       o.post_id as postId,
-      pc.name as postName,
+      o.post_name as postName,
       o.update_time as updateTime,
       o.create_time as createTime
     FROM t_order o
     LEFT JOIN t_user u ON(o.user_id = u.id)
-    LEFT JOIN t_post_company pc ON(o.post_id = pc.id)
-    LEFT JOIN t_payment pay ON(o.payment_Id = pay.id)
     WHERE o.delete_flag = 0
     <if test="paymentId != null">
       AND o.payment_Id = #{paymentId}

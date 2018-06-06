@@ -12,36 +12,158 @@ public class OrderBean implements Serializable {
 
 	private static final long serialVersionUID = -577728722353044309L;
 
+	/**
+	 *
+	 */
 	private Integer id;
+
+	/**
+	 * 订单编号
+	 */
 	private String orderCode;
+
+	/**
+	 *
+	 */
 	private Integer userId;
-	private Integer addressId;
-	private BigDecimal money;
-	private BigDecimal totalMoney;
-	private BigDecimal lostPostMoney;
-	private BigDecimal lostMoney;
+
+	/**
+	 * 支付方式（1是支付宝支付，2是微信支付,3货到付款）
+	 */
 	private Integer paymentId;
+
+	/**
+	 *
+	 */
 	private String paymentName;
+
+	/**
+	 * 订单状态(0未支付,1支付成功,2支付未成功)
+	 */
 	private Integer payStatus;
+	/**
+	 *
+	 */
+	private String payReason;
+
+	/**
+	 * 订单状态(1待付款，2待发货，3运送中，4已完成)
+	 */
 	private Integer status;
+
+	/**
+	 * 快递公司ID
+	 */
 	private Integer postId;
+
+	/**
+	 * 快递公司名称
+	 */
 	private String postName;
+
+	/**
+	 * 快递单号
+	 */
 	private String postCode;
+
+	/**
+	 * 商品总价
+	 */
+	private BigDecimal money;
+
+	/**
+	 * 订单总价
+	 */
+	private BigDecimal totalMoney;
+
+	/**
+	 * 邮费
+	 */
 	private BigDecimal postMoney;
+
+	/**
+	 * 活动减免减免
+	 */
+	private BigDecimal lostActivityMoney;
+
+	/**
+	 * 优惠券减免
+	 */
+	private BigDecimal lostCouponMoney;
+
+	/**
+	 * 其他优惠金额，积分，红包
+	 */
+	private BigDecimal lostMoney;
+
+	/**
+	 * 是否需要发票
+	 */
 	private Integer invoiceIs;
+
+	/**
+	 * 发票抬头
+	 */
 	private String invoiceHead;
+
+	/**
+	 *
+	 */
+	private Integer addressId;
+
+	/**
+	 * 地址详细信息
+	 */
+	private String address;
+
+	/**
+	 * 邮编
+	 */
+	private String zipcode;
+
+	/**
+	 * 优惠券id
+	 */
+	private Integer couponId;
+
+	/**
+	 * 消息推送记录(0为推送，1已推送)
+	 */
 	private Integer push;
-	private Integer readIs;
-	private Integer deleteFlag;
-	private Integer form;
+
+	/**
+	 * 订单状态是否已读(0未读，1已读)
+	 */
+	private Integer read;
+
+	/**
+	 * 订单来源(1直接购买,2社区赠送,3一元购)
+	 */
+	private String form;
+
+	/**
+	 * 用户备注
+	 */
 	private String remark;
+
+	/**
+	 * 后台说明
+	 */
+	private String explain;
+
+	/**
+	 * 修改时间
+	 */
+	private Date updateTime;
+
+	/**
+	 * 创建时间
+	 */
 	private Date createTime;
-	
+
 	private List<OrderItemBean> orderItems;
 	private CouponBean coupon;
 
-	private UserAddress userAddress;
-	
 	public OrderBean(){
  	}
 
@@ -69,46 +191,6 @@ public class OrderBean implements Serializable {
 		this.userId = userId;
 	}
 
-	public Integer getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(Integer addressId) {
-		this.addressId = addressId;
-	}
-
-	public BigDecimal getMoney() {
-		return money;
-	}
-
-	public void setMoney(BigDecimal money) {
-		this.money = money;
-	}
-
-	public BigDecimal getTotalMoney() {
-		return totalMoney;
-	}
-
-	public void setTotalMoney(BigDecimal totalMoney) {
-		this.totalMoney = totalMoney;
-	}
-
-	public BigDecimal getLostPostMoney() {
-		return lostPostMoney;
-	}
-
-	public void setLostPostMoney(BigDecimal lostPostMoney) {
-		this.lostPostMoney = lostPostMoney;
-	}
-
-	public BigDecimal getLostMoney() {
-		return lostMoney;
-	}
-
-	public void setLostMoney(BigDecimal lostMoney) {
-		this.lostMoney = lostMoney;
-	}
-
 	public Integer getPaymentId() {
 		return paymentId;
 	}
@@ -131,6 +213,14 @@ public class OrderBean implements Serializable {
 
 	public void setPayStatus(Integer payStatus) {
 		this.payStatus = payStatus;
+	}
+
+	public String getPayReason() {
+		return payReason;
+	}
+
+	public void setPayReason(String payReason) {
+		this.payReason = payReason;
 	}
 
 	public Integer getStatus() {
@@ -165,12 +255,52 @@ public class OrderBean implements Serializable {
 		this.postCode = postCode;
 	}
 
+	public BigDecimal getMoney() {
+		return money;
+	}
+
+	public void setMoney(BigDecimal money) {
+		this.money = money;
+	}
+
+	public BigDecimal getTotalMoney() {
+		return totalMoney;
+	}
+
+	public void setTotalMoney(BigDecimal totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+
 	public BigDecimal getPostMoney() {
 		return postMoney;
 	}
 
 	public void setPostMoney(BigDecimal postMoney) {
 		this.postMoney = postMoney;
+	}
+
+	public BigDecimal getLostActivityMoney() {
+		return lostActivityMoney;
+	}
+
+	public void setLostActivityMoney(BigDecimal lostActivityMoney) {
+		this.lostActivityMoney = lostActivityMoney;
+	}
+
+	public BigDecimal getLostCouponMoney() {
+		return lostCouponMoney;
+	}
+
+	public void setLostCouponMoney(BigDecimal lostCouponMoney) {
+		this.lostCouponMoney = lostCouponMoney;
+	}
+
+	public BigDecimal getLostMoney() {
+		return lostMoney;
+	}
+
+	public void setLostMoney(BigDecimal lostMoney) {
+		this.lostMoney = lostMoney;
 	}
 
 	public Integer getInvoiceIs() {
@@ -189,6 +319,38 @@ public class OrderBean implements Serializable {
 		this.invoiceHead = invoiceHead;
 	}
 
+	public Integer getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(Integer addressId) {
+		this.addressId = addressId;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
+	public Integer getCouponId() {
+		return couponId;
+	}
+
+	public void setCouponId(Integer couponId) {
+		this.couponId = couponId;
+	}
+
 	public Integer getPush() {
 		return push;
 	}
@@ -197,27 +359,19 @@ public class OrderBean implements Serializable {
 		this.push = push;
 	}
 
-	public Integer getReadIs() {
-		return readIs;
+	public Integer getRead() {
+		return read;
 	}
 
-	public void setReadIs(Integer readIs) {
-		this.readIs = readIs;
+	public void setRead(Integer read) {
+		this.read = read;
 	}
 
-	public Integer getDeleteFlag() {
-		return deleteFlag;
-	}
-
-	public void setDeleteFlag(Integer deleteFlag) {
-		this.deleteFlag = deleteFlag;
-	}
-
-	public Integer getForm() {
+	public String getForm() {
 		return form;
 	}
 
-	public void setForm(Integer form) {
+	public void setForm(String form) {
 		this.form = form;
 	}
 
@@ -227,6 +381,22 @@ public class OrderBean implements Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getExplain() {
+		return explain;
+	}
+
+	public void setExplain(String explain) {
+		this.explain = explain;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	public Date getCreateTime() {
@@ -251,13 +421,5 @@ public class OrderBean implements Serializable {
 
 	public void setCoupon(CouponBean coupon) {
 		this.coupon = coupon;
-	}
-
-	public UserAddress getUserAddress() {
-		return userAddress;
-	}
-
-	public void setUserAddress(UserAddress userAddress) {
-		this.userAddress = userAddress;
 	}
 }

@@ -14,10 +14,6 @@ public class FormatBean implements Serializable{
 	private Integer needPrice=null;
 	
 	private List<FormatSubBean> formatSubBeanList;
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	public FormatBean(){
  	}
