@@ -1,5 +1,6 @@
 package com.honglinktech.zbgj.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -7,7 +8,9 @@ import java.util.List;
 import com.honglinktech.zbgj.entity.*;
 
 @SuppressWarnings("unused")
-public class OrderBean {
+public class OrderBean implements Serializable {
+
+	private static final long serialVersionUID = -577728722353044309L;
 
 	private Integer id;
 	private String orderCode;
@@ -34,209 +37,84 @@ public class OrderBean {
 	private String remark;
 	private Date createTime;
 	
-	private List<OrderItem> orderItemList;
-	private List<Gactivity> goodsActivities;
+	private List<OrderItemBean> orderItems;
+	private CouponBean coupon;
 
 	private UserAddress userAddress;
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	public OrderBean(){
  	}
 
-	/**/
-	public Integer getId(){
-		 return this.id; 
+	public Integer getId() {
+		return id;
 	}
-	public void setId(Integer id){
-		  this.id = id; 
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	/*订单编号*/
-	public String getOrderCode(){
-		 return this.orderCode; 
+
+	public String getOrderCode() {
+		return orderCode;
 	}
-	public void setOrderCode(String orderCode){
-		  this.orderCode = orderCode; 
+
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
 	}
-	/**/
-	public Integer getUserId(){
-		 return this.userId; 
+
+	public Integer getUserId() {
+		return userId;
 	}
-	public void setUserId(Integer userId){
-		  this.userId = userId; 
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
-	/**/
-	public Integer getAddressId(){
-		 return this.addressId; 
+
+	public Integer getAddressId() {
+		return addressId;
 	}
-	public void setAddressId(Integer addressId){
-		  this.addressId = addressId; 
+
+	public void setAddressId(Integer addressId) {
+		this.addressId = addressId;
 	}
-	/*总价*/
-	public BigDecimal getMoney(){
-		 return this.money; 
+
+	public BigDecimal getMoney() {
+		return money;
 	}
-	public void setMoney(BigDecimal money){
-		  this.money = money; 
+
+	public void setMoney(BigDecimal money) {
+		this.money = money;
 	}
-	/*支付方式（1是支付宝支付，2是微信支付,3货到付款）*/
-	
-	/*订单状态(0未支付,1支付成功,2支付未成功)*/
-	public Integer getPayStatus(){
-		 return this.payStatus; 
+
+	public BigDecimal getTotalMoney() {
+		return totalMoney;
 	}
+
+	public void setTotalMoney(BigDecimal totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+
+	public BigDecimal getLostPostMoney() {
+		return lostPostMoney;
+	}
+
+	public void setLostPostMoney(BigDecimal lostPostMoney) {
+		this.lostPostMoney = lostPostMoney;
+	}
+
+	public BigDecimal getLostMoney() {
+		return lostMoney;
+	}
+
+	public void setLostMoney(BigDecimal lostMoney) {
+		this.lostMoney = lostMoney;
+	}
+
 	public Integer getPaymentId() {
 		return paymentId;
 	}
 
 	public void setPaymentId(Integer paymentId) {
 		this.paymentId = paymentId;
-	}
-
-	public void setPayStatus(Integer payStatus){
-		  this.payStatus = payStatus; 
-	}
-	/*订单状态(1待确认，2待发货，3运送中，4已完成)*/
-	public Integer getStatus(){
-		 return this.status; 
-	}
-	public void setStatus(Integer status){
-		  this.status = status; 
-	}
-	/*快递公司ID*/
-	public Integer getPostId(){
-		 return this.postId; 
-	}
-	public void setPostId(Integer postId){
-		  this.postId = postId; 
-	}
-	/*快递公司名称*/
-	public String getPostName(){
-		 return this.postName; 
-	}
-	public void setPostName(String postName){
-		  this.postName = postName; 
-	}
-	/*快递单号*/
-	public String getPostCode(){
-		 return this.postCode; 
-	}
-	public void setPostCode(String postCode){
-		  this.postCode = postCode; 
-	}
-	/*邮费*/
-	public BigDecimal getPostMoney(){
-		 return this.postMoney; 
-	}
-	public void setPostMoney(BigDecimal postMoney){
-		  this.postMoney = postMoney; 
-	}
-	public BigDecimal getTotalMoney() {
-		return totalMoney;
-	}
-	public void setTotalMoney(BigDecimal totalMoney) {
-		this.totalMoney = totalMoney;
-	}
-	public BigDecimal getLostPostMoney() {
-		return lostPostMoney;
-	}
-	public void setLostPostMoney(BigDecimal lostPostMoney) {
-		this.lostPostMoney = lostPostMoney;
-	}
-	public BigDecimal getLostMoney() {
-		return lostMoney;
-	}
-	public void setLostMoney(BigDecimal lostMoney) {
-		this.lostMoney = lostMoney;
-	}
-	/*是否需要发票*/
-	public Integer getInvoiceIs(){
-		 return this.invoiceIs; 
-	}
-	public void setInvoiceIs(Integer invoiceIs){
-		  this.invoiceIs = invoiceIs; 
-	}
-	/*发票抬头*/
-	public String getInvoiceHead(){
-		 return this.invoiceHead; 
-	}
-	public void setInvoiceHead(String invoiceHead){
-		  this.invoiceHead = invoiceHead; 
-	}
-	/*消息推送记录(0为推送，1已推送)*/
-	public Integer getPush(){
-		 return this.push; 
-	}
-	public void setPush(Integer push){
-		  this.push = push; 
-	}
-	/*订单状态是否已读(0未读，1已读)*/
-	public Integer getReadIs(){
-		 return this.readIs; 
-	}
-	public void setReadIs(Integer readIs){
-		  this.readIs = readIs; 
-	}
-	/*删除标志*/
-	public Integer getDeleteFlag(){
-		 return this.deleteFlag; 
-	}
-	public void setDeleteFlag(Integer deleteFlag){
-		  this.deleteFlag = deleteFlag; 
-	}
-	/*订单来源(1直接购买,2社区赠送,3一元购)*/
-	public Integer getForm(){
-		 return this.form; 
-	}
-	public void setForm(Integer form){
-		  this.form = form; 
-	}
-	/*备注*/
-	public String getRemark(){
-		 return this.remark; 
-	}
-	public void setRemark(String remark){
-		  this.remark = remark; 
-	}
-	/*创建时间*/
-	public Date getCreateTime(){
-		 return this.createTime; 
-	}
-	public void setCreateTime(Date createTime){
-		  this.createTime = createTime; 
-	}
-	public List<OrderItem> getOrderItemList() {
-		return orderItemList;
-	}
-	public void setOrderItemList(List<OrderItem> orderItemList) {
-		this.orderItemList = orderItemList;
-	}
-
-	public String getOrderStatus(){
-		String orderStatus = "";
-		switch (this.status.intValue()) {
-			case 1:
-				orderStatus = "待付款";
-				break;
-			case 2:
-				orderStatus = "待发货";
-				break;
-			case 3:
-				orderStatus = "运送中";
-				break;
-			case 4:
-				orderStatus = "已完成";
-				break;
-			case 7:
-				orderStatus = "已取消";
-				break;
-			default:
-				break;
-		}
-		return orderStatus;
 	}
 
 	public String getPaymentName() {
@@ -246,5 +124,140 @@ public class OrderBean {
 	public void setPaymentName(String paymentName) {
 		this.paymentName = paymentName;
 	}
-	
+
+	public Integer getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(Integer payStatus) {
+		this.payStatus = payStatus;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getPostId() {
+		return postId;
+	}
+
+	public void setPostId(Integer postId) {
+		this.postId = postId;
+	}
+
+	public String getPostName() {
+		return postName;
+	}
+
+	public void setPostName(String postName) {
+		this.postName = postName;
+	}
+
+	public String getPostCode() {
+		return postCode;
+	}
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	public BigDecimal getPostMoney() {
+		return postMoney;
+	}
+
+	public void setPostMoney(BigDecimal postMoney) {
+		this.postMoney = postMoney;
+	}
+
+	public Integer getInvoiceIs() {
+		return invoiceIs;
+	}
+
+	public void setInvoiceIs(Integer invoiceIs) {
+		this.invoiceIs = invoiceIs;
+	}
+
+	public String getInvoiceHead() {
+		return invoiceHead;
+	}
+
+	public void setInvoiceHead(String invoiceHead) {
+		this.invoiceHead = invoiceHead;
+	}
+
+	public Integer getPush() {
+		return push;
+	}
+
+	public void setPush(Integer push) {
+		this.push = push;
+	}
+
+	public Integer getReadIs() {
+		return readIs;
+	}
+
+	public void setReadIs(Integer readIs) {
+		this.readIs = readIs;
+	}
+
+	public Integer getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(Integer deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+
+	public Integer getForm() {
+		return form;
+	}
+
+	public void setForm(Integer form) {
+		this.form = form;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public List<OrderItemBean> getOrderItems() {
+		return orderItems;
+	}
+
+	public void setOrderItems(List<OrderItemBean> orderItems) {
+		this.orderItems = orderItems;
+	}
+
+	public CouponBean getCoupon() {
+		return coupon;
+	}
+
+	public void setCoupon(CouponBean coupon) {
+		this.coupon = coupon;
+	}
+
+	public UserAddress getUserAddress() {
+		return userAddress;
+	}
+
+	public void setUserAddress(UserAddress userAddress) {
+		this.userAddress = userAddress;
+	}
 }
