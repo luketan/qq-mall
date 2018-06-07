@@ -5,6 +5,7 @@
 package com.honglinktech.zbgj.dao;
 
 import com.honglinktech.zbgj.entity.OrderItem;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -56,4 +57,11 @@ public interface OrderItemDao {
      * @return
      */
     List<OrderItem> findByWhere(Map map);
+
+    /**
+     * 查询订单商品
+     * @param map
+     * @return
+     */
+    List<OrderItem> findByOrderId(@Param(value = "orderId") int orderId);
 }

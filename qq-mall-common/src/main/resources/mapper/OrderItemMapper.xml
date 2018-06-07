@@ -207,5 +207,12 @@
         and order_id = #{orderId}
     </if>
   </select>
+  <select id="findByOrderId"  resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM t_order_item
+    WHERE order_id = #{orderId}
+  </select>
+
 
 </mapper>

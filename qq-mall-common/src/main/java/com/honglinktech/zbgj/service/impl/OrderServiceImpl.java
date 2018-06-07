@@ -322,7 +322,7 @@ public class OrderServiceImpl implements OrderService{
 					if(coupon.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){
 						couponMoney = couponMoney.add(new BigDecimal(coupon.getValue()));
 						order.setCouponId(coupon.getId());
-						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
+//						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
 						couponId = coupon.getId();
 					}
 				}else if(goodsTypeValueMap.containsKey(coupon.getGoodsType()+"")){//指定商品类型使用
@@ -330,7 +330,7 @@ public class OrderServiceImpl implements OrderService{
 					if(value>=coupon.getMax() || coupon.getMax()==0){
 						couponMoney = couponMoney.add(new BigDecimal(coupon.getValue()));
 						order.setCouponId(coupon.getId());
-						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
+//						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
 						couponId = coupon.getId();
 					}
 				}
@@ -368,8 +368,6 @@ public class OrderServiceImpl implements OrderService{
 						}
 					}
 				}
-				Gson gson = new Gson();
-				order.setActivitys(gson.toJson(activityBeanList));
 			}
 		}
 		//活动结束end
@@ -384,7 +382,6 @@ public class OrderServiceImpl implements OrderService{
 		order.setAddressId(address.getId());
 		order.setAddress(address.getProvinceName()+address.getCityName()+address.getRegionName()+" "+address.getRoad());
 		order.setLostMoney(lostMoney);
-		order.setLostPostMoney(lostPostMoney);
 		order.setPostMoney(Constants.POST_MONEY);
 		BigDecimal totalMoney = goodsTotalPrice.add(Constants.POST_MONEY).subtract(lostPostMoney).subtract(couponMoney).subtract(lostMoney);
 		order.setTotalMoney(totalMoney);
@@ -566,6 +563,7 @@ public class OrderServiceImpl implements OrderService{
 			return Result.fail("订单不存在！");
 		}
 		OrderBean orderBean = order.toBean();
+		List<OrderItem> orderItems = orderItemDao.findByOrderId(orderBean.getId());
 
 		return Result.resultSet(orderBean);
 	}
