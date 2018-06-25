@@ -4,6 +4,12 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import com.alibaba.fastjson.JSON;
+import com.honglinktech.zbgj.bean.ActivityBean;
+import com.honglinktech.zbgj.bean.FormatBean;
+import com.honglinktech.zbgj.bean.OrderItemBean;
+import org.springframework.util.StringUtils;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -188,5 +194,48 @@ public class OrderItem {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public OrderItem(){}
+
+    public OrderItem(OrderItemBean orderItemBean){
+        this.id = orderItemBean.getId();
+        this.orderId = orderItemBean.getOrderId();
+        this.goodsId = orderItemBean.getGoodsId();
+        this.goodsName = orderItemBean.getGoodsName();
+        this.goodsImg = orderItemBean.getGoodsImg();
+        this.num = orderItemBean.getNum();
+        this.price = orderItemBean.getPrice();
+        this.marketPrice = orderItemBean.getMarketPrice();
+        this.remark = orderItemBean.getRemark();
+        this.disIs = orderItemBean.getDisIs();
+        if(orderItemBean.getActivitys()!=null){
+            this.formats = JSON.toJSONString(orderItemBean.getActivitys());
+        }
+        if(orderItemBean.getFormats()!=null){
+            this.activitys = JSON.toJSONString(orderItemBean.getFormats());
+        }
+
+    }
+
+    public OrderItemBean toBean() {
+        OrderItemBean orderItemBean = new OrderItemBean();
+        orderItemBean.setId(this.id);
+        orderItemBean.setGoodsId(this.goodsId);
+        orderItemBean.setDisIs(this.disIs);
+        orderItemBean.setGoodsName(this.goodsName);
+        orderItemBean.setGoodsImg(this.goodsImg);
+        orderItemBean.setPrice(this.price);
+        orderItemBean.setMarketPrice(this.marketPrice);
+        orderItemBean.setNum(this.num);
+        orderItemBean.setRemark(this.remark);
+        if(!StringUtils.isEmpty(this.activitys)){
+            orderItemBean.setActivitys(JSON.parseArray(this.activitys, ActivityBean.class));
+        }
+        if(!StringUtils.isEmpty(this.formats)){
+            orderItemBean.setFormats(JSON.parseArray(this.formats, FormatBean.class));
+        }
+
+        return orderItemBean;
     }
 }

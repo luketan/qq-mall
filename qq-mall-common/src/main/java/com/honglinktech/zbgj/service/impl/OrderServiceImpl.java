@@ -469,10 +469,14 @@ public class OrderServiceImpl implements OrderService{
 		if(orderBeans!=null){
 			for(Order order:orderBeans){
 				OrderVO orderVO = order.toVO();
-				Map orderItemWhere = new HashMap();
-				orderItemWhere.put("orderId", orderVO.getId());
-				List<OrderItem> orderItems = orderItemDao.findByWhere(orderItemWhere);
-				orderVO.setOrderItemList(orderItems);
+				List<OrderItem> orderItems = orderItemDao.findByOrderId(orderVO.getId());
+				List<OrderItemBean> orderItemBeanList = new ArrayList<>();
+				if(orderItems != null){
+					for(OrderItem orderItem:orderItems){
+						orderItemBeanList.add(orderItem.toBean());
+					}
+				}
+				orderVO.setOrderItems(orderItemBeanList);
 				orderVOs.add(orderVO);
 			}
 		}
@@ -505,17 +509,15 @@ public class OrderServiceImpl implements OrderService{
 
 		
 		OrderVO orderVO = order.toVO();
-		Map orderItemWhere = new HashMap();
-		orderItemWhere.put("orderId", orderVO.getId());
-		List<OrderItem> orderItems = orderItemDao.findByWhere(orderItemWhere);
-		orderVO.setOrderItemList(orderItems);
-
-		Map userAddressMap = new HashMap();
-		userAddressMap.put("id", orderVO.getAddressId());
-		List<UserAddress> userAddresss = userAddressDao.findByWhere(userAddressMap);
-		if (userAddresss != null && userAddresss.size() > 0) {
-			orderVO.setTuserAddress(userAddresss.get(0));
+		List<OrderItem> orderItems = orderItemDao.findByOrderId(orderVO.getId());
+		List<OrderItemBean> orderItemBeanList = new ArrayList<>();
+		if(orderItems != null){
+			for(OrderItem orderItem:orderItems){
+				orderItemBeanList.add(orderItem.toBean());
+			}
 		}
+		orderVO.setOrderItems(orderItemBeanList);
+
 		
 		//TODO 活动，购物券，红包处理
 		return Result.resultSet(orderVO);
@@ -536,6 +538,20 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	/***************************************************************************************/
+
+	/**
+	 * consle
+	 * @param order
+	 * @return
+	 */
+	@Override
+	public Response<Integer> deleteOrder(int orderId) {
+		if (orderId <= 0) {
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR,"orderId", orderId+"");
+		}
+		int result = orderDao.deleteById(orderId);
+		return Result.resultSet(result);
+	}
 	/**
 	 * consle
 	 * @param order

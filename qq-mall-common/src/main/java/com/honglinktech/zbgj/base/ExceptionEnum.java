@@ -5,7 +5,7 @@ import java.text.MessageFormat;
 public enum ExceptionEnum {
 
 	//common 000000
-	COMMON_TOKEN_FAIL(0,"token已经失效！","token fail!"), //token失效
+	COMMON_TOKEN_FAIL(999,"token已经失效！","token fail!"), //token失效
 	COMMON_SUCCESS(0,"操作成功！","success!"),
 	COMMON_ERROE(1,"操作失败，请联系工作人员！","error,{0}"),
 	COMMON_PARAMETER_ERROR(2,"参数错误！{0}","parameter error:name{0},value:{1}!"),

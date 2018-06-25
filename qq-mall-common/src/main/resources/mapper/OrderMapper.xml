@@ -102,7 +102,7 @@
     #{couponId},
     #{push},
     #{read},
-    #{form,
+    #{form},
     #{remark},
     #{explain},
     now(),

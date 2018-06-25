@@ -63,6 +63,8 @@ public interface OrderService{
 	Response<List<PostDetail>> findPostDetail(String postCode) ;
 
 	/**********************************************console**************************/
+	Response<Integer> deleteOrder(int orderId);
+
 	/**
 	 * console修改订单
 	 * @param order

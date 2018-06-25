@@ -6,7 +6,6 @@ package com.honglinktech.zbgj.entity;
 
 import com.honglinktech.zbgj.bean.OrderBean;
 import com.honglinktech.zbgj.vo.OrderVO;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.math.BigDecimal;
 import java.util.Date;

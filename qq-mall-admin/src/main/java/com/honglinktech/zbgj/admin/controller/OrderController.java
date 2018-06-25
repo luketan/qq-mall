@@ -178,7 +178,7 @@ public class OrderController extends BaseController {
 	}
 
 	/**
-	 * 取消订单
+	 * 删除订单
 	 * @param model
 	 * @return
 	 */
@@ -191,11 +191,7 @@ public class OrderController extends BaseController {
 				addError(model, "订单ID不能为空");
 				return "redirect:list.html";
 			}
-			Order upOrder = new Order();
-			upOrder.setId(order.getId());
-			upOrder.setDeleteFlag(1);
-			upOrder.setExplain(order.getExplain());
-			Response<Integer> resp = orderService.updateOrder(upOrder);
+			Response<Integer> resp = orderService.deleteOrder(order.getId());
 			addMessage(model, resp.getMsg());
 		} catch (Exception e) {
 			e.printStackTrace();
