@@ -27,6 +27,8 @@ public class OrderBean implements Serializable {
 	 */
 	private Integer userId;
 
+	private String userName;
+
 	/**
 	 * 支付方式（1是支付宝支付，2是微信支付,3货到付款）
 	 */
@@ -161,7 +163,7 @@ public class OrderBean implements Serializable {
 	 */
 	private Date createTime;
 
-	private List<OrderItemBean> orderItems;
+	private List<OrderItemBean> orderItemBeanList;
 	private CouponBean coupon;
 
 	public OrderBean(){
@@ -407,12 +409,12 @@ public class OrderBean implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public List<OrderItemBean> getOrderItems() {
-		return orderItems;
+	public List<OrderItemBean> getOrderItemBeanList() {
+		return orderItemBeanList;
 	}
 
-	public void setOrderItems(List<OrderItemBean> orderItems) {
-		this.orderItems = orderItems;
+	public void setOrderItemBeanList(List<OrderItemBean> orderItemBeanList) {
+		this.orderItemBeanList = orderItemBeanList;
 	}
 
 	public CouponBean getCoupon() {
@@ -421,5 +423,13 @@ public class OrderBean implements Serializable {
 
 	public void setCoupon(CouponBean coupon) {
 		this.coupon = coupon;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

@@ -150,7 +150,7 @@ public class OrderVO {
 	private Date createTime;
 
 	private List<OrderItemBean> orderItems;
-	private CouponBean coupon;
+	private CouponVO coupon;
 
 	public OrderVO(){
  	}
@@ -360,11 +360,11 @@ public class OrderVO {
 		this.orderItems = orderItems;
 	}
 
-	public CouponBean getCoupon() {
+	public CouponVO getCoupon() {
 		return coupon;
 	}
 
-	public void setCoupon(CouponBean coupon) {
+	public void setCoupon(CouponVO coupon) {
 		this.coupon = coupon;
 	}
 }

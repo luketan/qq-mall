@@ -4,6 +4,9 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import com.honglinktech.zbgj.bean.CouponBean;
+import com.honglinktech.zbgj.vo.CouponVO;
+
 import java.util.Date;
 
 public class Coupon {
@@ -161,5 +164,25 @@ public class Coupon {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public CouponBean toBean(){
+        CouponBean couponBean = new CouponBean();
+        couponBean.setGoodsType(goodsType);
+        couponBean.setId(id);
+        couponBean.setMax(max);
+        couponBean.setName(name);
+        couponBean.setValue(value);
+        return couponBean;
+    }
+
+    public CouponVO toVO(){
+        CouponVO couponVO = new CouponVO();
+        couponVO.setGoodsType(goodsType);
+        couponVO.setId(id);
+        couponVO.setMax(max);
+        couponVO.setName(name);
+        couponVO.setValue(value);
+        return couponVO;
     }
 }

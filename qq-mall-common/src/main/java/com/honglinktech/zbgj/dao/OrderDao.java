@@ -17,6 +17,8 @@ public interface OrderDao {
 
     int insert(Order record);
 
+    OrderBean findBeanById(Integer id);
+
     Order findById(Integer id);
 
     int update(Order record);

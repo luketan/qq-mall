@@ -30,7 +30,7 @@ public class OrderItemBean {
     private String goodsName;
 
     /**
-     * 
+     *
      */
     private String goodsImg;
 

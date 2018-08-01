@@ -4,9 +4,48 @@
 
   <select id="findById" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.entity.Order">
     SELECT 
+      o.id,
+      o.order_code as orderCode,
+      o.user_id as userId,
+      o.payment_id as paymentId,
+      o.payment_name as paymentName,
+      o.pay_status as payStatus,
+      o.pay_reason as payReason,
+      o.status,
+      o.post_id as postId,
+      o.post_name as postName,
+      o.post_code as postCode,
+      o.money,
+      o.total_money as totalMoney,
+      o.post_money as postMoney,
+      o.lost_activity_money as lostActivityMoney,
+      o.lost_coupon_money as lostCouponMoney,
+      o.lost_money as lostMoney,
+      o.invoice_is as invoiceIs,
+      o.invoice_head as invoiceHead,
+      o.address_id as addressId,
+      o.address,
+      o.zipcode,
+      o.coupon_id as couponId,
+      o.push,
+      o.read,
+      o.form,
+      o.remark,
+      o.explain,
+      o.update_time as updateTime,
+      o.create_time as createTime
+    FROM t_order o
+    WHERE o.id = #{id,jdbcType=INTEGER}
+    AND o.delete_flag = 0
+  </select>
+
+
+  <select id="findBeanById" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.bean.OrderBean">
+    SELECT
     o.id,
     o.order_code as orderCode,
     o.user_id as userId,
+    u.name as userName
     o.payment_id as paymentId,
     o.payment_name as paymentName,
     o.pay_status as payStatus,
@@ -35,6 +74,7 @@
     o.update_time as updateTime,
     o.create_time as createTime
     FROM t_order o
+    left JOIN t_user u ON (o.user_id = u.id)
     WHERE o.id = #{id,jdbcType=INTEGER}
     AND o.delete_flag = 0
   </select>

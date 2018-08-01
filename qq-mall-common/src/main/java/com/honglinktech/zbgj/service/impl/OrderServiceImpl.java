@@ -580,6 +580,13 @@ public class OrderServiceImpl implements OrderService{
 		}
 		OrderBean orderBean = order.toBean();
 		List<OrderItem> orderItems = orderItemDao.findByOrderId(orderBean.getId());
+		List<OrderItemBean> orderItemBeanList = new ArrayList<>();
+		if(orderItems != null && orderItems.size() > 0){
+			for(OrderItem orderItem:orderItems){
+				orderItemBeanList.add(orderItem.toBean());
+			}
+			orderBean.setOrderItemBeanList(orderItemBeanList);
+		}
 
 		return Result.resultSet(orderBean);
 	}

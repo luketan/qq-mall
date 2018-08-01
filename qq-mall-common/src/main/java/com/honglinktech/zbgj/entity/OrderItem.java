@@ -238,4 +238,7 @@ public class OrderItem {
 
         return orderItemBean;
     }
+    public static void main(String[] str){
+
+    }
 }

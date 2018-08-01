@@ -33,35 +33,20 @@
                                         <label>订单编号</label>
                                         <input name="orderCode" type="text" class="form-control" value="${order.orderCode}" readonly="readonly">
                                     </div>
-                                    <div class="form-group col-lg-3">
-                                        <label>账号</label>
+                                   <%-- <div class="form-group col-lg-3">
+                                        <label></label>
                                         <input type="text" class="form-control" value="${order.account}" disabled>
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>用户电话</label>
                                         <input type="text" class="form-control" value="${order.telephone}"
                                                disabled>
-                                    </div>
+                                    </div>--%>
                                     <div class="form-group col-lg-3">
                                         <label>订单状态</label>
-                                        <input type="hidden" name="status" class="form-control" value="${order.orderStatus}" readonly="readonly">
-                                        <input type="text" name="orderStatus" class="form-control" value="${order.orderStatus}" disabled>
+                                        <input type="hidden" name="status" class="form-control" value="${order.status}" readonly="readonly">
+                                        <input type="text" name="orderStatus" class="form-control" value="${order.status}" disabled>
                                     </div>
-                                    <div class="form-group col-lg-12">
-                                        <label>下单备注</label>
-                                        <textarea class="form-control" name="remark" readonly="readonly">${order.remark}</textarea>
-                                    </div>
-
-                                    <c:if test="${fn:length(order.orderImageList)>0}">
-                                    <div class="form-group col-lg-12">
-                                        <label>购买的图片列表</label>
-                                        <div class="row col-lg-12">
-                                        	<c:forEach items="${order.orderImageList}" var="orderImage">
-                                        		<a href="${orderImage.image}" class="lightbox" rel="orderImage"><img src="${orderImage.image}" style="width: 120px" ></a> 
-                                        	</c:forEach>
-                                        </div>
-                                    </div>
-                                    </c:if>
                                     <div class="form-group col-lg-12">
                                         <label>购买的产品列表</label>
                                         <table class="table table-bordered" style="margin-bottom: 0px;">
@@ -69,7 +54,7 @@
                                         		<td>图片</td><td>名称</td><td>规格</td><td>价格</td><td>数量</td>
                                         	</thead>
                                             <tbody>
-                                           		<c:forEach items="${order.orderItemList}" var="orderItem">
+                                           		<c:forEach items="${order.orderItemBeanList}" var="orderItem">
                                            			<tr>
 	                                           			<td style="width:120px"><a href="${orderItem.goodsImg}" class="lightbox" rel="orderItem${orderItem.id}"><img src="${orderItem.goodsImg}" style="width: 20px"></a></td>
 	                                           			<td><a href="/goods/item/modify.html?id=${orderItem.goodsId}">${orderItem.goodsName}</a></td>
@@ -83,14 +68,14 @@
                                     </div>
 									<div class="form-group col-lg-6">
 										<label>订单说明</label>
-										<textarea id="explain" name="explain" class="form-control" readonly>${order.explain}</textarea>
+										<textarea id="explain" name="explain" class="form-control">${order.explain}</textarea>
 									</div>
 									<div class="form-group col-lg-6">
                                         <label>客户备注</label>
-                                        <textarea id="remark" name="remark" class="form-control">${order.remark}</textarea>
+                                        <textarea id="remark" name="remark" class="form-control" readonly>${order.remark}</textarea>
                                     </div>
                                     <div class="form-group col-lg-6">
-                                    	<shiro:hasPermission name="order/update">
+                                    	<shiro:hasPermission name="order:update">
 	                                        <c:choose>
 	                                        	<c:when test="${order.status==1}">
 	                                    			 <button type="button" onclick="submitOrder(${order.status})" class="btn btn-success">待发货</button>
