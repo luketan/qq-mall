@@ -3,11 +3,15 @@ package com.honglinktech.zbgj.admin.controller;
 import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.bean.OrderBean;
 import com.honglinktech.zbgj.bean.OrderSimpleBean;
+import com.honglinktech.zbgj.common.CV;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.entity.Order;
+import com.honglinktech.zbgj.enums.GoodsStatusEnum;
+import com.honglinktech.zbgj.enums.OrderPayStatusEnum;
 import com.honglinktech.zbgj.enums.OrderStatusEnum;
+import com.honglinktech.zbgj.enums.PaymentTypeEnum;
 import com.honglinktech.zbgj.service.OrderService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 订单接口控制器
@@ -77,6 +79,26 @@ public class OrderController extends BaseController {
 	        model.addAttribute("payStatus", payStatus);
 			model.addAttribute("paymentId", paymentId);
 	        model.addAttribute("keyword", keyword);
+
+
+			List<CV> orderStatusList = new ArrayList<CV>();
+			for(OrderStatusEnum a: OrderStatusEnum.values()) {
+				orderStatusList.add(new CV(a.getCode(), a.getName()));
+			}
+			model.addAttribute("orderStatusList", orderStatusList);
+
+			List<CV> paymentTypeList = new ArrayList<CV>();
+			for(PaymentTypeEnum a: PaymentTypeEnum.values()) {
+				paymentTypeList.add(new CV(a.getCode(), a.getName()));
+			}
+			model.addAttribute("paymentTypeList", paymentTypeList);
+
+			List<CV> orderPayStatusList = new ArrayList<CV>();
+			for(OrderPayStatusEnum a: OrderPayStatusEnum.values()) {
+				orderPayStatusList.add(new CV(a.getCode(), a.getName()));
+			}
+			model.addAttribute("orderPayStatusList", orderPayStatusList);
+
 	        return "order/list";
     }
     /**
@@ -95,6 +117,12 @@ public class OrderController extends BaseController {
 		}else{
 			addError(model, response.getMsg());
 		}
+
+		List<CV> orderStatusList = new ArrayList<CV>();
+		for(OrderStatusEnum a: OrderStatusEnum.values()) {
+			orderStatusList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("orderStatusList", orderStatusList);
 		return "order/detail";
     }
 

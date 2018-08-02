@@ -29,26 +29,25 @@
                                 <label>订单状态</label>
                                 <select name="status" class="form-control input-sm">
                                     <option value="0" ${status==0?'selected':''}>全部状态</option>
-                                    <option value="1" ${status==1?'selected':''}>待付款</option>
-                                    <option value="2" ${status==2?'selected':''}>待发货</option>
-                                    <option value="3" ${status==3?'selected':''}>运送中</option>
-                                    <option value="4" ${status==4?'selected':''}>已完成</option>
+                                    <c:forEach items="${orderStatusList}" var="orderStatus">
+                                        <option value="${orderStatus.code}" ${status==orderStatus.code?'selected':''}>${orderStatus.value}</option>
+                                    </c:forEach>
                                 </select>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <label>支付状态</label>
                                 <select name="payStatus" class="form-control input-sm" >
                                     <option value="0" ${payStatus==0?'selected':''}>全部方式</option>
-                                    <option value="1" ${payStatus==1?'selected':''}>未支付</option>
-                                    <option value="2" ${payStatus==2?'selected':''}>支付成功</option>
-                                    <option value="3" ${payStatus==3?'selected':''}>支付未成功</option>
+                                    <c:forEach items="${orderPayStatusList}" var="orderPayStatus">
+                                        <option value="${orderPayStatus.code}" ${payStatus==orderPayStatus.code?'selected':''}>${orderPayStatus.value}</option>
+                                    </c:forEach>
                                 </select>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                 <label>支付方式</label>
                                 <select name="paymentId" class="form-control input-sm" >
                                     <option value="0" ${paymentId==0?'selected':''}>全部方式</option>
-                                    <option value="1" ${paymentId==1?'selected':''}>支付宝支付</option>
-                                    <option value="2" ${paymentId==2?'selected':''}>微信支付</option>
-                                    <option value="3" ${paymentId==3?'selected':''}>货到付款</option>
+                                    <c:forEach items="${paymentTypeList}" var="paymentType">
+                                        <option value="${paymentType.code}" ${status==paymentType.code?'selected':''}>${paymentType.value}</option>
+                                    </c:forEach>
                                 </select>
                                 <button type="button" class="btn btn-warning" onclick="submitSearch()">查询</button>
                                 <button type="button" class="btn btn-primary" onclick="exportOrder()">导出</button>
@@ -68,7 +67,6 @@
                                     <th class="col-lg-1">支付方式</th>
                                     <th class="col-lg-1">状态</th>
                                     <th class="col-lg-1">支付状态</th>
-                                    <th class="col-lg-1">快递公司</th>
                                     <th class="col-lg-1">创建时间</th>
                                     <th class="col-lg-1">操作</th>
                                 </tr>
@@ -79,13 +77,12 @@
                                         <c:forEach items="${page.list}" var="item">
                                             <tr>
                                                 <td class="col-lg-1">${item.orderCode}</td>
-                                                <td class="col-lg-1">${item.account}</td>
-                                                <td class="col-lg-1">${item.phone}</td>
+                                                <td class="col-lg-1"></td>
+                                                <td class="col-lg-1"></td>
                                                 <td class="col-lg-1">${item.totalMoney}</td>
-                                                <td class="col-lg-1">${item.paymentName}</td>
-                                                <td class="col-lg-1">${item.orderStatus}</td>
-                                                <td class="col-lg-1">${item.payStatusName}</td>
-                                                <td class="col-lg-1">${item.postName}</td>
+                                                <td class="col-lg-1"><c:forEach items="${paymentTypeList}" var="paymentType"><c:if test="${paymentType.code == item.paymentId}">${paymentType.value}</c:if></c:forEach></td>
+                                                <td class="col-lg-1"><c:forEach items="${orderStatusList}" var="orderStatus"><c:if test="${orderStatus.code == item.status}">${orderStatus.value}</c:if></c:forEach></td>
+                                                <td class="col-lg-1"><c:forEach items="${orderPayStatusList}" var="orderPayStatus"><c:if test="${orderPayStatus.code == item.status}">${orderPayStatus.value}</c:if></c:forEach></td>
                                                 <td class="col-lg-1"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
                                                 <td class="col-lg-1"><a href="detail.html?orderId=${item.id}">查看详情</a></td>
                                             </tr>
