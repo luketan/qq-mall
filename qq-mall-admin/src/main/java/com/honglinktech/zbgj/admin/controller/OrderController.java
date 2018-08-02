@@ -118,11 +118,25 @@ public class OrderController extends BaseController {
 			addError(model, response.getMsg());
 		}
 
+
 		List<CV> orderStatusList = new ArrayList<CV>();
 		for(OrderStatusEnum a: OrderStatusEnum.values()) {
 			orderStatusList.add(new CV(a.getCode(), a.getName()));
 		}
 		model.addAttribute("orderStatusList", orderStatusList);
+
+		List<CV> paymentTypeList = new ArrayList<CV>();
+		for(PaymentTypeEnum a: PaymentTypeEnum.values()) {
+			paymentTypeList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("paymentTypeList", paymentTypeList);
+
+		List<CV> orderPayStatusList = new ArrayList<CV>();
+		for(OrderPayStatusEnum a: OrderPayStatusEnum.values()) {
+			orderPayStatusList.add(new CV(a.getCode(), a.getName()));
+		}
+		model.addAttribute("orderPayStatusList", orderPayStatusList);
+
 		return "order/detail";
     }
 

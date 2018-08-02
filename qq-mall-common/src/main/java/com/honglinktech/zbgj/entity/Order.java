@@ -109,6 +109,14 @@ public class Order {
      * 
      */
     private Integer addressId;
+    /**
+     * 用户名
+     */
+    private String userName;
+    /**
+     * 用户电话
+     */
+    private String userPhone;
 
     /**
      * 地址详细信息
@@ -400,6 +408,22 @@ public class Order {
         this.createTime = createTime;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
     public Order(){}
     public Order(OrderBean orderBean){
         if(orderBean!=null){
@@ -423,6 +447,8 @@ public class Order {
             this.invoiceIs = orderBean.getInvoiceIs();
             this.invoiceHead = orderBean.getInvoiceHead();
             this.addressId = orderBean.getAddressId();
+            this.userName = orderBean.getUserName();
+            this.userPhone = orderBean.getUserPhone();
             this.address = orderBean.getAddress();
             this.zipcode = orderBean.getZipcode();
             this.couponId = orderBean.getCouponId();
@@ -456,6 +482,8 @@ public class Order {
         orderVO.setInvoiceIs(this.getInvoiceIs());
         orderVO.setInvoiceHead(this.getInvoiceHead());
         orderVO.setAddressId(this.getAddressId());
+        orderVO.setUserName(this.getUserName());
+        orderVO.setUserPhone(this.getUserPhone());
         orderVO.setAddress(this.getAddress());
         orderVO.setZipcode(this.getZipcode());
         orderVO.setCouponId(this.getCouponId());
@@ -487,6 +515,8 @@ public class Order {
         orderBean.setInvoiceIs(this.getInvoiceIs());
         orderBean.setInvoiceHead(this.getInvoiceHead());
         orderBean.setAddressId(this.getAddressId());
+        orderBean.setUserName(this.getUserName());
+        orderBean.setUserPhone(this.getUserPhone());
         orderBean.setAddress(this.getAddress());
         orderBean.setZipcode(this.getZipcode());
         orderBean.setCouponId(this.getCouponId());

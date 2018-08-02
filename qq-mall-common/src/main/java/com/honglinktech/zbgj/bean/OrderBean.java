@@ -27,8 +27,6 @@ public class OrderBean implements Serializable {
 	 */
 	private Integer userId;
 
-	private String userName;
-
 	/**
 	 * 支付方式（1是支付宝支付，2是微信支付,3货到付款）
 	 */
@@ -112,6 +110,15 @@ public class OrderBean implements Serializable {
 	 *
 	 */
 	private Integer addressId;
+
+	/**
+	 * 快递用户名
+	 */
+	private String userName;
+	/**
+	 * 快递电话
+	 */
+	private String userPhone;
 
 	/**
 	 * 地址详细信息
@@ -431,5 +438,13 @@ public class OrderBean implements Serializable {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
 }

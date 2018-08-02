@@ -33,19 +33,96 @@
                                         <label>订单编号</label>
                                         <input name="orderCode" type="text" class="form-control" value="${order.orderCode}" readonly="readonly">
                                     </div>
-                                   <%-- <div class="form-group col-lg-3">
-                                        <label></label>
-                                        <input type="text" class="form-control" value="${order.account}" disabled>
+                                   <div class="form-group col-lg-3">
+                                        <label>用户姓名</label>
+                                        <input type="text" class="form-control" value="${order.userName}" disabled>
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>用户电话</label>
-                                        <input type="text" class="form-control" value="${order.telephone}"
-                                               disabled>
-                                    </div>--%>
+                                        <input type="text" class="form-control" value="${order.userPhone}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>地址</label>
+                                        <input type="text" class="form-control" value="${order.address}" disabled>
+                                    </div>
                                     <div class="form-group col-lg-3">
                                         <label>订单状态</label>
                                         <input type="hidden" name="status" class="form-control" value="${order.status}" readonly="readonly">
-                                        <input type="text" name="orderStatus" class="form-control" value="${order.status}" disabled>
+                                        <c:forEach items="${orderStatusList}" var="orderStatus">
+                                            <c:if test="${orderStatus.code == order.status}">
+                                                <input type="text" class="form-control" value="${orderStatus.value}" disabled>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>支付类型</label>
+                                        <input type="hidden" name="paymentId" class="form-control" value="${order.paymentId}" readonly="readonly">
+                                        <c:forEach items="${paymentTypeList}" var="paymentType">
+                                            <c:if test="${paymentType.code == order.paymentId}">
+                                                <input type="text" class="form-control" value="${paymentType.value}" disabled>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>支付状态</label>
+                                        <input type="hidden" name="payStatus" class="form-control" value="${order.payStatus}" readonly="readonly">
+                                        <c:forEach items="${orderPayStatusList}" var="orderPayStatus">
+                                            <c:if test="${orderPayStatus.code == order.payStatus}">
+                                                <input type="text" class="form-control" value="${orderPayStatus.value}" disabled>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>支付失败原因</label>
+                                        <input type="text" class="form-control" value="${order.payReason}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>商品总价</label>
+                                        <input type="text" class="form-control" value="${order.money}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>订单总价</label>
+                                        <input type="text" class="form-control" value="${order.totalMoney}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>邮费</label>
+                                        <input type="text" class="form-control" value="${order.postMoney}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>活动优惠金额</label>
+                                        <input type="text" class="form-control" value="${order.lostActivityMoney}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>优惠券优惠金额</label>
+                                        <input type="text" class="form-control" value="${order.lostCouponMoney}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>其他优惠金额，积分，红包</label>
+                                        <input type="text" class="form-control" value="${order.lostMoney}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>是否需要发票</label>
+                                        <input type="text" class="form-control" value="${order.invoiceIs==0?'否':'是'}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>发票抬头</label>
+                                        <input type="text" class="form-control" value="${order.invoiceIs==0?'否':'是'}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>快递公司</label>
+                                        <input type="text" class="form-control" value="" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>快递编号</label>
+                                        <input type="text" class="form-control" value="${order.postCode}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>来自</label>
+                                        <input type="text" class="form-control" value="${order.form}" disabled>
+                                    </div>
+                                    <div class="form-group col-lg-3">
+                                        <label>创建时间</label>
+                                        <input type="text" class="form-control" value="<fmt:formatDate value="${order.createTime}" pattern="yyyy-MM-dd hh:mm:ss"/>" disabled>
                                     </div>
                                     <div class="form-group col-lg-12">
                                         <label>购买的产品列表</label>
@@ -63,6 +140,44 @@
 	                                           			<td style="width:60px">${orderItem.num}</td>
                                            			</tr>
                                            		</c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label>优惠券信息</label>
+                                        <table class="table table-bordered" style="margin-bottom: 0px;">
+                                            <thead>
+                                            <td>图片</td><td>名称</td><td>规格</td><td>价格</td><td>数量</td>
+                                            </thead>
+                                            <tbody>
+                                            <c:forEach items="${order.orderItemBeanList}" var="orderItem">
+                                                <tr>
+                                                    <td style="width:120px"><a href="${orderItem.goodsImg}" class="lightbox" rel="orderItem${orderItem.id}"><img src="${orderItem.goodsImg}" style="width: 20px"></a></td>
+                                                    <td><a href="/goods/item/modify.html?id=${orderItem.goodsId}">${orderItem.goodsName}</a></td>
+                                                    <td style="width:140px">${orderItem.formats}</td>
+                                                    <td style="width:140px">${orderItem.price}</td>
+                                                    <td style="width:60px">${orderItem.num}</td>
+                                                </tr>
+                                            </c:forEach>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label>活动信息</label>
+                                        <table class="table table-bordered" style="margin-bottom: 0px;">
+                                            <thead>
+                                            <td>图片</td><td>名称</td><td>规格</td><td>价格</td><td>数量</td>
+                                            </thead>
+                                            <tbody>
+                                            <c:forEach items="${order.orderItemBeanList}" var="orderItem">
+                                                <tr>
+                                                    <td style="width:120px"><a href="${orderItem.goodsImg}" class="lightbox" rel="orderItem${orderItem.id}"><img src="${orderItem.goodsImg}" style="width: 20px"></a></td>
+                                                    <td><a href="/goods/item/modify.html?id=${orderItem.goodsId}">${orderItem.goodsName}</a></td>
+                                                    <td style="width:140px">${orderItem.formats}</td>
+                                                    <td style="width:140px">${orderItem.price}</td>
+                                                    <td style="width:60px">${orderItem.num}</td>
+                                                </tr>
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>

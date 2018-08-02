@@ -114,6 +114,14 @@ public class OrderVO {
 	 *
 	 */
 	private Integer addressId;
+	/**
+	 * 用户名
+	 */
+	private String userName;
+	/**
+	 * 用户电话
+	 */
+	private String userPhone;
 
 	/**
 	 * 地址详细信息
@@ -366,5 +374,21 @@ public class OrderVO {
 
 	public void setCoupon(CouponVO coupon) {
 		this.coupon = coupon;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserPhone() {
+		return userPhone;
+	}
+
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
 }

@@ -77,8 +77,8 @@
                                         <c:forEach items="${page.list}" var="item">
                                             <tr>
                                                 <td class="col-lg-1">${item.orderCode}</td>
-                                                <td class="col-lg-1"></td>
-                                                <td class="col-lg-1"></td>
+                                                <td class="col-lg-1">${item.userName}</td>
+                                                <td class="col-lg-1">${item.userPhone}</td>
                                                 <td class="col-lg-1">${item.totalMoney}</td>
                                                 <td class="col-lg-1"><c:forEach items="${paymentTypeList}" var="paymentType"><c:if test="${paymentType.code == item.paymentId}">${paymentType.value}</c:if></c:forEach></td>
                                                 <td class="col-lg-1"><c:forEach items="${orderStatusList}" var="orderStatus"><c:if test="${orderStatus.code == item.status}">${orderStatus.value}</c:if></c:forEach></td>

@@ -24,6 +24,8 @@
       o.invoice_is as invoiceIs,
       o.invoice_head as invoiceHead,
       o.address_id as addressId,
+      o.user_name as userName,
+      o.user_phone as userPhone,
       o.address,
       o.zipcode,
       o.coupon_id as couponId,
@@ -63,6 +65,8 @@
     o.invoice_is as invoiceIs,
     o.invoice_head as invoiceHead,
     o.address_id as addressId,
+    o.user_name as userName,
+    o.user_phone as userPhone,
     o.address,
     o.zipcode,
     o.coupon_id as couponId,
@@ -106,6 +110,8 @@
     invoice_is,
     invoice_head,
     address_id,
+    user_name,
+    user_phone,
     address,
     zipcode,
     coupon_id,
@@ -137,6 +143,8 @@
     #{invoiceIs},
     #{invoiceHead},
     #{addressId},
+    #{userName},
+    #{userPhone},
     #{address},
     #{zipcode},
     #{couponId},
@@ -209,6 +217,12 @@
       <if test="addressId != null">
         address_id = #{addressId},
       </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName},
+      </if>
       <if test="address != null">
         address = #{address},
       </if>
@@ -261,6 +275,8 @@
     o.invoice_is as invoiceIs,
     o.invoice_head as invoiceHead,
     o.address_id as addressId,
+    o.user_name as userName,
+    o.user_phone as userPhone,
     o.address,
     o.zipcode,
     o.coupon_id as couponId,
@@ -296,12 +312,11 @@
       o.id,
       o.order_code as orderCode,
       o.user_id as userId,
-      u.account,
-      u.phone,
+      o.user_name as userName,
+      o.user_phone as userPhone,
       o.money,
       o.total_money as totalMoney,
       o.payment_Id as paymentId,
-      o.payment_name as paymentName,
       o.pay_status as payStatus,
       o.status,
       o.post_id as postId,

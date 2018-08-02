@@ -14,11 +14,10 @@ public class OrderSimpleBean {
 	private Integer id=null;
 	private String orderCode=null;
 	private Integer userId=null;
-	private String account=null;
-	private String phone=null;
+	private String userName=null;
+	private String userPhone=null;
 	private BigDecimal totalMoney=null;
 	private Integer paymentId=null;
-	private String paymentName = null;
 	private Integer payStatus=null;
 	private Integer status=null;
 	private Integer postId=null;
@@ -29,10 +28,6 @@ public class OrderSimpleBean {
 	private Integer readIs=null;
 	private Integer form=null;
 	private Date createTime=null;
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public OrderSimpleBean(){
  	}
@@ -67,23 +62,6 @@ public class OrderSimpleBean {
 	}
 	public Integer getPaymentId() {
 		return paymentId;
-	}
-	public String getPayStatusName(){
-		String payStatusName = "";
-		switch (this.payStatus.intValue()) {
-			case 1:
-				payStatusName = "未支付";
-				break;
-			case 2:
-				payStatusName = "支付成功";
-				break;
-			case 3:
-				payStatusName = "支付未成功";
-				break;
-			default:
-				break;
-		}
-		return payStatusName;
 	}
 
 	public void setPaymentId(Integer paymentId) {
@@ -162,48 +140,20 @@ public class OrderSimpleBean {
 	public void setCreateTime(Date createTime){
 		  this.createTime = createTime; 
 	}
-	public String getOrderStatus(){
-		String orderStatus = "";
-		switch (this.status.intValue()) {
-			case 1:
-				orderStatus = "待付款";
-				break;
-			case 2:
-				orderStatus = "待发货";
-				break;
-			case 3:
-				orderStatus = "运送中";
-				break;
-			case 4:
-				orderStatus = "已完成";
-				break;
-			default:
-				break;
-		}
-		return orderStatus;
+
+	public String getUserName() {
+		return userName;
 	}
 
-	public String getPaymentName() {
-		return paymentName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public void setPaymentName(String paymentName) {
-		this.paymentName = paymentName;
+	public String getUserPhone() {
+		return userPhone;
 	}
 
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setUserPhone(String userPhone) {
+		this.userPhone = userPhone;
 	}
 }
