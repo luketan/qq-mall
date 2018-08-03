@@ -14,6 +14,7 @@ import com.honglinktech.zbgj.entity.*;
 import com.honglinktech.zbgj.enums.OrderStatusEnum;
 import com.honglinktech.zbgj.service.*;
 import com.honglinktech.zbgj.utils.RandomUtil;
+import com.honglinktech.zbgj.vo.OrderItemVO;
 import com.honglinktech.zbgj.vo.OrderVO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -470,10 +471,10 @@ public class OrderServiceImpl implements OrderService{
 			for(Order order:orderBeans){
 				OrderVO orderVO = order.toVO();
 				List<OrderItem> orderItems = orderItemDao.findByOrderId(orderVO.getId());
-				List<OrderItemBean> orderItemBeanList = new ArrayList<>();
+				List<OrderItemVO> orderItemBeanList = new ArrayList<>();
 				if(orderItems != null){
 					for(OrderItem orderItem:orderItems){
-						orderItemBeanList.add(orderItem.toBean());
+						orderItemBeanList.add(orderItem.toVO());
 					}
 				}
 				orderVO.setOrderItems(orderItemBeanList);
@@ -510,13 +511,13 @@ public class OrderServiceImpl implements OrderService{
 		
 		OrderVO orderVO = order.toVO();
 		List<OrderItem> orderItems = orderItemDao.findByOrderId(orderVO.getId());
-		List<OrderItemBean> orderItemBeanList = new ArrayList<>();
+		List<OrderItemVO> orderItemVOList = new ArrayList<>();
 		if(orderItems != null){
 			for(OrderItem orderItem:orderItems){
-				orderItemBeanList.add(orderItem.toBean());
+				orderItemVOList.add(orderItem.toVO());
 			}
 		}
-		orderVO.setOrderItems(orderItemBeanList);
+		orderVO.setOrderItems(orderItemVOList);
 
 		
 		//TODO 活动，购物券，红包处理

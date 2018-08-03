@@ -8,6 +8,9 @@ import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.bean.ActivityBean;
 import com.honglinktech.zbgj.bean.FormatBean;
 import com.honglinktech.zbgj.bean.OrderItemBean;
+import com.honglinktech.zbgj.vo.ActivityVO;
+import com.honglinktech.zbgj.vo.FormatVO;
+import com.honglinktech.zbgj.vo.OrderItemVO;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -237,6 +240,27 @@ public class OrderItem {
         }
 
         return orderItemBean;
+    }
+
+    public OrderItemVO toVO() {
+        OrderItemVO orderItemVO = new OrderItemVO();
+        orderItemVO.setId(this.id);
+        orderItemVO.setGoodsId(this.goodsId);
+        orderItemVO.setDisIs(this.disIs);
+        orderItemVO.setGoodsName(this.goodsName);
+        orderItemVO.setGoodsImg(this.goodsImg);
+        orderItemVO.setPrice(this.price);
+        orderItemVO.setMarketPrice(this.marketPrice);
+        orderItemVO.setNum(this.num);
+        orderItemVO.setRemark(this.remark);
+        if(!StringUtils.isEmpty(this.activitys)){
+            orderItemVO.setActivitys(JSON.parseArray(this.activitys, ActivityVO.class));
+        }
+        if(!StringUtils.isEmpty(this.formats)){
+            orderItemVO.setFormats(JSON.parseArray(this.formats, FormatVO.class));
+        }
+
+        return orderItemVO;
     }
     public static void main(String[] str){
 

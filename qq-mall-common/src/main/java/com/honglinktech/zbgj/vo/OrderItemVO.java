@@ -64,58 +64,106 @@ public class OrderItemVO {
     /**
      * 商品规格名称
      */
-    private List<FormatBean> formats;
+    private List<FormatVO> formats;
 
     /**
      *
      */
-    private List<ActivityBean> activitys;
+    private List<ActivityVO> activitys;
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getOrderId() {
         return orderId;
     }
 
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
     public Integer getGoodsId() {
         return goodsId;
+    }
+
+    public void setGoodsId(Integer goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getGoodsName() {
         return goodsName;
     }
 
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
     public String getGoodsImg() {
         return goodsImg;
     }
 
-    public List<FormatBean> getFormats() {
-        return formats;
-    }
-
-    public List<ActivityBean> getActivitys() {
-        return activitys;
+    public void setGoodsImg(String goodsImg) {
+        this.goodsImg = goodsImg;
     }
 
     public Integer getNum() {
         return num;
     }
 
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public BigDecimal getMarketPrice() {
         return marketPrice;
     }
 
+    public void setMarketPrice(BigDecimal marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+
     public String getRemark() {
         return remark;
     }
 
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public Integer getDisIs() {
         return disIs;
+    }
+
+    public void setDisIs(Integer disIs) {
+        this.disIs = disIs;
+    }
+
+    public List<FormatVO> getFormats() {
+        return formats;
+    }
+
+    public void setFormats(List<FormatVO> formats) {
+        this.formats = formats;
+    }
+
+    public List<ActivityVO> getActivitys() {
+        return activitys;
+    }
+
+    public void setActivitys(List<ActivityVO> activitys) {
+        this.activitys = activitys;
     }
 }
