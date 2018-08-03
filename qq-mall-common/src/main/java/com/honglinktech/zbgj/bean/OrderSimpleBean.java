@@ -1,12 +1,7 @@
 package com.honglinktech.zbgj.bean;
 
-import com.honglinktech.zbgj.entity.Order;
-import com.honglinktech.zbgj.entity.OrderItem;
-import com.honglinktech.zbgj.entity.UserAddress;
-
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 @SuppressWarnings("unused")
 public class OrderSimpleBean {
