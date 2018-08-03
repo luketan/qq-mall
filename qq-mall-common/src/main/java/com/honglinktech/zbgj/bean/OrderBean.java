@@ -26,7 +26,6 @@ public class OrderBean implements Serializable {
 	 *
 	 */
 	private Integer userId;
-
 	/**
 	 * 支付方式（1是支付宝支付，2是微信支付,3货到付款）
 	 */

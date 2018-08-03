@@ -8,7 +8,6 @@
       o.order_code as orderCode,
       o.user_id as userId,
       o.payment_id as paymentId,
-      o.payment_name as paymentName,
       o.pay_status as payStatus,
       o.pay_reason as payReason,
       o.status,
@@ -49,7 +48,6 @@
     o.user_id as userId,
     u.name as userName
     o.payment_id as paymentId,
-    o.payment_name as paymentName,
     o.pay_status as payStatus,
     o.pay_reason as payReason,
     o.status,
@@ -94,7 +92,6 @@
     order_code,
     user_id,
     payment_id,
-    payment_name,
     pay_status,
     pay_reason,
     status,
@@ -168,9 +165,6 @@
       </if>
       <if test="paymentId != null">
         payment_Id = #{paymentId},
-      </if>
-      <if test="paymentName != null">
-        payment_name = #{paymentName},
       </if>
       <if test="payStatus != null">
         pay_status = #{payStatus},
@@ -259,7 +253,6 @@
     o.order_code as orderCode,
     o.user_id as userId,
     o.payment_id as paymentId,
-    o.payment_name as paymentName,
     o.pay_status as payStatus,
     o.pay_reason as payReason,
     o.status,

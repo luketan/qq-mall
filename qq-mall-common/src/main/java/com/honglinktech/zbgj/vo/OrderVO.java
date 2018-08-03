@@ -157,7 +157,7 @@ public class OrderVO {
 	 */
 	private Date createTime;
 
-	private List<OrderItemBean> orderItems;
+	private List<OrderItemVO> orderItems;
 	private CouponVO coupon;
 
 	public OrderVO(){
@@ -360,11 +360,11 @@ public class OrderVO {
 		this.couponId = couponId;
 	}
 
-	public List<OrderItemBean> getOrderItems() {
+	public List<OrderItemVO> getOrderItems() {
 		return orderItems;
 	}
 
-	public void setOrderItems(List<OrderItemBean> orderItems) {
+	public void setOrderItems(List<OrderItemVO> orderItems) {
 		this.orderItems = orderItems;
 	}
 

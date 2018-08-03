@@ -134,6 +134,11 @@ public class Order {
     private Integer couponId;
 
     /**
+     * 优惠券JSON
+     */
+    private String coupon;
+
+    /**
      * 消息推送记录(0为推送，1已推送)
      */
     private Integer push;
@@ -350,6 +355,14 @@ public class Order {
 
     public void setCouponId(Integer couponId) {
         this.couponId = couponId;
+    }
+
+    public String getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(String coupon) {
+        this.coupon = coupon;
     }
 
     public Integer getPush() {
