@@ -78,7 +78,6 @@ public class ActivityBean implements Serializable{
 	}
 	
 	public String getTypeName() {
-		this.typeName = Constants.goodsActivityTypeName(type);
 		return this.typeName;
 	}
 

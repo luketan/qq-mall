@@ -79,5 +79,12 @@ public interface CouponUserDao {
 	 * @param whereMap
 	 * @return
 	 */
+	CouponUserBean findUserCouponBeanById(int id);
+
+	/**
+	 * console
+	 * @param whereMap
+	 * @return
+	 */
 	int findUserCouponBeanCountByWhere(Map whereMap);
 }

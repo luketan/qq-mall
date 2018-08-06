@@ -62,6 +62,8 @@ public class OrderServiceImpl implements OrderService{
 	private PaymentUserDao paymentUserDao;
 	@Resource
 	private PaymentDao paymentDao;
+	@Resource
+	private CouponUserDao couponUserDao;
 	
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
@@ -584,9 +586,22 @@ public class OrderServiceImpl implements OrderService{
 		List<OrderItemBean> orderItemBeanList = new ArrayList<>();
 		if(orderItems != null && orderItems.size() > 0){
 			for(OrderItem orderItem:orderItems){
-				orderItemBeanList.add(orderItem.toBean());
+				OrderItemBean orderbItemBean = orderItem.toBean();
+				if(orderbItemBean.getActivitys() != null && orderbItemBean.getActivitys().size() > 0){
+					for(ActivityBean activityBean:orderbItemBean.getActivitys()){
+						if(activityBean.getType() != null) {
+							activityBean.setTypeName(Constants.goodsActivityTypeName(activityBean.getType()));
+						}
+					}
+				}
+				orderItemBeanList.add(orderbItemBean);
 			}
 			orderBean.setOrderItemBeanList(orderItemBeanList);
+		}
+		//优惠券
+		if(orderBean.getCouponId() != null && orderBean.getCouponId() > 0){
+			CouponUserBean couponUserBean =  couponUserDao.findUserCouponBeanById(orderBean.getCouponId());
+			orderBean.setCouponUserBean(couponUserBean);
 		}
 
 		return Result.resultSet(orderBean);

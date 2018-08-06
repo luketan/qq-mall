@@ -170,7 +170,7 @@ public class OrderBean implements Serializable {
 	private Date createTime;
 
 	private List<OrderItemBean> orderItemBeanList;
-	private CouponBean coupon;
+	private CouponUserBean couponUserBean;
 
 	public OrderBean(){
  	}
@@ -423,12 +423,12 @@ public class OrderBean implements Serializable {
 		this.orderItemBeanList = orderItemBeanList;
 	}
 
-	public CouponBean getCoupon() {
-		return coupon;
+	public CouponUserBean getCouponUserBean() {
+		return couponUserBean;
 	}
 
-	public void setCoupon(CouponBean coupon) {
-		this.coupon = coupon;
+	public void setCouponUserBean(CouponUserBean couponUserBean) {
+		this.couponUserBean = couponUserBean;
 	}
 
 	public String getUserName() {
