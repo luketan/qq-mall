@@ -35,15 +35,15 @@
                                     </div>
                                    <div class="form-group col-lg-3">
                                         <label>用户姓名</label>
-                                        <input type="text" class="form-control" value="${order.userName}" disabled>
+                                        <input type="text" name="userName" class="form-control" value="${order.userName}" >
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>用户电话</label>
-                                        <input type="text" class="form-control" value="${order.userPhone}" disabled>
+                                        <input type="text" name="userPhone" class="form-control" value="${order.userPhone}" >
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>地址</label>
-                                        <input type="text" class="form-control" value="${order.address}" disabled>
+                                        <input type="text" name="address" class="form-control" value="${order.address}" >
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>订单状态</label>
@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>发票抬头</label>
-                                        <input type="text" class="form-control" value="${order.invoiceIs==0?'否':'是'}" disabled>
+                                        <input type="text" class="form-control" value="${order.invoiceHead}" disabled>
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>快递公司</label>
@@ -134,53 +134,56 @@
                                            		<c:forEach items="${order.orderItemBeanList}" var="orderItem">
                                            			<tr>
 	                                           			<td style="width:120px"><a href="${orderItem.goodsImg}" class="lightbox" rel="orderItem${orderItem.id}"><img src="${orderItem.goodsImg}" style="width: 20px"></a></td>
-	                                           			<td><a href="/goods/item/modify.html?id=${orderItem.goodsId}">${orderItem.goodsName}</a></td>
+	                                           			<td><a href="${basePath }/goods/modify.html?id=${orderItem.goodsId}">${orderItem.goodsName}</a></td>
 	                                           			<td style="width:140px">${orderItem.formats}</td>
 	                                           			<td style="width:140px">${orderItem.price}</td>
 	                                           			<td style="width:60px">${orderItem.num}</td>
                                            			</tr>
+                                                    <c:forEach items="${orderItem.activitys}" var="activity">
+                                                        <tr>
+                                                            <td style="width:120px;"></td>
+                                                            <td colspan="4"><a href="${basePath }goodsActivity/modify.html?id=${activity.id}"><span style="font-weight:bold;" colspan="3">【活动】</span>(${activity.typeName})${activity.name}</a></td>
+                                                        </tr>
+                                                    </c:forEach>
                                            		</c:forEach>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="form-group col-lg-12">
-                                        <label>优惠券信息</label>
-                                        <table class="table table-bordered" style="margin-bottom: 0px;">
-                                            <thead>
-                                            <td>图片</td><td>名称</td><td>规格</td><td>价格</td><td>数量</td>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${order.orderItemBeanList}" var="orderItem">
-                                                <tr>
-                                                    <td style="width:120px"><a href="${orderItem.goodsImg}" class="lightbox" rel="orderItem${orderItem.id}"><img src="${orderItem.goodsImg}" style="width: 20px"></a></td>
-                                                    <td><a href="/goods/item/modify.html?id=${orderItem.goodsId}">${orderItem.goodsName}</a></td>
-                                                    <td style="width:140px">${orderItem.formats}</td>
-                                                    <td style="width:140px">${orderItem.price}</td>
-                                                    <td style="width:60px">${orderItem.num}</td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="form-group col-lg-12">
-                                        <label>活动信息</label>
-                                        <table class="table table-bordered" style="margin-bottom: 0px;">
-                                            <thead>
-                                            <td>图片</td><td>名称</td><td>规格</td><td>价格</td><td>数量</td>
-                                            </thead>
-                                            <tbody>
-                                            <c:forEach items="${order.orderItemBeanList}" var="orderItem">
-                                                <tr>
-                                                    <td style="width:120px"><a href="${orderItem.goodsImg}" class="lightbox" rel="orderItem${orderItem.id}"><img src="${orderItem.goodsImg}" style="width: 20px"></a></td>
-                                                    <td><a href="/goods/item/modify.html?id=${orderItem.goodsId}">${orderItem.goodsName}</a></td>
-                                                    <td style="width:140px">${orderItem.formats}</td>
-                                                    <td style="width:140px">${orderItem.price}</td>
-                                                    <td style="width:60px">${orderItem.num}</td>
-                                                </tr>
-                                            </c:forEach>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <c:if test="${order.couponUserBean != null}">
+                                        <div class="form-group col-lg-12">
+                                            <label>优惠券信息</label>
+                                            <table class="table table-striped table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>序号</th>
+                                                        <th>用户姓名</th>
+                                                        <th>用户电话</th>
+                                                        <th>优惠券名称</th>
+                                                        <th>使用类型</th>
+                                                        <th>开始时间</th>
+                                                        <th>结束时间</th>
+                                                        <th>是否使用</th>
+                                                        <th>值</th>
+                                                        <th>创建时间</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>${order.couponUserBean.id }</td>
+                                                        <td>${order.couponUserBean.userName }</td>
+                                                        <td>${order.couponUserBean.phone }</td>
+                                                        <td>${order.couponUserBean.couponName}</td>
+                                                        <td>${order.couponUserBean.typeName}</td>
+                                                        <td><fmt:formatDate value="${order.couponUserBean.startDate}" pattern="yyyy-MM-dd"/></td>
+                                                        <td><fmt:formatDate value="${order.couponUserBean.endDate}" pattern="yyyy-MM-dd"/></td>
+                                                        <td>${order.couponUserBean.status == 0?"未使用":"已使用"}</td>
+                                                        <td>${order.couponUserBean.value}</td>
+                                                        <td><fmt:formatDate value="${order.couponUserBean.createTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </c:if>
 									<div class="form-group col-lg-6">
 										<label>订单说明</label>
 										<textarea id="explain" name="explain" class="form-control">${order.explain}</textarea>
