@@ -7,8 +7,10 @@ package com.honglinktech.zbgj.entity;
 import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.bean.ActivityBean;
 import com.honglinktech.zbgj.bean.FormatBean;
+import com.honglinktech.zbgj.bean.FormatSubBean;
 import com.honglinktech.zbgj.bean.OrderItemBean;
 import com.honglinktech.zbgj.vo.ActivityVO;
+import com.honglinktech.zbgj.vo.FormatSubVO;
 import com.honglinktech.zbgj.vo.FormatVO;
 import com.honglinktech.zbgj.vo.OrderItemVO;
 import org.springframework.util.StringUtils;
@@ -232,11 +234,16 @@ public class OrderItem {
         orderItemBean.setMarketPrice(this.marketPrice);
         orderItemBean.setNum(this.num);
         orderItemBean.setRemark(this.remark);
-        if(!StringUtils.isEmpty(this.activitys)){
-            orderItemBean.setActivitys(JSON.parseArray(this.activitys, ActivityBean.class));
-        }
-        if(!StringUtils.isEmpty(this.formats)){
-            orderItemBean.setFormats(JSON.parseArray(this.formats, FormatBean.class));
+
+        try {
+            if(!StringUtils.isEmpty(this.activitys)){
+                orderItemBean.setActivitys(JSON.parseArray(this.activitys, ActivityBean.class));
+            }
+            if(!StringUtils.isEmpty(this.formats)){
+                orderItemBean.setFormats(JSON.parseArray(this.formats, FormatSubBean.class));
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
 
         return orderItemBean;
@@ -253,11 +260,15 @@ public class OrderItem {
         orderItemVO.setMarketPrice(this.marketPrice);
         orderItemVO.setNum(this.num);
         orderItemVO.setRemark(this.remark);
-        if(!StringUtils.isEmpty(this.activitys)){
-            orderItemVO.setActivitys(JSON.parseArray(this.activitys, ActivityVO.class));
-        }
-        if(!StringUtils.isEmpty(this.formats)){
-            orderItemVO.setFormats(JSON.parseArray(this.formats, FormatVO.class));
+        try {
+            if(!StringUtils.isEmpty(this.activitys)){
+                orderItemVO.setActivitys(JSON.parseArray(this.activitys, ActivityVO.class));
+            }
+            if(!StringUtils.isEmpty(this.formats)){
+                orderItemVO.setFormats(JSON.parseArray(this.formats, FormatSubVO.class));
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
 
         return orderItemVO;

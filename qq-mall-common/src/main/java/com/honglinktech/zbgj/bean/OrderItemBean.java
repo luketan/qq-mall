@@ -62,7 +62,7 @@ public class OrderItemBean {
     /**
      * 商品规格名称
      */
-    private List<FormatBean> formats;
+    private List<FormatSubBean> formats;
 
     /**
      *
@@ -149,11 +149,11 @@ public class OrderItemBean {
         this.disIs = disIs;
     }
 
-    public List<FormatBean> getFormats() {
+    public List<FormatSubBean> getFormats() {
         return formats;
     }
 
-    public void setFormats(List<FormatBean> formats) {
+    public void setFormats(List<FormatSubBean> formats) {
         this.formats = formats;
     }
 

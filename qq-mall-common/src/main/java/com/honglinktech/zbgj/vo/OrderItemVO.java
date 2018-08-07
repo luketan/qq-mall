@@ -64,7 +64,7 @@ public class OrderItemVO {
     /**
      * 商品规格名称
      */
-    private List<FormatVO> formats;
+    private List<FormatSubVO> formats;
 
     /**
      *
@@ -151,11 +151,11 @@ public class OrderItemVO {
         this.disIs = disIs;
     }
 
-    public List<FormatVO> getFormats() {
+    public List<FormatSubVO> getFormats() {
         return formats;
     }
 
-    public void setFormats(List<FormatVO> formats) {
+    public void setFormats(List<FormatSubVO> formats) {
         this.formats = formats;
     }
 
