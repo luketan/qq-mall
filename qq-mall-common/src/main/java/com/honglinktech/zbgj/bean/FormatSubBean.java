@@ -20,9 +20,12 @@ public class FormatSubBean implements Serializable{
 	private BigDecimal vipPrice=null;
 	private Integer select=null;
 	private String args=null;
-	
+
+	private Integer formatId;
 	private String formatName;
 	private Boolean needPrice;
+
+	private Boolean deleteFlag;
 
 	private List<Integer> relyFormatSubIds;
 	
@@ -96,5 +99,21 @@ public class FormatSubBean implements Serializable{
 	}
 	public void setRelyFormatSubIds(List<Integer> relyFormatSubIds) {
 		this.relyFormatSubIds = relyFormatSubIds;
+	}
+
+	public Integer getFormatId() {
+		return formatId;
+	}
+
+	public void setFormatId(Integer formatId) {
+		this.formatId = formatId;
+	}
+
+	public Boolean getDeleteFlag() {
+		return deleteFlag;
+	}
+
+	public void setDeleteFlag(Boolean deleteFlag) {
+		this.deleteFlag = deleteFlag;
 	}
 }

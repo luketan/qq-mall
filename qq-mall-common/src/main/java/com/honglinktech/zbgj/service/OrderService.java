@@ -21,6 +21,9 @@ public interface OrderService{
 	 * @throws BaseException
 	 */
 	Response<Map<String, Object>> findOrderView(Integer userId, Map map) throws BaseException ;
+
+	Response<Map<String, Object>> saveZhiJieSubmitOrder(Integer userId, Map<String, Object> map) throws BaseException;
+
 	/**
 	 * 生成订单
 	 * @param userId

@@ -150,7 +150,7 @@
         fs.vip_price AS vipPrice,
         fs.args,
         fs.delete_flag AS deleteFlag,
-        f.name AS format_name,
+        f.name AS formatName,
         f.need_price AS needPrice,
         f.delete_flag|fs.delete_flag AS deleteFlag
       FROM t_shopping_cart_format scf
@@ -163,11 +163,12 @@
       fs.id,
       fs.name,
       fs.price,
-      fs.vip_price,
+      fs.vip_price as vipPrice,
       fs.args,
-      f.name AS format_name,
-      f.need_price,
-      f.delete_flag|fs.delete_flag AS delete_flag
+      f.id as formatId,
+      f.name AS formatName,
+      f.need_price as needPrice,
+      f.delete_flag|fs.delete_flag AS deleteFlag
     FROM t_format_sub AS fs LEFT JOIN t_format AS f ON(fs.format_id = f.id)
     WHERE 1=1
     <if test="ids != null and ids.size &gt; 0">
@@ -183,7 +184,7 @@
      id,
      `name`,
      price,
-     vip_price,
+     vip_price as vipPrice,
      `select`,
      args
      FROM t_format_sub

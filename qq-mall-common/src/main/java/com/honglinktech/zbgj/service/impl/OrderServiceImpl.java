@@ -221,6 +221,170 @@ public class OrderServiceImpl implements OrderService{
 		return Result.resultSet(restultMap);
 	}
 	/**
+	 * 直接购买
+	 */
+	@Override
+	public Response<Map<String, Object>> saveZhiJieSubmitOrder(Integer userId, Map<String, Object> map) throws BaseException {
+		boolean isByShoppingCart = false;
+		if(map.containsKey("goodsId") && map.containsKey("num")){
+			return Result.fail("提交错误！");
+		}
+		int num = Integer.valueOf(map.get("num").toString());
+		int goodsId = Integer.valueOf(map.get("goodsId").toString());
+		Goods goods = goodsDao.findById(goodsId);
+		if(goods == null){
+			return Result.fail("没找到商品");
+		}
+		//规格
+		List<FormatSubBean> formatSubBeans = null;
+		if(map.containsKey("formatSubIds")){
+			List<Integer> formatSubIds = (List<Integer>)map.get("formatSubIds");
+			if(formatSubIds!=null && formatSubIds.size()>0){
+				formatSubBeans = formatSubDao.findFormatSubByIds(formatSubIds);
+				//规格价格处理
+				if(formatSubBeans != null){
+					for(FormatSubBean fsb:formatSubBeans){
+						if(fsb.getNeedPrice()){
+							goods.setPrice(fsb.getPrice());
+						}
+					}
+				}
+			}
+		}
+		//活动
+		List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(goodsId);
+
+		Order order = new Order();
+		order.setUserId(userId);
+		List<OrderItem> orderItems = new ArrayList<OrderItem>();
+		//优惠券-筛选可用的购物券
+		//每种类型的商品总价格
+		Map<String,BigDecimal> goodsTypeValueMap = new HashMap<String, BigDecimal>();
+		//商品总价格
+		BigDecimal goodsTotalPrice = new BigDecimal(0);
+		goodsTotalPrice = goodsTotalPrice.add(goods.getPrice().multiply(new BigDecimal(num)));
+		if(!goodsTypeValueMap.containsKey(goods.getTypeId()+"")){
+			goodsTypeValueMap.put(goods.getTypeId()+"", goods.getPrice().multiply(new BigDecimal(num)));
+		}else{
+			BigDecimal goodsTypeValue = goodsTypeValueMap.get(goods.getTypeId()+"");
+			BigDecimal value = goodsTypeValue.add(goods.getPrice().multiply(new BigDecimal(num)));
+			goodsTypeValueMap.put(goods.getTypeId()+"", value);
+		}
+
+		OrderItem torderItem = new OrderItem();
+		torderItem.setGoodsId(goods.getId());
+		torderItem.setGoodsImg(goods.getImgUrl());
+		torderItem.setGoodsName(goods.getName());
+		torderItem.setNum(num);
+		torderItem.setPrice(goods.getPrice());
+		torderItem.setMarketPrice(goods.getMarkPrice());
+		torderItem.setFormats(JSON.toJSONString(formatSubBeans));
+		torderItem.setActivitys(JSON.toJSONString(activityBeanList));
+		orderItems.add(torderItem);
+
+		BigDecimal couponMoney = new BigDecimal(0);
+		int couponId = 0;//优惠券ID用于修改已经使用
+		if(!StringUtils.isEmpty(map.get("couponId"))){
+			Coupon coupon = couponService.findUserCoupon(userId, Integer.valueOf(map.get("couponId").toString()));
+			if(coupon!=null){
+				if(coupon.getGoodsType()==0){//全场适用
+					if(coupon.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){
+						couponMoney = couponMoney.add(new BigDecimal(coupon.getValue()));
+						order.setCouponId(coupon.getId());
+//						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
+						couponId = coupon.getId();
+					}
+				}else if(goodsTypeValueMap.containsKey(coupon.getGoodsType()+"")){//指定商品类型使用
+					double value = goodsTypeValueMap.get(coupon.getGoodsType()+"").doubleValue();
+					if(value>=coupon.getMax() || coupon.getMax()==0){
+						couponMoney = couponMoney.add(new BigDecimal(coupon.getValue()));
+						order.setCouponId(coupon.getId());
+//						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
+						couponId = coupon.getId();
+					}
+				}
+			}
+		}
+		//筛选可用的购物券
+
+		//type(1打折,2包邮,3赠送,4满减)
+		//优惠金额
+		BigDecimal lostMoney = new BigDecimal(0);
+		BigDecimal lostPostMoney = new BigDecimal(0);
+
+		if(activityBeanList != null){
+			for(ActivityBean activityBean:activityBeanList){
+				if(activityBean.getMax() == 0 || goodsTotalPrice.doubleValue() > activityBean.getMax()){
+					if(activityBean.getType() == 1){//打折
+						BigDecimal zekou = goodsTotalPrice.
+								subtract(goodsTotalPrice.
+										multiply(new BigDecimal(activityBean.getValue())).
+										divide(new BigDecimal(10),2,BigDecimal.ROUND_HALF_UP));
+						if(lostMoney.doubleValue()<zekou.doubleValue()){
+							lostMoney = zekou;
+						}
+					}else if(activityBean.getType() == 2){//包邮
+						lostPostMoney = Constants.POST_MONEY;
+					}else if(activityBean.getType() == 4){//满减
+						if(lostMoney.doubleValue() < activityBean.getValue()){
+							lostMoney = new BigDecimal( activityBean.getValue());
+						}
+					}
+				}
+			}
+		}
+		//活动结束end
+
+
+		Object addressId = map.get("addressId");
+		Object paymentId = map.get("paymentId");
+		//地址
+		UserAddress address = userAddressDao.selectByPrimaryKey(Integer.valueOf(addressId.toString()));
+		if(address == null){
+			return Result.fail(ExceptionEnum.GOODS_ORDER_ADDRESS_NOT_FIND, addressId.toString());
+		}
+		order.setAddressId(address.getId());
+		order.setAddress(address.getProvinceName()+address.getCityName()+address.getRegionName()+" "+address.getRoad());
+		order.setUserPhone(address.getPhone());
+		order.setUserName(address.getUserName());
+		order.setLostMoney(lostMoney);
+		order.setPostMoney(Constants.POST_MONEY);
+		BigDecimal totalMoney = goodsTotalPrice.add(Constants.POST_MONEY).subtract(lostPostMoney).subtract(couponMoney).subtract(lostMoney);
+		order.setTotalMoney(totalMoney);
+		order.setMoney(goodsTotalPrice);
+		//ordercode
+		String header = "";
+		String orderCode = String.format("%s%s%s", header, sdf.format(new Date()), RandomUtil.genRandomSmscode(4));
+		order.setOrderCode(orderCode);
+		order.setPayStatus(0);
+		order.setRemark(String.valueOf(map.get("remark")));
+		order.setStatus(OrderStatusEnum.waitPayment.getCode());
+		order.setTotalMoney(totalMoney);
+		//支付方式
+		Map payMentMap = new HashMap();
+		payMentMap.put("id", Integer.valueOf(paymentId.toString()));
+		List<PaymentBean> payments = paymentDao.findBeanByWhere(payMentMap);
+		if(payments == null || payments.size() == 0){
+			return Result.fail(ExceptionEnum.GOODS_ORDER_PAYMENT_NOT_FIND, paymentId.toString());
+		}
+		PaymentBean payment = payments.get(0);
+		order.setPaymentId(payment.getId());
+		order.setPaymentName(payment.getName());
+		int orderId = orderDao.insert(order);
+		if(orderItems!=null){
+			for(OrderItem orderItem:orderItems){
+				orderItem.setOrderId(orderId);
+			}
+			orderItemDao.saveBatch(orderItems);
+		}
+
+		//使用优惠券
+		if(couponId > 0){
+			couponService.useCoupon(userId, couponId);
+		}
+		return Result.success();
+	}
+	/**
 	 * 生成订单
 	 * @param userId
 	 * @param map
@@ -230,56 +394,22 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Response<Map<String, Object>> saveSubmitOrder(Integer userId, Map<String, Object> map) throws BaseException {
 		List<ShoppingCartBean> shoppingCartBeanList;
-		boolean isByShoppingCart = false;
-		if(map.containsKey("goodsId") && map.containsKey("num")){
-			//直接购买
-			int goodsId = Integer.valueOf(map.get("goodsId").toString());
-			Goods goods = goodsDao.findById(goodsId);
-			
-			ShoppingCartBean scb = new ShoppingCartBean();
-			scb.setNum(Integer.valueOf(map.get("num").toString()));
-			scb.setGoodsId(goods.getId());
-			scb.setGoodsName(goods.getName());
-			scb.setImageUrl(goods.getImgUrl());
-			scb.setMarkPrice(goods.getMarkPrice());
-			scb.setPrice(goods.getPrice());
-			scb.setGoodsTypeId(goods.getTypeId());
-			//规格
-			if(map.containsKey("formatSubIds")){
-				List<Integer> formatSubIds = (List<Integer>)map.get("formatSubIds");
-				if(formatSubIds!=null && formatSubIds.size()>0){
-					List<FormatSubBean> formatSubBeans = formatSubDao.findFormatSubByIds(formatSubIds);
-					scb.setFormatSubBeanList(formatSubDao.findFormatSubByIds(formatSubIds));
-					//规格价格处理
-					if(formatSubBeans != null){
-						for(FormatSubBean fsb:formatSubBeans){
-							if(fsb.getNeedPrice()){
-								scb.setPrice(fsb.getPrice());
-							}
-						}
-					}
-				}
-			}
-			
-			shoppingCartBeanList = new ArrayList<ShoppingCartBean>();
-			shoppingCartBeanList.add(scb);
-			
-		}else{
-			isByShoppingCart = true;
-			//商品信息 - 购物车提取
-			Map<String,Object> scWhereMap = new HashMap<String, Object>();
-			scWhereMap.put("userId", userId);
-			scWhereMap.put("checkbox", 1);
-			Response<List<ShoppingCartBean>> scResponse = shoppingCartService.findShoppingBeansByMap(scWhereMap);
-			shoppingCartBeanList = scResponse.getResult();
-			
+		//商品信息 - 购物车提取
+		Map<String,Object> scWhereMap = new HashMap<String, Object>();
+		scWhereMap.put("userId", userId);
+		scWhereMap.put("checkbox", 1);
+		//购物车已经包含活动
+		Response<List<ShoppingCartBean>> scResponse = shoppingCartService.findShoppingBeansByMap(scWhereMap);
+		shoppingCartBeanList = scResponse.getResult();
+		if(shoppingCartBeanList == null || shoppingCartBeanList.size() == 0){
+			return Result.fail("购物车没找到商品！");
 		}
 		
 		Order order = new Order();
 		order.setUserId(userId);
+
+		List<ActivityBean> totalActivityBeanList = new ArrayList<>();
 		List<OrderItem> orderItems = new ArrayList<OrderItem>();
-//		List<OrderItemFormat> torderItemFormats = new ArrayList<OrderItemFormat>();
-//		List<OrderActivity> torderActivitys = new ArrayList<OrderActivity>();
 		//优惠券-筛选可用的购物券
 		//每种类型的商品总价格
 		Map<String,BigDecimal> goodsTypeValueMap = new HashMap<String, BigDecimal>();
@@ -295,16 +425,11 @@ public class OrderServiceImpl implements OrderService{
 					BigDecimal value = goodsTypeValue.add(scb.getPrice().multiply(new BigDecimal(scb.getNum())));
 					goodsTypeValueMap.put(scb.getGoodsTypeId()+"", value);
 				}
-				//格式化单品的规格，用与订单
-				String formats="";
-				List<FormatSubBean> formatSubBeanList = scb.getFormatSubBeanList();
-				if(formatSubBeanList != null && formatSubBeanList.size() > 0){
-					formats="规格：";
-					for(FormatSubBean formatSubBean:formatSubBeanList){
-						formats+=formatSubBean.getName()+"/";
-					}
-					formats = formats.substring(0,formats.length()-1);
-				}
+
+				//活动
+				List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(scb.getGoodsId());
+				totalActivityBeanList.addAll(activityBeanList);
+
 				OrderItem torderItem = new OrderItem();
 				torderItem.setGoodsId(scb.getGoodsId());
 				torderItem.setGoodsImg(scb.getImageUrl());
@@ -312,7 +437,8 @@ public class OrderServiceImpl implements OrderService{
 				torderItem.setNum(scb.getNum());
 				torderItem.setPrice(scb.getPrice());
 				torderItem.setMarketPrice(scb.getMarkPrice());
-				torderItem.setFormats(formats);
+				torderItem.setFormats(JSON.toJSONString(scb.getFormatSubBeanList()));
+				torderItem.setActivitys(JSON.toJSONString(activityBeanList));
 				orderItems.add(torderItem);
 			}
 		}
@@ -350,9 +476,9 @@ public class OrderServiceImpl implements OrderService{
 			for(ShoppingCartBean scb:shoppingCartBeanList){
 				goodsIds.add(scb.getGoodsId());
 			}
-			List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsIds(goodsIds);
-			if(activityBeanList != null){
-				for(ActivityBean activityBean:activityBeanList){
+
+			if(totalActivityBeanList != null){
+				for(ActivityBean activityBean:totalActivityBeanList){
 					if(activityBean.getMax() == 0 || goodsTotalPrice.doubleValue() > activityBean.getMax()){
 						if(activityBean.getType() == 1){//打折
 							BigDecimal zekou = goodsTotalPrice.
@@ -384,6 +510,8 @@ public class OrderServiceImpl implements OrderService{
 		}
 		order.setAddressId(address.getId());
 		order.setAddress(address.getProvinceName()+address.getCityName()+address.getRegionName()+" "+address.getRoad());
+		order.setUserName(address.getUserName());
+		order.setUserPhone(address.getPhone());
 		order.setLostMoney(lostMoney);
 		order.setPostMoney(Constants.POST_MONEY);
 		BigDecimal totalMoney = goodsTotalPrice.add(Constants.POST_MONEY).subtract(lostPostMoney).subtract(couponMoney).subtract(lostMoney);
@@ -391,9 +519,7 @@ public class OrderServiceImpl implements OrderService{
 		order.setMoney(goodsTotalPrice);
 		//ordercode
 		String header = "";
-        String format = sdf.format(new Date());
-        String random = RandomUtil.genRandomSmscode(4);
-        String orderCode = String.format("%s%s%s", header, format, random);
+        String orderCode = String.format("%s%s%s", header, sdf.format(new Date()), RandomUtil.genRandomSmscode(4));
 		order.setOrderCode(orderCode);
 		order.setPayStatus(0);
 		order.setRemark(String.valueOf(map.get("remark")));
@@ -416,13 +542,12 @@ public class OrderServiceImpl implements OrderService{
 			}
 			orderItemDao.saveBatch(orderItems);
 		}
+
 		//修改优惠券已经使用了,清空已经购买了的购物车
-		if(isByShoppingCart){
-			ShoppingCart sc = new ShoppingCart();
-			sc.setCheckbox(1);
-			sc.setUserId(userId);
-			shoppingCartDao.deleteByUserIdAndCheck(userId);
-		}
+		ShoppingCart sc = new ShoppingCart();
+		sc.setCheckbox(1);
+		sc.setUserId(userId);
+		shoppingCartDao.deleteByUserIdAndCheck(userId);
 		if(couponId > 0){
 			couponService.useCoupon(userId, couponId);
 		}
