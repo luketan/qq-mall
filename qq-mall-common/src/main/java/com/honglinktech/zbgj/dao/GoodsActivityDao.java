@@ -6,6 +6,7 @@ package com.honglinktech.zbgj.dao;
 
 import com.honglinktech.zbgj.bean.ActivityBean;
 import com.honglinktech.zbgj.entity.GoodsActivity;
+import com.honglinktech.zbgj.vo.ActivityVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -26,6 +27,14 @@ public interface GoodsActivityDao {
 
 
     /*********************************************************************************************************/
+
+    /**
+     * APP通过商品ID获取有效活动
+     * @param goodsId
+     * @return
+     */
+    List<ActivityVO> findActivityVOByGoodsId(@Param(value = "goodsId") Integer goodsId);
+
     /**
      * APP通过商品ID获取有效活动
      * @param goodsId

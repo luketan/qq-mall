@@ -171,6 +171,31 @@
       limit #{start},#{rows}
     </if>
   </select>
+  <select id="findUserCouponVOById" parameterType="map" resultType="com.honglinktech.zbgj.vo.CouponUserVO">
+    SELECT
+    cu.id as id,
+    u.account as userName,
+    u.phone as phone,
+    c.`name` as couponName,
+    cu.`status` as status,
+    cu.`code` as code,
+    c.goods_type as goodsType,
+    gt.`name` as typeName,
+    c.max as max,
+    c.`value` as `value`,
+    c.start_date as startDate,
+    c.end_date as endDate,
+    cu.`checked` as `checked`,
+    cu.use_time as useTime,
+    cu.update_time as updateTime,
+    cu.create_time as createTime
+    FROM t_coupon_user cu
+    LEFT JOIN t_user u ON(cu.user_id = u.id )
+    LEFT JOIN t_coupon c ON(cu.coupon_id = c.id )
+    LEFT JOIN t_goods_type gt ON(c.goods_type = gt.id )
+    WHERE cu.id = #{id}
+    limit 0,1
+  </select>
   <select id="findUserCouponBeanById" parameterType="map" resultType="com.honglinktech.zbgj.bean.CouponUserBean">
     SELECT
     cu.id as id,

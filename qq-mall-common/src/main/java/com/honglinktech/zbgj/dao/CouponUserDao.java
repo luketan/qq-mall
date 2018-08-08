@@ -6,6 +6,7 @@ package com.honglinktech.zbgj.dao;
 
 import com.honglinktech.zbgj.bean.CouponUserBean;
 import com.honglinktech.zbgj.entity.CouponUser;
+import com.honglinktech.zbgj.vo.CouponUserVO;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,13 @@ public interface CouponUserDao {
     int updateByPrimaryKeySelective(CouponUser record);
 
     /***************************************************************************************************************/
+
+	/**
+	 * APP
+	 * @return
+	 */
+	CouponUserVO findUserCouponVOById(int id);
+
     /**
      * 获取用户的可以优惠券数量
      * @param userId
@@ -76,7 +84,6 @@ public interface CouponUserDao {
 
 	/**
 	 * console
-	 * @param whereMap
 	 * @return
 	 */
 	CouponUserBean findUserCouponBeanById(int id);

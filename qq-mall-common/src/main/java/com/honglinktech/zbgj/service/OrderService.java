@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface OrderService{
+	Response<Map<String, Object>> findZhiJieOrderView(Integer userId, Map map) throws BaseException;
+
 	/**
 	 * 准备订单
 	 * @param userId

@@ -1,5 +1,7 @@
 package com.honglinktech.zbgj.vo;
 
+import com.honglinktech.zbgj.entity.CouponUser;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -152,7 +154,7 @@ public class OrderVO {
 	private Date createTime;
 
 	private List<OrderItemVO> orderItems;
-	private CouponVO coupon;
+	private CouponUserVO couponUserVO;
 
 	public OrderVO(){
  	}
@@ -362,12 +364,12 @@ public class OrderVO {
 		this.orderItems = orderItems;
 	}
 
-	public CouponVO getCoupon() {
-		return coupon;
+	public CouponUserVO getCouponUserVO() {
+		return couponUserVO;
 	}
 
-	public void setCoupon(CouponVO coupon) {
-		this.coupon = coupon;
+	public void setCouponUserVO(CouponUserVO couponUserVO) {
+		this.couponUserVO = couponUserVO;
 	}
 
 	public String getUserName() {

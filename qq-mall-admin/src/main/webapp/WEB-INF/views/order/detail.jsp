@@ -135,7 +135,11 @@
                                            			<tr>
 	                                           			<td style="width:120px"><a href="${orderItem.goodsImg}" class="lightbox" rel="orderItem${orderItem.id}"><img src="${orderItem.goodsImg}" style="width: 20px"></a></td>
 	                                           			<td><a href="${basePath }/goods/modify.html?id=${orderItem.goodsId}">${orderItem.goodsName}</a></td>
-	                                           			<td style="width:140px">${orderItem.formats}</td>
+	                                           			<td style="width:740px">
+                                                            <c:forEach items="${orderItem.formats}" var="format">
+                                                                【${format.formatName}：${format.name}】
+                                                            </c:forEach>
+                                                        </td>
 	                                           			<td style="width:140px">${orderItem.price}</td>
 	                                           			<td style="width:60px">${orderItem.num}</td>
                                            			</tr>

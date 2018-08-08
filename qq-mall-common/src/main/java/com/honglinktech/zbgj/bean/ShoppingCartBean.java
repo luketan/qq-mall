@@ -29,6 +29,8 @@ public class ShoppingCartBean implements Serializable{
 	private String goodsTypeName;
 	
 	private List<FormatSubBean> formatSubBeanList;
+
+	private List<ActivityBean> activityBeanList;
 	/**
 	 * 
 	 */
@@ -168,4 +170,12 @@ public class ShoppingCartBean implements Serializable{
         }  
           
     }
+
+	public List<ActivityBean> getActivityBeanList() {
+		return activityBeanList;
+	}
+
+	public void setActivityBeanList(List<ActivityBean> activityBeanList) {
+		this.activityBeanList = activityBeanList;
+	}
 }
