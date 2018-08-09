@@ -146,7 +146,7 @@
                                                     <c:forEach items="${orderItem.activitys}" var="activity">
                                                         <tr>
                                                             <td style="width:120px;"></td>
-                                                            <td colspan="4"><a href="${basePath }goodsActivity/modify.html?id=${activity.id}"><span style="font-weight:bold;" colspan="3">【活动】</span>(${activity.typeName})${activity.name}</a></td>
+                                                            <td colspan="4"><a href="${basePath }goodsActivity/modify.html?id=${activity.id}"><span style="font-weight:bold;" colspan="3">【活动】</span>${activity.typeName}${empty(activity.typeName)?"":"--"}${activity.name}</a></td>
                                                         </tr>
                                                     </c:forEach>
                                            		</c:forEach>
