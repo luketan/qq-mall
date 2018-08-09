@@ -810,6 +810,22 @@ public class OrderServiceImpl implements OrderService{
 		int result = orderDao.deleteById(orderId);
 		return Result.resultSet(result);
 	}
+
+	/**
+	 * consle 取消订单
+	 * @param order
+	 * @return
+	 */
+	@Override
+	public Response<Integer> updateCancleOrder(Order order) {
+		if (order == null || order.getId() == null || order.getId() <= 0) {
+			return Result.fail(ExceptionEnum.ORDER_UPDATE_STATUS_ERROR,JSON.toJSONString(order));
+		}
+		order.setStatus(OrderStatusEnum.Cancel.getCode());
+		int result = orderDao.updateCancleOrder(order);
+		return Result.resultSet(result);
+	}
+
 	/**
 	 * consle
 	 * @param order

@@ -44,4 +44,11 @@ public interface OrderDao {
      * @return
      */
     int findCount(Map whereMap);
+
+    /**
+     *
+     * @param order
+     * @return
+     */
+    int updateCancleOrder(Order order);
 }

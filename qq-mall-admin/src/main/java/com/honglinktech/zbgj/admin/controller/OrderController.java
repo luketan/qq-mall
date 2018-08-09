@@ -111,7 +111,6 @@ public class OrderController extends BaseController {
     @RequestMapping("/detail")
     public String orderDetail(@RequestParam(required = false)int orderId, Model model) {
 		Response<OrderBean> response = orderService.findOrderBeanById(orderId);
-		logger.info("=========orderDetail========"+JSON.toJSON(response));
 		if(response.getCode() == 0){
 			model.addAttribute("order", response.getResult());
 		}else{
@@ -122,6 +121,7 @@ public class OrderController extends BaseController {
 		List<CV> orderStatusList = new ArrayList<CV>();
 		for(OrderStatusEnum a: OrderStatusEnum.values()) {
 			orderStatusList.add(new CV(a.getCode(), a.getName()));
+			model.addAttribute(a.name(), a.getCode());
 		}
 		model.addAttribute("orderStatusList", orderStatusList);
 
@@ -136,6 +136,7 @@ public class OrderController extends BaseController {
 			orderPayStatusList.add(new CV(a.getCode(), a.getName()));
 		}
 		model.addAttribute("orderPayStatusList", orderPayStatusList);
+
 
 		return "order/detail";
     }
@@ -206,11 +207,8 @@ public class OrderController extends BaseController {
 				addError(model, "订单ID不能为空");
 				return "redirect:list.html";
 			}
-			Order upOrder = new Order();
-			upOrder.setId(order.getId());
-			upOrder.setExplain(order.getExplain());
-			upOrder.setStatus(OrderStatusEnum.Cancel.getCode());
-			Response<Integer> resp = orderService.updateOrder(upOrder);
+			order.setStatus(OrderStatusEnum.Cancel.getCode());
+			Response<Integer> resp = orderService.updateCancleOrder(order);
 			addMessage(model, resp.getMsg());
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -199,13 +199,15 @@
                                     <div class="form-group col-lg-6">
                                     	<shiro:hasPermission name="order:update">
 	                                        <c:choose>
-	                                        	<c:when test="${order.status==1}">
-	                                    			 <button type="button" onclick="submitOrder(${order.status})" class="btn btn-success">待发货</button>
+	                                        	<c:when test="${order.status==waitPayment}">
 													<button type="button" onclick="cancelOrder()" class="btn btn-success">取消订单</button>
 	                                    		</c:when>
-	                                    		<c:when test="${order.status==2}">
-	                                    			 <button type="button" onclick="submitOrder(${order.status})" class="btn btn-success">运送中</button>
+	                                    		<c:when test="${order.status==WaitShip}">
+	                                    			 <button type="button" onclick="submitOrder(${order.status})" class="btn btn-success">发货</button>
 	                                    		</c:when>
+                                                <c:when test="${order.status==Send}">
+                                                    <button type="button" onclick="submitOrder(${order.status})" class="btn btn-success">完成</button>
+                                                </c:when>
 	                                    	</c:choose>
                                     	</shiro:hasPermission>
                                     </div>
@@ -216,18 +218,6 @@
             </div>
         </div>
     </div>
-    </form>
-    <form id="addOrderAddress" action="orderAddress.html" method="post">
-    	<input type="hidden" name="userId" value="${order.userId}">
-    	<input type="hidden" name="id" value="${order.id}">
-    </form>
-    <form id="deleteOrderAddress" action="deleteOrderAddress.html" method="post">
-    	<input type="hidden" name="userId" value="${order.userId}">
-        <input type="hidden" name="id" value="${order.id}">
-    </form>
-    <form id="deleteOrderItem" action="deleteOrderItem.html" method="post">
-    	<input type="hidden" name="userId" value="${order.userId}">
-        <input type="hidden" name="id" value="${order.id}">
     </form>
     <form id="cancelOrder" action="cancelOrder.html" method="post">
     	<input type="hidden" name="userId" value="${order.userId}">

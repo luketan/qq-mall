@@ -366,4 +366,16 @@
       AND o.status = #{status}
     </if>
   </select>
+
+
+  <update id="updateCancleOrder" parameterType="com.honglinktech.zbgj.entity.Order">
+    UPDATE t_order
+    status = #{status},
+    <if test="explain != null">
+      explain = #{explain},
+    </if>
+    update_time = now()
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+
 </mapper>

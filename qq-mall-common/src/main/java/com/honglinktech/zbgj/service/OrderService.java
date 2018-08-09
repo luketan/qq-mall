@@ -70,6 +70,8 @@ public interface OrderService{
 	/**********************************************console**************************/
 	Response<Integer> deleteOrder(int orderId);
 
+	Response<Integer> updateCancleOrder(Order order);
+
 	/**
 	 * console修改订单
 	 * @param order
