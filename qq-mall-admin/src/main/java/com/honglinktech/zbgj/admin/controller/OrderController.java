@@ -3,21 +3,27 @@ package com.honglinktech.zbgj.admin.controller;
 import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.bean.OrderBean;
 import com.honglinktech.zbgj.bean.OrderSimpleBean;
+import com.honglinktech.zbgj.bean.PostDetailBean;
 import com.honglinktech.zbgj.common.CV;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.entity.Order;
+import com.honglinktech.zbgj.entity.PostCompany;
 import com.honglinktech.zbgj.enums.GoodsStatusEnum;
 import com.honglinktech.zbgj.enums.OrderPayStatusEnum;
 import com.honglinktech.zbgj.enums.OrderStatusEnum;
 import com.honglinktech.zbgj.enums.PaymentTypeEnum;
 import com.honglinktech.zbgj.service.OrderService;
+import com.honglinktech.zbgj.service.PostDetailService;
+import com.honglinktech.zbgj.service.PostService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,8 +41,14 @@ import java.util.*;
 public class OrderController extends BaseController {
     @Autowired
     private OrderService orderService;
-    
-    /**
+
+	@Autowired
+	private PostService postService;
+
+	@Autowired
+	private PostDetailService postDetailService;
+
+	/**
      * 分页查询订单
      *
      * @param status 订单状态
@@ -137,6 +149,9 @@ public class OrderController extends BaseController {
 		}
 		model.addAttribute("orderPayStatusList", orderPayStatusList);
 
+		//快递公司
+		List<PostCompany> postCompanyList = postService.findAllPostCompany();
+		model.addAttribute("postCompanyList", postCompanyList);
 
 		return "order/detail";
     }
@@ -159,7 +174,7 @@ public class OrderController extends BaseController {
 			upOrder.setId(order.getId());
 			upOrder.setExplain(order.getExplain());
 			upOrder.setStatus(OrderStatusEnum.Send.getCode());
-			Response<Integer> resp = orderService.updateOrder(upOrder);
+			Response<Integer> resp = orderService.updateShipOrder(upOrder);
 			addMessage(model, resp.getMsg());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -288,5 +303,27 @@ public class OrderController extends BaseController {
 			e.printStackTrace();
 		}
 	}
-    
+
+
+	/**
+	 * 检查新订单
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/getPostDetail", method = {RequestMethod.POST},
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public Object getPostDetail(@RequestBody Map req) {
+		if (!req.containsKey("postCode"))
+		{
+			return Result.fail("快递单号不能为空");
+		}
+		if (!req.containsKey("companyId"))
+		{
+			return Result.fail("快递公司Id");
+		}
+		Response<List<PostDetailBean>> response = postDetailService.findPostDetails(req.get("postCode").toString(), Integer.valueOf(req.get("companyId").toString()));
+		return response;
+	}
 }

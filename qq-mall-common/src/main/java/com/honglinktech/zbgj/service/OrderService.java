@@ -70,7 +70,19 @@ public interface OrderService{
 	/**********************************************console**************************/
 	Response<Integer> deleteOrder(int orderId);
 
+	/**
+	 * 取消订单
+	 * @param order
+	 * @return
+	 */
 	Response<Integer> updateCancleOrder(Order order);
+
+	/**
+	 * 订单发货
+	 * @param upOrder
+	 * @return
+	 */
+	Response<Integer> updateShipOrder(Order upOrder);
 
 	/**
 	 * console修改订单

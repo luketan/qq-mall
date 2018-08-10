@@ -66,6 +66,10 @@ public class OrderServiceImpl implements OrderService{
 	private PaymentDao paymentDao;
 	@Resource
 	private CouponUserDao couponUserDao;
+	@Resource
+	private PostDetailService postDetailService;
+	@Resource
+	private PostCompanyDao postCompanyDao;
 	
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
@@ -824,6 +828,15 @@ public class OrderServiceImpl implements OrderService{
 		order.setStatus(OrderStatusEnum.Cancel.getCode());
 		int result = orderDao.updateCancleOrder(order);
 		return Result.resultSet(result);
+	}
+
+	@Override
+	public Response<Integer> updateShipOrder(Order upOrder) {
+		//订阅
+		PostCompany postCompany = postCompanyDao.findById(upOrder.getPostId());
+		Response<String> response = postDetailService.subscribeService(postCompany.getCode(), upOrder.getPostCode(), null, null);
+
+		return null;
 	}
 
 	/**

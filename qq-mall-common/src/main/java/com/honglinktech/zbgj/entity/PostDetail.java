@@ -1,113 +1,87 @@
-/**
- * @author ws
- * 2017-04-20 22:04:20
- */
 package com.honglinktech.zbgj.entity;
 
-import java.util.Date;
+/**
+ * 快递详情描述
+ */
+public class PostDetail
+{
+    private String postCode; //快递编号
+    private String timeNode; //时间节点
+    private String addressNode; //地址节点
+    private String context;//快递状态描述
+    private String pushTime; //kd100推送时间
+    private String IsSignIn;//是否已经签收
+    private String companyCode; //快递公司代码
 
-public class PostDetail {
-    /**
-     * 快递单号
-     */
-    private String postCode;
+    public String getCompanyCode()
+    {
+        return companyCode;
+    }
 
-    /**
-     * 物流详情描述
-     */
-    private String context;
+    public void setCompanyCode(String companyCode)
 
-    /**
-     * 地址节点
-     */
-    private String addressNode;
+    {
+         this.companyCode = companyCode;
+    }
 
-    /**
-     * 物流时间节点
-     */
-    private Date timeNode;
+    public String getIsSignIn()
+    {
+        return IsSignIn;
+    }
 
-    /**
-     * kd100推送时间
-     */
-    private Date pushTime;
+    public void setIsSignIn(String isSignIn)
+    {
+        IsSignIn = isSignIn;
+    }
 
-    /**
-     * 是否签收
-     */
-    private String isSignIn;
+    public String getAddressNode()
+    {
+        return addressNode;
+    }
 
-    /**
-     * 
-     */
-    private String companyCode;
+    public String getPushTime()
+    {
+        return pushTime;
+    }
 
-    /**
-     * 删除标志
-     */
-    private String deleteFlag;
+    public void setPushTime(String pushTime)
+    {
+        this.pushTime = pushTime;
+    }
+
+    public void setAddressNode(String addressNode)
+    {
+        this.addressNode = addressNode;
+    }
+
+
+    public String getContext()
+    {
+        return context;
+    }
+
+    public void setContext(String context)
+    {
+        this.context = context;
+    }
 
     public String getPostCode() {
         return postCode;
     }
 
     public void setPostCode(String postCode) {
-        this.postCode = postCode == null ? null : postCode.trim();
+        this.postCode = postCode;
     }
 
-    public String getContext() {
-        return context;
-    }
-
-    public void setContext(String context) {
-        this.context = context == null ? null : context.trim();
-    }
-
-    public String getAddressNode() {
-        return addressNode;
-    }
-
-    public void setAddressNode(String addressNode) {
-        this.addressNode = addressNode == null ? null : addressNode.trim();
-    }
-
-    public Date getTimeNode() {
+    public String getTimeNode()
+    {
         return timeNode;
     }
 
-    public void setTimeNode(Date timeNode) {
+    public void setTimeNode(String timeNode)
+    {
         this.timeNode = timeNode;
     }
 
-    public Date getPushTime() {
-        return pushTime;
-    }
 
-    public void setPushTime(Date pushTime) {
-        this.pushTime = pushTime;
-    }
-
-    public String getIsSignIn() {
-        return isSignIn;
-    }
-
-    public void setIsSignIn(String isSignIn) {
-        this.isSignIn = isSignIn == null ? null : isSignIn.trim();
-    }
-
-    public String getCompanyCode() {
-        return companyCode;
-    }
-
-    public void setCompanyCode(String companyCode) {
-        this.companyCode = companyCode == null ? null : companyCode.trim();
-    }
-
-    public String getDeleteFlag() {
-        return deleteFlag;
-    }
-
-    public void setDeleteFlag(String deleteFlag) {
-        this.deleteFlag = deleteFlag == null ? null : deleteFlag.trim();
-    }
 }

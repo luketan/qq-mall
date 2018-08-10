@@ -5,6 +5,7 @@ import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.PostCompany;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +16,7 @@ public interface PostService {
 	/**
 	 *
 	 * @param start
-	 * @param size
+	 * @param rows
 	 * @param url
 	 * @return
 	 */
@@ -27,6 +28,9 @@ public interface PostService {
 	 * @return
 	 */
 	Response<PostCompany> findPostCompanyById(int id);
+
+
+	List<PostCompany> findAllPostCompany();
 
 	/**
 	 *
@@ -40,4 +44,5 @@ public interface PostService {
 	 * @return
 	 */
 	Response<Integer> deletePostCompany(int id);
+
 }

@@ -1,16 +1,12 @@
 package com.honglinktech.zbgj.service.impl;
 
-import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
-import com.honglinktech.zbgj.common.SystemArgsCache;
 import com.honglinktech.zbgj.dao.PostCompanyDao;
 import com.honglinktech.zbgj.dao.PostDetailDao;
-import com.honglinktech.zbgj.dao.SystemConfigDao;
 import com.honglinktech.zbgj.entity.PostCompany;
 import com.honglinktech.zbgj.service.PostService;
-import com.honglinktech.zbgj.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -41,8 +37,14 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Response<PostCompany> findPostCompanyById(int id) {
-		PostCompany postCompany = postCompanyDao.selectByPrimaryKey(id);
+		PostCompany postCompany = postCompanyDao.findById(id);
 		return Result.resultSet(postCompany);
+	}
+
+	@Override
+	public List<PostCompany> findAllPostCompany() {
+		List<PostCompany> postCompanyList = postCompanyDao.findPostCompanyByWhere(null);
+		return postCompanyList;
 	}
 
 	@Override

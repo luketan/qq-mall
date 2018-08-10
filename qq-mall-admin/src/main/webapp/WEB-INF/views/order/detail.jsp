@@ -283,6 +283,38 @@ function cancelOrder(){
         }
 	});
 }
+
+function getExpressDetail(companyId, postCode){
+    var data = {"companyId":companyId, "postCode":postCode};
+    $.ajax({url:"getPostDetail.html",
+        type:"post",
+        data:JSON.stringify(data),
+        dataType: "json",
+        contentType: "application/json",
+        success:function(result){
+            var title = "快递跟踪";
+            var htmlContent = '<ul>';
+            if(result.result.length<=0){
+                htmlContent+="<li>"+result.msg+"</li>";
+            }else{
+                for(var i=0; i<result.result.length; i++){
+                    var expDate = new Date(result.result[i].timeNode);
+                    var expTime = expDate.getFullYear()+"-"+(expDate.getMonth()+1)+"-"+expDate.getDate()+" "+expDate.getHours()+":"+expDate.getMinutes()+":"+expDate.getSeconds();
+                    htmlContent+="<li>["+expTime+"]"+result.result[i].context+"</li>";
+                }
+            }
+            htmlContent += '</ul>';
+            BootstrapDialog.show({
+                title: title,
+                message: htmlContent
+            });
+        },
+        error:function(xhr,status,error){
+            alert(xhr);
+        }
+    });
+
+}
 </script>
 
 </body>
