@@ -45,11 +45,10 @@ public class GoodsController extends BaseApiController {
 	 * @return
 	 * @throws BaseException
 	 */
-	@RequestMapping(value="findGoodsById",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findGoodsById",method={RequestMethod.POST})
 	@ResponseBody
 	public Response<GoodsVO> findGoodsById(@RequestBody Map<String, String> map){
 		try {
-			logger.error("findGoodsById==================");
 			UserVO user = (UserVO) request.getAttribute("user");
 			AppAgent agent = (AppAgent) request.getAttribute("agent");
 			int userId = 0;
