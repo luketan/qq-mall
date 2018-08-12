@@ -4,7 +4,7 @@ $(document).ready(function () {
 function getNewOrderNum() {
     $.ajax({
         type: "POST",
-        url: "/order/count/new.html",
+        url: window.basePath+"/order/count/new.html",
         contentType: "application/json; charset=UTF-8",
         dataType: "json",
         success: function (data) {

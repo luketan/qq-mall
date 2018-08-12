@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -115,6 +116,7 @@ public class OrderController extends BaseController {
     }
     /**
 	   * 订单详情
+	 * , RedirectAttributes attr
 	   * @param orderId
 	   * @param model
 	   * @return
@@ -158,6 +160,7 @@ public class OrderController extends BaseController {
 
 	/**
 	 * 发货订单
+	 * , RedirectAttributes attr
 	 * @param model
 	 * @return
 	 */
@@ -168,19 +171,26 @@ public class OrderController extends BaseController {
 		try {
 			if(StringUtils.isEmpty(order.getId())){
 				addError(model, "订单ID不能为空");
-				return "redirect:list.html";
+				return "redirect:detail.html?orderId="+order.getId();
 			}
-			Order upOrder = new Order();
-			upOrder.setId(order.getId());
-			upOrder.setExplain(order.getExplain());
-			upOrder.setStatus(OrderStatusEnum.Send.getCode());
-			Response<Integer> resp = orderService.updateShipOrder(upOrder);
+
+			if(StringUtils.isEmpty(order.getPostId())){
+				addError(model, "快递公司ID不能为空");
+				return "redirect:detail.html?orderId="+order.getId();
+			}
+			if(StringUtils.isEmpty(order.getPostCode())){
+				addError(model, "快递单号不能为空");
+				return "redirect:detail.html?orderId="+order.getId();
+			}
+
+			order.setStatus(OrderStatusEnum.Send.getCode());
+			Response<Integer> resp = orderService.updateShipOrder(order);
 			addMessage(model, resp.getMsg());
 		} catch (Exception e) {
 			e.printStackTrace();
-			addError(model, "完成订单失败");
+			addError(model, "发货失败");
 		}
-		return "redirect:list.html";
+		return "redirect:detail.html?orderId="+order.getId();
 	}
 	/**
 	 * 完成订单
@@ -200,13 +210,13 @@ public class OrderController extends BaseController {
 			upOrder.setId(order.getId());
 			upOrder.setExplain(order.getExplain());
 			upOrder.setStatus(OrderStatusEnum.Complete.getCode());
-			Response<Integer> resp = orderService.updateOrder(upOrder);
+			Response<Integer> resp = orderService.updateCompleteOrder(upOrder);
 			addMessage(model, resp.getMsg());
 		} catch (Exception e) {
 			e.printStackTrace();
 			addError(model, "完成订单失败");
 		}
-		return "redirect:list.html";
+		return "redirect:detail.html?orderId="+order.getId();
 	}
    /**
    * 取消订单
@@ -229,7 +239,30 @@ public class OrderController extends BaseController {
 			e.printStackTrace();
 			addError(model, "取消订单失败");
 		}
-	    return "redirect:list.html";
+	    return "redirect:detail.html?orderId="+order.getId();
+	}
+
+	/**
+	 * 取消订单
+	 * @param model
+	 * @return
+	 */
+	@RequiresPermissions("order")
+	@RequestMapping("/updateOrder")
+	public String updateOrder(Order order, Model model) {
+
+		try {
+			if(StringUtils.isEmpty(order.getId())){
+				addError(model, "订单ID不能为空");
+				return "redirect:list.html";
+			}
+			Response<Integer> resp = orderService.updateOrder(order);
+			addMessage(model, resp.getMsg());
+		} catch (Exception e) {
+			e.printStackTrace();
+			addError(model, "修改订单失败");
+		}
+		return "redirect:detail.html?orderId="+order.getId();
 	}
 
 	/**
@@ -306,7 +339,7 @@ public class OrderController extends BaseController {
 
 
 	/**
-	 * 检查新订单
+	 * 获取快递信息
 	 *
 	 * @return
 	 */

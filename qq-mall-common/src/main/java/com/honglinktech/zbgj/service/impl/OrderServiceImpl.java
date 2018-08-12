@@ -826,20 +826,50 @@ public class OrderServiceImpl implements OrderService{
 			return Result.fail(ExceptionEnum.ORDER_UPDATE_STATUS_ERROR,JSON.toJSONString(order));
 		}
 		order.setStatus(OrderStatusEnum.Cancel.getCode());
-		int result = orderDao.updateCancleOrder(order);
+		int result = orderDao.updateOrder(order);
 		return Result.resultSet(result);
 	}
 
+	/**
+	 * 修改发货状态
+	 * @param order
+	 * @return
+     */
 	@Override
-	public Response<Integer> updateShipOrder(Order upOrder) {
+	public Response<Integer> updateShipOrder(Order order) {
+		if(order.getPostId() == null || order.getPostId()<0){
+			return Result.fail("快递公司ID不能为空");
+		}
+		if(StringUtils.isEmpty(order.getPostCode())){
+			return Result.fail("快递单号不能为空");
+		}
 		//订阅
-		PostCompany postCompany = postCompanyDao.findById(upOrder.getPostId());
-		Response<String> response = postDetailService.subscribeService(postCompany.getCode(), upOrder.getPostCode(), null, null);
+		PostCompany postCompany = postCompanyDao.findById(order.getPostId());
+		Response<String> response = postDetailService.subscribeService(postCompany.getCode(), order.getPostCode(), "", "");
+		if(response.getCode() != 0){
+			return Result.fail("快递100订阅失败！"+response.getMsg());
+		}
 
-		return null;
+		order.setStatus(OrderStatusEnum.Send.getCode());
+		int result = orderDao.updateOrder(order);
+
+		return Result.resultSet(result);
 	}
 
 	/**
+	 * 修改完成订单
+	 * @param order
+	 * @return
+     */
+	@Override
+	public Response<Integer> updateCompleteOrder(Order order) {
+		order.setStatus(OrderStatusEnum.Complete.getCode());
+		int result = orderDao.updateOrder(order);
+		return Result.resultSet(result);
+	}
+
+	/**
+	 * 修改基础信息
 	 * consle
 	 * @param order
 	 * @return
@@ -849,7 +879,7 @@ public class OrderServiceImpl implements OrderService{
 		if (order == null || order.getId() == null || order.getId() <= 0) {
 			return Result.fail(ExceptionEnum.ORDER_UPDATE_STATUS_ERROR,JSON.toJSONString(order));
 		}
-		int result = orderDao.update(order);
+		int result = orderDao.updateOrder(order);
 		return Result.resultSet(result);
 	}
 

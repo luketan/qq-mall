@@ -84,7 +84,7 @@ public class OrderController extends BaseApiController {
 	   
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode)){
-			return Result.fail(ExceptionEnum.COMMON_USER_ILLEGAL_REQUEST);
+			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL);
 		}
 		Object addressId =  map.get("addressId");
 		if(StringUtils.isEmpty(addressId)){

@@ -537,6 +537,7 @@ public class Order {
         orderBean.setRead(this.getRead());
         orderBean.setForm(this.getForm());
         orderBean.setRemark(this.getRemark());
+        orderBean.setExplain(this.getExplain());
         orderBean.setCreateTime(this.getCreateTime());
         return orderBean;
     }

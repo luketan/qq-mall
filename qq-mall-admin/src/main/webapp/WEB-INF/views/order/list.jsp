@@ -82,7 +82,7 @@
                                                 <td class="col-lg-1">${item.totalMoney}</td>
                                                 <td class="col-lg-1"><c:forEach items="${paymentTypeList}" var="paymentType"><c:if test="${paymentType.code == item.paymentId}">${paymentType.value}</c:if></c:forEach></td>
                                                 <td class="col-lg-1"><c:forEach items="${orderStatusList}" var="orderStatus"><c:if test="${orderStatus.code == item.status}">${orderStatus.value}</c:if></c:forEach></td>
-                                                <td class="col-lg-1"><c:forEach items="${orderPayStatusList}" var="orderPayStatus"><c:if test="${orderPayStatus.code == item.status}">${orderPayStatus.value}</c:if></c:forEach></td>
+                                                <td class="col-lg-1"><c:forEach items="${orderPayStatusList}" var="orderPayStatus"><c:if test="${orderPayStatus.code == item.payStatus}">${orderPayStatus.value}</c:if></c:forEach></td>
                                                 <td class="col-lg-1"><fmt:formatDate value="${item.createTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
                                                 <td class="col-lg-1"><a href="detail.html?orderId=${item.id}">查看详情</a></td>
                                             </tr>

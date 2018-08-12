@@ -16,6 +16,7 @@ import org.apache.commons.httpclient.params.HttpMethodParams;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
@@ -42,11 +43,20 @@ public class PostDetailServiceImp implements PostDetailService {
     @Autowired
     private Environment env;
 
+    @Value("${kd100.key}")
+    private String key;
+
+    @Value("${kd100.callbackurl}")
+    private String callbackurl;
+
+    @Value("${kd100.url}")
+    private String url;
+
     @Override
     public Response<String> subscribeService(String company, String number, String from, String to) {
-    	String callbackurl = env.getProperty("kd100.callbackurl");
-    	String key = env.getProperty("kd100.key");
-    	String url = env.getProperty("kd100.url");
+//    	String callbackurl = env.getProperty("kd100.callbackurl");
+//    	String key = env.getProperty("kd100.key");
+//    	String url = env.getProperty("kd100.url");
     	logger.info("kd100-subscribe:company["+company+"],number["+number+"],callbackurl["+callbackurl+"],key["+key+"],url["+url+"]");
     	if(callbackurl.indexOf("192.168.1.68")>-1){
     		//TODO 内网不需要

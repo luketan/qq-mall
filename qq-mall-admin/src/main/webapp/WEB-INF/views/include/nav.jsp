@@ -22,7 +22,7 @@
 
                 <ul class="dropdown-menu dropdown-alerts">
                     <li>
-                        <a href="${basePath }/order/list.html?status=1">
+                        <a href="${basePath }/order/list.html?status=2">
                             <div>
                                 <i class="fa fa-shopping-cart fa-fw"></i> 新订单
                                 <span id="orderMenuNumber" class="pull-right text-muted small orderMenuNumber">0</span>

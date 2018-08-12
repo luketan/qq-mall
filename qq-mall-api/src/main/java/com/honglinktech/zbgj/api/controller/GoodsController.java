@@ -47,22 +47,28 @@ public class GoodsController extends BaseApiController {
 	 */
 	@RequestMapping(value="findGoodsById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<GoodsVO> findGoodsById(@RequestBody Map<String, String> map) throws BaseException{
-		UserVO user = (UserVO)request.getAttribute("user");
-		AppAgent agent = (AppAgent)request.getAttribute("agent");
-		int userId = 0;
-		if(user != null){
-			userId = user.getId();
+	public Response<GoodsVO> findGoodsById(@RequestBody Map<String, String> map){
+		try {
+			logger.error("findGoodsById==================");
+			UserVO user = (UserVO) request.getAttribute("user");
+			AppAgent agent = (AppAgent) request.getAttribute("agent");
+			int userId = 0;
+			if (user != null) {
+				userId = user.getId();
+			}
+			if (!map.containsKey("id")) {
+				return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL, "id");
+			}
+			int index = map.containsKey("index") ? Integer.valueOf(map.get("index")) : 1;
+			int size = map.containsKey("size") ? Integer.valueOf(map.get("size")) : 10;
+
+			Response<GoodsVO> response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, index, size);
+
+			return response;
+		}catch (Exception e){
+			logger.error(e, e);
+			return Result.fail("获取商品信息失败");
 		}
-		if(!map.containsKey("id")){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"id");
-		}
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
-		
-		Response<GoodsVO> response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, index, size);
-		
-		return response; 
 	}
 	
 	/**

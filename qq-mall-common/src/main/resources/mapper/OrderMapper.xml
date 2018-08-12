@@ -156,7 +156,7 @@
   </insert>
 
   <update id="update" parameterType="com.honglinktech.zbgj.entity.Order">
-    UPDATE t_order
+    UPDATE t_order SET
       <if test="orderCode != null">
         order_code = #{orderCode},
       </if>
@@ -239,7 +239,7 @@
         remark = #{remark},
       </if>
       <if test="explain != null">
-        explain = #{explain},
+        `explain` = #{explain},
       </if>
       update_time = now()
     WHERE id = #{id,jdbcType=INTEGER}
@@ -368,14 +368,30 @@
   </select>
 
 
-  <update id="updateCancleOrder" parameterType="com.honglinktech.zbgj.entity.Order">
-    UPDATE t_order
+  <update id="updateOrder" parameterType="com.honglinktech.zbgj.entity.Order">
+    UPDATE t_order SET
     status = #{status},
     <if test="explain != null">
-      explain = #{explain},
+      `explain` = #{explain},
+    </if>
+    <if test="postId != null">
+      post_id = #{postId},
+    </if>
+    <if test="postCode != null">
+      post_code = #{postCode},
+    </if>
+    <if test="userName != null">
+      user_name = #{userName},
+    </if>
+    <if test="userPhone != null">
+      user_phone = #{userPhone},
+    </if>
+    <if test="address != null">
+      address = #{address},
     </if>
     update_time = now()
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
+
 
 </mapper>

@@ -50,5 +50,6 @@ public interface OrderDao {
      * @param order
      * @return
      */
-    int updateCancleOrder(Order order);
+    int updateOrder(Order order);
+
 }

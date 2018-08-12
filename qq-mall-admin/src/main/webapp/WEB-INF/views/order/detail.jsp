@@ -110,11 +110,20 @@
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>快递公司</label>
-                                        <input type="text" class="form-control" value="" disabled>
+                                        <select id="postId" name="postId" class="form-control" ${WaitShip == order.status?"":"disabled"}>
+                                            <option value="">请选择</option>
+                                            <c:forEach items="${postCompanyList}" var="postCompany">
+                                                <option ${order.postId == postCompany.id?'selected':''} value="${postCompany.id}">${postCompany.name}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group col-lg-3">
-                                        <label>快递编号</label>
-                                        <input type="text" class="form-control" value="${order.postCode}" disabled>
+                                        <label>快递编号
+                                            <c:if test="${order.postId > 0 && !empty order.postCode}">
+                                                <span onclick="getPostDetail(${order.postId}, '${order.postCode}')" style="color: #2aabd2">查看快递</span>
+                                            </c:if>
+                                        </label>
+                                        <input  id="postCode" name="postCode" type="text" class="form-control" value="${order.postCode}" ${WaitShip == order.status?"":"disabled"}>
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label>来自</label>
@@ -201,12 +210,13 @@
 	                                        <c:choose>
 	                                        	<c:when test="${order.status==waitPayment}">
 													<button type="button" onclick="cancelOrder()" class="btn btn-success">取消订单</button>
+                                                    <button type="button" onclick="updateOrder()" class="btn btn-success">修改订单</button>
 	                                    		</c:when>
 	                                    		<c:when test="${order.status==WaitShip}">
-	                                    			 <button type="button" onclick="submitOrder(${order.status})" class="btn btn-success">发货</button>
+	                                    			 <button type="button" onclick="shipOrder()" class="btn btn-success">发货</button>
 	                                    		</c:when>
                                                 <c:when test="${order.status==Send}">
-                                                    <button type="button" onclick="submitOrder(${order.status})" class="btn btn-success">完成</button>
+                                                    <button type="button" onclick="complateOrder()" class="btn btn-success">完成</button>
                                                 </c:when>
 	                                    	</c:choose>
                                     	</shiro:hasPermission>
@@ -219,31 +229,17 @@
         </div>
     </div>
     </form>
-    <form id="cancelOrder" action="cancelOrder.html" method="post">
-    	<input type="hidden" name="userId" value="${order.userId}">
-        <input type="hidden" name="id" value="${order.id}">
-    </form>
     <!-- /#page-wrapper -->
 </div>
 <%@include file="../include/footer.jsp" %>
-<script type="text/javascript" src="../../../static/js/print.js"></script>
+<script type="text/javascript" src="${basePath }/static/js/print.js"></script>
 <script>
 $(document).ready(function() {
 
 });
-function submitOrder(orderStatus){
+function updateOrder(){
 	var title = '确认';
-	var message = '确定要提交订单吗?';
-	if(orderStatus && orderStatus == 3){
-		message = '确定要完成订单吗?';
-		document.forms[0].action = 'complateOrder.html';
-	}else if(orderStatus && orderStatus == 1){
-		message = '确定要提交订单吗?';
-		document.forms[0].action = 'commitOrder.html';
-	}else{
-		message = '确定要保存订单吗?';
-		document.forms[0].action = 'saveOrder.html';
-	}
+	var message = '确定要修改订单吗?';
 	BootstrapDialog.confirm({
 		title: title,
 		message:message,
@@ -255,6 +251,7 @@ function submitOrder(orderStatus){
         btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
         callback: function(result) {
             if(result) {
+                document.forms[0].action = 'updateOrder.html';
             	document.forms[0].submit();
             }else {
             }
@@ -262,6 +259,62 @@ function submitOrder(orderStatus){
 	});
 }
 
+function complateOrder(){
+    var title = '取消订单';
+    var message =  '你确认完成订单吗，一经完成不得取消！';
+
+    BootstrapDialog.confirm({
+        title: title,
+        message:message,
+        type: BootstrapDialog.TYPE_WART, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+        closable: true, // <-- Default value is false
+        draggable: true, // <-- Default value is false
+        btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+        btnOKLabel: '确认', // <-- Default value is 'OK',
+        btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
+        callback: function(result) {
+            if(result) {
+                document.forms[0].action = 'completeOrder.html';
+                document.forms[0].submit();
+            }else {
+            }
+        }
+    });
+}
+
+function shipOrder(){
+    var postCode = $("#postCode").val();
+    var postId = $("#postId").val();
+
+    if(!postId){
+        alert('请选择快递公司！');
+        return;
+    }
+    if(!postCode){
+        alert('快递单号不能为空');
+        return;
+    }
+    var title = '取消订单';
+    var message =  '你确认发货吗，一经发货不得取消！';
+
+    BootstrapDialog.confirm({
+        title: title,
+        message:message,
+        type: BootstrapDialog.TYPE_WART, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+        closable: true, // <-- Default value is false
+        draggable: true, // <-- Default value is false
+        btnCancelLabel: '取消', // <-- Default value is 'Cancel',
+        btnOKLabel: '确认', // <-- Default value is 'OK',
+        btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
+        callback: function(result) {
+            if(result) {
+                document.forms[0].action = 'shipOrder.html';
+                document.forms[0].submit();
+            }else {
+            }
+        }
+    });
+}
 function cancelOrder(){
 	var title = '取消订单';
 	var message =  '你确认取消订单吗，一经取消不得恢复！';
@@ -277,14 +330,14 @@ function cancelOrder(){
         btnOKClass: 'btn-warning', // <-- If you didn't specify it, dialog type will be used,
         callback: function(result) {
             if(result) {
-            	$('#cancelOrder').submit();
+                document.forms[0].action = 'cancelOrder.html';
+                document.forms[0].submit();
             }else {
             }
         }
 	});
 }
-
-function getExpressDetail(companyId, postCode){
+function getPostDetail(companyId, postCode){
     var data = {"companyId":companyId, "postCode":postCode};
     $.ajax({url:"getPostDetail.html",
         type:"post",

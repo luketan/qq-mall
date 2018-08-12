@@ -84,6 +84,8 @@ public interface OrderService{
 	 */
 	Response<Integer> updateShipOrder(Order upOrder);
 
+	Response<Integer> updateCompleteOrder(Order order);
+
 	/**
 	 * console修改订单
 	 * @param order

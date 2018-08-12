@@ -51,16 +51,16 @@ public class PostServiceImpl implements PostService{
 	public Response<Integer> saveOrUpdatePostCompany(PostCompany postCompany) {
 		int result = 0;
 		if(postCompany.getId() > 0){
-			result = postCompanyDao.updateByPrimaryKeySelective(postCompany);
+			result = postCompanyDao.update(postCompany);
 		}else{
-			result = postCompanyDao.insertSelective(postCompany);
+			result = postCompanyDao.insert(postCompany);
 		}
 		return Result.resultSet(result);
 	}
 
 	@Override
 	public Response<Integer> deletePostCompany(int id) {
-		int result = postCompanyDao.deleteByPrimaryKey(id);
+		int result = postCompanyDao.delete(id);
 		return Result.resultSet(result);
 	}
 
