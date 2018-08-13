@@ -7,6 +7,8 @@
  */
 package com.honglinktech.zbgj.api.controller;
 
+import com.honglinktech.zbgj.annotation.NoRequireLogin;
+import com.honglinktech.zbgj.annotation.RequireLogin;
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.bean.WxMpJsTicketSignedBean;
 import com.honglinktech.zbgj.common.Response;
@@ -37,6 +39,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/weixin")
+@RequireLogin
 public class WeiXinController extends BaseApiController {
     private static final Log logs = LogFactory.getLog(BaseApiController.class);
 
@@ -52,6 +55,7 @@ public class WeiXinController extends BaseApiController {
             RequestMethod.POST}, produces = {"application/json",
             "application/xml"})
     @ResponseBody
+    @NoRequireLogin
     public void weixinJs(HttpServletRequest request,
                          HttpServletResponse response) {
         System.out.println(request.getParameter("func"));
@@ -78,6 +82,7 @@ public class WeiXinController extends BaseApiController {
             RequestMethod.POST}, produces = {"application/json",
             "application/xml"})
     @ResponseBody
+    @NoRequireLogin
     public void weixinService(HttpServletRequest request,
                               HttpServletResponse response) {
 
@@ -102,6 +107,7 @@ public class WeiXinController extends BaseApiController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
+    @NoRequireLogin
     public Response findWxMpJsTicket(@RequestBody Map req) {
         try {
             String domain = req.containsKey("domain") ? req.get("domain").toString() :  "";

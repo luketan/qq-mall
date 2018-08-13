@@ -99,6 +99,35 @@ public class TokenIntercepter implements HandlerInterceptor {
 
             request.setAttribute("agent", agent);
             request.setAttribute("user", user);
+        }else{//不需要校验，有时也需要获取用户信息
+
+            AppAgent agent = null;
+            // 先从自定义的header获取，如获取不到再去user-agent查找
+            String userInfo = request.getHeader("zbgj-user");
+            if (!StringUtils.isEmpty(userInfo)) {
+                logger.info("zbgj-user: ", userInfo+", ip:"+getRemoteHost(request));
+                agent = JSON.parseObject(userInfo, AppAgent.class);
+
+            } else {
+                String userAgent = request.getHeader("User-Agent");
+                if(!StringUtils.isEmpty(userAgent)){
+                    logger.info("User-Agent: ", userAgent+", ip:"+getRemoteHost(request));
+                    agent = JSON.parseObject(userAgent, AppAgent.class);
+                }
+            }
+            if(agent == null){
+                return true;
+            }
+
+            String token = agent.getToken();
+            if (!StringUtils.isEmpty(token)) {
+                UserVO user = userService.getByToken(token);
+                if (user != null) {
+                    request.setAttribute("user", user);
+                    request.setAttribute("agent", agent);
+                }
+            }
+
         }
 
         return true;

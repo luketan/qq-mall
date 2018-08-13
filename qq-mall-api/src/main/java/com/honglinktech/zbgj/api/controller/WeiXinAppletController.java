@@ -7,6 +7,8 @@
  */
 package com.honglinktech.zbgj.api.controller;
 
+import com.honglinktech.zbgj.annotation.NoRequireLogin;
+import com.honglinktech.zbgj.annotation.RequireLogin;
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
@@ -30,6 +32,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/weixinApplet")
+@RequireLogin
 public class WeiXinAppletController extends BaseApiController {
     private static final Log logs = LogFactory.getLog(BaseApiController.class);
 
@@ -43,6 +46,7 @@ public class WeiXinAppletController extends BaseApiController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
+    @NoRequireLogin
     public Response<UserLoginVO> login(@RequestBody Map<String, String> map) {
 
         try {
