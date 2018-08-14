@@ -196,6 +196,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserVO getByToken(String token) {
 		//TODO redis缓存
+		logger.info("=====================" + token);
 		UserSession userSession = userSessionDao.findByToken(token);
 		if(userSession == null){
 			//return Result.fail(ExceptionEnum.COMMON_TOKEN_FAIL ,"token失效！");

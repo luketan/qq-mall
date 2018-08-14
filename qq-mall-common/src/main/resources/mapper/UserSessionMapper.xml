@@ -20,7 +20,7 @@
     WHERE user_id = #{userId,jdbcType=INTEGER}
   </select>
 
-  <select id="findByToken" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findByToken" parameterType="java.lang.String" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     FROM t_user_session

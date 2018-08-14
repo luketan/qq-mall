@@ -19,7 +19,8 @@
         <root level="debug">
             <appender-ref ref="CONSOLE"/>
         </root>
-        <logger name="com.honglinktech.zbgj" level="${logs.flag}">
+        <!--additivity="false" 去掉重複打印日誌-->
+        <logger name="com.honglinktech.zbgj" level="${logs.flag}" additivity="false">
             <appender-ref ref="ROLLING"/>
             <appender-ref ref="CONSOLE"/>
         </logger>

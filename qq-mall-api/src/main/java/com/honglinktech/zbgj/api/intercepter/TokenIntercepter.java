@@ -91,7 +91,6 @@ public class TokenIntercepter implements HandlerInterceptor {
             }
 
             UserVO user = userService.getByToken(token);
-            System.out.print("==========user==============="+JSON.toJSONString(user));
             if (user == null) {
                 writeTokenExpiredResponse(response);
                 return false;
@@ -105,15 +104,9 @@ public class TokenIntercepter implements HandlerInterceptor {
             // 先从自定义的header获取，如获取不到再去user-agent查找
             String userInfo = request.getHeader("zbgj-user");
             if (!StringUtils.isEmpty(userInfo)) {
-                logger.info("zbgj-user: ", userInfo+", ip:"+getRemoteHost(request));
+                System.out.println("zbgj-user: "+ userInfo + ", ip:"+getRemoteHost(request));
                 agent = JSON.parseObject(userInfo, AppAgent.class);
 
-            } else {
-                String userAgent = request.getHeader("User-Agent");
-                if(!StringUtils.isEmpty(userAgent)){
-                    logger.info("User-Agent: ", userAgent+", ip:"+getRemoteHost(request));
-                    agent = JSON.parseObject(userAgent, AppAgent.class);
-                }
             }
             if(agent == null){
                 return true;
