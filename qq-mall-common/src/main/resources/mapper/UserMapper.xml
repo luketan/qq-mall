@@ -26,39 +26,38 @@
     <result column="remark" jdbcType="VARCHAR" property="from" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="opent_id" jdbcType="VARCHAR" property="opentId" />
   </resultMap>
 
   <sql id="Base_Column_List">
     id, nick_name, account, password, exp, level, sign, head, email, email_is, phone,
-    phone_is, age, sex, sexu, marr, try_is, type, status, `from`, remark, update_time, create_time, open_id
+    phone_is, age, sex, sexu, marr, try_is, type, status, `from`, remark, update_time, create_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List" />
     FROM t_user
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="delete" parameterType="java.lang.Integer">
     DELETE FROM t_user
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.User">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.User">
     INSERT INTO t_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="nickName != null and nickName != ''">
+      <if test="nickName != null">
         nick_name,
       </if>
-      <if test="account != null and account != ''">
+      <if test="account != null">
         account,
       </if>
-      <if test="password != null and password != ''">
+      <if test="password != null">
         password,
       </if>
       <if test="exp != null">
@@ -67,25 +66,25 @@
       <if test="level != null">
         level,
       </if>
-      <if test="sign != null and sign != ''">
+      <if test="sign != null">
         sign,
       </if>
-      <if test="head != null and head != ''">
+      <if test="head != null">
         head,
       </if>
-      <if test="email != null and email != ''">
+      <if test="email != null">
         email,
       </if>
       <if test="emailIs != null">
         email_is,
       </if>
-      <if test="phone != null and phone != ''">
+      <if test="phone != null">
         phone,
       </if>
       <if test="phoneIs != null">
         phone_is,
       </if>
-      <if test="age != null and age != ''">
+      <if test="age != null">
         age,
       </if>
       <if test="sex != null">
@@ -106,14 +105,11 @@
       <if test="status != null">
         status,
       </if>
-      <if test="from != null and from != ''">
+      <if test="from != null">
         `from`,
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         `remark`,
-      </if>
-      <if test="openId != null and openId != ''">
-        `open_id`,
       </if>
       update_time,
       create_time,
@@ -122,13 +118,13 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="nickName != null and nickName != ''">
+      <if test="nickName != null">
         #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="account != null and account != ''">
+      <if test="account != null">
         #{account,jdbcType=VARCHAR},
       </if>
-      <if test="password != null and password != ''">
+      <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="exp != null">
@@ -137,25 +133,25 @@
       <if test="level != null">
         #{level,jdbcType=INTEGER},
       </if>
-      <if test="sign != null and sign != ''">
+      <if test="sign != null">
         #{sign,jdbcType=VARCHAR},
       </if>
-      <if test="head != null and head != ''">
+      <if test="head != null">
         #{head,jdbcType=VARCHAR},
       </if>
-      <if test="email != null and email != ''">
+      <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
       <if test="emailIs != null">
         #{emailIs,jdbcType=INTEGER},
       </if>
-      <if test="phone != null and phone != ''">
+      <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
       <if test="phoneIs != null">
         #{phoneIs,jdbcType=INTEGER},
       </if>
-      <if test="age != null and age != ''">
+      <if test="age != null">
         #{age,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
@@ -176,30 +172,27 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="from != null and from != ''">
+      <if test="from != null">
         #{from,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="openId != null and openId != ''">
-        #{openId,jdbcType=VARCHAR},
       </if>
       now(),
       now(),
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.User">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.User">
     UPDATE t_user
     <set>
-      <if test="nickName != null and nickName != ''">
+      <if test="nickName != null">
         nick_name = #{nickName,jdbcType=VARCHAR},
       </if>
-      <if test="account != null and account != ''">
+      <if test="account != null">
         account = #{account,jdbcType=VARCHAR},
       </if>
-      <if test="password != null and password != ''">
+      <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="exp != null">
@@ -208,25 +201,25 @@
       <if test="level != null">
         level = #{level,jdbcType=INTEGER},
       </if>
-      <if test="sign != null and sign != ''">
+      <if test="sign != null">
         sign = #{sign,jdbcType=VARCHAR},
       </if>
-      <if test="head != null and head != ''">
+      <if test="head != null">
         head = #{head,jdbcType=VARCHAR},
       </if>
-      <if test="email != null and email != ''">
+      <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
       <if test="emailIs != null">
         email_is = #{emailIs,jdbcType=INTEGER},
       </if>
-      <if test="phone != null and phone != ''">
+      <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="phoneIs != null">
         phone_is = #{phoneIs,jdbcType=INTEGER},
       </if>
-      <if test="age != null and age != ''">
+      <if test="age != null">
         age = #{age,jdbcType=VARCHAR},
       </if>
       <if test="sex != null">
@@ -247,14 +240,11 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="from != null and from != ''">
+      <if test="from != null">
         `from` = #{from,jdbcType=VARCHAR},
       </if>
-      <if test="remark != null and remark != ''">
+      <if test="remark != null">
         `remark` = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="openId != null and openId != ''">
-        `open_id` = #{openId,jdbcType=VARCHAR},
       </if>
       update_time = now(),
     </set>
@@ -268,12 +258,6 @@
     FROM t_user
     WHERE (account = #{account} OR email = #{account} OR phone = #{account})
     AND password = #{password}
-  </select>
-  <select id="findByOpenId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    SELECT
-    <include refid="Base_Column_List" />
-    FROM t_user
-    WHERE open_id = #{openId}
   </select>
   <!--APP获取被关注数最多的用户-->
   <select id="findAtteUserByNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">

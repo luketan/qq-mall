@@ -25,6 +25,15 @@ public class UserVO  implements Serializable {
     private String nickName;
 
     /**
+     * 微信昵称
+     */
+    private String wxNickName;
+    /**
+     * 微信头像
+     */
+    private String wxHead;
+
+    /**
      * 账号
      */
     private String account;
@@ -121,25 +130,6 @@ public class UserVO  implements Serializable {
     private Integer level;
 
     public UserVO(){}
-
-    public UserVO(User user){
-        this.id = user.getId();
-        this.nickName = user.getNickName();
-        this.account = user.getAccount();
-        this.sign = user.getSign();
-        this.head = user.getHead();
-        this.email = user.getEmail();
-        this.emailIs = user.getEmailIs();
-        this.phone = user.getPhone();
-        this.phoneIs = user.getPhoneIs();
-        this.age = user.getAge();
-        this.sex = user.getSex();
-        this.sexu = user.getSexu();
-        this.marr = user.getMarr();
-        this.tryIs = user.getTryIs();
-        this.type = user.getType();
-        this.createTime = user.getCreateTime();
-    }
 
     public Integer getId() {
         return id;
@@ -307,5 +297,21 @@ public class UserVO  implements Serializable {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public String getWxNickName() {
+        return wxNickName;
+    }
+
+    public void setWxNickName(String wxNickName) {
+        this.wxNickName = wxNickName;
+    }
+
+    public String getWxHead() {
+        return wxHead;
+    }
+
+    public void setWxHead(String wxHead) {
+        this.wxHead = wxHead;
     }
 }

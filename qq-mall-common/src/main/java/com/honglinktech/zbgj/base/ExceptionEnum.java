@@ -17,7 +17,7 @@ public enum ExceptionEnum {
 	COMMON_USER_CODE_NOT_EMPTY(8,"用户会话信息错误，或者过期，请重新登录！","user code not empty!"),
 	COMMON_USER_ILLEGAL_REQUEST(9,"用户非法请求！","user code not empty!"),
 	//admin 010000
-	ADMIN_ACCOUNT_NOT_EXIST(100001,"账户不存在","account name[{0}] does not exist!"),
+	ADMIN_ACCOUNT_NOT_EXIST(100001,"账户不存在","userName name[{0}] does not exist!"),
 	ADMIN_ACCOUNT_PASSWORD_ERROR(100002,"密码错误！","account name[{0}]，password [{1}] is error!"),
 	ADMIN_ACCOUNT_ERROR(100003,"系统错误，请联系后台工作人员！","account must error，account name[{0}]，password [{1}]!"),
 	ADMIN_ACCOUNT_NOT_NULL(100004,"用户名不能为空！","account not null!"),

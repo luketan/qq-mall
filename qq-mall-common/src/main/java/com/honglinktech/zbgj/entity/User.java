@@ -4,6 +4,8 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import com.honglinktech.zbgj.vo.UserVO;
+
 import java.util.Date;
 
 public class User {
@@ -16,6 +18,19 @@ public class User {
      * 昵称
      */
     private String nickName;
+
+    /**
+     * 头像
+     */
+    private String head;
+    /**
+     * 微信昵称
+     */
+    private String wxNickName;
+    /**
+     * 微信头像
+     */
+    private String wxHead;
 
     /**
      * 账号
@@ -42,10 +57,6 @@ public class User {
      */
     private String sign;
 
-    /**
-     * 头像
-     */
-    private String head;
 
     /**
      * 邮箱
@@ -121,11 +132,6 @@ public class User {
      * 创建时间
      */
     private Date createTime;
-
-    /**
-     * 微信ID
-     */
-    private String openId;
 
     public Integer getId() {
         return id;
@@ -311,11 +317,45 @@ public class User {
         this.createTime = createTime;
     }
 
-    public String getOpenId() {
-        return openId;
+    public String getWxNickName() {
+        return wxNickName;
     }
 
-    public void setOpenId(String openId) {
-        this.openId = openId;
+    public void setWxNickName(String wxNickName) {
+        this.wxNickName = wxNickName;
     }
+
+    public String getWxHead() {
+        return wxHead;
+    }
+
+    public void setWxHead(String wxHead) {
+        this.wxHead = wxHead;
+    }
+
+    public UserVO toVO(){
+        UserVO userVO = new UserVO();
+        userVO.setType(this.getType());
+        userVO.setCreateTime(this.getCreateTime());
+        userVO.setAccount(this.getAccount());
+        userVO.setAge(this.getAge());
+        userVO.setEmail(this.getEmail());
+        userVO.setEmailIs(this.getEmailIs());
+        userVO.setHead(this.getHead());
+        userVO.setId(this.getId());
+        userVO.setLevel(this.getLevel());
+        userVO.setMarr(this.getMarr());
+        userVO.setNickName(this.getNickName());
+        userVO.setPhone(this.getPhone());
+        userVO.setPhoneIs(this.getPhoneIs());
+        userVO.setSex(this.getSex());
+        userVO.setSexu(this.getSexu());
+        userVO.setSign(this.getSign());
+        userVO.setTryIs(this.getTryIs());
+        userVO.setWxHead(this.getWxHead());
+        userVO.setWxNickName(this.getWxNickName());
+
+        return userVO;
+    }
+
 }

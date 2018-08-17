@@ -16,12 +16,12 @@ public interface UserService{
 
 	/**
 	 * app
-	 * @param account
+	 * @param userName
 	 * @param password
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<UserLoginVO> login(String account, String password) throws BaseException;
+	Response<UserLoginVO> login(String userName, String password) throws BaseException;
 
 	/**
 	 * app

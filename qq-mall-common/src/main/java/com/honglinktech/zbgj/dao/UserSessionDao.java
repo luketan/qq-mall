@@ -4,6 +4,7 @@
  */
 package com.honglinktech.zbgj.dao;
 
+import com.honglinktech.zbgj.entity.User;
 import com.honglinktech.zbgj.entity.UserSession;
 
 public interface UserSessionDao {
@@ -41,4 +42,11 @@ public interface UserSessionDao {
      * @return
      */
     UserSession findByToken(String token);
+
+    /**
+     * 通过微信ID获取用户信息
+     * @param openId
+     * @return
+     */
+    UserSession findByOpenId(String openId);
 }

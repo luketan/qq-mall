@@ -4,6 +4,8 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import com.honglinktech.zbgj.vo.UserBasisVO;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -122,5 +124,17 @@ public class UserBasis {
 
     public void setNewVersion(Integer newVersion) {
         this.newVersion = newVersion;
+    }
+
+    public UserBasisVO toVO() {
+        UserBasisVO userBasisVO= new UserBasisVO();
+        userBasisVO.setId(this.getId());
+        userBasisVO.setExp(this.getExp());
+        userBasisVO.setLevel(this.getLevel());
+        userBasisVO.setMoney(this.getMoney());
+        userBasisVO.setPoint(this.getPoint());
+        userBasisVO.setVirtualMoney(this.getVirtualMoney());
+        userBasisVO.setUpdateTime(this.getUpdateTime());
+        return userBasisVO;
     }
 }

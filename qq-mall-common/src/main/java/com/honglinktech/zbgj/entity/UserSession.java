@@ -18,6 +18,21 @@ public class UserSession {
     private String token;
 
     /**
+     * 微信ID
+     */
+    private String openId;
+
+    /**
+     * 微信ID
+     */
+    private String unionId;
+
+    /**
+     * 微信ID
+     */
+    private String sessionKey;
+
+    /**
      * 修改时间
      */
     private Date updateTime;
@@ -57,5 +72,29 @@ public class UserSession {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getUnionId() {
+        return unionId;
+    }
+
+    public void setUnionId(String unionId) {
+        this.unionId = unionId;
+    }
+
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
     }
 }

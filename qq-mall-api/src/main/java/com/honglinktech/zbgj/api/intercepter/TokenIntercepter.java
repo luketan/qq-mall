@@ -74,14 +74,6 @@ public class TokenIntercepter implements HandlerInterceptor {
                     write(response, "非法请求！");
                     return false;
                 }
-            } else {
-                String userAgent = request.getHeader("User-Agent");
-                logger.info("User-Agent: ", userAgent+", ip:"+getRemoteHost(request));
-                agent = JSON.parseObject(userAgent, AppAgent.class);
-                if (agent == null) {
-                    write(response, "非法请求！");
-                    return false;
-                }
             }
 
             String token = agent.getToken();

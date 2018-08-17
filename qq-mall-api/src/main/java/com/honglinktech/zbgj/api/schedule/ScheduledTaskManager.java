@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -36,6 +37,19 @@ public class ScheduledTaskManager {
     }
     @Async
     public void refreshWxJsTicketScheduler() {
+        try {
+            logger.info("refreshJsTicketScheduler:refresh");
+            wxMpService.refreshAllJsTicket();
+        } catch (Exception e) {
+            logger.error(e, e);
+        }
+    }
+
+    /**
+     * 刷新微信公众号的accesstoken和ticket(30分钟一次)
+     */
+    @Scheduled(cron = " 0 */30 * * * * ")
+    public void refresh() {
         try {
             logger.info("refreshJsTicketScheduler:refresh");
             wxMpService.refreshAllJsTicket();

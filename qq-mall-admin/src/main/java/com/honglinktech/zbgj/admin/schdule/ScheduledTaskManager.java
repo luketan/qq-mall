@@ -26,6 +26,5 @@ public class ScheduledTaskManager {
     @Async
     public void autoNoticeExpiredOrder() {
     	logger.info("ScheduledTask:check order status->time["+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())+"]");
-    	      
     }
 }

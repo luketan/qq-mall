@@ -49,15 +49,17 @@ public class GoodsController extends BaseApiController {
 	@ResponseBody
 	public Response<GoodsVO> findGoodsById(@RequestBody Map<String, String> map){
 		try {
+			if (!map.containsKey("id")) {
+				return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL, "id");
+			}
+
 			UserVO user = (UserVO) request.getAttribute("user");
 			AppAgent agent = (AppAgent) request.getAttribute("agent");
 			int userId = 0;
 			if (user != null) {
 				userId = user.getId();
 			}
-			if (!map.containsKey("id")) {
-				return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL, "id");
-			}
+
 			int index = map.containsKey("index") ? Integer.valueOf(map.get("index")) : 1;
 			int size = map.containsKey("size") ? Integer.valueOf(map.get("size")) : 10;
 

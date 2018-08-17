@@ -110,9 +110,8 @@
 
    <task:scheduled-tasks scheduler="scheduleder">
        <task:scheduled ref="scheduledTaskManager" method="autoNoticeExpiredOrder" cron="0 0/5 * * * ?"/>
-       <task:scheduled ref="scheduledTaskManager" method="autoNoticeExpiredOrder" cron="0 */30 * * * *"/>
+       <task:scheduled ref="scheduledTaskManager" method="refreshWxJsTicketScheduler" cron="0 */30 * * * *"/>
     </task:scheduled-tasks>
     <task:scheduler id="scheduleder" pool-size="2"/>
-
 </beans>
 
