@@ -172,7 +172,7 @@ public class GoodsController extends BaseController {
 		try {
 			String[] activityIds = request.getParameterValues("activityIds");
 			String[] tagIds = request.getParameterValues("tagIds");
-			String[] picUrl = request.getParameterValues("picUrl");
+			String[] picUrl = request.getParameterValues("images");
 			Integer[] goodsActivityIds = null;
 			Integer[] goodsTagIds = null;
 			if(activityIds != null && activityIds.length > 0){

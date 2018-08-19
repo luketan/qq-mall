@@ -27,7 +27,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <form role="form" id="inputForm" action="save.html" method="post">
+                                <form role="form" id="inputForm" action="" method="post">
                                 	<input type="hidden" name="id" value="${item.id }">
                                     <div class="form-group">
                                         <label>标题</label>
@@ -141,7 +141,7 @@
             callback:function(data){
                 zbgj.promptMessage("修改成功！");
                 setTimeout(function(){
-                    window.location.href = '/partner/manage/list.html';
+                    window.location.href = 'list.html';
                 },1000);
             }
         });

@@ -43,7 +43,14 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		List<GoodsTypeVO> goodsTypeVOs = new ArrayList<>();
 		if (goodsTypes != null) {
 			for (GoodsType goodsType:goodsTypes) {
-				goodsTypeVOs.add(goodsType.toVO());
+
+				GoodsTypeVO goodsTypeVO = goodsType.toVO();
+				Map whereMap = new HashMap();
+				whereMap.put("goodsType", goodsTypeVO.getId());
+				List<GoodsTypeSubVO> gtsList = goodsTypeSubDao.findVOByWhere(whereMap);
+				goodsTypeVO.setGoodsTypeSubList(gtsList);
+
+				goodsTypeVOs.add(goodsTypeVO);
 			}
 		}
 		return Result.resultSet(goodsTypeVOs);

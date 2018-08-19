@@ -48,6 +48,19 @@ public class AdvController extends BaseController {
 
     @RequestMapping("/add")
     public String add(Model model) {
+
+        List<KV> typeList = new ArrayList<KV>();
+        for(AdvTypeEnum a: AdvTypeEnum.values()) {
+            typeList.add(new KV(a.toString(), a.getName()));
+        }
+        model.addAttribute("typeList", typeList);
+
+        List<KV> styleTypeList = new ArrayList<KV>();
+        for(AdvStyleTypeEnum a: AdvStyleTypeEnum.values()) {
+            styleTypeList.add(new KV(a.toString(), a.getName()));
+        }
+        model.addAttribute("styleTypeList", styleTypeList);
+
         return "adv/form";
     }
 
@@ -71,7 +84,7 @@ public class AdvController extends BaseController {
         return "adv/form";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/save")
     @ResponseBody
     public Response save(Adv adv, Model model) {
         logger.info("adv===========1======"+ JSON.toJSONString(adv));
@@ -86,7 +99,6 @@ public class AdvController extends BaseController {
     @RequestMapping("/delete")
     @ResponseBody
     public Response delete(Integer id, Model model) {
-
         try {
             if (id == null) {
                 return Result.fail("id为空");

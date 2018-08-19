@@ -85,7 +85,9 @@ public class AdvServiceImpl implements AdvService{
 
     @Override
     public Response deleteById(int id) {
+
         int result = advDao.deleteById(id);
+        logger.info(result+"==delete=deleteById================"+id);
         return Result.resultSet(result);
     }
 
