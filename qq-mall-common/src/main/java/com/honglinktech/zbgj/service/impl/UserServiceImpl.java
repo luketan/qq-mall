@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public Response<UserLoginVO> appletLoginByCode(String code) {
+	public Response<UserLoginVO> updateAppletLoginByCode(String code) {
 		try {
 			String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appletAppId + "&secret=" + appletAppSecret + "&js_code=" + code + "&grant_type=authorization_code";
 			logger.info("url------------"+url);

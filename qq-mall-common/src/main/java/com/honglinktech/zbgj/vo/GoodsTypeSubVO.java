@@ -27,6 +27,8 @@ public class GoodsTypeSubVO {
      */
     private String typeName;
 
+    private String img;
+
     public Integer getId() {
         return id;
     }
@@ -57,5 +59,13 @@ public class GoodsTypeSubVO {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName == null ? null : typeName.trim();
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

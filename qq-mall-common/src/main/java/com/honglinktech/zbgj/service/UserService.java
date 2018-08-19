@@ -89,6 +89,6 @@ public interface UserService{
 	 * @param code
 	 * @return
 	 */
-	Response<UserLoginVO> appletLoginByCode(String code);
+	Response<UserLoginVO> updateAppletLoginByCode(String code);
 
 }

@@ -45,7 +45,7 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.User">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.User" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO t_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

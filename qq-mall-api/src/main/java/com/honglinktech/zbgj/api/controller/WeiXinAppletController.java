@@ -53,7 +53,7 @@ public class WeiXinAppletController extends BaseApiController {
             if (!map.containsKey("code")) {
                 return Result.fail("code不能为空！");
             }
-            return userService.appletLoginByCode(map.get("code"));
+            return userService.updateAppletLoginByCode(map.get("code"));
         } catch (Exception e) {
             logger.info(e, e);
             return null;
