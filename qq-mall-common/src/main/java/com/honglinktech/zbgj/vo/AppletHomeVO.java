@@ -13,6 +13,7 @@ public class AppletHomeVO implements Serializable {
     private static final long serialVersionUID = 459416925930628334L;
 
     private List<AdvVO> advs;
+    private List<AdvVO> items;
     private List<GoodsTypeVO> goodsTypes;
     private List<GoodsVO> goodsVOs;
 
@@ -30,5 +31,13 @@ public class AppletHomeVO implements Serializable {
 
     public void setGoodsTypes(List<GoodsTypeVO> goodsTypes) {
         this.goodsTypes = goodsTypes;
+    }
+
+    public List<AdvVO> getItems() {
+        return items;
+    }
+
+    public void setItems(List<AdvVO> items) {
+        this.items = items;
     }
 }

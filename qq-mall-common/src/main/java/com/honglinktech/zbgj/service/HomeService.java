@@ -13,8 +13,8 @@ import java.util.Map;
 public interface HomeService {
     /**
      *
-     * @param id
+     * @param userId
      * @return
      */
-    Response<AppletHomeVO> findAppletHome(Integer id);
+    Response<AppletHomeVO> findAppletHome(Integer userId);
 }

@@ -18,7 +18,11 @@ public enum AdvStyleTypeEnum implements Serializable {
     /**
      * 单品
      */
-    AppletHome("小程序首页");
+    AppletHome("小程序首页"),
+    /**
+     * 单品
+     */
+    AppletItems("小程序菜单");
     /**
      * 类型的描述
      */

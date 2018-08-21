@@ -63,6 +63,20 @@ public class HomeController extends BaseApiController {
 		return Result.fail("获取失败！");
 	}
 
+	@NoRequireLogin
+	@RequestMapping(value="findAppletItems",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public Response findAppletItems() throws BaseException{
+
+		try{
+			Response<AppletHomeVO> response = homeService.findAppletItems(null);
+			return response;
+		}catch (Exception e){
+			logger.error(e, e);
+		}
+		return Result.fail("获取失败！");
+	}
+
 
 	
 	
