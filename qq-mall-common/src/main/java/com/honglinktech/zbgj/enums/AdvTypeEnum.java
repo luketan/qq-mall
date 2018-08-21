@@ -10,8 +10,18 @@ public enum AdvTypeEnum implements Serializable {
      * 网页
      */
     Web("网页"),
+    /**
+     *
+     */
     Type("类型"),
+    /**
+     *
+     */
     TypeSub("子类型"),
+    /**
+     *
+     */
+    AppletWeb("小程序地址"),
     /**
      *
      */

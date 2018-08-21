@@ -87,7 +87,7 @@
                                          </div>
                                     </c:if>
                                     <c:if test="${item.id==0 || item.id == null}">
-                                    	<button type="submit" class="btn btn-success">确认${item.id>0?'修改':'添加' }</button>
+                                    	<button type="button"  id="btnSave" class="btn btn-success">确认${item.id>0?'修改':'添加' }</button>
 	                                    <button type="reset" class="btn btn-info" >重置</button>
                                     </c:if>
                                 </form>

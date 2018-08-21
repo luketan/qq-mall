@@ -22,24 +22,22 @@
     num, checkbox, create_time, update_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="fingById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_shopping_cart
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="delete" parameterType="java.lang.Integer">
     DELETE FROM t_shopping_cart
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.ShoppingCart"
+          useGeneratedKeys="true" keyProperty="id">
     INSERT INTO t_shopping_cart
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="userId != null">
         user_id,
       </if>
@@ -74,9 +72,6 @@
         update_time,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
@@ -112,7 +107,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
     UPDATE t_shopping_cart
     update_time = NOW(),
     <set>
@@ -151,7 +146,7 @@
   </update>
 
   <!--***********************************************************************************************************************************************-->
-  <select id="findShoppingCartBeansByMap" parameterType="map" resultType="com.honglinktech.zbgj.bean.ShoppingCartBean">
+  <select id="findShoppingCartsByMap" parameterType="map" resultType="com.honglinktech.zbgj.bean.ShoppingCartBean">
         SELECT
         sc.id,
         sc.user_id AS userId,
@@ -168,13 +163,13 @@
         LEFT JOIN t_goods g ON(sc.goods_id = g.id)
         WHERE 1 = 1
         <if test="userId!=null">
-            AND sc.user_id = #{userId};
+            AND sc.user_id = #{userId}
         </if>
         <if test="checkbox!=null">
-            AND sc.checkbox = #{checkbox};
+            AND sc.checkbox = #{checkbox}
         </if>
         <if test="orderBy!=null and desc!=null">
-            ORDER BY #{orderBy} #{desc} ;
+            ORDER BY #{orderBy} #{desc}
         </if>
         <if test="start != null and rows != null">
             limit #{start},#{rows}
@@ -187,13 +182,13 @@
     FROM t_shopping_cart
     WHERE 1 = 1
     <if test="userId!=null">
-      AND user_id = #{userId};
+      AND user_id = #{userId}
     </if>
     <if test="goodsId!=null">
-      AND goods_id = #{goodsId};
+      AND goods_id = #{goodsId}
     </if>
     <if test="orderBy!=null and asc!=null">
-      ORDER BY #{orderBy} #{asc} ;
+      ORDER BY #{orderBy} #{asc}
     </if>
     <if test="start != null and rows != null">
       limit #{start},#{rows}

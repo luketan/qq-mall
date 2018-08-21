@@ -60,7 +60,8 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
 
-  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Adv">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Adv"
+          useGeneratedKeys="true" keyProperty="id">
     INSERT INTO t_adv(
     image,
     url,

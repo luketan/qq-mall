@@ -155,7 +155,7 @@
         f.delete_flag|fs.delete_flag AS deleteFlag
       FROM t_shopping_cart_format scf
       LEFT JOIN t_format_sub fs ON(scf.format_sub_id = fs.id)
-      LEFT JOIN t_format f ON(fs.format_id = f.id);
+      LEFT JOIN t_format f ON(fs.format_id = f.id)
       WHERE scf.shopping_cart_id = #{shoppingId,jdbcType=INTEGER};
   </select>
   <select id="findFormatSubByIds"  resultType="com.honglinktech.zbgj.bean.FormatSubBean">

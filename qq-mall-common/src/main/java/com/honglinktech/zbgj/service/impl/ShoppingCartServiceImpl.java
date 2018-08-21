@@ -44,7 +44,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		whereMap.put("start", (index-1)*size);
 		whereMap.put("rows", size);
 
-		List<ShoppingCartBean> shoppingCartBeans = shoppingCartDao.findShoppingCartBeansByMap(whereMap);
+		List<ShoppingCartBean> shoppingCartBeans = shoppingCartDao.findShoppingCartsByMap(whereMap);
 		if(shoppingCartBeans != null){
 			for(ShoppingCartBean sc:shoppingCartBeans){
 				List<FormatSubBean> formatSubBeans = formatSubDao.findFormatSubByShoppingId(sc.getId());
@@ -100,7 +100,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 		tshoppingCart.setUserId(userId);
 		tshoppingCart.setGoodsId(addShoppingBean.getGoodsId());
 		tshoppingCart.setNum(addShoppingBean.getNum());
-		int result = shoppingCartDao.insertSelective(tshoppingCart);
+		int result = shoppingCartDao.insert(tshoppingCart);
 		if(addShoppingBean.getFormatSubIds()!=null && addShoppingBean.getFormatSubIds().length>0){
 			List<ShoppingCartFormat> scfList = new ArrayList<ShoppingCartFormat>();
 			for(int i=0;i<addShoppingBean.getFormatSubIds().length;i++){

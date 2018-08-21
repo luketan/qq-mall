@@ -76,20 +76,25 @@ public class TokenIntercepter implements HandlerInterceptor {
                 }
             }
 
+            if(agent == null){
+                write(response, "请先登录！");
+                return false;
+            }
+
             String token = agent.getToken();
             if (StringUtils.isEmpty(token)) {
                 writeTokenExpiredResponse(response);
                 return false;
             }
 
-            UserVO user = userService.getByToken(token);
-            if (user == null) {
+            UserVO userVO = userService.getByToken(token);
+            if (userVO == null) {
                 writeTokenExpiredResponse(response);
                 return false;
             }
 
             request.setAttribute("agent", agent);
-            request.setAttribute("user", user);
+            request.setAttribute("userVO", userVO);
         }else{//不需要校验，有时也需要获取用户信息
 
             AppAgent agent = null;
@@ -106,9 +111,9 @@ public class TokenIntercepter implements HandlerInterceptor {
 
             String token = agent.getToken();
             if (!StringUtils.isEmpty(token)) {
-                UserVO user = userService.getByToken(token);
-                if (user != null) {
-                    request.setAttribute("user", user);
+                UserVO userVO = userService.getByToken(token);
+                if (userVO != null) {
+                    request.setAttribute("userVO", userVO);
                     request.setAttribute("agent", agent);
                 }
             }

@@ -31,7 +31,7 @@ public class ShoppingCartController extends BaseApiController {
 	@Resource
 	private ShoppingCartService shoppingCartService;
 	
-	@RequestMapping(value="findShoppingCartBeanByUserId",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findList",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<List<ShoppingCartBean>> findShoppingCartBeanByUserId(@RequestBody Map<String, String> req,
 																		 @RequestAttribute UserVO userVO,

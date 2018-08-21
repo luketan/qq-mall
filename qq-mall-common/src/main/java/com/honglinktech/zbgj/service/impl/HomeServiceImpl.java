@@ -41,16 +41,21 @@ public class HomeServiceImpl implements HomeService{
      */
     @Override
     public Response<AppletHomeVO> findAppletHome(Integer userId) {
-        Map whereMap = new HashMap();
-        whereMap.put("styleType", AdvStyleTypeEnum.AppletHome.name());
-        List<AdvVO> advVOs = advService.findVO(whereMap);
+        Map advWhereMap = new HashMap();
+        advWhereMap.put("styleType", AdvStyleTypeEnum.AppletHome.name());
+        List<AdvVO> advVOs = advService.findVO(advWhereMap);
 
         Map gtWhereMap = new HashMap();
         gtWhereMap.put("rec", true);
         List<GoodsTypeVO> goodsTypeVOs = goodsTypeDao.findVOByWhere(gtWhereMap);
 
+        Map itemWhereMap = new HashMap();
+        itemWhereMap.put("styleType", AdvStyleTypeEnum.AppletItems.name());
+        List<AdvVO> itmes = advService.findVO(itemWhereMap);
+
         AppletHomeVO appletHomeVO = new AppletHomeVO();
         appletHomeVO.setAdvs(advVOs);
+        appletHomeVO.setItems(itmes);
         appletHomeVO.setGoodsTypes(goodsTypeVOs);
         return Result.resultSet(appletHomeVO);
     }
