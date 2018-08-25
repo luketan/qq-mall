@@ -46,7 +46,8 @@ public class FeedBackController extends BaseController {
 		if (!StringUtils.isEmpty(keyword)) {
 			whereMap.put("keyword", keyword);
 		}
-		Page<FeedBack> page = feedBackService.findFeedBackByWhere(index, size, "list.html?keyword="+keyword+"&", whereMap);
+		int start = (index - 1)*size;
+		Page<FeedBack> page = feedBackService.findFeedBackByWhere(start, size, "list.html?keyword="+keyword+"&", whereMap);
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
 		return "feedBack/list";

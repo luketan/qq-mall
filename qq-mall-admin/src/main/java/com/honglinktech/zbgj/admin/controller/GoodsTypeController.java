@@ -49,8 +49,8 @@ public class GoodsTypeController extends BaseController {
 		if (!StringUtils.isEmpty(keyword)) {
 			whereMap.put("keyword", keyword);
 		}
-
-		Page<GoodsType> page = goodsTypeService.findPageByWhere(index, size, "list.html?keyword="+keyword+"&", whereMap);
+		int start = (index-1)*size;
+		Page<GoodsType> page = goodsTypeService.findPageByWhere(start, size, "list.html?keyword="+keyword+"&", whereMap);
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
 		return "goodsType/list";
@@ -115,8 +115,8 @@ public class GoodsTypeController extends BaseController {
 		if (!StringUtils.isEmpty(keyword)) {
 			whereMap.put("keyword", keyword);
 		}
-
-		Page<GoodsTypeSubBean> page = goodsTypeService.findSubPageByWhere(index, size, "subList.html?keyword=" + keyword + "&", whereMap);
+		int start = (index-1)*size;
+		Page<GoodsTypeSubBean> page = goodsTypeService.findSubPageByWhere(start, size, "subList.html?keyword=" + keyword + "&", whereMap);
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
 		return "goodsType/subList";

@@ -32,13 +32,11 @@ public class AdminServiceImpl implements AdminService {
 	private RoleDao roleDao;
 
 	@Override
-	public Page<Admin> findPageByWhere(int index, int size, String url, Map whereMap) {
-		int start = (index-1) * size;
-		start = start < 0 ? 0 : start;
+	public Page<Admin> findPageByWhere(int start, int rows, String url, Map whereMap) {
 
-		List<Admin> admins = adminDao.page(start, size);
+		List<Admin> admins = adminDao.page(start, rows);
 		long count = adminDao.countAll();
-		Page<Admin> page = new Page<Admin>(start, size, count, url, admins);
+		Page<Admin> page = new Page<Admin>(start, rows, count, url, admins);
 
 		return page;
 	}

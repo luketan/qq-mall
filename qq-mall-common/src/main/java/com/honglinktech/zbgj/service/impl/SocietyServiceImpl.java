@@ -306,8 +306,6 @@ public class SocietyServiceImpl implements SocietyService{
 	 * 获取打赏列表
 	 * @param userId
 	 * @param socNoteId
-	 * @param index
-	 * @param size
 	 * @return
 	 */
 	@Override
@@ -325,8 +323,6 @@ public class SocietyServiceImpl implements SocietyService{
 	
 	/**
 	 * 查询帖子评论通过帖子Id
-	 * @param index
-	 * @param size
 	 * @param whereMap
 	 * @return
 	 */

@@ -56,8 +56,8 @@ public class GoodsTagController extends BaseController {
 		if (!StringUtils.isEmpty(keyword)) {
 			whereMap.put("keyword", keyword);
 		}
-
-		Page<Gtag> page = goodsTagService.findPageByWhere(index, size, "list.html?keyword="+keyword+"&", whereMap);
+		int start = (index - 1)*size;
+		Page<Gtag> page = goodsTagService.findPageByWhere(start, size, "list.html?keyword="+keyword+"&", whereMap);
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
 		return "goodsTag/list";

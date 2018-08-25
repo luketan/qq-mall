@@ -80,9 +80,18 @@ public class GoodsController extends BaseApiController {
 	 */
 	@RequestMapping(value="findGoodsList",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<GoodsVO>> findGoodsSearchBeans(@RequestBody Map<String, String> map) throws BaseException{
-		Response<List<GoodsVO>> response = goodsService.findGoodsVOByWhere(map);
-		return response; 
+	public Response<List<GoodsVO>> findGoodsSearchBeans(@RequestBody Map<String, String> map){
+
+		try {
+			int start = map.containsKey("start") ? Integer.valueOf(map.get("start")) : 0;
+			int rows = map.containsKey("rows") ? Integer.valueOf(map.get("rows")) : 10;
+
+			Response<List<GoodsVO>> response = goodsService.findGoodsVOByWhere(map);
+			return response;
+		}catch (Exception e){
+			logger.error(e, e);
+			return Result.fail("获取失败，请重试！");
+		}
 	}
 	
 	/**

@@ -10,6 +10,7 @@ import com.honglinktech.zbgj.service.GoodsTagService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,18 +41,17 @@ public class GoodsTagServiceImpl implements GoodsTagService{
     }
 
     @Override
-    public Page<Gtag> findPageByWhere(int index, int size, String url, Map whereMap) {
-        index = index >= 0 ? index : 0;
-        size = size > 0 ?  size : 10;
-        int start = (index -1)*size;
+    public Page<Gtag> findPageByWhere(int start, int rows, String url, Map whereMap) {
+
         if(whereMap == null) {
+            whereMap = new HashMap();
         }
         whereMap.put("start", start);
-        whereMap.put("rows", size);
+        whereMap.put("rows", rows);
 
         List<Gtag> gtags = gtagDao.findByWhere(whereMap);
         int count = gtagDao.findCount(whereMap);
-        return new Page<>(start, size, count, url, gtags);
+        return new Page<>(start, rows, count, url, gtags);
     }
 
     @Override

@@ -25,19 +25,16 @@ public class BrandServiceImpl implements GoodsBrandService {
     private GoodsBrandDao goodsBrandDao;
 
     @Override
-    public Page<GoodsBrandBean> findPageByWhere(int index, int size, String url, Map whereMap) {
-        index = index >= 0 ? index : 0;
-        size = size > 0 ?  size : 10;
-        int start = (index -1)*size;
+    public Page<GoodsBrandBean> findPageByWhere(int start, int rows, String url, Map whereMap) {
         if(whereMap == null) {
             whereMap = new HashMap();
         }
         whereMap.put("start", start);
-        whereMap.put("rows", size);
+        whereMap.put("rows", rows);
 
         List<GoodsBrandBean> goodsBrands = goodsBrandDao.findByWhere(whereMap);
         int count = goodsBrandDao.findCount(whereMap);
-        return new Page<>(start, size, count, url, goodsBrands);
+        return new Page<>(start, rows, count, url, goodsBrands);
     }
 
     @Override

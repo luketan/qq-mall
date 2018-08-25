@@ -47,7 +47,8 @@ public class AdminController extends BaseController {
                          @RequestParam(required = false, defaultValue = "15") int size, Model model) throws BaseException {
 
 		Map whereMap = new HashMap();
-		Page<Admin> page = adminService.findPageByWhere(index, size, "admin/list", whereMap);
+		int start = (index-1)*size;
+		Page<Admin> page = adminService.findPageByWhere(start, size, "admin/list", whereMap);
     	model.addAttribute("page", page);
         return "admin/list";
     }

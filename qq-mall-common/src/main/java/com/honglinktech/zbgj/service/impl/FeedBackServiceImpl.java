@@ -66,8 +66,6 @@ public class FeedBackServiceImpl implements FeedBackService {
 	/**
 	 * APP意见反馈
 	 * @param userId
-	 * @param index
-	 * @param size
 	 * @return
 	 * @throws BaseException
 	 */
@@ -126,17 +124,13 @@ public class FeedBackServiceImpl implements FeedBackService {
 
 	/**
 	 *
-	 * @param index
-	 * @param size
 	 * @param url
 	 * @param whereMap
 	 * @return
 	 * @throws BaseException
 	 */
 	@Override
-	public Page<FeedBack> findFeedBackByWhere(Integer index, Integer size, String url, Map whereMap) throws BaseException {
-		int start = index!=null?(index-1)*size:0;
-		int rows = size!=null?size:10;
+	public Page<FeedBack> findFeedBackByWhere(Integer start, Integer rows, String url, Map whereMap) throws BaseException {
 		if(whereMap == null){
 			whereMap = new HashMap();
 		}

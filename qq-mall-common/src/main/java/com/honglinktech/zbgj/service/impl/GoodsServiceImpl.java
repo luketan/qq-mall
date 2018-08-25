@@ -115,13 +115,7 @@ public class GoodsServiceImpl implements GoodsService{
 				whereMap.put("maxPrice", maxPrice);
 			}
 		}
-		if(whereMap.get("index") != null && whereMap.get("size") != null){
-			int index = Integer.parseInt(whereMap.get("index").toString());
-			int size = Integer.parseInt(whereMap.get("size").toString());
 
-			whereMap.put("start", index > 0 ? (index-1)*size : 0);
-			whereMap.put("rows", size > 0 ? size : 10);
-		}
 
 		List<GoodsVO> goodsListBeans = goodsDao.findGoodsByWhere(whereMap);
 		return Result.resultSet(goodsListBeans);

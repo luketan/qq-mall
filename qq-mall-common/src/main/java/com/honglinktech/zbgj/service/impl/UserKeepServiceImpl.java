@@ -61,16 +61,12 @@ public class UserKeepServiceImpl implements UserKeepService{
 	 * 收藏列表
 	 * @param userId
 	 * @param type
-	 * @param index
-	 * @param size
 	 * @return
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<List<UserKeep>> findKeepPage(Integer userId,Integer type,Integer index,Integer size) throws BaseException{
+	public Response<List<UserKeep>> findKeepPage(Integer userId,Integer type,Integer start,Integer rows) throws BaseException{
 
-		int start = index!=null?(index-1)*size:0;
-		int rows = size!=null?size:10;
 		Map where  = new HashMap();
 		where.put("userId", userId);
 		where.put("type", type);

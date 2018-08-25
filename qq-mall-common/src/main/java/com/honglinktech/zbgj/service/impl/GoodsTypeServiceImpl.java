@@ -142,24 +142,21 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 	/**
 	 * console
-	 * @param index
-	 * @param size
 	 * @param whereMap
 	 * @return
 	 */
 	@Override
-	public Page<GoodsType> findPageByWhere(int index, int size, String url, Map whereMap) {
-		index = index >= 0 ? index : 0;
-		size = size > 0 ?  size : 10;
-		int start = (index -1)*size;
+	public Page<GoodsType> findPageByWhere(int start, int rows, String url, Map whereMap) {
+
 		if(whereMap == null) {
+			whereMap = new HashMap();
 		}
 		whereMap.put("start", start);
-		whereMap.put("rows", size);
+		whereMap.put("rows", rows);
 
 		List<GoodsType> gtags = goodsTypeDao.findByWhere(whereMap);
 		int count = goodsTypeDao.findCount(whereMap);
-		return new Page<>(start, size, count, url, gtags);
+		return new Page<>(start, rows, count, url, gtags);
 	}
 
 	/**
@@ -189,24 +186,20 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 
 	/**
 	 * console 子类
-	 * @param index
-	 * @param size
 	 * @param whereMap
 	 * @return
 	 */
 	@Override
-	public Page<GoodsTypeSubBean> findSubPageByWhere(int index, int size, String url, Map whereMap) {
-		index = index >= 0 ? index : 0;
-		size = size > 0 ?  size : 10;
-		int start = (index -1)*size;
+	public Page<GoodsTypeSubBean> findSubPageByWhere(int start, int rows, String url, Map whereMap) {
+
 		if(whereMap == null) {
 			whereMap = new HashMap();
 		}
 		whereMap.put("start", start);
-		whereMap.put("rows", size);
+		whereMap.put("rows", rows);
 
 		List<GoodsTypeSubBean> goodsTypeSubs = goodsTypeSubDao.findByWhere(whereMap);
 		int count = goodsTypeSubDao.findCount(whereMap);
-		return new Page<>(start, size, count, url, goodsTypeSubs);
+		return new Page<>(start, rows, count, url, goodsTypeSubs);
 	}
 }

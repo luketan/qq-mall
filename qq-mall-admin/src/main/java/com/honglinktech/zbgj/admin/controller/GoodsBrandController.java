@@ -53,8 +53,8 @@ GoodsBrandController extends BaseController {
 		if (!StringUtils.isEmpty(keyword)) {
 			whereMap.put("keyword", keyword);
 		}
-
-		Page<GoodsBrandBean> page = goodsBrandService.findPageByWhere(index, size, "list.html?keyword="+keyword+"&", whereMap);
+		int start = (index - 1)*size;
+		Page<GoodsBrandBean> page = goodsBrandService.findPageByWhere(start, size, "list.html?keyword="+keyword+"&", whereMap);
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
 		return "goodsBrand/list";

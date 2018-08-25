@@ -45,8 +45,6 @@ public class CouponServiceImpl implements CouponService{
     /**
      * APP获取券列表
      * @param userId
-     * @param index
-     * @param size
      * @param type 1,有效的购物券
      * @return
      * @throws BaseException
