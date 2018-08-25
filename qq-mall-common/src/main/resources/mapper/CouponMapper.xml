@@ -158,8 +158,8 @@
     	AND (couUser.status &lt;&gt;0 OR c.start_date &gt; CURDATE() OR c.end_date &lt; CURDATE()) 
     </if>
     ORDER BY c.start_date DESC
-    <if test="index != null and size!=null">
-    	limit  #{index,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+    <if test="start != null and rows!=null">
+    	limit  #{start,jdbcType=INTEGER},#{rows,jdbcType=INTEGER}
     </if>
   </select>
   <!--APP -->

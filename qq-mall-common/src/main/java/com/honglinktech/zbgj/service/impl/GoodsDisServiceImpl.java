@@ -36,14 +36,14 @@ public class GoodsDisServiceImpl implements GoodsDisService{
 	@Override
 	public Response<List<GoodsDisBean>> findGoodsDisByPage(Map<String, String> map) throws BaseException{
 		
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 		int goodsId = Integer.valueOf(map.get("goodsId"));
 		Integer type = map.containsKey("type")?Integer.valueOf(map.get("type")):null;
 		
 		Map whereMap = new HashMap();
-		whereMap.put("start", (index-1)*size);
-		whereMap.put("rows", size);
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 		whereMap.put("goodsId", goodsId);
 		if (type != null) {
 			if (type == 1) {//差评

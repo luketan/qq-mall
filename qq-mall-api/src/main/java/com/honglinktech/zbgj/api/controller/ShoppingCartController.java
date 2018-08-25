@@ -39,11 +39,11 @@ public class ShoppingCartController extends BaseApiController {
 		
 		Map<String, Object> whereMap = new HashMap<String, Object>();
 		whereMap.put("userId", userVO.getId());
-		
-		if(req.containsKey("index") && req.containsKey("size")){
-			whereMap.put("index", req.get("index"));
-			whereMap.put("size", req.get("size"));
-		}
+
+		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
+		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 	
 	    Response<List<ShoppingCartBean>> response = shoppingCartService.findShoppingBeansByMap(whereMap);
 		return response; 

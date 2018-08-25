@@ -55,7 +55,7 @@ public class GoodsServiceImpl implements GoodsService{
 	private GoodsTagDao goodsTagDao;
 
 	@Override
-	public Response<GoodsVO> findGoodsVOById(Integer id, int userId, int index, int size) throws BaseException{
+	public Response<GoodsVO> findGoodsVOById(Integer id, int userId, int start, int rows) throws BaseException{
 		GoodsVO goodsVO = goodsDao.findVOById(id, userId);
 		if (goodsVO == null) {
 			return Result.fail("没有找到商品！");
@@ -80,10 +80,10 @@ public class GoodsServiceImpl implements GoodsService{
 		//评论处理
 		Response<GoodsDisCountBean> gdcbResp = goodsDisService.findGoodsDisCount(id);
 		goodsVO.setGoodsDisCountBean(gdcbResp.getResult());
-		Map<String,String> whereMap = new HashMap<String, String>();
-		whereMap.put("goodsId", id+"");
-		whereMap.put("index", index+"");
-		whereMap.put("size", size+"");
+		Map whereMap = new HashMap();
+		whereMap.put("goodsId", id);
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 		Response<List<GoodsDisBean>> gdbResp = goodsDisService.findGoodsDisByPage(whereMap);
 		goodsVO.setGoodsDisBeanList(gdbResp.getResult());
 

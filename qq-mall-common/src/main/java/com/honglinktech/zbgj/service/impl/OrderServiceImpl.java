@@ -696,21 +696,19 @@ public class OrderServiceImpl implements OrderService{
 	/**
 	 * APP获取订单列表
 	 * @param userId
-	 * @param index
-	 * @param size
 	 * @return
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<List<OrderVO>> findOrderVOList(Integer userId, Integer index, Integer size) throws BaseException{
+	public Response<List<OrderVO>> findOrderVOList(Integer userId, Integer start, Integer rows) throws BaseException{
 
 		Map whereMap = new HashMap();
 		whereMap.put("userId", new String[]{String.valueOf(userId)});
 		whereMap.put("deleteFlag", 0);
 		whereMap.put("orderBy", "status");
 		whereMap.put("asc", "asc");
-		whereMap.put("start", (index-1)*size);
-		whereMap.put("rows", size);
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 
 		List<Order> orderBeans = orderDao.findOrderByWhere(whereMap);
 		List<OrderVO> orderVOs = new ArrayList<>();
@@ -940,18 +938,18 @@ public class OrderServiceImpl implements OrderService{
 	 * @return
 	 */
 	@Override
-	public Page<OrderSimpleBean> findOrderPage(Integer index, Integer size, Map whereMap, String url) {
+	public Page<OrderSimpleBean> findOrderPage(Integer start, Integer rows, Map whereMap, String url) {
 		if(whereMap == null){
 			whereMap = new HashMap();
 		}
-		int start = index!=null && index>=0?(index-1)*size:size;
-		whereMap.put("start", (index-1)*size);
-		whereMap.put("rows", size);
+
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 
 		List<OrderSimpleBean> orders = orderDao.findByWhere(whereMap);
 
 		int count = orderDao.findCount(whereMap);
-		return new Page<>(start, size, count, url,orders);
+		return new Page<>(start, rows, count, url,orders);
 	}
 
 	@Override

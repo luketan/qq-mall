@@ -1,39 +1,39 @@
 package com.honglinktech.zbgj.api.controller;
 
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import com.honglinktech.zbgj.annotation.NoRequireLogin;
 import com.honglinktech.zbgj.annotation.RequireLogin;
-import com.honglinktech.zbgj.common.AppAgent;
-import com.honglinktech.zbgj.entity.ChangeLog;
-import com.honglinktech.zbgj.entity.Coupon;
-import com.honglinktech.zbgj.entity.User;
-import com.honglinktech.zbgj.entity.UserAddress;
-import com.honglinktech.zbgj.entity.UserKeep;
-import com.honglinktech.zbgj.service.ChangeLogService;
-import com.honglinktech.zbgj.service.CouponService;
-import com.honglinktech.zbgj.service.FeedBackService;
-import com.honglinktech.zbgj.service.UserAddressService;
-import com.honglinktech.zbgj.service.UserKeepService;
-import com.honglinktech.zbgj.service.UserService;
-import com.honglinktech.zbgj.vo.UserLoginVO;
-import com.honglinktech.zbgj.vo.UserVO;
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
-
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.FeedBackBean;
-import com.honglinktech.zbgj.bean.UserLoginBean;
+import com.honglinktech.zbgj.common.AppAgent;
 import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
+import com.honglinktech.zbgj.entity.ChangeLog;
+import com.honglinktech.zbgj.entity.User;
+import com.honglinktech.zbgj.entity.UserAddress;
+import com.honglinktech.zbgj.entity.UserKeep;
+import com.honglinktech.zbgj.service.ChangeLogService;
+import com.honglinktech.zbgj.service.FeedBackService;
+import com.honglinktech.zbgj.service.UserAddressService;
+import com.honglinktech.zbgj.service.UserKeepService;
+import com.honglinktech.zbgj.service.UserService;
+import com.honglinktech.zbgj.vo.UserHomeVO;
+import com.honglinktech.zbgj.vo.UserLoginVO;
+import com.honglinktech.zbgj.vo.UserVO;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 @RequireLogin
 @RestController
@@ -43,8 +43,6 @@ public class UserController extends BaseApiController {
 	private UserService userService;
 	@Resource
 	private UserAddressService userAddressService;
-	@Resource
-	private CouponService couponService;
 	@Resource
 	private UserKeepService userKeepService;
 	@Resource
@@ -67,35 +65,41 @@ public class UserController extends BaseApiController {
 	public Response<String> loginout(@RequestBody Map map,
 									 @RequestAttribute UserVO user,
 									 @RequestAttribute AppAgent agent) throws BaseException{
-	        	
-	        	
 
 		Response<String> resp = userService.loginout(user.getId());
 
 		return resp; 
 	}
-	
+
+	@RequestMapping(value="findUsreHome",method={RequestMethod.POST})
+	@ResponseBody
+	public Response<UserHomeVO> findUsreHome(@RequestBody Map<String, String> req,
+											 @RequestAttribute UserVO user) throws BaseException{
+		Response<UserHomeVO> response = userService.findUserHome(user.getId());
+		return response;
+	}
+
 	@RequestMapping(value="findMoneyLogPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<List<ChangeLog>> findMoneyLogPage(@RequestBody Map<String, String> req,
 													  @RequestAttribute UserVO user) throws BaseException{
 
-		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
-		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
+		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
+		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
 		
-		Response<List<ChangeLog>> response = changeLogService.findChangeLog(user.getId(), Constants.CHANGE_MONEY, index, size);
+		Response<List<ChangeLog>> response = changeLogService.findChangeLog(user.getId(), Constants.CHANGE_MONEY, start, rows);
 		return response; 
 	}
 	
 	@RequestMapping(value="findPointLogPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<ChangeLog>> findPointLogPage(@RequestBody Map<String, String> req, @RequestAttribute UserVO user) throws BaseException{
-	        	
+	public Response<List<ChangeLog>> findPointLogPage(@RequestBody Map<String, String> req,
+													  @RequestAttribute UserVO user) throws BaseException{
 
-		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
-		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
+		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
+		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
 		
-		Response<List<ChangeLog>> response = changeLogService.findChangeLog(user.getId(), Constants.CHANGE_POINT, index, size);
+		Response<List<ChangeLog>> response = changeLogService.findChangeLog(user.getId(), Constants.CHANGE_POINT, start, rows);
 		return response; 
 		
 	}
@@ -104,13 +108,13 @@ public class UserController extends BaseApiController {
 	@ResponseBody
 	public Response<List<UserKeep>> findKeepPage(@RequestBody Map<String, String> req, @RequestAttribute UserVO user) throws BaseException{
 
-		Integer index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
-		Integer size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
+		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
+		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
 		if(req.get("type")==null){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"type");
 		}
 		Integer type = Integer.valueOf(req.get("type"));
-		Response<List<UserKeep>> resp = userKeepService.findKeepPage(user.getId(), type, index, size);
+		Response<List<UserKeep>> resp = userKeepService.findKeepPage(user.getId(), type, start, rows);
 
 		return resp; 
 	}
@@ -156,47 +160,7 @@ public class UserController extends BaseApiController {
 
 		return resp; 
 	}
-	/**
-	 * 获取可用的券数量
-	 * @return
-	 * @throws BaseException
-	 */
-	@RequestMapping(value="findCouponCount",method={RequestMethod.GET,RequestMethod.POST})
-	@ResponseBody
-	public Response<Object> findCouponCount(@RequestBody Map map,
-											@RequestAttribute UserVO user) throws BaseException{
 
-		Response<Object> resp = couponService.findCouponCount(user.getId());
-
-		return resp; 
-	}
-	@RequestMapping(value="findCouponPage",method={RequestMethod.GET,RequestMethod.POST})
-	@ResponseBody
-	public Response<List<Coupon>> findCouponPage(@RequestBody Map<String, String> req,
-												 @RequestAttribute UserVO user) throws BaseException{
-
-		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
-		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
-		int type = req.get("type")==null?0:Integer.valueOf(req.get("type"));
-		Response<List<Coupon>> resp = couponService.findCoupons(user.getId(), index, size, type);
-
-		return resp; 
-	}
-	@RequestMapping(value="deleteCoupon",method={RequestMethod.GET,RequestMethod.POST})
-	@ResponseBody
-	public Response deleteCoupon(@RequestBody Map<String, String> req,
-								 @RequestAttribute UserVO user) throws BaseException{
-	    
-
-		if(req.get("couponId") == null || Integer.valueOf(req.get("couponId"))==0){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"couponIdv");
-		}
-		Integer couponId = Integer.valueOf(req.get("couponId"));
-		
-		Response<Integer> resp = couponService.deleteCoupon(user.getId(), couponId);
-
-		return resp; 
-	}
 	/**
 	 * 获取红包记录
 	 * @param req
@@ -208,14 +172,14 @@ public class UserController extends BaseApiController {
 	public Response<List<ChangeLog>> findRedMoneyLog(@RequestBody Map<String, String> req,
 													 @RequestAttribute UserVO user) throws BaseException{
 
-		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
-		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
+		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
+		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
 		
-		Response<List<ChangeLog>> response = changeLogService.findChangeLog(user.getId(), Constants.CHANGE_VIRTUAL_MONEY, index, size);
+		Response<List<ChangeLog>> response = changeLogService.findChangeLog(user.getId(), Constants.CHANGE_VIRTUAL_MONEY, start, rows);
 		return response; 
 	}
 	/**
-	 * 获取红包记录
+	 * 获取意见反馈
 	 * @param req
 	 * @return
 	 * @throws BaseException
@@ -258,10 +222,10 @@ public class UserController extends BaseApiController {
 	public Response<List<FeedBackBean>> findFeedBackPage(@RequestBody Map<String, String> req,
 														 @RequestAttribute UserVO user) throws BaseException{
 
-		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
-		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
+		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
+		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
 		
-		Response<List<FeedBackBean>> response = feedBackService.findFeedBackPage(user.getId(), index, size);
+		Response<List<FeedBackBean>> response = feedBackService.findFeedBackPage(user.getId(), start, rows);
 		return response; 
 	}
 	

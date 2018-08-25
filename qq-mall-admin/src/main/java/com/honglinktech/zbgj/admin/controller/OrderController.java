@@ -85,8 +85,9 @@ public class OrderController extends BaseController {
 				whereMap.put("keyword", keyword);
 				url += ("keyword="+keyword+"&");
 	        }
+	        int start = (index - 1)*size;
 
-	        Page<OrderSimpleBean> page = orderService.findOrderPage(index, size, whereMap, url);
+	        Page<OrderSimpleBean> page = orderService.findOrderPage(start, size, whereMap, url);
 	        model.addAttribute("page", page);
 	        model.addAttribute("status", status);
 	        model.addAttribute("payStatus", payStatus);

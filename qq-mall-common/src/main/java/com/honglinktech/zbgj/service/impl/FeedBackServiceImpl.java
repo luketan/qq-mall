@@ -72,10 +72,7 @@ public class FeedBackServiceImpl implements FeedBackService {
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<List<FeedBackBean>> findFeedBackPage(Integer userId, Integer index, Integer size) throws BaseException {
-
-		int start = index!=null?(index-1)*size:0;
-		int rows = size!=null?size:10;
+	public Response<List<FeedBackBean>> findFeedBackPage(Integer userId, Integer start, Integer rows) throws BaseException {
 
 		Map whereMap = new HashMap();
 		whereMap.put("userId", userId);

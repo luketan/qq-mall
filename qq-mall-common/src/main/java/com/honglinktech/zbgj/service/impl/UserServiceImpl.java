@@ -19,10 +19,12 @@ import com.honglinktech.zbgj.enums.ChangeTypeEnum;
 import com.honglinktech.zbgj.enums.UserStatusEnum;
 import com.honglinktech.zbgj.enums.UserTypeEnum;
 import com.honglinktech.zbgj.service.ChangeLogService;
+import com.honglinktech.zbgj.service.CouponService;
 import com.honglinktech.zbgj.service.UserService;
 import com.honglinktech.zbgj.utils.HashUtils;
 import com.honglinktech.zbgj.utils.HttpUtil;
 import com.honglinktech.zbgj.utils.TokenProcessor;
+import com.honglinktech.zbgj.vo.UserHomeVO;
 import com.honglinktech.zbgj.vo.UserLoginVO;
 import com.honglinktech.zbgj.vo.UserVO;
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +49,8 @@ public class UserServiceImpl implements UserService{
 	private UserSessionDao userSessionDao;
 	@Autowired
 	private ChangeLogService changeLogService;
+	@Autowired
+	private CouponService couponService;
 	/**
 	 * appId
 	 */
@@ -118,6 +122,11 @@ public class UserServiceImpl implements UserService{
 
 	}
 
+	/**
+	 * 小程序登录
+	 * @param code
+	 * @return
+	 */
 	@Override
 	public Response<UserLoginVO> updateAppletLoginByCode(String code) {
 		try {
@@ -222,6 +231,13 @@ public class UserServiceImpl implements UserService{
 		return user.toVO();
 	}
 
+	@Override
+	public Response<UserHomeVO> findUserHome(Integer userId) throws BaseException {
+		int couponCount = couponService.findCouponCount(userId);
+		UserHomeVO userHomeVO = new UserHomeVO();
+		userHomeVO.setCouponNum(couponCount);
+		return Result.resultSet(userHomeVO);
+	}
 
 	/**
 	 * 获取推荐用户

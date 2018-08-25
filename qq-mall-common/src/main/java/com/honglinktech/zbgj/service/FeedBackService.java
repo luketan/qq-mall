@@ -29,7 +29,7 @@ public interface FeedBackService {
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<FeedBackBean>> findFeedBackPage(Integer userId, Integer index, Integer size) throws BaseException;
+	Response<List<FeedBackBean>> findFeedBackPage(Integer userId, Integer start, Integer rows) throws BaseException;
 
 	/**
 	 * APP意见反馈

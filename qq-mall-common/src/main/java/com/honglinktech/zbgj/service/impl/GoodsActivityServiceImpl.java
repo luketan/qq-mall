@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,18 +47,16 @@ public class GoodsActivityServiceImpl implements GoodsActivityService {
     }
 
     @Override
-    public Page<Gactivity> findPageByWhere(int index, int size, String url, Map whereMap) {
-        index = index >= 0 ? index : 0;
-        size = size > 0 ?  size : 10;
-        int start = (index -1)*size;
+    public Page<Gactivity> findPageByWhere(int start, int rows, String url, Map whereMap) {
         if(whereMap == null) {
+            whereMap = new HashMap();
         }
         whereMap.put("start", start);
-        whereMap.put("rows", size);
+        whereMap.put("rows", rows);
 
         List<Gactivity> gactivities = gactivityDao.findByWhere(whereMap);
         int count = gactivityDao.findCount(whereMap);
-        return new Page<>(start, size, count, url, gactivities);
+        return new Page<>(start, rows, count, url, gactivities);
     }
 
     @Override

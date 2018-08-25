@@ -6,6 +6,7 @@ import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.User;
 import com.honglinktech.zbgj.entity.UserBasis;
+import com.honglinktech.zbgj.vo.UserHomeVO;
 import com.honglinktech.zbgj.vo.UserLoginVO;
 import com.honglinktech.zbgj.vo.UserVO;
 
@@ -30,6 +31,13 @@ public interface UserService{
 	 * @throws BaseException
 	 */
 	Response<String> loginout(Integer id) throws BaseException;
+
+	/**
+	 *
+	 * @param id
+	 * @return
+	 */
+	Response<UserHomeVO> findUserHome(Integer id) throws BaseException;
 
 	/**
 	 * APP获取推荐用户
@@ -90,5 +98,4 @@ public interface UserService{
 	 * @return
 	 */
 	Response<UserLoginVO> updateAppletLoginByCode(String code);
-
 }

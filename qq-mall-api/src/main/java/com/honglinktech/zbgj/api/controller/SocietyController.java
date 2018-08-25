@@ -144,11 +144,11 @@ public class SocietyController extends BaseApiController {
 		if(user != null){
 			userId = user.getId();
 		}
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 		Map<String,Object> whereMap = new HashMap<String, Object>();
 		whereMap.put("annIs", false);//非公共
-		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId, index, size, whereMap);
+		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId, start, rows, whereMap);
 		return resp;
 	}
 	/**
@@ -171,12 +171,12 @@ public class SocietyController extends BaseApiController {
 			return Result.fail("请登录！");
 		}
 
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 		Map<String,Object> whereMap = new HashMap<String, Object>();
 		whereMap.put("annIs", false);//非公告
 		whereMap.put("atte", true);//关注用户
-		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId,index, size, whereMap);
+		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId, start, rows, whereMap);
 		return resp;
 	}
 	/**
@@ -198,12 +198,12 @@ public class SocietyController extends BaseApiController {
 		}else{
 			return Result.fail("请登录！");
 		}
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 		Map<String,Object> whereMap = new HashMap<String, Object>();
 		whereMap.put("annIs", false);//非公告
 		whereMap.put("friend", true);//关注用户
-		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId,index, size, whereMap);
+		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId, start, rows, whereMap);
 		return resp;
 	}
 	
@@ -226,11 +226,11 @@ public class SocietyController extends BaseApiController {
 		}else{
 			return Result.fail("请登录！");
 		}
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 		Map<String,Object> whereMap = new HashMap<String, Object>();
 		whereMap.put("annIs", false);//非公告
-		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId,index, size, whereMap);
+		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId, start, rows, whereMap);
 		return resp;
 	}
 	
@@ -298,13 +298,13 @@ public class SocietyController extends BaseApiController {
 		if(!map.containsKey("subId")){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"subId");
 		}
-		
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 		Map<String,Object> whereMap = new HashMap<String, Object>();
 		whereMap.put("annIs", false);//非公告
 		whereMap.put("subId", map.get("subId"));//关注用户
-		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId, index, size, whereMap);
+		Response<List<SocietyNoteBean>> resp = societyService.findSocNotes(userId, start, rows, whereMap);
 		return resp;
 	}
 	/**
@@ -439,10 +439,10 @@ public class SocietyController extends BaseApiController {
 		if(!map.containsKey("socNoteId")){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"socNoteId");
 		}
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 		
-		Response<List<SocietyNoteRewardBean>> resp = societyService.findSocietyNoteRewards(userId, Integer.valueOf(map.get("socNoteId")), index, size);
+		Response<List<SocietyNoteRewardBean>> resp = societyService.findSocietyNoteRewards(userId, Integer.valueOf(map.get("socNoteId")), start, rows);
 		return resp;
 	}
 	/**
@@ -465,10 +465,10 @@ public class SocietyController extends BaseApiController {
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"socNoteId");
 		}
 		int socNoteId = Integer.valueOf(map.get("socNoteId"));
-		int index = map.containsKey("index")?Integer.valueOf(map.get("index")):1;
-		int size = map.containsKey("size")?Integer.valueOf(map.get("size")):10;
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 		Map<String,Object> whereMap = new HashMap<String, Object>();
-		Response<List<SocietyDisBean>> resp = societyService.findSocietyDisBySocNoteId(socNoteId, userId, index, size, whereMap);
+		Response<List<SocietyDisBean>> resp = societyService.findSocietyDisBySocNoteId(socNoteId, userId, start, rows, whereMap);
 		return resp;
 	}
 }

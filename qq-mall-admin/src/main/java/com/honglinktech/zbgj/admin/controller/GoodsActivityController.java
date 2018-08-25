@@ -52,8 +52,9 @@ public class GoodsActivityController extends BaseController {
 		if (!StringUtils.isEmpty(keyword)) {
 			whereMap.put("keyword", keyword);
 		}
+		int start = (index-1)*size;
 
-		Page<Gactivity> page = goodsActivityService.findPageByWhere(index, size, "list.html?keyword="+keyword+"&", whereMap);
+		Page<Gactivity> page = goodsActivityService.findPageByWhere(start, size, "list.html?keyword="+keyword+"&", whereMap);
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
 

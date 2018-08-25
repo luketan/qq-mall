@@ -27,7 +27,7 @@ public interface UserKeepService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<UserKeep>> findKeepPage(Integer userId, Integer type, Integer index, Integer size) throws BaseException;
+	Response<List<UserKeep>> findKeepPage(Integer userId, Integer type, Integer start, Integer rows) throws BaseException;
 	
 	
 }

@@ -22,7 +22,7 @@ public interface GoodsService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<GoodsVO> findGoodsVOById(Integer id, int userId, int index, int size) throws BaseException;
+	Response<GoodsVO> findGoodsVOById(Integer id, int userId, int start, int rows) throws BaseException;
 	/**
 	 *
 	 * @param whereMap

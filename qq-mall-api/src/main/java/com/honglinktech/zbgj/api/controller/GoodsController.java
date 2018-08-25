@@ -60,10 +60,10 @@ public class GoodsController extends BaseApiController {
 				userId = user.getId();
 			}
 
-			int index = map.containsKey("index") ? Integer.valueOf(map.get("index")) : 1;
-			int size = map.containsKey("size") ? Integer.valueOf(map.get("size")) : 10;
+			int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
+			int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 
-			Response<GoodsVO> response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, index, size);
+			Response<GoodsVO> response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, start, rows);
 
 			return response;
 		}catch (Exception e){

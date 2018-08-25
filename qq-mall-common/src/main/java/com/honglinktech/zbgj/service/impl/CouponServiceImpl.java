@@ -38,9 +38,9 @@ public class CouponServiceImpl implements CouponService{
      * @throws BaseException
      */
     @Override
-    public Response<Object> findCouponCount(Integer userId) throws BaseException{
+    public int findCouponCount(Integer userId) throws BaseException{
         int count= couponUserDao.findCouponCountByUser(userId);
-        return Result.resultSet(count);
+        return count;
     }
     /**
      * APP获取券列表
@@ -52,14 +52,14 @@ public class CouponServiceImpl implements CouponService{
      * @throws BaseException
      */
     @Override
-    public Response<List<Coupon>> findCoupons(Integer userId,Integer index,Integer size,int type) throws BaseException{
+    public Response<List<Coupon>> findCoupons(Integer userId,Integer start,Integer rows,int type) throws BaseException{
         Map<String, Integer> whereMap = new HashMap<String, Integer>();
         whereMap.put("userId", userId);
-        whereMap.put("index", index);
-        whereMap.put("size", size);
+        whereMap.put("start", start);
+        whereMap.put("rows", rows);
         whereMap.put("type", type);
-        List<Coupon> tcoupons = couponDao.findCoupons(whereMap);
-        return Result.resultSet(tcoupons);
+        List<Coupon> coupons = couponDao.findCoupons(whereMap);
+        return Result.resultSet(coupons);
     }
 
     /**

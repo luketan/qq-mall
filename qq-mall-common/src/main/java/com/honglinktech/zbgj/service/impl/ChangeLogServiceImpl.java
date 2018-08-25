@@ -23,15 +23,11 @@ public class ChangeLogServiceImpl implements ChangeLogService {
 	 * 日志
 	 * @param userId
 	 * @param type
-	 * @param index
-	 * @param size
 	 * @return
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<List<ChangeLog>> findChangeLog(Integer userId, Integer type, Integer index, Integer size) throws BaseException {
-		int start = index != null ? (index-1)*size : 0;
-		int rows = size != null? size : 0;
+	public Response<List<ChangeLog>> findChangeLog(Integer userId, Integer type, Integer start, Integer rows) throws BaseException {
 		Map whereMap = new HashMap();
 		whereMap.put("userId", userId);
 		whereMap.put("type", type);

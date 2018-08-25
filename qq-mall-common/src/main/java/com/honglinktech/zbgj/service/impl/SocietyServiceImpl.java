@@ -181,13 +181,13 @@ public class SocietyServiceImpl implements SocietyService{
 	 * @return
 	 */
 	@Override
-	public Response<List<SocietyNoteBean>> findSocNotes(Integer userId, Integer index, Integer size, Map whereMap) {
+	public Response<List<SocietyNoteBean>> findSocNotes(Integer userId, Integer start, Integer rows, Map whereMap) {
 
 		if(whereMap == null){
 			whereMap = new HashMap();
 		}
-		whereMap.put("start", index!=null && index > 0 ? (index-1)*size: 0);
-		whereMap.put("start", size!=null && size > 0 ? size: 10);
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 		whereMap.put("userId", userId);
 		
 		List<SocietyNoteBean> societyNoteBeans = societyNoteDao.findSocietyNotes(whereMap);
@@ -311,11 +311,11 @@ public class SocietyServiceImpl implements SocietyService{
 	 * @return
 	 */
 	@Override
-	public Response<List<SocietyNoteRewardBean>> findSocietyNoteRewards(Integer userId, Integer socNoteId, int index, int size) {
+	public Response<List<SocietyNoteRewardBean>> findSocietyNoteRewards(Integer userId, Integer socNoteId, int start, int rows) {
 
 		Map whereMap = new HashMap();
-		whereMap.put("start", index > 0 ? (index-1)*size: 0);
-		whereMap.put("rows", size > 0 ? size: 10);
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 		whereMap.put("socNoteId", socNoteId);
 		whereMap.put("userId", userId);
 
@@ -331,15 +331,15 @@ public class SocietyServiceImpl implements SocietyService{
 	 * @return
 	 */
 	@Override
-	public Response<List<SocietyDisBean>> findSocietyDisBySocNoteId(int socNoteId,Integer userId, Integer index, Integer size, Map whereMap) {
+	public Response<List<SocietyDisBean>> findSocietyDisBySocNoteId(int socNoteId,Integer userId, Integer start, Integer rows, Map whereMap) {
 		if(whereMap == null){
 			whereMap = new HashMap();
 		}
 		whereMap.put("orderBy","create_time");
 		whereMap.put("asc","desc");
 		whereMap.put("socNoteId","socNoteId");
-		whereMap.put("start", index!=null && index > 0 ? (index-1)*size: 0);
-		whereMap.put("start", size!=null && size > 0 ? size: 10);
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 		List<SocietyDisBean> societyDisBeans =  societyDisDao.findSocietyDis(whereMap);
 		if(societyDisBeans!=null){
 			for(SocietyDisBean sd:societyDisBeans){

@@ -21,7 +21,7 @@ public interface CouponService {
      * @return
      * @throws BaseException
      */
-    Response<Object> findCouponCount(Integer userId) throws BaseException;
+    int findCouponCount(Integer userId) throws BaseException;
     /**
      * APP获取券列表
      * @param userId
@@ -31,7 +31,7 @@ public interface CouponService {
      * @return
      * @throws BaseException
      */
-    Response<List<Coupon>> findCoupons(Integer userId, Integer index, Integer size, int type) throws BaseException;
+    Response<List<Coupon>> findCoupons(Integer userId, Integer start, Integer rows, int type) throws BaseException;
 
     /**
      * APP删除券

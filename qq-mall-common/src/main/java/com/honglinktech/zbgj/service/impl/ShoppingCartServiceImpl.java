@@ -38,11 +38,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	@Override
 	public Response<List<ShoppingCartBean>> findShoppingBeansByMap(Map whereMap) {
 
-		int index = whereMap.containsKey("index")?Integer.valueOf(whereMap.get("index").toString()):1;
-		int size = whereMap.containsKey("size")?Integer.valueOf(whereMap.get("size").toString()):10;
+		int start = whereMap.containsKey("start")?Integer.valueOf(whereMap.get("start").toString()):0;
+		int rows = whereMap.containsKey("rows")?Integer.valueOf(whereMap.get("rows").toString()):10;
 
-		whereMap.put("start", (index-1)*size);
-		whereMap.put("rows", size);
+		whereMap.put("start", start);
+		whereMap.put("rows", rows);
 
 		List<ShoppingCartBean> shoppingCartBeans = shoppingCartDao.findShoppingCartsByMap(whereMap);
 		if(shoppingCartBeans != null){

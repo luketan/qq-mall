@@ -17,7 +17,7 @@ public interface ChangeLogService {
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<ChangeLog>> findChangeLog(Integer userId, Integer type, Integer index, Integer size) throws BaseException;
+	Response<List<ChangeLog>> findChangeLog(Integer userId, Integer type, Integer start, Integer rows) throws BaseException;
 
 	/**
 	 *

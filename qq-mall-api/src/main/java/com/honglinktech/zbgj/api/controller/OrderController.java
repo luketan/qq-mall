@@ -98,10 +98,10 @@ public class OrderController extends BaseApiController {
 													   @RequestAttribute UserVO user,
 													   @RequestAttribute AppAgent agent) throws BaseException{
 
-		Integer index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
-		Integer size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
+		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
+		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
 		
-		Response<List<OrderVO>> resp = orderService.findOrderVOList(user.getId(), index, size);
+		Response<List<OrderVO>> resp = orderService.findOrderVOList(user.getId(), start, rows);
 		return resp; 
 	}
 	/**

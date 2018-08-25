@@ -45,12 +45,10 @@ public interface OrderService{
 	/**
 	 * APP获取订单列表
 	 * @param userId
-	 * @param index
-	 * @param size
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<OrderVO>> findOrderVOList(Integer userId, Integer index, Integer size) throws BaseException;
+	Response<List<OrderVO>> findOrderVOList(Integer userId, Integer start, Integer rows) throws BaseException;
 
 	/**
 	 * APP获取订单的详情

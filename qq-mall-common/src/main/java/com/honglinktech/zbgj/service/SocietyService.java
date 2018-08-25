@@ -63,7 +63,7 @@ public interface SocietyService{
 	 * @param whereMap
 	 * @return
 	 */
-	Response<List<SocietyNoteBean>> findSocNotes(Integer userId, Integer index, Integer size, Map whereMap) ;
+	Response<List<SocietyNoteBean>> findSocNotes(Integer userId, Integer start, Integer rows, Map whereMap) ;
 	/**
 	 * 查询帖子详情通过帖子Id
 	 * @param userId
@@ -106,7 +106,7 @@ public interface SocietyService{
 	 * @param size
 	 * @return
 	 */
-	Response<List<SocietyNoteRewardBean>> findSocietyNoteRewards(Integer userId, Integer socNoteId, int index, int size) ;
+	Response<List<SocietyNoteRewardBean>> findSocietyNoteRewards(Integer userId, Integer socNoteId, int start, int rows) ;
 	
 	/**
 	 * 查询帖子评论通过帖子Id
@@ -115,6 +115,6 @@ public interface SocietyService{
 	 * @param whereMap
 	 * @return
 	 */
-	Response<List<SocietyDisBean>> findSocietyDisBySocNoteId(int socNoteId, Integer userId, Integer index, Integer size, Map whereMap) ;
+	Response<List<SocietyDisBean>> findSocietyDisBySocNoteId(int socNoteId, Integer userId, Integer start, Integer rows, Map whereMap) ;
 
 }
