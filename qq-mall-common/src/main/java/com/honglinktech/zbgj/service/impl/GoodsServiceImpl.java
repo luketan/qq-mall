@@ -101,7 +101,7 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public Response<List<GoodsVO>> findGoodsVOByWhere(Map whereMap) throws BaseException{
+	public List<GoodsVO> findGoodsVOByWhere(Map whereMap) throws BaseException{
 		if(whereMap.containsKey("searchPrice")){
 			String searchPrice = whereMap.get("searchPrice").toString();
 			if(searchPrice.indexOf("+")>0){
@@ -118,7 +118,7 @@ public class GoodsServiceImpl implements GoodsService{
 
 
 		List<GoodsVO> goodsListBeans = goodsDao.findGoodsByWhere(whereMap);
-		return Result.resultSet(goodsListBeans);
+		return goodsListBeans;
 	}
 
 	@Override

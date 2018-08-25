@@ -189,15 +189,15 @@ public class UserController extends BaseApiController {
 	 */
 	@RequestMapping(value="findCouponCount",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<Object> findCouponCount(@RequestHeader HttpHeaders headers) throws BaseException{
+	public Response findCouponCount(@RequestHeader HttpHeaders headers) throws BaseException{
 	    
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
 			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
-		Response<Object> resp = couponService.findCouponCount(Integer.valueOf(userCode));
+		int count = couponService.findCouponCount(Integer.valueOf(userCode));
 
-		return resp; 
+		return Result.resultSet(count);
 	}
 	@RequestMapping(value="findCouponPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody

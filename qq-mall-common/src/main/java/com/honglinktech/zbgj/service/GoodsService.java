@@ -29,7 +29,7 @@ public interface GoodsService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<GoodsVO>> findGoodsVOByWhere(Map whereMap) throws BaseException;
+	List<GoodsVO> findGoodsVOByWhere(Map whereMap) throws BaseException;
 
 
 	/***************************************************************console******************************************************************/

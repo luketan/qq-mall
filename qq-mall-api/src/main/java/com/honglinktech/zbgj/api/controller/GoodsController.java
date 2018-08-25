@@ -40,6 +40,29 @@ public class GoodsController extends BaseApiController {
 	private GoodsDisService goodsDisService;
 	@Resource
 	private UserKeepService userKeepService;
+
+	/**
+	 * 商品评论统计
+	 * @param map
+	 * @return
+	 * @throws BaseException
+	 */
+	@RequestMapping(value="findBySearch",method={RequestMethod.POST})
+	@ResponseBody
+	public Response<List<GoodsVO>> findBySearch(@RequestBody Map map) throws BaseException{
+
+		UserVO user = (UserVO) request.getAttribute("user");
+		AppAgent agent = (AppAgent) request.getAttribute("agent");
+		int userId = 0;
+		if (user != null) {
+			userId = user.getId();
+			map.put("userId", userId);
+		}
+		List<GoodsVO> goodsVOs = goodsService.findGoodsVOByWhere(map);
+
+		return Result.resultSet(goodsVOs);
+	}
+
 	/**
 	 * App通过ID获取goodsBean
 	 * @return
@@ -86,8 +109,8 @@ public class GoodsController extends BaseApiController {
 			int start = map.containsKey("start") ? Integer.valueOf(map.get("start")) : 0;
 			int rows = map.containsKey("rows") ? Integer.valueOf(map.get("rows")) : 10;
 
-			Response<List<GoodsVO>> response = goodsService.findGoodsVOByWhere(map);
-			return response;
+			List<GoodsVO> goodsVOs = goodsService.findGoodsVOByWhere(map);
+			return Result.resultSet(goodsVOs);
 		}catch (Exception e){
 			logger.error(e, e);
 			return Result.fail("获取失败，请重试！");

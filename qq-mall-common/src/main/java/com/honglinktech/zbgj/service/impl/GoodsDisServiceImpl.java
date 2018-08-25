@@ -34,12 +34,12 @@ public class GoodsDisServiceImpl implements GoodsDisService{
 	}
 
 	@Override
-	public Response<List<GoodsDisBean>> findGoodsDisByPage(Map<String, String> map) throws BaseException{
+	public Response<List<GoodsDisBean>> findGoodsDisByPage(Map map) throws BaseException{
 		
-		int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
-		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
-		int goodsId = Integer.valueOf(map.get("goodsId"));
-		Integer type = map.containsKey("type")?Integer.valueOf(map.get("type")):null;
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start").toString()):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows").toString()):10;
+		int goodsId = Integer.valueOf(map.get("goodsId").toString());
+		Integer type = map.containsKey("type")?Integer.valueOf(map.get("type").toString()):null;
 		
 		Map whereMap = new HashMap();
 		whereMap.put("start", start);
