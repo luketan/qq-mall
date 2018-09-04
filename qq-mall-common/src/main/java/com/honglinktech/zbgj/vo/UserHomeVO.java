@@ -6,6 +6,8 @@ package com.honglinktech.zbgj.vo;
 public class UserHomeVO {
     private UserVO userVO;
     private int couponNum;
+    private int orderNum;
+    private int keepNum;
 
     public UserVO getUserVO() {
         return userVO;
@@ -21,5 +23,21 @@ public class UserHomeVO {
 
     public void setCouponNum(int couponNum) {
         this.couponNum = couponNum;
+    }
+
+    public int getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(int orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public int getKeepNum() {
+        return keepNum;
+    }
+
+    public void setKeepNum(int keepNum) {
+        this.keepNum = keepNum;
     }
 }

@@ -94,9 +94,8 @@ public class TokenIntercepter implements HandlerInterceptor {
             }
 
             request.setAttribute("agent", agent);
-            request.setAttribute("userVO", userVO);
+            request.setAttribute("user", userVO);
         }else{//不需要校验，有时也需要获取用户信息
-
             AppAgent agent = null;
             // 先从自定义的header获取，如获取不到再去user-agent查找
             String userInfo = request.getHeader("zbgj-user");
@@ -113,7 +112,7 @@ public class TokenIntercepter implements HandlerInterceptor {
             if (!StringUtils.isEmpty(token)) {
                 UserVO userVO = userService.getByToken(token);
                 if (userVO != null) {
-                    request.setAttribute("userVO", userVO);
+                    request.setAttribute("user", userVO);
                     request.setAttribute("agent", agent);
                 }
             }

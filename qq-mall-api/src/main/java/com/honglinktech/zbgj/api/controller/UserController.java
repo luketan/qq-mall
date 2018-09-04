@@ -120,11 +120,14 @@ public class UserController extends BaseApiController {
 	}
 	@RequestMapping(value="saveOrUpdateKeep",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<String> saveOrUpdateKeep(@RequestBody UserKeep userKeep, @RequestAttribute UserVO user) throws BaseException{
+	public Response<String> saveOrUpdateKeep(@RequestBody Map req, @RequestAttribute UserVO user) throws BaseException{
 
-
-		userKeep.setUserId(user.getId());
-		Response<String> resp = userKeepService.updateGoodsKeep(user.getId(), userKeep.getObjId(), !(userKeep.getId() != null && userKeep.getId() > 0));
+		if(!req.containsKey("goodsId")){
+			return Result.fail("商品ID不能为空！");
+		}
+		int goodsId = Integer.valueOf(req.get("goodsId").toString());
+		boolean keep = !req.containsKey("keep")?false:Boolean.valueOf(req.get("keep").toString());
+		Response<String> resp = userKeepService.updateGoodsKeep(user.getId(), goodsId, keep);
 		return resp; 
 	}
 	@RequestMapping(value="findAddressById",method={RequestMethod.GET,RequestMethod.POST})

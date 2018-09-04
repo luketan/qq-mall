@@ -53,10 +53,14 @@ public class GoodsServiceImpl implements GoodsService{
 	private FormatRelyDao formatRelyDao;
 	@Resource
 	private GoodsTagDao goodsTagDao;
+	@Resource
+	private UserKeepDao userKeepDao;
 
 	@Override
 	public Response<GoodsVO> findGoodsVOById(Integer id, int userId, int start, int rows) throws BaseException{
 		GoodsVO goodsVO = goodsDao.findVOById(id, userId);
+
+		logger.info(userId+"======findGoodsVOById======"+JSON.toJSONString(goodsVO));
 		if (goodsVO == null) {
 			return Result.fail("没有找到商品！");
 		}
@@ -97,6 +101,7 @@ public class GoodsServiceImpl implements GoodsService{
 		//图片处理
 		List<PicBean> tpicList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
 		goodsVO.setPicList(tpicList);
+
 		return  Result.resultSet(goodsVO);
 	}
 

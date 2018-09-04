@@ -1,5 +1,6 @@
 package com.honglinktech.zbgj.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Response;
@@ -9,6 +10,8 @@ import com.honglinktech.zbgj.dao.UserKeepDao;
 import com.honglinktech.zbgj.entity.Goods;
 import com.honglinktech.zbgj.entity.UserKeep;
 import com.honglinktech.zbgj.service.UserKeepService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -18,6 +21,8 @@ import java.util.Map;
 
 @Component
 public class UserKeepServiceImpl implements UserKeepService{
+
+	protected final Logger logger = LogManager.getLogger(getClass());
 	
 	@Resource
 	private UserKeepDao userKeepDao;
@@ -48,10 +53,7 @@ public class UserKeepServiceImpl implements UserKeepService{
 			uk.setObjId(goodsId);
 			uk.setType(Constants.USER_KEEP_TYPE_GOODS);
 			uk.setUserId(userId);
-			uk.setName(goods.getName());
-			uk.setImgUrl(goods.getImgUrl());
-			uk.setPrice(goods.getPrice());
-			userKeepDao.insertSelective(uk);
+			int result = userKeepDao.insert(uk);
 			mag = "收藏成功！";
 		}
 		return Result.success(mag);

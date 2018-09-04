@@ -1,6 +1,7 @@
 package com.honglinktech.zbgj.api.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.api.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
@@ -78,6 +79,7 @@ public class GoodsController extends BaseApiController {
 
 			UserVO user = (UserVO) request.getAttribute("user");
 			AppAgent agent = (AppAgent) request.getAttribute("agent");
+			logger.info("========findGoodsById=========="+ JSON.toJSONString(user));
 			int userId = 0;
 			if (user != null) {
 				userId = user.getId();
@@ -131,7 +133,7 @@ public class GoodsController extends BaseApiController {
 	    if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
 			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
 		}
-	    String goodsId = map.get("id");
+	    String goodsId = map.get("goodsId");
 	    if(StringUtils.isEmpty(goodsId) || Integer.valueOf(goodsId)==0){
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR,"goodsId");
 		}
