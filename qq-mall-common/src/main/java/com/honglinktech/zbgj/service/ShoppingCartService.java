@@ -1,7 +1,7 @@
 package com.honglinktech.zbgj.service;
 
 import com.honglinktech.zbgj.base.BaseException;
-import com.honglinktech.zbgj.bean.ShoppingCartBean;
+import com.honglinktech.zbgj.vo.ShoppingCartVO;
 import com.honglinktech.zbgj.bean.request.AddShoppingBean;
 import com.honglinktech.zbgj.common.Response;
 
@@ -15,7 +15,7 @@ public interface ShoppingCartService{
 	 * @param whereMap
 	 * @return
 	 */
-	Response<List<ShoppingCartBean>> findShoppingBeansByMap(Map whereMap);
+	Response findShoppingsByMap(Map whereMap);
 
 	/**
 	 *

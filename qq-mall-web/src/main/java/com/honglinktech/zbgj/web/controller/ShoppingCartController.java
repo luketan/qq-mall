@@ -4,7 +4,7 @@ package com.honglinktech.zbgj.web.controller;
 import com.honglinktech.zbgj.web.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
-import com.honglinktech.zbgj.bean.ShoppingCartBean;
+import com.honglinktech.zbgj.vo.ShoppingCartVO;
 import com.honglinktech.zbgj.bean.request.AddShoppingBean;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
@@ -31,7 +31,7 @@ public class ShoppingCartController extends BaseApiController {
 	
 	@RequestMapping(value="findShoppingCartBeanByUserId",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<List<ShoppingCartBean>> findShoppingCartBeanByUserId(@RequestHeader HttpHeaders headers,@RequestBody Map<String, String> req) throws BaseException{
+	public Response<List<ShoppingCartVO>> findShoppingCartBeanByUserId(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
 		String userCode =  headers.getFirst("userId");
 	    if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)<=0){
 			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
@@ -45,7 +45,7 @@ public class ShoppingCartController extends BaseApiController {
 			whereMap.put("size", req.get("size"));
 		}
 	
-	    Response<List<ShoppingCartBean>> response = shoppingCartService.findShoppingBeansByMap(whereMap);
+	    Response<List<ShoppingCartVO>> response = shoppingCartService.findShoppingsByMap(whereMap);
 		return response; 
 	}
 	

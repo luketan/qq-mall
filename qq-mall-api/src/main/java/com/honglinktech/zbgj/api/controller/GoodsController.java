@@ -65,13 +65,13 @@ public class GoodsController extends BaseApiController {
 	}
 
 	/**
-	 * App通过ID获取goodsBean
+	 * App通过ID获取goods
 	 * @return
 	 * @throws BaseException
 	 */
 	@RequestMapping(value="findGoodsById",method={RequestMethod.POST})
 	@ResponseBody
-	public Response<GoodsVO> findGoodsById(@RequestBody Map<String, String> map){
+	public Response findGoodsById(@RequestBody Map<String, String> map){
 		try {
 			if (!map.containsKey("id")) {
 				return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL, "id");
@@ -88,7 +88,7 @@ public class GoodsController extends BaseApiController {
 			int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
 			int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
 
-			Response<GoodsVO> response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, start, rows);
+			Response response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, start, rows);
 
 			return response;
 		}catch (Exception e){

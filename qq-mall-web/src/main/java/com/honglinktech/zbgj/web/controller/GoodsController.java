@@ -73,8 +73,8 @@ public class GoodsController extends BaseApiController {
 	@RequestMapping(value="findGoodsSearchBeans",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<List<GoodsVO>> findGoodsSearchBeans(@RequestBody Map<String, String> map) throws BaseException{
-		Response<List<GoodsVO>> response = goodsService.findGoodsVOByWhere(map);
-		return response; 
+		List<GoodsVO> goodsVOs = goodsService.findGoodsVOByWhere(map);
+		return Result.resultSet(goodsVOs);
 	}
 	
 	/**

@@ -56,7 +56,7 @@ public interface ShoppingCartFormatDao {
      * @param shoppingCartFormats
      * @return
      */
-    int saveBatch(List<ShoppingCartFormat> shoppingCartFormats);
+    int saveBatch(@Param(value = "shoppingCartFormats")List<ShoppingCartFormat> shoppingCartFormats);
 
     /**
      * 删除

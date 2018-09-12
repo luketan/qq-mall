@@ -146,15 +146,16 @@
   </update>
 
   <!--***********************************************************************************************************************************************-->
-  <select id="findShoppingCartsByMap" parameterType="map" resultType="com.honglinktech.zbgj.bean.ShoppingCartBean">
+  <select id="findShoppingCartsByMap" parameterType="map" resultType="com.honglinktech.zbgj.vo.ShoppingCartVO">
         SELECT
         sc.id,
         sc.user_id AS userId,
         sc.goods_id AS goodsId,
-        g.name,
+        g.name AS goodsName,
         g.img_url AS imgUrl,
         g.price,
         g.mark_price AS markPrice,
+        g.status as goodsStatus,
         sc.format_id AS formatId,
         sc.format_name AS formatName,
         sc.num,
@@ -195,6 +196,16 @@
     </if>
   </select>
 
+  <select id="findCount" parameterType="int" resultType="int">
+    SELECT
+      count(1)
+    FROM t_shopping_cart
+    WHERE 1 = 1
+    <if test="userId!=null">
+      AND user_id = #{userId}
+    </if>
+  </select>
+
   <delete id="deleteByIdAndUserId" parameterType="java.lang.Integer">
       DELETE FROM t_shopping_cart_format WHERE shopping_cart_id = #{id,jdbcType=INTEGER};
       DELETE FROM t_shopping_cart WHERE id = #{id,jdbcType=INTEGER} AND user_id =  #{userId,jdbcType=INTEGER};
@@ -205,11 +216,7 @@
   </delete>
 
   <update id="updateShoppingCart" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
-      UPDATE t_shopping_cart
-      update_time = NOW(),
-      user_id = #{userId,jdbcType=INTEGER},
-      goods_id = #{goodsId,jdbcType=INTEGER},
-      <set>
+      UPDATE t_shopping_cart SET
         <if test="goodsName != null">
           goods_name = #{goodsName,jdbcType=VARCHAR},
         </if>
@@ -234,7 +241,11 @@
         <if test="checkbox != null">
           checkbox = #{checkbox,jdbcType=INTEGER},
         </if>
-      </set>
+        <if test="goodsId != null">
+          goods_id = #{goodsId,jdbcType=INTEGER},
+        </if>
+        user_id = #{userId,jdbcType=INTEGER},
+        update_time = NOW()
       WHERE id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateShoppingCartChckboxAll">

@@ -12,6 +12,7 @@ import com.honglinktech.zbgj.entity.*;
 import com.honglinktech.zbgj.service.GoodsDisService;
 import com.honglinktech.zbgj.service.GoodsService;
 import com.honglinktech.zbgj.service.PicService;
+import com.honglinktech.zbgj.service.ShoppingCartService;
 import com.honglinktech.zbgj.vo.GoodsVO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,9 +56,13 @@ public class GoodsServiceImpl implements GoodsService{
 	private GoodsTagDao goodsTagDao;
 	@Resource
 	private UserKeepDao userKeepDao;
+	@Resource
+	private ShoppingCartService shoppingCartService;
+	@Resource
+	private ShoppingCartDao shoppingCartDao;
 
 	@Override
-	public Response<GoodsVO> findGoodsVOById(Integer id, int userId, int start, int rows) throws BaseException{
+	public Response findGoodsVOById(Integer id, int userId, int start, int rows) throws BaseException{
 		GoodsVO goodsVO = goodsDao.findVOById(id, userId);
 
 		logger.info(userId+"======findGoodsVOById======"+JSON.toJSONString(goodsVO));
@@ -65,21 +70,22 @@ public class GoodsServiceImpl implements GoodsService{
 			return Result.fail("没有找到商品！");
 		}
 		//活动
-		List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
+		List<ActivityBean> activityList = activityDao.findActivityByGoodsId(id);
+		goodsVO.setActivityList(activityList);
 		//规格
-		List<FormatBean> formatBeanList = formatDao.findFormatByGoodsId(id);
-		if(formatBeanList!=null){
-			for(FormatBean fb:formatBeanList){
+		List<FormatBean> formatList = formatDao.findFormatByGoodsId(id);
+		if(formatList!=null){
+			for(FormatBean fb:formatList){
 				List<FormatSubBean> formatSubs = formatSubDao.findFormatSubByFormatId(fb.getId());
 				if(formatSubs != null){
 					for(FormatSubBean fs:formatSubs){
 						fs.setRelyFormatSubIds(formatRelyDao.findByFormatSubId(fs.getId()));
 					}
 				}
-				fb.setFormatSubBeanList(formatSubs);
+				fb.setFormatSubList(formatSubs);
 			}
 		}
-		goodsVO.setFormatBeanList(formatBeanList);
+		goodsVO.setFormatList(formatList);
 
 		//评论处理
 		Response<GoodsDisCountBean> gdcbResp = goodsDisService.findGoodsDisCount(id);
@@ -96,13 +102,20 @@ public class GoodsServiceImpl implements GoodsService{
 		if(goodsPhone != null){
 			goodsVO.setGoodsPhoneVO(goodsPhone.toVO());
 		}
-		goodsVO.setActivityBeanList(activityBeanList);
 
 		//图片处理
 		List<PicBean> tpicList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
 		goodsVO.setPicList(tpicList);
 
-		return  Result.resultSet(goodsVO);
+		Map retMap = new HashMap<>();
+		retMap.put("goods", goodsVO);
+		if(userId > 0){
+			int num = shoppingCartDao.findCount(userId);
+			retMap.put("shoppingCartNum", num);
+		}
+
+
+		return  Result.resultSet(retMap);
 	}
 
 	@Override
@@ -361,7 +374,7 @@ public class GoodsServiceImpl implements GoodsService{
 						fs.setRelyFormatSubIds(formatRelyDao.findByFormatSubId(fs.getId()));
 					}
 				}
-				fb.setFormatSubBeanList(formatSubs);
+				fb.setFormatSubList(formatSubs);
 			}
 		}
 		goodsBean.setFormatList(formatBeanList);
@@ -391,14 +404,14 @@ public class GoodsServiceImpl implements GoodsService{
 		if(formatBeanList!=null){
 			for(FormatBean fb:formatBeanList){
 				List<FormatSubBean> formatSubBeanList = formatSubDao.findFormatSubByFormatId(fb.getId());
-				fb.setFormatSubBeanList(formatSubBeanList);
+				fb.setFormatSubList(formatSubBeanList);
 			}
 		}
 		//图片处理
 		List<PicBean> tpicList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
 
-		//goodsVO.setActivityBeanList(activityBeanList);
-		goodsVO.setFormatBeanList(formatBeanList);
+		//goodsVO.setActivityList(activityBeanList);
+		goodsVO.setFormatList(formatBeanList);
 		goodsVO.setPicList(tpicList);
 
 		return goodsVO;

@@ -69,15 +69,15 @@
     FROM t_shopping_cart_format
     WHERE 1=1
     <if test="shoppingCartId != null">
-        shopping_cart_id = #{shoppingCartId}
+        and shopping_cart_id = #{shoppingCartId}
     </if>
   </select>
 
   <insert id="saveBatch" parameterType="com.honglinktech.zbgj.entity.ShoppingCartFormat">
     INSERT INTO t_shopping_cart_format(shopping_cart_id,format_sub_id) values
     <foreach collection="shoppingCartFormats" item="shoppingCartFormat" index="index"
-             open="(" close=")" separator=",">
-      #{shoppingCartFormat.shoppingCartId,jdbcType=INTEGER},#{shoppingCartFormat.formatSubId,jdbcType=INTEGER}
+             open="" close="" separator=",">
+      (#{shoppingCartFormat.shoppingCartId,jdbcType=INTEGER},#{shoppingCartFormat.formatSubId,jdbcType=INTEGER})
     </foreach>
   </insert>
 

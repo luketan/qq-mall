@@ -13,7 +13,7 @@ public class FormatBean implements Serializable{
 	private String name=null;
 	private Integer needPrice=null;
 	
-	private List<FormatSubBean> formatSubBeanList;
+	private List<FormatSubBean> formatSubList;
 	
 	public FormatBean(){
  	}
@@ -44,14 +44,12 @@ public class FormatBean implements Serializable{
 	public void setNeedPrice(Integer needPrice){
 		  this.needPrice = needPrice; 
 	}
-	
-	public List<FormatSubBean> getFormatSubBeanList() {
-		return formatSubBeanList;
+	public List<FormatSubBean> getFormatSubList() {
+		return formatSubList;
 	}
-	public void setFormatSubBeanList(List<FormatSubBean> formatSubBeanList) {
-		this.formatSubBeanList = formatSubBeanList;
+	public void setFormatSubList(List<FormatSubBean> formatSubList) {
+		this.formatSubList = formatSubList;
 	}
-
 	/*@Override
 	public String toString() {
 		final StringBuilder sb = new StringBuilder("{");

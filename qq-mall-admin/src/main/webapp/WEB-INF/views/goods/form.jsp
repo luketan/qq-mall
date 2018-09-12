@@ -171,7 +171,7 @@
 											<th>单项名称</th>
 											<th>价格</th>
 											<th>Vip价格</th>
-											<th>是否可选</th>
+											<th>是否必选</th>
 											<th>关联</th>
 											<th>操作</th>
 										</tr>
@@ -194,7 +194,7 @@
 													<button type="button" class="btn btn-primary btn-sm" onclick="addFormatSub(this,${formatStatus.index})">添加单项</button>
 												</td>
 											</tr>
-											<c:forEach items="${format.formatSubBeanList }" var="formatSub" varStatus="formatSubStatus">
+											<c:forEach items="${format.formatSubList }" var="formatSub" varStatus="formatSubStatus">
 												<c:set var="formatIndex" value="${formatIndex+1 }"/>
 												<tr class="formatSubClass">
 													<td style="text-align:right;">
@@ -205,8 +205,8 @@
 													<td><input type="text" name="price_${formatStatus.index}_${formatSubFlagId}" placeholder="价格" class="form-control formatSubPriceClass" value="${formatSub.price}"></td>
 													<td><input type="text" name="vipPrice_${formatStatus.index}_${formatSubFlagId}" placeholder="Vip价格" class="form-control formatSubVipPriceClass" value="${formatSub.vipPrice}"></td>
 													<td><select name="select_${formatStatus.index}_${formatSubFlagId}" class="form-control" style="">
-														<option ${formatSub.select == 1?'selected="selected"':'' } value="1">可选</option>
-														<option ${formatSub.select == 0?'selected="selected"':'' } value="0">不可选</option>
+														<option ${formatSub.select == 1?'selected="selected"':'' } value="1">是</option>
+														<option ${formatSub.select == 0?'selected="selected"':'' } value="0">否</option>
 													</select></td>
 													<td><select name="relyFormatSubId_${formatStatus.index}_${formatSubFlagId}" class="selectpicker show-tick form-control formatSelect" multiple data-size="5" data-live-search="false">
 													</select>
@@ -214,7 +214,7 @@
 													<td><button type="button" class="btn btn-danger btn-sm" onclick="deleteFormatSub(this)">删除</button></td>
 												</tr>
 											</c:forEach>
-											<c:set var="formatSubIndex" value="${formatSubIndex+fn:length(format.formatSubBeanList)}"></c:set>
+											<c:set var="formatSubIndex" value="${formatSubIndex+fn:length(format.formatSubList)}"></c:set>
 										</c:forEach>
 
 										</tbody>
@@ -361,7 +361,7 @@
 																		<img src="${image.picUrl }" width="200px">
 																	</div>
 																	<div style="display: table-cell;width: 70%;vertical-align:top;padding-left: 10px">
-																		<input type="text" class="form-control" style="width: 50%;display: none;"  name="picUrl" placeholder="请选择宝贝图片" value="${image.picUrl}" onchange="javascript:this.parentNode.parentNode.querySelector('img').src=this.value">
+																		<input type="text" class="form-control" style="width: 50%;display: none;"  name="images" placeholder="请选择宝贝图片" value="${image.picUrl}" onchange="javascript:this.parentNode.parentNode.querySelector('img').src=this.value">
 																			<%--   排序：<input style="width:10%" name="sorts" value="${image.sort}"> --%>
 																		<br>
 																			<%--  设为首图<input type="radio" name="mainImgRad" ${image.images==item.image?'checked="checked"':""} value="${image.images}" onclick="javascript:$('#mainImage').val(this.value)"><br>
@@ -607,9 +607,9 @@
 	if(foramtList && foramtList.length>0){
 		for(var i=0; i<foramtList.length; i++){
 			var format = foramtList[i];
-			if(format.formatSubBeanList && format.formatSubBeanList.length>0){
-				for(var j=0;j<format.formatSubBeanList.length;j++){
-					var relyIds = format.formatSubBeanList[j].relyFormatSubIds;
+			if(format.formatSubList && format.formatSubList.length>0){
+				for(var j=0;j<format.formatSubList.length;j++){
+					var relyIds = format.formatSubList[j].relyFormatSubIds;
 					if(relyIds && relyIds.length>0){
 						//获取依赖规格ID
 						var formatSubFlagIndex = [];
@@ -623,7 +623,7 @@
 							});
 						}
 						//获取依赖规格ID 结束
-						var regExp = new RegExp('<input type=\"hidden\" name=\"formatSubIds.*?value=\"'+format.formatSubBeanList[j].id+'\" class=\"formatSubIdClass\">')
+						var regExp = new RegExp('<input type=\"hidden\" name=\"formatSubIds.*?value=\"'+format.formatSubList[j].id+'\" class=\"formatSubIdClass\">')
 						var formatSubs = $(".formatSubClass");
 						formatSubs.each(function(){
 							if(regExp.exec($(this).html())){
@@ -676,8 +676,8 @@
 				'<td><input type="text" name="price_'+fIndex+'_'+formatSubIndex+'" placeholder="价格" class="form-control formatSubPriceClass"></td>'+
 				'<td><input type="text" name="vipPrice_'+fIndex+'_'+formatSubIndex+'" placeholder="Vip价格" class="form-control formatSubVipPriceClass"></td>'+
 				'<td><select name="select_'+fIndex+'_'+formatSubIndex+'" class="form-control" >'+
-				'<option value="1">可选</option>'+
-				'<option value="0">不可选</option>'+
+				'<option value="1">是</option>'+
+				'<option value="0">否</option>'+
 				'</select></td>'+
 				'<td>'+
 				'<select name="relyFormatSubId_'+fIndex+'_'+formatSubIndex+'" class="selectpicker show-tick formatSelect form-control" multiple data-live-search="false" ">'+

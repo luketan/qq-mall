@@ -4,7 +4,7 @@
  */
 package com.honglinktech.zbgj.dao;
 
-import com.honglinktech.zbgj.bean.ShoppingCartBean;
+import com.honglinktech.zbgj.vo.ShoppingCartVO;
 import com.honglinktech.zbgj.entity.ShoppingCart;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,7 +27,7 @@ public interface ShoppingCartDao {
      * @param map
      * @return
      */
-    List<ShoppingCartBean> findShoppingCartsByMap(Map map);
+    List<ShoppingCartVO> findShoppingCartsByMap(Map map);
 
     /**
      * 查询
@@ -65,4 +65,11 @@ public interface ShoppingCartDao {
      * @return
      */
     int updateShoppingCartChckboxAll(@Param(value = "userId") Integer userId, @Param(value = "checkAll") Boolean checkAll);
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    int findCount(@Param(value = "userId")int userId);
 }

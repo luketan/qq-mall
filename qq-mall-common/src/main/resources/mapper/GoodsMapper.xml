@@ -264,7 +264,7 @@
         </if>
     FROM t_goods g
     WHERE g.delete_flag = 0
-    AND g.status=1
+--     AND g.status=1
     AND id = #{id,jdbcType=INTEGER}
   </select>
   <select id="findGoodsByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsBean">
@@ -278,7 +278,7 @@
       g.img_url as imgUrl
     FROM t_goods g
     <if test="userId != null">
-      LEFT JOIN t_user_keep uk ON(g.id = uk.obj_id AND uk.type=1 AND uk.user_id=#{userId}
+      LEFT JOIN t_user_keep uk ON(g.id = uk.obj_id AND uk.type=1 AND uk.user_id=#{userId})
     </if>
     WHERE g.delete_flag = 0
     <if test="status!=null">

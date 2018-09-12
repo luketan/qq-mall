@@ -1,7 +1,6 @@
 package com.honglinktech.zbgj.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.*;
@@ -14,10 +13,7 @@ import com.honglinktech.zbgj.entity.*;
 import com.honglinktech.zbgj.enums.OrderStatusEnum;
 import com.honglinktech.zbgj.service.*;
 import com.honglinktech.zbgj.utils.RandomUtil;
-import com.honglinktech.zbgj.vo.ActivityVO;
-import com.honglinktech.zbgj.vo.CouponUserVO;
-import com.honglinktech.zbgj.vo.OrderItemVO;
-import com.honglinktech.zbgj.vo.OrderVO;
+import com.honglinktech.zbgj.vo.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,16 +85,16 @@ public class OrderServiceImpl implements OrderService{
 			return Result.fail("商品数量不能为空！");
 		}
 		Map<String, Object> restultMap = new HashMap<String, Object>();
-		List<ShoppingCartBean> shoppingCartBeanList = null;
+		List<ShoppingCartVO> shoppingCartVOList = null;
 
 		int goodsId = Integer.valueOf(map.get("goodsId").toString());
 		Goods goods = goodsDao.findById(goodsId);
 
-		ShoppingCartBean newScb = new ShoppingCartBean();
+		ShoppingCartVO newScb = new ShoppingCartVO();
 		newScb.setNum(Integer.valueOf(map.get("num").toString()));
 		newScb.setGoodsId(goods.getId());
 		newScb.setGoodsName(goods.getName());
-		newScb.setImageUrl(goods.getImgUrl());
+		newScb.setImgUrl(goods.getImgUrl());
 		newScb.setMarkPrice(goods.getMarkPrice());
 		newScb.setPrice(goods.getPrice());
 		newScb.setGoodsTypeId(goods.getTypeId());
@@ -107,7 +103,7 @@ public class OrderServiceImpl implements OrderService{
 			List<Integer> formatSubIds = (List<Integer>)map.get("formatSubIds");
 			if(formatSubIds!=null && formatSubIds.size()>0){
 				List<FormatSubBean> formatSubBeans = formatSubDao.findFormatSubByIds(formatSubIds);
-				newScb.setFormatSubBeanList(formatSubBeans);
+				newScb.setFormatSubList(formatSubBeans);
 				//规格价格处理
 				if(formatSubBeans != null){
 					for(FormatSubBean fsb:formatSubBeans){
@@ -151,21 +147,21 @@ public class OrderServiceImpl implements OrderService{
 				}
 			}
 		}
-		newScb.setActivityBeanList(activityBeans);
+		newScb.setActivityList(activityBeans);
 		//活动结束
 
 
-		shoppingCartBeanList = new ArrayList<ShoppingCartBean>();
-		shoppingCartBeanList.add(newScb);
+		shoppingCartVOList = new ArrayList<ShoppingCartVO>();
+		shoppingCartVOList.add(newScb);
 
-		restultMap.put("shoppingCarts", shoppingCartBeanList);
+		restultMap.put("shoppingCarts", shoppingCartVOList);
 
 		//优惠券-筛选可用的购物券
 		//每种类型的商品总价格
 		Map<String,BigDecimal> goodsTypeValueMap = new HashMap<String, BigDecimal>();
 
-		if(shoppingCartBeanList!=null){//统计每种类型的商品的总价格，用于优惠券选择
-			for(ShoppingCartBean scb:shoppingCartBeanList){
+		if(shoppingCartVOList !=null){//统计每种类型的商品的总价格，用于优惠券选择
+			for(ShoppingCartVO scb: shoppingCartVOList){
 				goodsTotalPrice = goodsTotalPrice.add(scb.getPrice().multiply(new BigDecimal(scb.getNum())));
 				if(!goodsTypeValueMap.containsKey(scb.getGoodsTypeId()+"")){
 					goodsTypeValueMap.put(scb.getGoodsTypeId()+"", scb.getPrice().multiply(new BigDecimal(scb.getNum())));
@@ -238,9 +234,9 @@ public class OrderServiceImpl implements OrderService{
 		Map scWhereMap = new HashMap();
 		scWhereMap.put("userId", userId);
 		scWhereMap.put("checkbox", 1);
-		Response<List<ShoppingCartBean>> scResponse = shoppingCartService.findShoppingBeansByMap(scWhereMap);
-		List<ShoppingCartBean> shoppingCartBeanList = scResponse.getResult();
-		if(shoppingCartBeanList == null || shoppingCartBeanList.size() <= 0){
+		Response<List<ShoppingCartVO>> scResponse = shoppingCartService.findShoppingsByMap(scWhereMap);
+		List<ShoppingCartVO> shoppingCartVOList = scResponse.getResult();
+		if(shoppingCartVOList == null || shoppingCartVOList.size() <= 0){
 			return Result.fail("没找到购物车商品");
 		}
 
@@ -251,7 +247,7 @@ public class OrderServiceImpl implements OrderService{
 		//商品总价格
 		BigDecimal goodsTotalPrice = new BigDecimal(0);
 
-		for (ShoppingCartBean scb : shoppingCartBeanList) {
+		for (ShoppingCartVO scb : shoppingCartVOList) {
 			List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(scb.getGoodsId());
 			if(activityBeanList != null){
 				for(ActivityBean activityBean:activityBeanList){
@@ -273,18 +269,18 @@ public class OrderServiceImpl implements OrderService{
 						}
 					}
 				}
-				scb.setActivityBeanList(activityBeanList);
+				scb.setActivityList(activityBeanList);
 			}
 		}
 		//活动结束
 
-		restultMap.put("shoppingCarts", shoppingCartBeanList);
+		restultMap.put("shoppingCarts", shoppingCartVOList);
 		
 		//优惠券-筛选可用的购物券
 		//每种类型的商品总价格
 		Map<String,BigDecimal> goodsTypeValueMap = new HashMap<String, BigDecimal>();
-		if(shoppingCartBeanList!=null){//统计每种类型的商品的总价格，用于优惠券选择
-			for(ShoppingCartBean scb:shoppingCartBeanList){
+		if(shoppingCartVOList !=null){//统计每种类型的商品的总价格，用于优惠券选择
+			for(ShoppingCartVO scb: shoppingCartVOList){
 				goodsTotalPrice = goodsTotalPrice.add(scb.getPrice().multiply(new BigDecimal(scb.getNum())));
 				if(!goodsTypeValueMap.containsKey(scb.getGoodsTypeId()+"")){
 					goodsTypeValueMap.put(scb.getGoodsTypeId()+"", scb.getPrice().multiply(new BigDecimal(scb.getNum())));
@@ -513,15 +509,15 @@ public class OrderServiceImpl implements OrderService{
 	 */
 	@Override
 	public Response<Map<String, Object>> saveSubmitOrder(Integer userId, Map<String, Object> map) throws BaseException {
-		List<ShoppingCartBean> shoppingCartBeanList;
+		List<ShoppingCartVO> shoppingCartVOList;
 		//商品信息 - 购物车提取
 		Map<String,Object> scWhereMap = new HashMap<String, Object>();
 		scWhereMap.put("userId", userId);
 		scWhereMap.put("checkbox", 1);
 		//购物车已经包含活动
-		Response<List<ShoppingCartBean>> scResponse = shoppingCartService.findShoppingBeansByMap(scWhereMap);
-		shoppingCartBeanList = scResponse.getResult();
-		if(shoppingCartBeanList == null || shoppingCartBeanList.size() == 0){
+		Response<List<ShoppingCartVO>> scResponse = shoppingCartService.findShoppingsByMap(scWhereMap);
+		shoppingCartVOList = scResponse.getResult();
+		if(shoppingCartVOList == null || shoppingCartVOList.size() == 0){
 			return Result.fail("购物车没找到商品！");
 		}
 		
@@ -535,8 +531,8 @@ public class OrderServiceImpl implements OrderService{
 		Map<String,BigDecimal> goodsTypeValueMap = new HashMap<String, BigDecimal>();
 		//商品总价格
 		BigDecimal goodsTotalPrice = new BigDecimal(0);
-		if(shoppingCartBeanList!=null){//统计每种类型的商品的总价格，用于优惠券选择
-			for(ShoppingCartBean scb:shoppingCartBeanList){
+		if(shoppingCartVOList !=null){//统计每种类型的商品的总价格，用于优惠券选择
+			for(ShoppingCartVO scb: shoppingCartVOList){
 				goodsTotalPrice = goodsTotalPrice.add(scb.getPrice().multiply(new BigDecimal(scb.getNum())));
 				if(!goodsTypeValueMap.containsKey(scb.getGoodsTypeId()+"")){
 					goodsTypeValueMap.put(scb.getGoodsTypeId()+"", scb.getPrice().multiply(new BigDecimal(scb.getNum())));
@@ -552,12 +548,12 @@ public class OrderServiceImpl implements OrderService{
 
 				OrderItem torderItem = new OrderItem();
 				torderItem.setGoodsId(scb.getGoodsId());
-				torderItem.setGoodsImg(scb.getImageUrl());
+				torderItem.setGoodsImg(scb.getImgUrl());
 				torderItem.setGoodsName(scb.getGoodsName());
 				torderItem.setNum(scb.getNum());
 				torderItem.setPrice(scb.getPrice());
 				torderItem.setMarketPrice(scb.getMarkPrice());
-				torderItem.setFormats(JSON.toJSONString(scb.getFormatSubBeanList()));
+				torderItem.setFormats(JSON.toJSONString(scb.getFormatSubList()));
 				torderItem.setActivitys(JSON.toJSONString(activityBeanList));
 				orderItems.add(torderItem);
 			}
@@ -591,9 +587,9 @@ public class OrderServiceImpl implements OrderService{
 		//优惠金额
 		BigDecimal lostMoney = new BigDecimal(0);
 		BigDecimal lostPostMoney = new BigDecimal(0);
-		if(shoppingCartBeanList!=null){
+		if(shoppingCartVOList !=null){
 			List<Integer> goodsIds = new ArrayList<Integer>();
-			for(ShoppingCartBean scb:shoppingCartBeanList){
+			for(ShoppingCartVO scb: shoppingCartVOList){
 				goodsIds.add(scb.getGoodsId());
 			}
 

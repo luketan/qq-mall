@@ -28,14 +28,14 @@ public class GoodsVO implements Serializable{
 	private String detail;
 	private Integer salesNum;
 	private BigDecimal markPrice;
-	private BigDecimal formerPrice;
+//	private BigDecimal formerPrice;
 	private BigDecimal price;
 	private String imgUrl;
 
 	private boolean keep;//是否收藏了
 	
-	private List<ActivityBean> activityBeanList;
-	private List<FormatBean> formatBeanList;
+	private List<ActivityBean> activityList;
+	private List<FormatBean> formatList;
 	private List<PicBean> picList;
 	private List<GoodsDis> goodsDisList;
 
@@ -48,7 +48,7 @@ public class GoodsVO implements Serializable{
  	}
 	public GoodsVO(Goods tGoods){
 		this.detail = tGoods.getDetail();
-		this.formerPrice = tGoods.getFormerPrice();
+//		this.formerPrice = tGoods.getFormerPrice();
 		this.id = tGoods.getId();
 		this.markPrice = tGoods.getMarkPrice();
 		this.name = tGoods.getName();
@@ -100,12 +100,12 @@ public class GoodsVO implements Serializable{
 		  this.markPrice = markPrice; 
 	}
 	/*原价*/
-	public BigDecimal getFormerPrice(){
-		 return this.formerPrice; 
-	}
-	public void setFormerPrice(BigDecimal formerPrice){
-		  this.formerPrice = formerPrice; 
-	}
+//	public BigDecimal getFormerPrice(){
+//		 return this.formerPrice;
+//	}
+//	public void setFormerPrice(BigDecimal formerPrice){
+//		  this.formerPrice = formerPrice;
+//	}
 	/*现在价格*/
 	public BigDecimal getPrice(){
 		 return this.price; 
@@ -119,12 +119,6 @@ public class GoodsVO implements Serializable{
 	}
 	public void setImgUrl(String imgUrl){
 		  this.imgUrl = imgUrl; 
-	}
-	public List<FormatBean> getFormatBeanList() {
-		return formatBeanList;
-	}
-	public void setFormatBeanList(List<FormatBean> formatBeanList) {
-		this.formatBeanList = formatBeanList;
 	}
 	public List<PicBean> getPicList() {
 		return picList;
@@ -144,12 +138,7 @@ public class GoodsVO implements Serializable{
 	public void setKeep(boolean keep) {
 		this.keep = keep;
 	}
-	public List<ActivityBean> getActivityBeanList() {
-		return activityBeanList;
-	}
-	public void setActivityBeanList(List<ActivityBean> activityBeanList) {
-		this.activityBeanList = activityBeanList;
-	}
+
 	public GoodsDisCountBean getGoodsDisCountBean() {
 		return goodsDisCountBean;
 	}
@@ -167,5 +156,17 @@ public class GoodsVO implements Serializable{
 	}
 	public void setGoodsPhoneVO(GoodsPhoneVO goodsPhoneVO) {
 		this.goodsPhoneVO = goodsPhoneVO;
+	}
+	public List<ActivityBean> getActivityList() {
+		return activityList;
+	}
+	public void setActivityList(List<ActivityBean> activityList) {
+		this.activityList = activityList;
+	}
+	public List<FormatBean> getFormatList() {
+		return formatList;
+	}
+	public void setFormatList(List<FormatBean> formatList) {
+		this.formatList = formatList;
 	}
 }
