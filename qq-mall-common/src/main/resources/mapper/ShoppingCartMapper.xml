@@ -214,6 +214,10 @@
       DELETE FROM  t_shopping_cart_format tscf LEFT JOIN t_shopping_cart tsc ON(tscf.shopping_cart_id = tsc.id) WHERE tsc.checkbox = 1 AND tsc.user_id = #{userId,jdbcType=INTEGER}
       DELETE FROM t_shopping_cart WHERE checkbox = 1 AND user_id =  #{userId,jdbcType=INTEGER};
   </delete>
+  <delete id="deleteInvalid" parameterType="java.lang.Integer">
+     DELETE FROM t_shopping_cart_format  WHERE shopping_cart_id in (SELECT sc.id FROM t_shopping_cart sc LEFT JOIN t_goods g on(sc.goods_id = g.id)	where sc.user_id = #{userId,jdbcType=INTEGER} and g.status != 1);
+     DELETE FROM t_shopping_cart WHERE user_id = #{userId,jdbcType=INTEGER} and  1 != (SELECT g.status FROM t_goods g where g.id = goods_id);
+   </delete>
 
   <update id="updateShoppingCart" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
       UPDATE t_shopping_cart SET

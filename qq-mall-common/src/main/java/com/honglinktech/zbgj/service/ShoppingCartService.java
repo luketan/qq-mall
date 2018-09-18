@@ -46,4 +46,10 @@ public interface ShoppingCartService{
 	 */
 	Response<String> updateShoppingCart(Integer userId, Integer id, Integer num, Integer checkbox, Boolean checkAll);
 
+	/**
+	 * 清空失效的购物车
+	 * @param id
+	 * @return
+     */
+	Response<String> deleteInvalid(Integer userId);
 }

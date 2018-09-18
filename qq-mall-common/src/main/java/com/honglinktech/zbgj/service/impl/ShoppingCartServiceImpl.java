@@ -152,6 +152,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 			return Result.success("删除购物车失败！");
 		}
 	}
+
+	@Override
+	public Response<String> deleteInvalid(Integer userId) {
+		int result = shoppingCartDao.deleteInvalid(userId);
+		if(result>0){
+			return Result.success("清除失效的商品成功！");
+		}else{
+			return Result.success("清除失效的商品失败！");
+		}
+	}
+
 	/**
 	 * 修改购物车的数量与选中
 	 * @param userId

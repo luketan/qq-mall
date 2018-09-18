@@ -102,5 +102,14 @@ public class ShoppingCartController extends BaseApiController {
 		return response; 
 	}
 
+	@RequestMapping(value="cleanInvalid",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public Response<String> cleanInvalid(@RequestBody Map<String, String> req,
+											   @RequestAttribute UserVO user,
+											   @RequestAttribute AppAgent agent) throws BaseException{
+		Response<String> response = shoppingCartService.deleteInvalid(user.getId());
+		return response;
+	}
+
 	
 }

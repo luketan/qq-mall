@@ -72,4 +72,11 @@ public interface ShoppingCartDao {
      * @return
      */
     int findCount(@Param(value = "userId")int userId);
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    int deleteInvalid(@Param(value = "userId")Integer userId);
 }
