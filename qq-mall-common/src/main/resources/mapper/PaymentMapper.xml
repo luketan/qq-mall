@@ -4,6 +4,7 @@
 
   <resultMap id="BaseResultMap" type="com.honglinktech.zbgj.entity.Payment">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="INTEGER" property="type" />
@@ -16,10 +17,10 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, icon, name, type, rev_account, pay_url, check, delete_flag, create_time, update_time
+    id, code, icon, `name`, `type`, rev_account, pay_url, `check`, delete_flag, create_time, update_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_payment
@@ -31,25 +32,28 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Payment">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Payment">
     INSERT INTO t_payment
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="icon != null and icon != ''">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="icon != null">
         icon,
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         name,
       </if>
       <if test="type != null">
         type,
       </if>
-      <if test="revAccount != null and revAccount != ''">
+      <if test="revAccount != null">
         rev_account,
       </if>
-      <if test="payUrl != null and payUrl != ''">
+      <if test="payUrl != null">
         pay_url,
       </if>
       <if test="check != null">
@@ -65,19 +69,22 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="icon != null and icon != ''">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="name != null and name != ''">
+      <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
       </if>
-      <if test="revAccount != null and revAccount != ''">
+      <if test="revAccount != null">
         #{revAccount,jdbcType=VARCHAR},
       </if>
-      <if test="payUrl != null and payUrl != ''">
+      <if test="payUrl != null">
         #{payUrl,jdbcType=VARCHAR},
       </if>
       <if test="check != null">
@@ -91,22 +98,25 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Payment">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.Payment">
     UPDATE t_payment
     <set>
-      <if test="icon != null and icon != ''">
+      <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="name != null and name != ''">
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=INTEGER},
       </if>
-      <if test="revAccount != null and revAccount != ''">
+      <if test="revAccount != null">
         rev_account = #{revAccount,jdbcType=VARCHAR},
       </if>
-      <if test="payUrl != null and payUrl != ''">
+      <if test="payUrl != null">
         pay_url = #{payUrl,jdbcType=VARCHAR},
       </if>
       <if test="check != null">
@@ -139,7 +149,22 @@
     )
     WHERE p.delete_flag = 0
     <if test="id != null">
-        AND p.id = ${id}
+        AND p.id = #{id}
     </if>
+  </select>
+
+  <select id="findByCode" parameterType="String" resultType="com.honglinktech.zbgj.entity.Payment">
+    SELECT
+    p.id,
+    p.code,
+    p.icon,
+    p.name,
+    p.type,
+    p.rev_account as revAccount,
+    p.pay_url as payUrl,
+    p.check
+    FROM t_payment p
+    WHERE p.delete_flag = 0
+    AND p.code = #{code}
   </select>
 </mapper>

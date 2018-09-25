@@ -61,8 +61,15 @@ public class GoodsServiceImpl implements GoodsService{
 	@Resource
 	private ShoppingCartDao shoppingCartDao;
 
+	/**
+	 * App 带评论
+	 * @param id
+	 * @param userId
+	 * @return
+	 * @throws BaseException
+     */
 	@Override
-	public Response findGoodsVOById(Integer id, int userId, int start, int rows) throws BaseException{
+	public Response findGoodsVOById(Integer id, Integer userId) throws BaseException{
 		GoodsVO goodsVO = goodsDao.findVOById(id, userId);
 
 		logger.info(userId+"======findGoodsVOById======"+JSON.toJSONString(goodsVO));
@@ -92,8 +99,8 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsVO.setGoodsDisCountBean(gdcbResp.getResult());
 		Map whereMap = new HashMap();
 		whereMap.put("goodsId", id);
-		whereMap.put("start", start);
-		whereMap.put("rows", rows);
+		whereMap.put("start", 0);
+		whereMap.put("rows", 10);
 		Response<List<GoodsDisBean>> gdbResp = goodsDisService.findGoodsDisByPage(whereMap);
 		goodsVO.setGoodsDisBeanList(gdbResp.getResult());
 
@@ -118,6 +125,41 @@ public class GoodsServiceImpl implements GoodsService{
 		return  Result.resultSet(retMap);
 	}
 
+	/**
+	 * APP 商品详情，规格，活动
+	 * @param id
+	 * @return
+	 */
+	@Override
+	public GoodsVO findSimpleGoodsVOById(Integer id) throws Exception {
+		Goods goods = goodsDao.findById(id);
+		GoodsVO goodsVO = new GoodsVO(goods);
+		//活动
+		List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
+		goodsVO.setActivityList(activityBeanList);
+		//规格
+		List<FormatBean> formatBeanList = formatDao.findFormatByGoodsId(id);
+		if(formatBeanList!=null){
+			for(FormatBean fb:formatBeanList){
+				List<FormatSubBean> formatSubBeanList = formatSubDao.findFormatSubByFormatId(fb.getId());
+				fb.setFormatSubList(formatSubBeanList);
+			}
+		}
+		goodsVO.setFormatList(formatBeanList);
+
+		//图片处理
+		List<PicBean> picList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
+		goodsVO.setPicList(picList);
+
+		return goodsVO;
+	}
+
+	/**
+	 * app
+	 * @param whereMap
+	 * @return
+	 * @throws BaseException
+     */
 	@Override
 	public List<GoodsVO> findGoodsVOByWhere(Map whereMap) throws BaseException{
 		if(whereMap.containsKey("searchPrice")){
@@ -139,8 +181,22 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsListBeans;
 	}
 
+	/**
+	 * console
+	 * @param goodsBean
+	 * @param formats
+	 * @param goodsTags
+	 * @param goodsActivitys
+	 * @param goodsImgs
+	 * @return
+     * @throws Exception
+     */
 	@Override
-	public Response saveGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags, Integer[] goodsActivitys, String[] goodsImgs) throws Exception{
+	public Response saveGoods(GoodsBean goodsBean,
+							  List<Format> formats,
+							  Integer[] goodsTags,
+							  Integer[] goodsActivitys,
+							  String[] goodsImgs) throws Exception{
 		Goods goods = new Goods(goodsBean);
 		goodsDao.insert(goods);
 		int goodsId = goods.getId();
@@ -218,11 +274,11 @@ public class GoodsServiceImpl implements GoodsService{
 		if(goodsImgs!=null && goodsImgs.length > 0){
 			List<Pic> goodsImgList = new ArrayList<Pic>();
 			for(String goodsImg:goodsImgs){
-				Pic tpic = new Pic();
-				tpic.setObjId(goodsId);
-				tpic.setPicUrl(goodsImg);
-				tpic.setType(Constants.PIC_GOODS);
-				goodsImgList.add(tpic);
+				Pic pic = new Pic();
+				pic.setObjId(goodsId);
+				pic.setPicUrl(goodsImg);
+				pic.setType(Constants.PIC_GOODS);
+				goodsImgList.add(pic);
 			}
 			picDao.saveBatch(goodsImgList);
 		}
@@ -231,8 +287,22 @@ public class GoodsServiceImpl implements GoodsService{
 		return Result.resultSet(goodsBean);
 	}
 
+	/**
+	 * conosle
+	 * @param goodsBean
+	 * @param formats
+	 * @param goodsTags
+	 * @param goodsActivitys
+	 * @param goodsImgs
+	 * @return
+     * @throws Exception
+     */
 	@Override
-	public Response updateGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags, Integer[] goodsActivitys, String[] goodsImgs) throws Exception{
+	public Response updateGoods(GoodsBean goodsBean,
+								List<Format> formats,
+								Integer[] goodsTags,
+								Integer[] goodsActivitys,
+								String[] goodsImgs) throws Exception{
 		Goods goods = new Goods(goodsBean);
 		goodsDao.update(goods);
 		int goodsId = goods.getId();
@@ -339,6 +409,12 @@ public class GoodsServiceImpl implements GoodsService{
 		return Result.success();
 	}
 
+	/**
+	 * conosle
+	 * @param whereMap
+	 * @param url
+     * @return
+     */
 	@Override
 	public Page<GoodsBean> findGoodsBeanPage(Map whereMap, String url) {
 
@@ -352,6 +428,11 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 
+	/**
+	 * console
+	 * @param id
+	 * @return
+     */
 	@Override
 	public Response findGoodsBeanById(Integer id) {
 		Goods goods = goodsDao.findById(id);
@@ -360,9 +441,9 @@ public class GoodsServiceImpl implements GoodsService{
 		}
 		GoodsBean goodsBean = new GoodsBean(goods);
 
-		//活动
-		//List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
-		//goodsVO.setActivityBeanList(activityBeanList);
+		//活动 其他已经处理了
+//		List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
+//		goodsBean.setActivityBeanList(activityBeanList);
 
 		//规格
 		List<FormatBean> formatBeanList = formatDao.findFormatByGoodsId(id);
@@ -393,32 +474,8 @@ public class GoodsServiceImpl implements GoodsService{
 		return Result.resultSet(goodsBean);
 	}
 
-	@Override
-	public GoodsVO findGoodsVOById(Integer id) {
-		Goods goods = goodsDao.findById(id);
-		GoodsVO goodsVO = new GoodsVO(goods);
-		//活动
-		//List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(id);
-		//规格
-		List<FormatBean> formatBeanList = formatDao.findFormatByGoodsId(id);
-		if(formatBeanList!=null){
-			for(FormatBean fb:formatBeanList){
-				List<FormatSubBean> formatSubBeanList = formatSubDao.findFormatSubByFormatId(fb.getId());
-				fb.setFormatSubList(formatSubBeanList);
-			}
-		}
-		//图片处理
-		List<PicBean> tpicList =  picService.findPic(goodsVO.getId(), Constants.PIC_GOODS);
-
-		//goodsVO.setActivityList(activityBeanList);
-		goodsVO.setFormatList(formatBeanList);
-		goodsVO.setPicList(tpicList);
-
-		return goodsVO;
-	}
-
 	/**
-	 * ajax删除产品规格
+	 * console ajax删除产品规格
 	 *
 	 * @return
 	 */
@@ -432,7 +489,7 @@ public class GoodsServiceImpl implements GoodsService{
 		}
 	}
 	/**
-	 * ajax删除产品规格子项
+	 * console ajax删除产品规格子项
 	 *
 	 * @return
 	 */

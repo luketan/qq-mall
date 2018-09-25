@@ -8,12 +8,12 @@ import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.Order;
 import com.honglinktech.zbgj.entity.PostDetail;
 import com.honglinktech.zbgj.vo.OrderVO;
+import com.honglinktech.zbgj.vo.request.OrderReq;
 
 import java.util.List;
 import java.util.Map;
 
 public interface OrderService{
-	Response<Map<String, Object>> findZhiJieOrderView(Integer userId, Map map) throws BaseException;
 
 	/**
 	 * 准备订单
@@ -22,9 +22,7 @@ public interface OrderService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<Map<String, Object>> findOrderView(Integer userId, Map map) throws BaseException ;
-
-	Response<Map<String, Object>> saveZhiJieSubmitOrder(Integer userId, Map<String, Object> map) throws BaseException;
+	Response<Map<String, Object>> findReadyOrder(Integer userId, OrderReq orderReq) throws Exception;
 
 	/**
 	 * 生成订单
@@ -33,7 +31,7 @@ public interface OrderService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<Map<String, Object>> saveSubmitOrder(Integer userId, Map<String, Object> map) throws BaseException ;
+	Response saveSubmitOrder(Integer userId, OrderReq orderReq) throws Exception;
 	/**
 	 * 选择支付方式
 	 * @param userId

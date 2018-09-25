@@ -25,19 +25,19 @@
     region_code, region_name, road, zipcode, default_is, status, update_time, create_time
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_user_address
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteById" parameterType="java.lang.Integer">
     DELETE FROM t_user_address
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.UserAddress">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.UserAddress">
     INSERT INTO t_user_address
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -133,7 +133,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.UserAddress">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.UserAddress">
     UPDATE t_user_address
     <set>
       <if test="userId != null">
@@ -186,10 +186,10 @@
       FROM t_user_address
       WHERE 1=1
       <if test="userId != null">
-          user_id = #{userId}
+          AND user_id = #{userId}
       </if>
       <if test="status != null">
-          status = #{status}
+         AND status = #{status}
       </if>
   </select>
 </mapper>

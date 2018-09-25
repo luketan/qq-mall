@@ -54,7 +54,14 @@ public class UserController extends BaseApiController {
 	@RequestMapping(value="login",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<UserLoginVO> login(@RequestBody User user) throws BaseException{
-		
+
+		if(StringUtils.isEmpty(user.getAccount())){
+			return Result.fail("账号不能为空！");
+		}
+		if(StringUtils.isEmpty(user.getPassword())){
+			return Result.fail("密码不能为空！");
+		}
+
 		Response<UserLoginVO> resp = userService.login(user.getAccount(), user.getPassword());
 
 		return resp; 

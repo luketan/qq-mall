@@ -5,7 +5,9 @@ package com.honglinktech.zbgj.enums;
  * Created by Dayong on 16/2/23.
  */
 public enum PaymentTypeEnum {
-    Offline(1, "线下支付"), Alipay(2, "支付宝"), OrangeBank(3, "平安橙e付");
+    Weixin(1, "微信"),
+    Alipay(2, "支付宝"),
+    Balance(3, "余额");
 
     private int code;
     private String name;

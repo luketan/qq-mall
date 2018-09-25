@@ -79,4 +79,18 @@ public interface ShoppingCartDao {
      * @return
      */
     int deleteInvalid(@Param(value = "userId")Integer userId);
+
+    /**
+     *
+     * @param ids
+     * @return
+     */
+    List<ShoppingCartVO> findShoppingCartsByIds(@Param(value = "userId")Integer userId, @Param(value = "ids")List<Integer> ids);
+
+    /**
+     * 删除选中了的商品
+     * @param userId
+     * @param shoppingCartIds
+     */
+    int deleteIds(@Param(value = "userId")Integer userId, @Param(value = "shoppingCartIds") List<Integer> shoppingCartIds);
 }

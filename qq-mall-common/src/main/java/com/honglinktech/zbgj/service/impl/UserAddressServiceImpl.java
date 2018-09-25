@@ -30,7 +30,7 @@ public class UserAddressServiceImpl implements UserAddressService{
 	 */
 	@Override
 	public Response<UserAddress> findAddressById(Integer userId, Integer id){
-		UserAddress userAddress = userAddressDao.selectByPrimaryKey(id);
+		UserAddress userAddress = userAddressDao.findById(id);
 		if(userAddress.getUserId().intValue()!=userId.intValue()){
 			return Result.fail(ExceptionEnum.COMMON_USER_ILLEGAL_REQUEST);
 		}
@@ -63,7 +63,7 @@ public class UserAddressServiceImpl implements UserAddressService{
 	 */
 	@Override
 	public Response<String> updateAddressDefault(UserAddress userAddress) throws BaseException{
-		int count = userAddressDao.updateByPrimaryKeySelective(userAddress);
+		int count = userAddressDao.update(userAddress);
 		if (count > 0){
 			return Result.success();
 		}else{

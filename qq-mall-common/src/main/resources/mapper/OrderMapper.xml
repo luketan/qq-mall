@@ -86,15 +86,16 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
 
-  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Order">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Order"
+          useGeneratedKeys="true" keyProperty="id">
     INSERT INTO t_order(
-    id,
     order_code,
     user_id,
     payment_id,
+    payment_name,
     pay_status,
     pay_reason,
-    status,
+    `status`,
     post_id,
     post_name,
     post_code,
@@ -112,15 +113,12 @@
     address,
     zipcode,
     coupon_id,
-    push,
-    `read`,
     `form`,
-    remark,
-    explain,
+    `remark`,
+    `explain`,
     update_time,
     create_time
     )VALUES(
-    #{id},
     #{orderCode},
     #{userId},
     #{paymentId},
@@ -145,8 +143,6 @@
     #{address},
     #{zipcode},
     #{couponId},
-    #{push},
-    #{read},
     #{form},
     #{remark},
     #{explain},

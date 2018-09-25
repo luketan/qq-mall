@@ -3,7 +3,6 @@ package com.honglinktech.zbgj.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.bean.ActivityBean;
-import com.honglinktech.zbgj.bean.FormatBean;
 import com.honglinktech.zbgj.bean.FormatSubBean;
 import com.honglinktech.zbgj.dao.GoodsActivityDao;
 import com.honglinktech.zbgj.vo.ShoppingCartVO;
@@ -36,6 +35,42 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
 	private FormatSubDao formatSubDao;
 	@Resource
 	private GoodsActivityDao activityDao;
+
+
+	/**
+	 * App购物车查询
+	 * @return
+	 */
+	@Override
+	public List<ShoppingCartVO> findShoppingsByIds(Integer userId, List<Integer> ids) {
+
+		if(ids == null || ids.size() == 0){
+			return null;
+		}
+		List<ShoppingCartVO> shoppingCartVOs = shoppingCartDao.findShoppingCartsByIds(userId, ids);
+		if(shoppingCartVOs != null){
+			for(ShoppingCartVO sc: shoppingCartVOs){
+				//规格处理
+				List<FormatSubBean> formatSubBeans = formatSubDao.findFormatSubByShoppingId(sc.getId());
+				sc.setFormatSubList(formatSubBeans);
+				//规格价格处理
+				if(formatSubBeans != null){
+					for(FormatSubBean fsb:formatSubBeans){
+						if(fsb.getNeedPrice()){
+							BigDecimal price = sc.getPrice().add(fsb.getVipPrice());
+							sc.setPrice(price);
+						}
+					}
+				}
+
+				//活动处理
+				List<ActivityBean> activityList = activityDao.findActivityByGoodsId(sc.getGoodsId());
+				sc.setActivityList(activityList);
+
+			}
+		}
+		return shoppingCartVOs;
+	}
 	/**
 	 * App购物车查询(分页可选)
 	 * @param whereMap

@@ -14,15 +14,21 @@ import java.util.Map;
 public interface GoodsService{
 
 	/**
+	 * App获取商品详情，规格，活动
+	 * @param id
+	 * @return
+	 */
+	GoodsVO findSimpleGoodsVOById(Integer id) throws Exception;
+
+	/**
 	 *
 	 * @param id
 	 * @param userId
-	 * @param index
-	 * @param size
 	 * @return
 	 * @throws BaseException
 	 */
-	Response findGoodsVOById(Integer id, int userId, int start, int rows) throws BaseException;
+	Response findGoodsVOById(Integer id, Integer userId) throws BaseException;
+
 	/**
 	 *
 	 * @param whereMap
@@ -38,7 +44,6 @@ public interface GoodsService{
 
 	/**
 	 *
-	 * @param goodsItem
 	 * @throws BaseException
 	 */
 	Response updateGoods(GoodsBean goodsBean, List<Format> formats, Integer[] goodsTags,  Integer[] goodsActivitys, String[] goodsImgs) throws Exception;
@@ -58,13 +63,16 @@ public interface GoodsService{
 	Response<GoodsBean> findGoodsBeanById(Integer id);
 
 	/**
-	 * 后台获取商品详情
+	 *
 	 * @param id
 	 * @return
-	 */
-	GoodsVO findGoodsVOById(Integer id);
-
+     */
     Response<String> deleteFormat(Integer id);
 
+	/**
+	 *
+	 * @param id
+	 * @return
+     */
 	Response<String> deleteFormatSub(Integer id);
 }

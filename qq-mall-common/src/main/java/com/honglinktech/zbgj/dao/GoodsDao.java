@@ -29,7 +29,7 @@ public interface GoodsDao {
      * @param userId
      * @return
      */
-    GoodsVO findVOById(@Param(value = "id") int id, @Param(value = "userId") int userId);
+    GoodsVO findVOById(@Param(value = "id") int id, @Param(value = "userId") Integer userId);
 
     /**
      *

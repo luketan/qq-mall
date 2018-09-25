@@ -11,6 +11,14 @@ import java.util.Map;
 public interface ShoppingCartService{
 
 	/**
+	 *
+	 * @param userId
+	 * @param ids
+     * @return
+     */
+	List<ShoppingCartVO> findShoppingsByIds(Integer userId, List<Integer> ids);
+
+	/**
 	 * App购物车查询(分页可选)
 	 * @param whereMap
 	 * @return

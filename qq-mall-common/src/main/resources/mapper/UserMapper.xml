@@ -259,6 +259,20 @@
     WHERE (account = #{account} OR email = #{account} OR phone = #{account})
     AND password = #{password}
   </select>
+  <!--App-->
+  <select id="findHomeCount" parameterType="java.lang.Integer" resultType="com.honglinktech.zbgj.vo.UserHomeVO">
+    SELECT
+		(SELECT count(1) from t_user_keep where user_id  = #{userId,jdbcType=INTEGER}) as keepNum,
+        (SELECT
+            count(1)
+          FROM t_coupon_user couUser
+          LEFT JOIN t_coupon c ON(couUser.coupon_id = c.id )
+          WHERE couUser.user_id = #{userId,jdbcType=INTEGER}
+            AND couUser.status = 0
+            AND c.start_date <![CDATA[ <= ]]> CURDATE()
+            AND c.end_date <![CDATA[ >= ]]> CURDATE()) as couponNum,
+        (select count(1)  from t_order where user_id = #{userId,jdbcType=INTEGER} and status in (1,2,3)) as orderNum
+  </select>
   <!--APP获取被关注数最多的用户-->
   <select id="findAtteUserByNum" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT

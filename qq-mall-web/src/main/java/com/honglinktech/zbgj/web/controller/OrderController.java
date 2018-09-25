@@ -7,9 +7,12 @@ import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.entity.PostDetail;
 import com.honglinktech.zbgj.service.OrderService;
 import com.honglinktech.zbgj.vo.OrderVO;
+import com.honglinktech.zbgj.vo.UserVO;
+import com.honglinktech.zbgj.vo.request.OrderReq;
 import com.honglinktech.zbgj.web.base.BaseApiController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,14 +39,14 @@ public class OrderController extends BaseApiController {
 	 */
 	@RequestMapping(value="readyOrder",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<Map<String, Object>> readyOrder(@RequestBody Map map,@RequestHeader HttpHeaders headers) throws BaseException{
+	public Response<Map<String, Object>> readyOrder(@RequestBody OrderReq orderReq, @RequestHeader HttpHeaders headers) throws BaseException{
 	   
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode)){
 			return Result.fail(ExceptionEnum.COMMON_USER_ILLEGAL_REQUEST);
 		}
 		
-		Response<Map<String, Object>> resp = orderService.findOrderView(Integer.valueOf(userCode),map);
+		Response<Map<String, Object>> resp = orderService.findReadyOrder(Integer.valueOf(userCode), orderReq);
 		return resp; 
 	}
 	/**
@@ -71,29 +74,14 @@ public class OrderController extends BaseApiController {
 	}
 	/**
 	 * 订单
-	 * @param map
-	 * @param headers
 	 * @return
 	 * @throws BaseException
 	 */
 	@RequestMapping(value="submitOrder",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<Map<String, Object>> submitOrder(@RequestBody Map<String,Object> map,@RequestHeader HttpHeaders headers) throws BaseException{
-	   
-		String userCode =  headers.getFirst("userId");
-		if(StringUtils.isEmpty(userCode)){
-			return Result.fail(ExceptionEnum.COMMON_USER_ILLEGAL_REQUEST);
-		}
-		Object addressId =  map.get("addressId");
-		if(StringUtils.isEmpty(addressId)){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"addressId");
-		}
-		Object paymentId =  map.get("paymentId");
-		if(StringUtils.isEmpty(paymentId)){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"paymentId");
-		}
-		
-		Response<Map<String, Object>> resp = orderService.saveSubmitOrder(Integer.valueOf(userCode), map);
+	public Response<Map<String, Object>> submitOrder(@RequestBody OrderReq orderReq, @RequestAttribute UserVO user) throws BaseException{
+
+		Response<Map<String, Object>> resp = orderService.saveSubmitOrder(user.getId(), orderReq);
 		return resp; 
 	}
 	/**

@@ -146,6 +146,33 @@
   </update>
 
   <!--***********************************************************************************************************************************************-->
+
+  <select id="findShoppingCartsByIds" resultType="com.honglinktech.zbgj.vo.ShoppingCartVO">
+    SELECT
+    sc.id,
+    sc.user_id AS userId,
+    sc.goods_id AS goodsId,
+    g.name AS goodsName,
+    g.img_url AS imgUrl,
+    g.price,
+    g.mark_price AS markPrice,
+    g.status as goodsStatus,
+    sc.format_id AS formatId,
+    sc.format_name AS formatName,
+    sc.num,
+    sc.checkbox
+    FROM t_shopping_cart sc
+    LEFT JOIN t_goods g ON(sc.goods_id = g.id)
+    WHERE 1 = 1
+      AND sc.user_id = #{userId}
+      AND  sc.id in
+    <foreach collection="ids" item="id" index="index"
+             open="(" close=")" separator=",">
+      #{id,jdbcType=INTEGER}
+    </foreach>
+  </select>
+
+
   <select id="findShoppingCartsByMap" parameterType="map" resultType="com.honglinktech.zbgj.vo.ShoppingCartVO">
         SELECT
         sc.id,
@@ -218,6 +245,19 @@
      DELETE FROM t_shopping_cart_format  WHERE shopping_cart_id in (SELECT sc.id FROM t_shopping_cart sc LEFT JOIN t_goods g on(sc.goods_id = g.id)	where sc.user_id = #{userId,jdbcType=INTEGER} and g.status != 1);
      DELETE FROM t_shopping_cart WHERE user_id = #{userId,jdbcType=INTEGER} and  1 != (SELECT g.status FROM t_goods g where g.id = goods_id);
    </delete>
+  <delete id="deleteIds">
+    DELETE FROM t_shopping_cart_format  WHERE shopping_cart_id in
+    (SELECT sc.id FROM t_shopping_cart sc where sc.user_id = #{userId,jdbcType=INTEGER} and sc.id in
+      <foreach collection="shoppingCartIds" item="id" index="index"
+               open="(" close=")" separator=",">
+        #{id,jdbcType=INTEGER}
+      </foreach>
+    );
+    DELETE FROM t_shopping_cart WHERE user_id = #{userId,jdbcType=INTEGER} and  id in <foreach collection="shoppingCartIds" item="id" index="index"
+                                                                                               open="(" close=")" separator=",">
+                                                                                        #{id,jdbcType=INTEGER}
+                                                                                      </foreach>;
+  </delete>
 
   <update id="updateShoppingCart" parameterType="com.honglinktech.zbgj.entity.ShoppingCart">
       UPDATE t_shopping_cart SET

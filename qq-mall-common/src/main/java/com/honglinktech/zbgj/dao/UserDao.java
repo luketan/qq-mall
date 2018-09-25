@@ -5,6 +5,7 @@
 package com.honglinktech.zbgj.dao;
 
 import com.honglinktech.zbgj.entity.User;
+import com.honglinktech.zbgj.vo.UserHomeVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -60,4 +61,11 @@ public interface UserDao {
      * @return
      */
     long findCount(Map<String, Object> whereMap);
+
+    /**
+     * 获取用户页面统计数据
+     * @param userId
+     * @return
+     */
+    UserHomeVO findHomeCount(Integer userId);
 }

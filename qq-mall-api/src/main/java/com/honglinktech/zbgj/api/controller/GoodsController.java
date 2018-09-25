@@ -17,14 +17,7 @@ import com.honglinktech.zbgj.service.UserKeepService;
 import com.honglinktech.zbgj.vo.GoodsTypeVO;
 import com.honglinktech.zbgj.vo.GoodsVO;
 import com.honglinktech.zbgj.vo.UserVO;
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -80,15 +73,12 @@ public class GoodsController extends BaseApiController {
 			UserVO user = (UserVO) request.getAttribute("user");
 			AppAgent agent = (AppAgent) request.getAttribute("agent");
 			logger.info("========findGoodsById=========="+ JSON.toJSONString(user));
-			int userId = 0;
+			Integer userId = null;
 			if (user != null) {
 				userId = user.getId();
 			}
 
-			int start = map.containsKey("start")?Integer.valueOf(map.get("start")):0;
-			int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows")):10;
-
-			Response response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId, start, rows);
+			Response response = goodsService.findGoodsVOById(Integer.valueOf(map.get("id")), userId);
 
 			return response;
 		}catch (Exception e){
@@ -118,34 +108,6 @@ public class GoodsController extends BaseApiController {
 			return Result.fail("获取失败，请重试！");
 		}
 	}
-	
-	/**
-	 * 商品收藏
-	 * @param map
-	 * @return
-	 * @throws BaseException
-	 */
-	@RequestMapping(value="updateGoodsKeep",method={RequestMethod.GET,RequestMethod.POST})
-	@ResponseBody
-	public Response<String> updateGoodsKeep(@RequestHeader HttpHeaders headers,@RequestBody Map<String, String> map) throws BaseException{
-		
-		String userCode = headers.getFirst("userId");
-	    if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
-			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
-		}
-	    String goodsId = map.get("goodsId");
-	    if(StringUtils.isEmpty(goodsId) || Integer.valueOf(goodsId)==0){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR,"goodsId");
-		}
-	    String keep = map.get("keep");
-	    if(StringUtils.isEmpty(keep)){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR,"keep");
-		}
-	    
-		Response<String> response = userKeepService.updateGoodsKeep(Integer.valueOf(userCode),Integer.valueOf(goodsId),Boolean.valueOf(keep));
-		return response; 
-	}
-	
 	
 	/**
 	 * 商品类型所有

@@ -31,6 +31,7 @@ public class GoodsVO implements Serializable{
 //	private BigDecimal formerPrice;
 	private BigDecimal price;
 	private String imgUrl;
+	private Integer typeId;
 
 	private boolean keep;//是否收藏了
 	
@@ -56,6 +57,7 @@ public class GoodsVO implements Serializable{
 		this.salesNum = tGoods.getSalesNum();
 		this.subName = tGoods.getSubName();
 		this.imgUrl = tGoods.getImgUrl();
+		this.typeId = tGoods.getTypeId();
  	}
 	/**/
 	public Integer getId(){
@@ -168,5 +170,13 @@ public class GoodsVO implements Serializable{
 	}
 	public void setFormatList(List<FormatBean> formatList) {
 		this.formatList = formatList;
+	}
+
+	public Integer getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(Integer typeId) {
+		this.typeId = typeId;
 	}
 }

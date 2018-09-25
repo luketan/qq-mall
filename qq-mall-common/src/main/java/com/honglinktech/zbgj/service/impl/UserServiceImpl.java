@@ -72,12 +72,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Response<UserLoginVO> login(String account, String password) throws BaseException{
 
-		if(StringUtils.isEmpty(account)){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR, "account", account);
-		}
-		if(StringUtils.isEmpty(password)){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR, "password", password);
-		}
 		try {
 			password = HashUtils.md5(password);
 		} catch (Exception e) {
@@ -233,9 +227,8 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Response<UserHomeVO> findUserHome(Integer userId) throws BaseException {
-		int couponCount = couponService.findCouponCount(userId);
-		UserHomeVO userHomeVO = new UserHomeVO();
-		userHomeVO.setCouponNum(couponCount);
+		UserHomeVO userHomeVO = userDao.findHomeCount(userId);
+
 		return Result.resultSet(userHomeVO);
 	}
 

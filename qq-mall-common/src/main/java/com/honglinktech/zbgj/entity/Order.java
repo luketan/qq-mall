@@ -157,7 +157,6 @@ public class Order {
      * 用户备注
      */
     private String remark;
-
     /**
      * 后台说明
      */
