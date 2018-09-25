@@ -28,6 +28,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/home/api")
 public class HomeController extends BaseApiController {
+
+
 	@Resource
 	private ModuleService moduleService;
 
@@ -48,6 +50,7 @@ public class HomeController extends BaseApiController {
 
 		return Result.resultSet(homeBeans); 
 	}
+
 
 	@NoRequireLogin
 	@RequestMapping(value="findAppletHome",method={RequestMethod.GET,RequestMethod.POST})
