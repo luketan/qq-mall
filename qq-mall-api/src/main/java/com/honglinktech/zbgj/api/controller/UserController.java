@@ -39,6 +39,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user/api")
 public class UserController extends BaseApiController {
+
+
 	@Resource
 	private UserService userService;
 	@Resource
