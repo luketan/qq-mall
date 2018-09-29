@@ -12,7 +12,7 @@ public interface WxPayService {
      * createWxPay
      * @return
      */
-    Response createWxPay(int userId, int mallId, String orderNo, String openId, String requestIp) throws Exception;
+    Response createWxPay(int userId, int orderId, String openId, String requestIp) throws Exception;
 
     /**
      * 微信支付回调处理

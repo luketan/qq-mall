@@ -71,6 +71,9 @@ public class OrderReq implements Serializable {
      */
     private String remark;
 
+    private String openId;
+    private String requestIp;
+
     public int getGoodsId() {
         return goodsId;
     }
@@ -173,5 +176,21 @@ public class OrderReq implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getRequestIp() {
+        return requestIp;
+    }
+
+    public void setRequestIp(String requestIp) {
+        this.requestIp = requestIp;
     }
 }

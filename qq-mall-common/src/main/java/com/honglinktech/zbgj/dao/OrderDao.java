@@ -24,6 +24,9 @@ public interface OrderDao {
     int update(Order record);
 
     /****************************************************************************************/
+
+
+    Order findByCode(String orderCode);
     /**
      * app 获取订单列表
      * @param map

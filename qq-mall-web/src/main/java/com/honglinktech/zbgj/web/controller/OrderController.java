@@ -45,8 +45,13 @@ public class OrderController extends BaseApiController {
 		if(StringUtils.isEmpty(userCode)){
 			return Result.fail(ExceptionEnum.COMMON_USER_ILLEGAL_REQUEST);
 		}
-		
-		Response<Map<String, Object>> resp = orderService.findReadyOrder(Integer.valueOf(userCode), orderReq);
+
+		Response<Map<String, Object>> resp = null;
+		try {
+			resp = orderService.findReadyOrder(Integer.valueOf(userCode), orderReq);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return resp; 
 	}
 	/**
@@ -81,7 +86,12 @@ public class OrderController extends BaseApiController {
 	@ResponseBody
 	public Response<Map<String, Object>> submitOrder(@RequestBody OrderReq orderReq, @RequestAttribute UserVO user) throws BaseException{
 
-		Response<Map<String, Object>> resp = orderService.saveSubmitOrder(user.getId(), orderReq);
+		Response<Map<String, Object>> resp = null;
+		try {
+			resp = orderService.saveSubmitOrder(user.getId(), orderReq);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return resp; 
 	}
 	/**

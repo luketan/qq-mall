@@ -68,6 +68,11 @@ public class OrderServiceImpl implements OrderService{
 	private PostDetailService postDetailService;
 	@Resource
 	private PostCompanyDao postCompanyDao;
+
+	@Autowired
+	private WxPayService wxPayService;
+	@Autowired
+	private UserSessionDao userSessionDao;
 	
 	private final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
@@ -478,8 +483,8 @@ public class OrderServiceImpl implements OrderService{
 		}
 		//TODO 商品减去数量
 		//TODO 生成唤醒支付
-
-		return Result.success();
+		UserSession userSession = userSessionDao.findByUserId(userId);
+		return wxPayService.createWxPay(userId, order.getId(), userSession.getOpenId(), orderReq.getRequestIp() );
 	}
 	
 	/**
