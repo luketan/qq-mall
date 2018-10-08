@@ -23,11 +23,6 @@ public class CouponUser {
     private Integer couponId;
 
     /**
-     * 是否已经选中
-     */
-    private Integer checked;
-
-    /**
      * 唯一识别码
      */
     private String code;
@@ -49,6 +44,11 @@ public class CouponUser {
      * 创建时间
      */
     private Date createTime;
+
+    /**
+     *
+     */
+    private String version;
 
     public Integer getId() {
         return id;
@@ -72,14 +72,6 @@ public class CouponUser {
 
     public void setCouponId(Integer couponId) {
         this.couponId = couponId;
-    }
-
-    public Integer getChecked() {
-        return checked;
-    }
-
-    public void setChecked(Integer checked) {
-        this.checked = checked;
     }
 
     public String getCode() {
@@ -120,5 +112,13 @@ public class CouponUser {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

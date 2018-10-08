@@ -9,10 +9,16 @@ import java.util.Date;
 **/
 public class CouponUserVO implements Serializable{
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 8783150042976353387L;
+
 	private Integer id;
 	private String userName;
 	private String phone;
 	private String couponName;
+	private String condition;
 	private Integer status;
 	private String code;
 	private Integer goodsType;
@@ -21,14 +27,11 @@ public class CouponUserVO implements Serializable{
 	private Date endDate;
 	private Integer max;
 	private Integer value;
-	private Boolean checked;
 	private Date useTime;
 	private Date updateTime;
 	private Date createTime;
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private boolean select;
 
 	public CouponUserVO(){
  	}
@@ -113,14 +116,6 @@ public class CouponUserVO implements Serializable{
 		this.value = value;
 	}
 
-	public Boolean getChecked() {
-		return checked;
-	}
-
-	public void setChecked(Boolean checked) {
-		this.checked = checked;
-	}
-
 	public Date getUseTime() {
 		return useTime;
 	}
@@ -159,5 +154,21 @@ public class CouponUserVO implements Serializable{
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public boolean isSelect() {
+		return select;
+	}
+
+	public void setSelect(boolean select) {
+		this.select = select;
+	}
+
+	public String getCondition() {
+		return condition;
+	}
+
+	public void setCondition(String condition) {
+		this.condition = condition;
 	}
 }

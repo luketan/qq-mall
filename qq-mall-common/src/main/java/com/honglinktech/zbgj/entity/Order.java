@@ -502,6 +502,7 @@ public class Order {
         orderVO.setPush(this.getPush());
         orderVO.setRead(this.getRead());
         orderVO.setRemark(this.getRemark());
+        orderVO.setCreateTime(this.getCreateTime());
         return orderVO;
     }
 

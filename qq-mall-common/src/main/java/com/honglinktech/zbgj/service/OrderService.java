@@ -46,7 +46,7 @@ public interface OrderService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<OrderVO>> findOrderVOList(Integer userId, Integer start, Integer rows) throws BaseException;
+	Response<List<OrderVO>> findOrderVOList(Integer userId, Integer orderStatus, Integer start, Integer rows) throws BaseException;
 
 	/**
 	 * APP获取订单的详情
@@ -55,6 +55,14 @@ public interface OrderService{
 	 * @return
 	 */
 	Response<OrderVO> findOrderVOById(Integer userId, Integer id) ;
+
+
+	/**
+	 * App取消订单
+	 * @param id
+     * @return
+     */
+	Response<String> updateCancelOrderById(Integer userId, Integer id);
 
 	/**
 	 * APP获取快递信息
@@ -80,6 +88,11 @@ public interface OrderService{
 	 */
 	Response<Integer> updateShipOrder(Order upOrder);
 
+	/**
+	 *
+	 * @param order
+	 * @return
+     */
 	Response<Integer> updateCompleteOrder(Order order);
 
 	/**
@@ -116,5 +129,6 @@ public interface OrderService{
 	 * @return
 	 */
 	byte[] exportOrder(Map whereMap);
+
 
 }

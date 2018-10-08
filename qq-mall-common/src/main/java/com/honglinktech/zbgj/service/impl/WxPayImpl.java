@@ -79,7 +79,7 @@ public class WxPayImpl implements WxPayService {
 
         Order order = orderDao.findById(orderId);
 
-        if (order.getStatus() != OrderStatusEnum.waitPayment.getCode()) {
+        if (order.getStatus() != OrderStatusEnum.WaitPayment.getCode()) {
             return Result.fail("订单状态错误！");
         }
 

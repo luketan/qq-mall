@@ -54,6 +54,11 @@ public class UserKeep {
     private BigDecimal price;
 
     /**
+     * 市场价
+     */
+    private BigDecimal markPrice;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -62,6 +67,8 @@ public class UserKeep {
      * 修改时间
      */
     private Date updateTime;
+
+    private boolean status;
 
     public Integer getId() {
         return id;
@@ -149,5 +156,21 @@ public class UserKeep {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public BigDecimal getMarkPrice() {
+        return markPrice;
+    }
+
+    public void setMarkPrice(BigDecimal markPrice) {
+        this.markPrice = markPrice;
     }
 }

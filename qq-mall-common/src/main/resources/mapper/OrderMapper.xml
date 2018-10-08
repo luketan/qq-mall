@@ -279,16 +279,16 @@
     FROM t_order o
     WHERE o.delete_flag = 0
     <if test="userId != null">
-        AND o.user_id = #{userId}
+      AND o.user_id = #{userId}
     </if>
-    <if test="deleteFlag != null">
-       AND o.delete_flag = #{deleteFlag}
+    <if test="orderStatus != null">
+        AND o.status = #{orderStatus}
     </if>
     <if test="orderBy != null and asc != null">
-       ORDER BY o.#{orderBy}, #{asc}
+       ORDER BY o.${orderBy} ${asc}
     </if>
     <if test="orderBy == null || asc == null">
-        ORDER BY o.id, desc
+       ORDER BY o.id  desc
     </if>
     <if test="start == null || rows == null">
         limit #{start},#{rows}
@@ -331,7 +331,7 @@
       AND o.status = #{status}
     </if>
     <if test="orderBy != null and asc != null">
-      ORDER BY o.#{orderBy} #{asc}
+      ORDER BY ${orderBy} ${asc}
     </if>
     <if test="orderBy == null or asc == null">
       ORDER BY o.create_time desc

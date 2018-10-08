@@ -1,16 +1,12 @@
 package com.honglinktech.zbgj.admin.controller;
 
 
-import com.alibaba.fastjson.JSON;
-import com.honglinktech.zbgj.bean.CouponBean;
 import com.honglinktech.zbgj.bean.CouponUserBean;
 import com.honglinktech.zbgj.bean.GoodsTypeBean;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.Coupon;
-import com.honglinktech.zbgj.entity.Gactivity;
 import com.honglinktech.zbgj.service.CouponService;
-import com.honglinktech.zbgj.service.GoodsActivityService;
 import com.honglinktech.zbgj.service.GoodsTypeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.ui.Model;
@@ -78,7 +74,8 @@ public class CouponController extends BaseController {
 		Response<Coupon>  itemResp = couponService.findById(id);
 		model.addAttribute("item", itemResp.getResult());
 		Response<List<GoodsTypeBean>> goodsTypeResp= goodsTypeService.findGoodsTypeAll();
-		model.addAttribute("goodsTypes", goodsTypeResp.getResult());
+		List<GoodsTypeBean> goodsTypes = goodsTypeResp.getResult();
+		model.addAttribute("goodsTypes", goodsTypes);
 		return "coupon/form";
 	}
 	/**
@@ -112,6 +109,7 @@ public class CouponController extends BaseController {
 			}
 			Response<Coupon> itemResp = couponService.saveOrUpdate(coupon);
 			Coupon item = itemResp.getResult();
+			addMessage(model, "修改成功");
 			return "redirect:modify.html?id=" + item.getId();
 		}catch (Exception e){
 			logger.error(e, e);
@@ -126,7 +124,7 @@ public class CouponController extends BaseController {
 	 * @param keyword
 	 * @param index
 	 * @param size
-	 * @param useTime
+	 * @param useStatus
 	 * @param status
 	 * @param model
 	 * @return
@@ -136,7 +134,7 @@ public class CouponController extends BaseController {
 	public String searchCouponUser(@RequestParam(required = false, defaultValue = "") String keyword,
 								   @RequestParam(required = false, defaultValue = "1") int index,
 								   @RequestParam(required = false, defaultValue = "15") int size,
-								   @RequestParam(required = false) String useTime,
+								   @RequestParam(required = false) String useStatus,
 								   @RequestParam(required = false) String status,
 								   Model model) {
 		int start = (index - 1)*size;
@@ -146,9 +144,9 @@ public class CouponController extends BaseController {
 			whereMap.put("keyword", keyword);
 			url += ("keyword="+keyword+"&");
 		}
-		if(!StringUtils.isEmpty(useTime)){
-			whereMap.put("useTime", Boolean.valueOf(useTime));
-			url += ("useTime="+useTime+"&");
+		if(!StringUtils.isEmpty(useStatus)){
+			whereMap.put("useStatus", Boolean.valueOf(useStatus));
+			url += ("useStatus="+ useStatus +"&");
 		}
 		if(!StringUtils.isEmpty(status)){
 			whereMap.put("status", Integer.valueOf(status));
@@ -156,7 +154,7 @@ public class CouponController extends BaseController {
 		}
 		Page<CouponUserBean>  page = couponService.findUserCouponBeanByWhere(start, size, url, whereMap);
 		model.addAttribute("page", page);
-		model.addAttribute("useTime", useTime);
+		model.addAttribute("useStatus", useStatus);
 		model.addAttribute("status", status);
 		model.addAttribute("keyword", keyword);
 		return "coupon/userConponList";

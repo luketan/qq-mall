@@ -1,7 +1,5 @@
 package com.honglinktech.zbgj.bean;
 
-import com.honglinktech.zbgj.entity.Coupon;
-
 import java.io.Serializable;
 import java.util.Date;
 

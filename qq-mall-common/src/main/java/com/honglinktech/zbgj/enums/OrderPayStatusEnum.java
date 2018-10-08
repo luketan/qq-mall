@@ -6,7 +6,7 @@ package com.honglinktech.zbgj.enums;
 public enum OrderPayStatusEnum {
 	waitPayment(1, "待支付", "您的订单已提交成功，请尽快支付，我们将尽快为你发货~"),
     Success(2, "支付成功", "请你稍等片刻，我们正在快马加鞭的为你配置商品，立即为你发货~"),
-    Fail(3, "支付失败", "你的订单快递运输中，请留意快递小哥~");
+    Fail(3, "支付失败", "");
 
 
     private int code;

@@ -33,6 +33,7 @@
                                     <th>序号</th>
                                     <th>名称</th>
                                     <th>条件</th>
+                                    <th>数量</th>
                                     <th>开始时间</th>
                                     <th>结束时间</th>
                                     <th>状态</th>
@@ -46,9 +47,10 @@
 	                                     <td>${item.id }</td>
 	                                     <td>${item.name }</td>
                                          <td>${item.condition}</td>
+                                         <td>${item.num}</td>
                                          <td><fmt:formatDate value="${item.startDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
                                          <td><fmt:formatDate value="${item.endDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-                                         <td>${item.status == 1?"正常":"删除"}</td>
+                                         <td>${item.status == 1?"上线":"下架"}</td>
                                          <td><fmt:formatDate value="${item.updateTime}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 	                                    <td><a href="modify.html?id=${item.id }">编辑</a></td>
 	                                </tr>

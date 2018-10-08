@@ -5,13 +5,14 @@
 package com.honglinktech.zbgj.dao;
 
 import com.honglinktech.zbgj.entity.UserKeep;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
 
 public interface UserKeepDao {
 
-    int deleteById(Integer id);
+    int deleteById(@Param(value = "userId") Integer userId, @Param(value = "id") Integer id);
 
     int insert(UserKeep record);
 
@@ -27,7 +28,7 @@ public interface UserKeepDao {
      * @param where
      * @return
      */
-    List<UserKeep> findByWhere(Map where);
+    List<UserKeep> findGoodsByWhere(Map where);
 
     /**
      * 删除收藏

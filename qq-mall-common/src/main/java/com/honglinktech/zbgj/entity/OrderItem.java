@@ -67,7 +67,7 @@ public class OrderItem {
     /**
      * 市场价格
      */
-    private BigDecimal marketPrice;
+    private BigDecimal markPrice;
 
     /**
      * 备注
@@ -161,12 +161,12 @@ public class OrderItem {
         this.price = price;
     }
 
-    public BigDecimal getMarketPrice() {
-        return marketPrice;
+    public BigDecimal getMarkPrice() {
+        return markPrice;
     }
 
-    public void setMarketPrice(BigDecimal marketPrice) {
-        this.marketPrice = marketPrice;
+    public void setMarkPrice(BigDecimal markPrice) {
+        this.markPrice = markPrice;
     }
 
     public String getRemark() {
@@ -211,7 +211,7 @@ public class OrderItem {
         this.goodsImg = orderItemBean.getGoodsImg();
         this.num = orderItemBean.getNum();
         this.price = orderItemBean.getPrice();
-        this.marketPrice = orderItemBean.getMarketPrice();
+        this.markPrice = orderItemBean.getMarkPrice();
         this.remark = orderItemBean.getRemark();
         this.disIs = orderItemBean.getDisIs();
         if(orderItemBean.getActivitys()!=null){
@@ -231,7 +231,7 @@ public class OrderItem {
         orderItemBean.setGoodsName(this.goodsName);
         orderItemBean.setGoodsImg(this.goodsImg);
         orderItemBean.setPrice(this.price);
-        orderItemBean.setMarketPrice(this.marketPrice);
+        orderItemBean.setMarkPrice(this.markPrice);
         orderItemBean.setNum(this.num);
         orderItemBean.setRemark(this.remark);
 
@@ -257,7 +257,7 @@ public class OrderItem {
         orderItemVO.setGoodsName(this.goodsName);
         orderItemVO.setGoodsImg(this.goodsImg);
         orderItemVO.setPrice(this.price);
-        orderItemVO.setMarketPrice(this.marketPrice);
+        orderItemVO.setMarkPrice(this.markPrice);
         orderItemVO.setNum(this.num);
         orderItemVO.setRemark(this.remark);
         try {

@@ -3,6 +3,7 @@
  */
 package com.honglinktech.zbgj.admin.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.honglinktech.zbgj.admin.common.Constants;
 import com.honglinktech.zbgj.common.SystemArgsCache;
 import com.honglinktech.zbgj.entity.Admin;
@@ -49,9 +50,9 @@ public abstract class BaseController {
         
         
         String uri = request.getRequestURI();
-        String[] path = uri.replace(".", "/").split("/");
-        if (path.length > 0) {
-            String selectMenu = path[1];
+        String[] path = uri.replace(".", "/").replace("//", "/").split("/");
+        if (path.length > 1) {
+            String selectMenu = path[2];
             request.setAttribute("selectMenu", selectMenu);
         }
     }

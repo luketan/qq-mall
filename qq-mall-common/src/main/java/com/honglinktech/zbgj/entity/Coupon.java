@@ -46,6 +46,11 @@ public class Coupon {
     private Integer value;
 
     /**
+     *
+     */
+    private Integer num;
+
+    /**
      * 开始时间
      */
     private Date startDate;
@@ -166,6 +171,14 @@ public class Coupon {
         this.updateTime = updateTime;
     }
 
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
     public CouponBean toBean(){
         CouponBean couponBean = new CouponBean();
         couponBean.setGoodsType(goodsType);
@@ -173,6 +186,7 @@ public class Coupon {
         couponBean.setMax(max);
         couponBean.setName(name);
         couponBean.setValue(value);
+        couponBean.setNum(num);
         return couponBean;
     }
 
@@ -183,6 +197,7 @@ public class Coupon {
         couponVO.setMax(max);
         couponVO.setName(name);
         couponVO.setValue(value);
+        couponVO.setNum(num);
         return couponVO;
     }
 }

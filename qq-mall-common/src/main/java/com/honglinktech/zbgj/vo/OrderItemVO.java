@@ -49,7 +49,7 @@ public class OrderItemVO {
     /**
      * 市场价格
      */
-    private BigDecimal marketPrice;
+    private BigDecimal markPrice;
 
     /**
      * 备注
@@ -127,12 +127,12 @@ public class OrderItemVO {
         this.price = price;
     }
 
-    public BigDecimal getMarketPrice() {
-        return marketPrice;
+    public BigDecimal getMarkPrice() {
+        return markPrice;
     }
 
-    public void setMarketPrice(BigDecimal marketPrice) {
-        this.marketPrice = marketPrice;
+    public void setMarkPrice(BigDecimal markPrice) {
+        this.markPrice = markPrice;
     }
 
     public String getRemark() {

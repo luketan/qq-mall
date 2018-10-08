@@ -7,12 +7,9 @@ import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
 import com.honglinktech.zbgj.dao.CouponDao;
 import com.honglinktech.zbgj.dao.CouponUserDao;
-import com.honglinktech.zbgj.dao.GoodsBrandDao;
 import com.honglinktech.zbgj.entity.Coupon;
-import com.honglinktech.zbgj.entity.Gactivity;
-import com.honglinktech.zbgj.entity.GoodsBrand;
 import com.honglinktech.zbgj.service.CouponService;
-import com.honglinktech.zbgj.service.GoodsBrandService;
+import com.honglinktech.zbgj.vo.CouponUserVO;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -33,63 +30,57 @@ public class CouponServiceImpl implements CouponService{
     private CouponUserDao couponUserDao;
 
     /**
-     * 获取券数量
-     * @return
-     * @throws BaseException
-     */
-    @Override
-    public int findCouponCount(Integer userId) throws BaseException{
-        int count= couponUserDao.findCouponCountByUser(userId);
-        return count;
-    }
-    /**
-     * APP获取券列表
+     * APP获取用户优惠券列表
      * @param userId
      * @param type 1,有效的购物券
      * @return
      * @throws BaseException
      */
     @Override
-    public Response<List<Coupon>> findCoupons(Integer userId,Integer start,Integer rows,int type) throws BaseException{
+    public Response<List<CouponUserVO>> findUserCoupons(Integer userId, Integer start, Integer rows, int type) throws BaseException{
         Map<String, Integer> whereMap = new HashMap<String, Integer>();
         whereMap.put("userId", userId);
         whereMap.put("start", start);
         whereMap.put("rows", rows);
         whereMap.put("type", type);
-        List<Coupon> coupons = couponDao.findCoupons(whereMap);
+        List<CouponUserVO> coupons = couponUserDao.findUserCouponVOs(whereMap);
         return Result.resultSet(coupons);
     }
 
+    @Override
+    public Response<CouponUserVO> findUserCouponById(Integer userId, Integer id) throws BaseException {
+        CouponUserVO couponUserVO = couponUserDao.findUserCouponVOById(userId, id);
+        if(couponUserVO == null){
+            return Result.fail("找不到优惠券！");
+        }else{
+            return Result.resultSet(couponUserVO);
+        }
+
+    }
+
     /**
-     * APP删除券
+     * APP删除用户优惠券
      * @param userId
-     * @param couponId
      * @return
      * @throws BaseException
      */
     @Override
-    public Response<Integer> deleteCoupon(Integer userId, Integer couponId) throws BaseException {
+    public Response<Integer> deleteUserCoupon(Integer userId, Integer id) throws BaseException {
 
-        int result = couponUserDao.deleteByUserIdAndCouponId(userId, couponId);
+        int result = couponUserDao.deleteByUserIdAndCouponId(userId, id);
         return Result.resultSet(result);
     }
 
     /**
-     * APP获取用户单个优惠券
+     * APP获取用户单个优惠券详情
      * @param userId
-     * @param couponId
      * @return
      * @throws BaseException
      */
     @Override
-    public Coupon findUserCoupon(Integer userId, Integer couponId) throws BaseException {
-        List<Coupon> tcoupons = couponDao.findCouponByUser(userId, couponId);
-        if(tcoupons!=null && tcoupons.size() > 0){
-            return tcoupons.get(0);
-        }else{
-            return null;
-        }
-
+    public CouponUserVO findUserCouponVO(Integer userId, Integer couponUserId) throws BaseException {
+        CouponUserVO couponUserVO = couponUserDao.findUserCouponVOById(userId, couponUserId);
+        return couponUserVO;
     }
 
     /**
@@ -100,14 +91,13 @@ public class CouponServiceImpl implements CouponService{
      * @throws BaseException
      */
     @Override
-    public Response<String> useCoupon(Integer userId, Integer couponId) throws BaseException {
-        int result = couponUserDao.useCoupon(userId, couponId);
+    public Response<String> useUserCoupon(Integer userId, Integer couponId) throws BaseException {
+        int result = couponUserDao.useUserCoupon(userId, couponId);
         if(result>0){
             return Result.success();
         }else{
             return Result.fail("优惠券使用失败");
         }
-
     }
 
 
@@ -139,7 +129,7 @@ public class CouponServiceImpl implements CouponService{
      */
     @Override
     public Response<Coupon> findById(Integer id) {
-        Coupon coupon = couponDao.selectByPrimaryKey(id);
+        Coupon coupon = couponDao.findById(id);
         return Result.resultSet(coupon);
     }
 
@@ -151,9 +141,9 @@ public class CouponServiceImpl implements CouponService{
     @Override
     public Response<Coupon> saveOrUpdate(Coupon coupon) {
         if(coupon.getId() != null && coupon.getId() > 0){
-            couponDao.updateByPrimaryKeySelective(coupon);
+            couponDao.update(coupon);
         }else{
-            couponDao.insertSelective(coupon);
+            couponDao.insert(coupon);
         }
         return Result.resultSet(coupon);
     }

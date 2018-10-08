@@ -130,8 +130,9 @@ public class OrderServiceImpl implements OrderService{
 					}
 				}
 			}
+			//优惠券end
 
-			//
+			//活动开始
 			for (ShoppingCartVO scb : shoppingCartVOList) {
 				List<ActivityBean> activityBeanList = activityDao.findActivityByGoodsId(scb.getGoodsId());
 				if(activityBeanList != null){
@@ -202,26 +203,23 @@ public class OrderServiceImpl implements OrderService{
 			}
 		}
 
-		Response<List<Coupon>> respCoupon = couponService.findCoupons(userId, null, null, 1);
-		List<Coupon> couponList = respCoupon.getResult();
-		List<CouponBean> couponBeanList = new ArrayList<CouponBean>();
-		if(couponList!=null){
-			for(Coupon coupon:couponList){
-				CouponBean couponBean = new CouponBean(coupon);
-				if(coupon.getGoodsType()==0){
-					if(coupon.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){
-						couponBean.setSelect(true);
+		Response<List<CouponUserVO>>  respCoupon = couponService.findUserCoupons(userId, null, null, 1);
+		List<CouponUserVO> couponUserList = respCoupon.getResult();
+		if(couponUserList!=null){
+			for(CouponUserVO couponUserVO :couponUserList){
+				if(couponUserVO.getGoodsType()==null || couponUserVO.getGoodsType()==0){//全场
+					if(couponUserVO.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){
+						couponUserVO.setSelect(true);
 					}
-				}else if(goodsTypeValueMap.containsKey(coupon.getGoodsType()+"")){
-					double value = goodsTypeValueMap.get(coupon.getGoodsType()+"").doubleValue();
-					if(value>=coupon.getMax() || coupon.getMax()==0){
-						couponBean.setSelect(true);
+				}else if(goodsTypeValueMap.containsKey(couponUserVO.getGoodsType()+"")){
+					double value = goodsTypeValueMap.get(couponUserVO.getGoodsType()+"").doubleValue();
+					if(value>= couponUserVO.getMax() || couponUserVO.getMax()==0){
+						couponUserVO.setSelect(true);
 					}
 				}
-				couponBeanList.add(couponBean);
 			}
 		}
-		restultMap.put("couponList", couponBeanList);
+		restultMap.put("couponList", couponUserList);
 		//筛选可用的购物券
 
 		//支付方式
@@ -265,9 +263,9 @@ public class OrderServiceImpl implements OrderService{
 		Order order = new Order();
 		order.setUserId(userId);
 
-		//总优惠券
+		//所有优惠券
 		List<ActivityBean> totalActivitys = new ArrayList<>();
-		//优惠券详情
+		//订单券详情
 		List<OrderItem> orderItems = new ArrayList<>();
 
 		//购物车
@@ -356,7 +354,7 @@ public class OrderServiceImpl implements OrderService{
 			orderItem.setGoodsName(scb.getGoodsName());
 			orderItem.setNum(scb.getNum());
 			orderItem.setPrice(scb.getPrice());
-			orderItem.setMarketPrice(scb.getMarkPrice());
+			orderItem.setMarkPrice(scb.getMarkPrice());
 			orderItem.setFormats(JSON.toJSONString(scb.getFormatSubList()));
 			orderItem.setActivitys(JSON.toJSONString(activityBeanList));
 			orderItems.add(orderItem);
@@ -365,22 +363,22 @@ public class OrderServiceImpl implements OrderService{
 		//购物券处理
 		int couponId = 0;//优惠券ID用于修改已经使用
 		if(orderReq.getCouponUserId()>0){
-			Coupon coupon = couponService.findUserCoupon(userId, Integer.valueOf(orderReq.getCouponUserId()));
-			if(coupon!=null){
-				if(coupon.getGoodsType()==0){//全场适用
-					if(coupon.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){
-						lostCouponMoney = lostCouponMoney.add(new BigDecimal(coupon.getValue()));
-						order.setCouponId(coupon.getId());
-//						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
-						couponId = coupon.getId();
+			CouponUserVO couponUserVO = couponService.findUserCouponVO(userId, Integer.valueOf(orderReq.getCouponUserId()));
+			if(couponUserVO!=null){
+				if(couponUserVO.getGoodsType()==null || couponUserVO.getGoodsType()==0){//全场适用
+					if(couponUserVO.getMax()==0 || goodsTotalPrice.doubleValue() >= goodsTotalPrice.doubleValue()){
+						lostCouponMoney = lostCouponMoney.add(new BigDecimal(couponUserVO.getValue()));
+						order.setCouponId(couponUserVO.getId());
+//						order.setCoupon(couponUserVO.getName()+"["+couponUserVO.getCondition()+"]");
+						couponId = couponUserVO.getId();
 					}
-				}else if(goodsTypeValueMap.containsKey(coupon.getGoodsType()+"")){//指定商品类型使用
-					double value = goodsTypeValueMap.get(coupon.getGoodsType()+"").doubleValue();
-					if(value>=coupon.getMax() || coupon.getMax()==0){
-						lostCouponMoney = lostCouponMoney.add(new BigDecimal(coupon.getValue()));
-						order.setCouponId(coupon.getId());
-//						order.setCoupon(coupon.getName()+"["+coupon.getCondition()+"]");
-						couponId = coupon.getId();
+				}else if(goodsTypeValueMap.containsKey(couponUserVO.getGoodsType()+"")){//指定商品类型使用
+					double value = goodsTypeValueMap.get(couponUserVO.getGoodsType()+"").doubleValue();
+					if(value>=couponUserVO.getMax() || couponUserVO.getMax()==0){
+						lostCouponMoney = lostCouponMoney.add(new BigDecimal(couponUserVO.getValue()));
+						order.setCouponId(couponUserVO.getId());
+//						order.setCoupon(couponUserVO.getName()+"["+couponUserVO.getCondition()+"]");
+						couponId = couponUserVO.getId();
 					}
 				}
 			}
@@ -460,7 +458,7 @@ public class OrderServiceImpl implements OrderService{
 		order.setPayStatus(OrderPayStatusEnum.waitPayment.getCode());
 		order.setRemark(String.valueOf(orderReq.getRemark()));
 		order.setForm(String.valueOf(orderReq.getForm()));
-		order.setStatus(OrderStatusEnum.waitPayment.getCode());
+		order.setStatus(OrderStatusEnum.WaitPayment.getCode());
 		order.setTotalMoney(totalMoney);
 		logger.info ("========order=========" + JSON.toJSONString(order));
 		int result = orderDao.insert(order);
@@ -479,7 +477,7 @@ public class OrderServiceImpl implements OrderService{
 			shoppingCartDao.deleteIds(userId, orderReq.getShoppingCartIds());
 		}
 		if(couponId > 0){
-			couponService.useCoupon(userId, couponId);
+			couponService.useUserCoupon(userId, couponId);
 		}
 		//TODO 商品减去数量
 		//TODO 生成唤醒支付
@@ -513,21 +511,25 @@ public class OrderServiceImpl implements OrderService{
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<List<OrderVO>> findOrderVOList(Integer userId, Integer start, Integer rows) throws BaseException{
+	public Response<List<OrderVO>> findOrderVOList(Integer userId, Integer orderStatus, Integer start, Integer rows) throws BaseException{
 
 		Map whereMap = new HashMap();
-		whereMap.put("userId", new String[]{String.valueOf(userId)});
-		whereMap.put("deleteFlag", 0);
+		whereMap.put("userId", userId);
 		whereMap.put("orderBy", "status");
 		whereMap.put("asc", "asc");
 		whereMap.put("start", start);
 		whereMap.put("rows", rows);
+		if(orderStatus != null){
+			whereMap.put("orderStatus", orderStatus);
+		}
 
-		List<Order> orderBeans = orderDao.findOrderByWhere(whereMap);
+		List<Order> orders = orderDao.findOrderByWhere(whereMap);
+
 		List<OrderVO> orderVOs = new ArrayList<>();
-		if(orderBeans!=null){
-			for(Order order:orderBeans){
+		if(orders!=null){
+			for(Order order:orders){
 				OrderVO orderVO = order.toVO();
+				orderVO.setStatusName(OrderStatusEnum.getName(orderVO.getStatus()));
 				List<OrderItem> orderItems = orderItemDao.findByOrderId(orderVO.getId());
 				List<OrderItemVO> orderItemBeanList = new ArrayList<>();
 				if(orderItems != null){
@@ -568,6 +570,7 @@ public class OrderServiceImpl implements OrderService{
 
 		
 		OrderVO orderVO = order.toVO();
+		orderVO.setStatusName(OrderStatusEnum.getName(orderVO.getStatus()));
 		List<OrderItem> orderItems = orderItemDao.findByOrderId(orderVO.getId());
 		List<OrderItemVO> orderItemVOList = new ArrayList<>();
 		if(orderItems != null){
@@ -588,7 +591,7 @@ public class OrderServiceImpl implements OrderService{
 
 		//优惠券
 		if(orderVO.getCouponId() != null && orderVO.getCouponId() > 0){
-			CouponUserVO couponUserVO =  couponUserDao.findUserCouponVOById(orderVO.getCouponId());
+			CouponUserVO couponUserVO =  couponUserDao.findUserCouponVOById(userId, orderVO.getCouponId());
 			orderVO.setCouponUserVO(couponUserVO);
 		}
 
@@ -597,6 +600,30 @@ public class OrderServiceImpl implements OrderService{
 		return Result.resultSet(orderVO);
 	}
 
+
+
+	public Response<String> updateCancelOrderById(Integer userId, Integer id){
+		Order order = orderDao.findById(id);
+		if(order == null){
+			logger.error("updateCancelOrderById[id:"+id+",userId:"+userId+"]");
+			return Result.fail("没找到订单");
+		}
+		if(order.getUserId() != userId){
+			logger.error("updateCancelOrderById[id:"+id+",userId:"+userId+"], userIdError!!");
+			return Result.fail("订单ID错误！");
+		}
+		if(order.getStatus() != OrderStatusEnum.WaitPayment.getCode()
+				&& order.getPayStatus() == OrderPayStatusEnum.Success.getCode()){
+			return Result.fail("订单已支付不能取消！");
+		}
+		order.setStatus(OrderStatusEnum.Cancel.getCode());
+		int result = orderDao.update(order);
+		if(result == 0){
+			return Result.fail("取消订单失败，请稍后重试");
+		}else{
+			return Result.success("取消订单成功！");
+		}
+	}
 	/**
 	 * APP获取快递信息
 	 * @param postCode

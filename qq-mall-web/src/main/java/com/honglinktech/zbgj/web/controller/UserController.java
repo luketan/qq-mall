@@ -31,7 +31,6 @@ import com.honglinktech.zbgj.web.base.BaseApiController;
 import com.honglinktech.zbgj.base.BaseException;
 import com.honglinktech.zbgj.base.ExceptionEnum;
 import com.honglinktech.zbgj.bean.FeedBackBean;
-import com.honglinktech.zbgj.bean.UserLoginBean;
 import com.honglinktech.zbgj.common.Constants;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.common.Result;
@@ -121,7 +120,7 @@ public class UserController extends BaseApiController {
 			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"type");
 		}
 		Integer type = Integer.valueOf(req.get("type"));
-		Response<List<UserKeep>> resp = userKeepService.findKeepPage(Integer.valueOf(userCode), type, index, size);
+		Response<List<UserKeep>> resp = userKeepService.findKeepGoodsList(Integer.valueOf(userCode), type, index, size);
 
 		return resp; 
 	}
@@ -181,39 +180,7 @@ public class UserController extends BaseApiController {
 
 		return resp; 
 	}
-	/**
-	 * 获取可用的券数量
-	 * @param headers
-	 * @return
-	 * @throws BaseException
-	 */
-	@RequestMapping(value="findCouponCount",method={RequestMethod.GET,RequestMethod.POST})
-	@ResponseBody
-	public Response findCouponCount(@RequestHeader HttpHeaders headers) throws BaseException{
-	    
-		String userCode =  headers.getFirst("userId");
-		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
-			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
-		}
-		int count = couponService.findCouponCount(Integer.valueOf(userCode));
 
-		return Result.resultSet(count);
-	}
-	@RequestMapping(value="findCouponPage",method={RequestMethod.GET,RequestMethod.POST})
-	@ResponseBody
-	public Response<List<Coupon>> findCouponPage(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
-	    
-		String userCode =  headers.getFirst("userId");
-		if(StringUtils.isEmpty(userCode) || Integer.valueOf(userCode)==0){
-			return Result.fail(ExceptionEnum.COMMON_USER_CODE_NOT_EMPTY);
-		}
-		int index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
-		int size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
-		int type = req.get("type")==null?0:Integer.valueOf(req.get("type"));
-		Response<List<Coupon>> resp = couponService.findCoupons(Integer.valueOf(userCode), index, size, type);
-
-		return resp; 
-	}
 	@RequestMapping(value="deleteCoupon",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response deleteCoupon(@RequestHeader HttpHeaders headers, @RequestBody Map<String, String> req) throws BaseException{
@@ -227,7 +194,7 @@ public class UserController extends BaseApiController {
 		}
 		Integer couponId = Integer.valueOf(req.get("couponId"));
 		
-		Response<Integer> resp = couponService.deleteCoupon(Integer.valueOf(userCode), couponId);
+		Response<Integer> resp = couponService.deleteUserCoupon(Integer.valueOf(userCode), couponId);
 
 		return resp; 
 	}

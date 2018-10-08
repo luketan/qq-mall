@@ -8,6 +8,7 @@ import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.Coupon;
 import com.honglinktech.zbgj.entity.Gactivity;
 import com.honglinktech.zbgj.entity.Gtag;
+import com.honglinktech.zbgj.vo.CouponUserVO;
 
 import java.util.List;
 import java.util.Map;
@@ -17,12 +18,6 @@ import java.util.Map;
  */
 public interface CouponService {
     /**
-     * APP获取券数量
-     * @return
-     * @throws BaseException
-     */
-    int findCouponCount(Integer userId) throws BaseException;
-    /**
      * APP获取券列表
      * @param userId
      * @param start
@@ -31,7 +26,14 @@ public interface CouponService {
      * @return
      * @throws BaseException
      */
-    Response<List<Coupon>> findCoupons(Integer userId, Integer start, Integer rows, int type) throws BaseException;
+    Response<List<CouponUserVO>> findUserCoupons(Integer userId, Integer start, Integer rows, int type) throws BaseException;
+
+
+    /**
+     *
+     * @return
+     */
+    Response<CouponUserVO> findUserCouponById(Integer userId, Integer id) throws BaseException;
 
     /**
      * APP删除券
@@ -40,16 +42,16 @@ public interface CouponService {
      * @return
      * @throws BaseException
      */
-    Response<Integer> deleteCoupon(Integer userId, Integer couponId) throws BaseException ;
+    Response<Integer> deleteUserCoupon(Integer userId, Integer id) throws BaseException ;
 
     /**
-     * App获取用户单个优惠券
+     * App获取用户单个优惠券详情
      * @param userId
      * @param couponId
      * @return
      * @throws BaseException
      */
-    Coupon findUserCoupon(Integer userId, Integer couponId) throws BaseException ;
+    CouponUserVO findUserCouponVO(Integer userId, Integer couponId) throws BaseException ;
 
     /**
      * 使用券
@@ -58,7 +60,7 @@ public interface CouponService {
      * @return
      * @throws BaseException
      */
-    Response<String> useCoupon(Integer userId, Integer couponId) throws BaseException;
+    Response<String> useUserCoupon(Integer userId, Integer couponId) throws BaseException;
 
     /**
      * console 获取优惠券列表

@@ -6,16 +6,16 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="coupon_id" jdbcType="INTEGER" property="couponId" />
-    <result column="checked" jdbcType="INTEGER" property="checked" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="use_time" jdbcType="TIMESTAMP" property="useTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, user_id, coupon_id, checked, code, status, create_time
+    id, user_id, coupon_id, code, status, create_time
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -25,12 +25,12 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteById" parameterType="java.lang.Integer">
     DELETE FROM t_coupon_user
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.CouponUser">
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.CouponUser">
     INSERT INTO t_coupon_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -41,9 +41,6 @@
       </if>
       <if test="couponId != null">
         coupon_id,
-      </if>
-      <if test="checked != null">
-        checked,
       </if>
       <if test="code != null">
         code,
@@ -63,9 +60,6 @@
       <if test="couponId != null">
         #{couponId,jdbcType=INTEGER},
       </if>
-      <if test="checked != null">
-        #{checked,jdbcType=INTEGER},
-      </if>
       <if test="code != null">
         #{code,jdbcType=VARCHAR},
       </if>
@@ -76,7 +70,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.CouponUser">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.CouponUser">
     UPDATE t_coupon_user
     <set>
       <if test="userId != null">
@@ -84,9 +78,6 @@
       </if>
       <if test="couponId != null">
         coupon_id = #{couponId,jdbcType=INTEGER},
-      </if>
-      <if test="checked != null">
-        checked = #{checked,jdbcType=INTEGER},
       </if>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
@@ -100,28 +91,75 @@
   </update>
   
   <!--*************************************************************************************************************-->
-  <!---->
-  <select id="findCouponCountByUser" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-    SELECT 
-    	count(1) AS count 
-    FROM t_coupon_user couUser 
-    LEFT JOIN t_coupon c ON(couUser.coupon_id = c.id ) 
-    WHERE couUser.user_id = #{userId,jdbcType=INTEGER} 
-	    AND couUser.status = 0 
-	    AND c.start_date <![CDATA[ <= ]]> CURDATE()
-	    AND c.end_date &gt;= CURDATE()
+  <!--app -->
+  <select id="findUserCouponVOs" parameterType="map" resultType="com.honglinktech.zbgj.vo.CouponUserVO">
+    SELECT
+    cu.id as id,
+    c.`name` as couponName,
+    c.`condition` as `condition`,
+    cu.`status` as status,
+    cu.`code` as code,
+    c.goods_type as goodsType,
+    gt.`name` as typeName,
+    c.max as `max`,
+    c.`value` as `value`,
+    c.start_date as startDate,
+    c.end_date as endDate,
+    cu.use_time as useTime,
+    cu.update_time as updateTime,
+    cu.create_time as createTime
+    FROM t_coupon_user cu
+    LEFT JOIN t_coupon c ON(cu.coupon_id = c.id )
+    LEFT JOIN t_goods_type gt ON(c.goods_type = gt.id )
+    WHERE cu.delete_flag = 0
+    AND cu.user_id = #{userId}
+    ORDER BY cu.update_time DESC
+    <if test="start!=null and rows!=null">
+      limit #{start},#{rows}
+    </if>
   </select>
-  <update id="useCoupon">
+  <!--app-->
+  <update id="useUserCoupon">
   	UPDATE t_coupon_user set status = 1 
   	WHERE user_id = #{userId,jdbcType=INTEGER} 
   	AND coupon_id = #{couponId,jdbcType=INTEGER}
   </update>
-  <!---->
+  <!--app-->
   <delete id="deleteByUserIdAndCouponId">
-  	 DELETE FROM t_coupon_user
+  	 UPDATE t_coupon_user SET delete_flag = 1
      WHERE user_id = #{userId, jdbcType=INTEGER}
-     AND coupon_id = #{couponId, jdbcType=INTEGER}
+     AND id = #{id, jdbcType=INTEGER}
   </delete>
+  <!--app -->
+  <select id="findUserCouponVOById" parameterType="map" resultType="com.honglinktech.zbgj.vo.CouponUserVO">
+    SELECT
+    cu.id as id,
+    u.account as userName,
+    u.phone as phone,
+    c.`name` as couponName,
+    c.`condition` as `condition`,
+    cu.`status` as status,
+    cu.`code` as code,
+    c.goods_type as goodsType,
+    gt.`name` as typeName,
+    c.max as max,
+    c.`value` as `value`,
+    c.start_date as startDate,
+    c.end_date as endDate,
+    cu.use_time as useTime,
+    cu.update_time as updateTime,
+    cu.create_time as createTime
+    FROM t_coupon_user cu
+    LEFT JOIN t_user u ON(cu.user_id = u.id )
+    LEFT JOIN t_coupon c ON(cu.coupon_id = c.id )
+    LEFT JOIN t_goods_type gt ON(c.goods_type = gt.id )
+    WHERE cu.id = #{id}
+    <if test="userId != null">
+      AND cu.user_id = #{userId}
+    </if>
+    limit 0,1
+  </select>
+  <!--console-->
   <select id="findUserCouponBeanByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.CouponUserBean">
     SELECT
       cu.id as id,
@@ -136,7 +174,6 @@
       c.`value` as `value`,
       c.start_date as startDate,
       c.end_date as endDate,
-      cu.`checked` as `checked`,
       cu.use_time as useTime,
       cu.update_time as updateTime,
       cu.create_time as createTime
@@ -144,7 +181,7 @@
     LEFT JOIN t_user u ON(cu.user_id = u.id )
     LEFT JOIN t_coupon c ON(cu.coupon_id = c.id )
     LEFT JOIN t_goods_type gt ON(c.goods_type = gt.id )
-    WHERE 1=1
+    WHERE cu.delete_flag = 0
     <if test="keyword!=null">
       AND (u.account like CONCAT('%','${keyword}','%' )
       OR u.phone like CONCAT('%','${keyword}','%' )
@@ -153,12 +190,14 @@
     <if test="status!=null">
       AND cu.status = #{status}
     </if>
-    <if test="useTime !=null and useTime==true">
+    <if test="useStatus !=null and useStatus==true">
+      AND cu.status = 0
       AND c.start_date <![CDATA[ <= ]]> CURDATE()
       AND c.end_date <![CDATA[ >= ]]> CURDATE()
     </if>
-    <if test="useTime !=null and useTime==false">
-      AND (c.start_date <![CDATA[ > ]]> CURDATE()
+    <if test="useStatus !=null and useStatus==false">
+      AND (cu.status = 1
+            OR c.start_date <![CDATA[ > ]]> CURDATE()
             OR c.end_date <![CDATA[ < ]]> CURDATE())
     </if>
     <if test="orderBy!=null and asc != null">
@@ -171,31 +210,7 @@
       limit #{start},#{rows}
     </if>
   </select>
-  <select id="findUserCouponVOById" parameterType="map" resultType="com.honglinktech.zbgj.vo.CouponUserVO">
-    SELECT
-    cu.id as id,
-    u.account as userName,
-    u.phone as phone,
-    c.`name` as couponName,
-    cu.`status` as status,
-    cu.`code` as code,
-    c.goods_type as goodsType,
-    gt.`name` as typeName,
-    c.max as max,
-    c.`value` as `value`,
-    c.start_date as startDate,
-    c.end_date as endDate,
-    cu.`checked` as `checked`,
-    cu.use_time as useTime,
-    cu.update_time as updateTime,
-    cu.create_time as createTime
-    FROM t_coupon_user cu
-    LEFT JOIN t_user u ON(cu.user_id = u.id )
-    LEFT JOIN t_coupon c ON(cu.coupon_id = c.id )
-    LEFT JOIN t_goods_type gt ON(c.goods_type = gt.id )
-    WHERE cu.id = #{id}
-    limit 0,1
-  </select>
+  <!--console-->
   <select id="findUserCouponBeanById" parameterType="map" resultType="com.honglinktech.zbgj.bean.CouponUserBean">
     SELECT
     cu.id as id,
@@ -210,7 +225,6 @@
     c.`value` as `value`,
     c.start_date as startDate,
     c.end_date as endDate,
-    cu.`checked` as `checked`,
     cu.use_time as useTime,
     cu.update_time as updateTime,
     cu.create_time as createTime
@@ -221,6 +235,7 @@
     WHERE cu.id = #{id}
       limit 0,1
   </select>
+  <!--console-->
   <select id="findUserCouponBeanCountByWhere" parameterType="map" resultType="java.lang.Integer">
     SELECT
       count(1)
@@ -228,7 +243,7 @@
     LEFT JOIN t_user u ON(cu.user_id = u.id )
     LEFT JOIN t_coupon c ON(cu.coupon_id = c.id )
     LEFT JOIN t_goods_type gt ON(c.goods_type = gt.id )
-    WHERE 1=1
+    WHERE cu.delete_flag = 0
     <if test="keyword!=null">
       AND (u.account like CONCAT('%','${keyword}','%' )
       OR u.phone like CONCAT('%','${keyword}','%' )

@@ -16,6 +16,7 @@ public class CouponVO implements Serializable{
 	private String typeName=null;
 	private Integer max=null;
 	private Integer value=null;
+	private Integer num;
 
 	private boolean select;
 	/**
@@ -25,14 +26,6 @@ public class CouponVO implements Serializable{
 
 	public CouponVO(){
  	}
- 	public CouponVO(Coupon tcoupon){
- 		this.id = tcoupon.getId();
-		this.name = tcoupon.getName();
-		this.goodsType = tcoupon.getGoodsType();
-		this.max = tcoupon.getMax();
-		this.value = tcoupon.getValue();
- 	}
- 	
 		/*ID*/
 	public Integer getId(){
 		 return this.id; 
@@ -83,5 +76,13 @@ public class CouponVO implements Serializable{
 	}
 	public void setSelect(boolean select) {
 		this.select = select;
+	}
+
+	public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
 	}
 }

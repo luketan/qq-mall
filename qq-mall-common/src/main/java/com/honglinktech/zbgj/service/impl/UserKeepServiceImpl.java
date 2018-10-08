@@ -67,18 +67,37 @@ public class UserKeepServiceImpl implements UserKeepService{
 	 * @throws BaseException
 	 */
 	@Override
-	public Response<List<UserKeep>> findKeepPage(Integer userId,Integer type,Integer start,Integer rows) throws BaseException{
+	public Response<List<UserKeep>> findKeepGoodsList(Integer userId, Integer type, Integer start, Integer rows) throws BaseException{
 
 		Map where  = new HashMap();
 		where.put("userId", userId);
 		where.put("type", type);
 		where.put("start", start);
 		where.put("rows", rows);
-		List<UserKeep> userKeeps= userKeepDao.findByWhere(where);
+		List<UserKeep> userKeeps= userKeepDao.findGoodsByWhere(where);
 		
 		return Result.resultSet(userKeeps);
 		
 	}
-	
-	
+
+
+	/**
+	 * 收藏列表
+	 * @return
+	 * @throws BaseException
+	 */
+	@Override
+	public Response<String> delKeepGoods(Integer userId, Integer id) throws BaseException{
+
+		int result= userKeepDao.deleteById(userId, id);
+		if(result>0){
+			return Result.success();
+		}else {
+			return Result.fail("删除失败请稍后重试！");
+		}
+
+
+	}
+
+
 }

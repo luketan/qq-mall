@@ -46,7 +46,7 @@
                                 <select name="paymentId" class="form-control input-sm" >
                                     <option value="0" ${paymentId==0?'selected':''}>全部方式</option>
                                     <c:forEach items="${paymentTypeList}" var="paymentType">
-                                        <option value="${paymentType.code}" ${status==paymentType.code?'selected':''}>${paymentType.value}</option>
+                                        <option value="${paymentType.code}" ${paymentId==paymentType.code?'selected':''}>${paymentType.value}</option>
                                     </c:forEach>
                                 </select>
                                 <button type="button" class="btn btn-warning" onclick="submitSearch()">查询</button>

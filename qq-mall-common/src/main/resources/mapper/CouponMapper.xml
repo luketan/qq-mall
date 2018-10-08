@@ -10,6 +10,7 @@
     <result column="goods_type" jdbcType="INTEGER" property="goodsType" />
     <result column="max" jdbcType="INTEGER" property="max" />
     <result column="value" jdbcType="INTEGER" property="value" />
+    <result column="num" jdbcType="INTEGER" property="num" />
     <result column="start_date" jdbcType="DATE" property="startDate" />
     <result column="end_date" jdbcType="DATE" property="endDate" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -18,22 +19,22 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    `id`, `name`, `condition`, `detail`, `goods_type`, `max`, `value`, `start_date`, `end_date`, `status`, `create_time`, `update_time`
+    `id`, `name`, `condition`, `detail`, `goods_type`, `max`, `value`, `num`, `start_date`, `end_date`, `status`, `create_time`, `update_time`
   </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="findById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM t_coupon
     WHERE id = #{id,jdbcType=INTEGER}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteById" parameterType="java.lang.Integer">
     DELETE FROM t_coupon
     WHERE id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.honglinktech.zbgj.entity.Coupon"
+  <insert id="insert" parameterType="com.honglinktech.zbgj.entity.Coupon"
           useGeneratedKeys="true" keyProperty="id">
     <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
       SELECT LAST_INSERT_ID() AS ID
@@ -60,6 +61,9 @@
       </if>
       <if test="value != null">
         value,
+      </if>
+      <if test="num != null">
+        num,
       </if>
       <if test="startDate != null">
         start_date,
@@ -95,6 +99,9 @@
       <if test="value != null">
         #{value,jdbcType=INTEGER},
       </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
       <if test="startDate != null">
         #{startDate,jdbcType=DATE},
       </if>
@@ -109,7 +116,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.honglinktech.zbgj.entity.Coupon">
+  <update id="update" parameterType="com.honglinktech.zbgj.entity.Coupon">
     UPDATE t_coupon
     <set>
       <if test="name != null">
@@ -125,10 +132,13 @@
         goods_type = #{goodsType,jdbcType=INTEGER},
       </if>
       <if test="max != null">
-        max = #{max,jdbcType=INTEGER},
+        `max` = #{max,jdbcType=INTEGER},
       </if>
       <if test="value != null">
-        value = #{value,jdbcType=INTEGER},
+        `value` = #{value,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        `num` = #{num,jdbcType=INTEGER},
       </if>
       <if test="startDate != null">
         start_date = #{startDate,jdbcType=DATE},

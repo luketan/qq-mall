@@ -42,6 +42,7 @@
                                     <div class="form-group">
                                         <label style="display:block;">类型</label>
                                         <select id="goodsType" name="goodsType">
+                                            <option value="0">全部</option>
                                             <c:forEach items="${goodsTypes}" var="goodsType" >
                                                 <option value="${goodsType.id}" ${item.goodsType == goodsType.id?"selected=selected":""} >${goodsType.name}</option>
                                             </c:forEach>
@@ -56,6 +57,10 @@
                                         <input class="form-control" name="value" value="${item.value }" type="number" placeholder="请输入优惠券的值">
                                     </div>
                                     <div class="form-group">
+                                        <label>数量</label>
+                                        <input class="form-control" name="num" value="${item.num }" type="number" placeholder="请输入优惠券的数量">
+                                    </div>
+                                    <div class="form-group">
                                         <label>开始时间</label>
                                         <input class="form-control Wdate" name="startTimeTime" value='<fmt:formatDate value="${item.startDate}" pattern="yyyy-MM-dd hh:mm:ss"/>' onFocus="WdatePicker({isShowClear:false,readOnly:true,dateFmt:'yyyy-MM-dd HH:mm:ss'})" placeholder="请输入优惠券的开始时间">
                                     </div>
@@ -66,8 +71,8 @@
                                     <div class="form-group">
                                         <label>状态</label>
                                         <select class="form-control" name="status">
-                                            <option ${item.status==1?"selected=selected":"" } value="1">正常</option>
-                                            <option ${item.status==2?"selected=selected":"" } value="2">无效</option>
+                                            <option ${item.status==1?"selected=selected":"" } value="1">上线</option>
+                                            <option ${item.status==0?"selected=selected":"" } value="0">下架</option>
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-success">确认${item.id>0?'修改':'添加' }</button>

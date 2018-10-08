@@ -12,7 +12,7 @@
     <result column="activitys" jdbcType="VARCHAR" property="activitys" />
     <result column="num" jdbcType="INTEGER" property="num" />
     <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="mark_price" jdbcType="DECIMAL" property="markPrice" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="dis_is" jdbcType="INTEGER" property="disIs" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -20,7 +20,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    id, order_id, goods_id, goods_name, goods_img, formats, activitys, num, price, market_price, 
+    id, order_id, goods_id, goods_name, goods_img, formats, activitys, num, price, mark_price,
     remark, dis_is, update_time, create_time
   </sql>
 
@@ -66,8 +66,8 @@
       <if test="price != null">
         price,
       </if>
-      <if test="marketPrice != null">
-        market_price,
+      <if test="markPrice != null">
+        mark_price,
       </if>
       <if test="remark != null">
         remark,
@@ -106,8 +106,8 @@
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
       </if>
-      <if test="marketPrice != null">
-        #{marketPrice,jdbcType=DECIMAL},
+      <if test="markPrice != null">
+        #{markPrice,jdbcType=DECIMAL},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
@@ -147,8 +147,8 @@
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
       </if>
-      <if test="marketPrice != null">
-        market_price = #{marketPrice,jdbcType=DECIMAL},
+      <if test="markPrice != null">
+        mark_price = #{markPrice,jdbcType=DECIMAL},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
@@ -172,7 +172,7 @@
                   activitys,
                   num,
                   price,
-                  market_price,
+                  mark_price,
                   remark,
                   dis_is,
                   update_time,
@@ -191,7 +191,7 @@
                       #{orderItem.activitys,jdbcType=VARCHAR},
                       #{orderItem.num,jdbcType=INTEGER},
                       #{orderItem.price,jdbcType=DECIMAL},
-                      #{orderItem.marketPrice,jdbcType=DECIMAL},
+                      #{orderItem.markPrice,jdbcType=DECIMAL},
                       #{orderItem.remark,jdbcType=VARCHAR},
                       #{orderItem.disIs,jdbcType=INTEGER},
                       now(),

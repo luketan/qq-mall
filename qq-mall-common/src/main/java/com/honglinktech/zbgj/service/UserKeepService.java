@@ -27,7 +27,15 @@ public interface UserKeepService{
 	 * @return
 	 * @throws BaseException
 	 */
-	Response<List<UserKeep>> findKeepPage(Integer userId, Integer type, Integer start, Integer rows) throws BaseException;
-	
-	
+	Response<List<UserKeep>> findKeepGoodsList(Integer userId, Integer type, Integer start, Integer rows) throws BaseException;
+
+
+	/**
+	 * 删除
+	 * @param userId
+	 * @param id
+	 * @return
+	 * @throws BaseException
+     */
+	Response<String> delKeepGoods(Integer userId, Integer id) throws BaseException;
 }

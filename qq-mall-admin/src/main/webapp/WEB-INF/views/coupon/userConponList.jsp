@@ -26,17 +26,17 @@
                         <form id="inputForm" action="userConponList.html" method="post" class="row">
                             <div class="col-lg-12 form-inline pull-left">
                                 <input name="keyword" type="text" class="form-control " value="${keyword}" placeholder="优惠券名称/用户名称/电话号码">
-                                <label style="margin-left:10px">销售方式</label>
+                                <label style="margin-left:10px">使用</label>
                                 <select name="status" class="form-control input-sm">
                                     <option value="">全部</option>
-                                    <option value="0" ${status==0?'selected':''}>未使用</option>
-                                    <option value="1" ${status==1?'selected':''}>已使用</option>
+                                    <option value="0" ${status=='0'?'selected':''}>未使用</option>
+                                    <option value="1" ${status=='1'?'selected':''}>已使用</option>
                                 </select>
-                                <label style="margin-left:10px">是否在有效期内</label>
-                                <select name="useTime" class="form-control input-sm">
+                                <label style="margin-left:10px">是否在有效</label>
+                                <select name="useStatus" class="form-control input-sm">
                                     <option value="">全部</option>
-                                    <option value="true" ${useTime=='true'?'selected':''}>是</option>
-                                    <option value="false" ${useTime=='false'?'selected':''}>否</option>
+                                    <option value="true" ${useStatus=='true'?'selected':''}>是</option>
+                                    <option value="false" ${useStatus=='false'?'selected':''}>否</option>
                                 </select>
                                 <button type="submit" class="btn btn-warning">查询</button>
                             </div>

@@ -52,6 +52,11 @@ public class OrderVO {
 	private Integer status;
 
 	/**
+	 *
+	 */
+	private String statusName;
+
+	/**
 	 * 快递公司ID
 	 */
 	private Integer postId;
@@ -386,5 +391,13 @@ public class OrderVO {
 
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
+	}
+
+	public String getStatusName() {
+		return statusName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
 	}
 }
