@@ -113,17 +113,15 @@ public class UserController extends BaseApiController {
 		
 	}
 	
-	@RequestMapping(value="findKeepPage",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findKeepPage",method={RequestMethod.POST})
 	@ResponseBody
 	public Response<List<UserKeep>> findKeepPage(@RequestBody Map<String, String> req, @RequestAttribute UserVO user) throws BaseException{
 
 		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
 		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
-		if(req.get("type")==null){
-			return Result.fail(ExceptionEnum.COMMON_PARAMETER_ERROR_NOT_NULL,"type");
-		}
-		Integer type = Integer.valueOf(req.get("type"));
-		Response<List<UserKeep>> resp = userKeepService.findKeepPage(user.getId(), type, start, rows);
+
+		Integer type = req.containsKey("type")?Integer.valueOf(req.get("type")):1;
+		Response<List<UserKeep>> resp = userKeepService.findKeepGoodsList(user.getId(), type, start, rows);
 
 		return resp; 
 	}
@@ -138,6 +136,17 @@ public class UserController extends BaseApiController {
 		boolean keep = !req.containsKey("keep")?false:Boolean.valueOf(req.get("keep").toString());
 		Response<String> resp = userKeepService.updateGoodsKeep(user.getId(), goodsId, keep);
 		return resp; 
+	}
+	@RequestMapping(value="delKeep",method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public Response<String> delKeep(@RequestBody Map req, @RequestAttribute UserVO user) throws BaseException{
+
+		if(!req.containsKey("id")){
+			return Result.fail("ID不能为空！");
+		}
+		int id = Integer.valueOf(req.get("id").toString());
+		Response<String> resp = userKeepService.delKeepGoods(user.getId(), id);
+		return resp;
 	}
 	@RequestMapping(value="findAddressById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
