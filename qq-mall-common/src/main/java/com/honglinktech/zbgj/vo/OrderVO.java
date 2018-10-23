@@ -1,8 +1,7 @@
 package com.honglinktech.zbgj.vo;
 
-import com.honglinktech.zbgj.entity.CouponUser;
-
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -100,7 +99,14 @@ public class OrderVO {
 	 * 其他优惠金额，积分，红包
 	 */
 	private BigDecimal lostMoney;
-
+	/**
+	 * 积分扣除金额
+	 */
+	private BigDecimal lostPointMoney;
+	/**
+	 * 扣除的积分
+	 */
+	private BigDecimal lostPoint;
 	/**
 	 * 是否需要发票
 	 */
@@ -399,5 +405,55 @@ public class OrderVO {
 
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
+	}
+
+	public BigDecimal getLostPointMoney() {
+		return lostPointMoney;
+	}
+
+	public void setLostPointMoney(BigDecimal lostPointMoney) {
+		this.lostPointMoney = lostPointMoney;
+	}
+
+	public BigDecimal getLostPoint() {
+		return lostPoint;
+	}
+
+	public void setLostPoint(BigDecimal lostPoint) {
+		this.lostPoint = lostPoint;
+	}
+
+	// 分治法快速排序
+	public void quickSort(int array[], int low, int high) {// 传入low=0，high=array.length-1;
+		int pivot, p_pos, i, t;// pivot->位索引;p_pos->轴值。
+		if (low < high) {
+			p_pos = low;
+			pivot = array[p_pos];
+			for (i = low + 1; i <= high; i++) {
+				if (array[i] < pivot) {
+					p_pos++;
+					t = array[p_pos];
+					array[p_pos] = array[i];
+					array[i] = t;
+				}
+			}
+			t = array[low];
+			array[low] = array[p_pos];
+			array[p_pos] = t;
+			// 分而治之
+			quickSort(array, low, p_pos - 1);// 排序左半部分
+			quickSort(array, p_pos + 1, high);// 排序右半部分
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] array = { 37, 47, 23, 100, 19, 56, 56, 99, 9 };
+		OrderVO st = new OrderVO();
+		// st.bubbleSort(array);
+		// st.selectSort(array);
+		// st.insertionSort(array);
+		st.quickSort(array, 0, array.length - 1);
+		System.out.println("排序后：" + Arrays.toString(array));
 	}
 }

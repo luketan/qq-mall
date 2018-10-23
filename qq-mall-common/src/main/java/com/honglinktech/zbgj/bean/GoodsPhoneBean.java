@@ -297,4 +297,55 @@ public class GoodsPhoneBean implements Serializable {
     public void setGenerateTime(Date generateTime) {
         this.generateTime = generateTime;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("{");
+        sb.append("\"id\":")
+                .append(id);
+        sb.append(",\"model\":\"")
+                .append(model).append('\"');
+        sb.append(",\"imei\":\"")
+                .append(imei).append('\"');
+        sb.append(",\"repair\":")
+                .append(repair);
+        sb.append(",\"ram\":")
+                .append(ram);
+        sb.append(",\"frontCamera\":\"")
+                .append(frontCamera).append('\"');
+        sb.append(",\"afterCamera\":\"")
+                .append(afterCamera).append('\"');
+        sb.append(",\"battery\":\"")
+                .append(battery).append('\"');
+        sb.append(",\"batteryEffe\":\"")
+                .append(batteryEffe).append('\"');
+        sb.append(",\"batteryNum\":\"")
+                .append(batteryNum).append('\"');
+        sb.append(",\"cpu\":\"")
+                .append(cpu).append('\"');
+        sb.append(",\"cpuFreq\":\"")
+                .append(cpuFreq).append('\"');
+        sb.append(",\"color\":\"")
+                .append(color).append('\"');
+        sb.append(",\"quality\":")
+                .append(quality);
+        sb.append(",\"version\":\"")
+                .append(version).append('\"');
+        sb.append(",\"systemVersion\":\"")
+                .append(systemVersion).append('\"');
+        sb.append(",\"net\":\"")
+                .append(net).append('\"');
+        sb.append(",\"sim\":\"")
+                .append(sim).append('\"');
+        sb.append(",\"screenSize\":\"")
+                .append(screenSize).append('\"');
+        sb.append(",\"size\":\"")
+                .append(size).append('\"');
+        sb.append(",\"resolution\":\"")
+                .append(resolution).append('\"');
+        sb.append(",\"generateTime\":\"")
+                .append(generateTime).append('\"');
+        sb.append('}');
+        return sb.toString();
+    }
 }

@@ -4,6 +4,11 @@
  */
 package com.honglinktech.zbgj.entity;
 
+import com.alibaba.fastjson.JSON;
+import com.honglinktech.zbgj.bean.GoodsPhoneBean;
+import com.honglinktech.zbgj.bean.GoodsTypeSubBean;
+import org.springframework.util.StringUtils;
+
 import java.util.Date;
 
 public class GoodsTypeSub {
@@ -38,6 +43,11 @@ public class GoodsTypeSub {
      * 商品类型
      */
     private Integer goodsType;
+
+    /**
+     * 参数配置
+     */
+    private String parameter;
 
     /**
      * 删除标志
@@ -132,5 +142,44 @@ public class GoodsTypeSub {
 
     public void setRec(Boolean rec) {
         this.rec = rec;
+    }
+
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
+    }
+
+    public GoodsTypeSub(){
+
+    }
+    public GoodsTypeSub(GoodsTypeSubBean goodsTypeSubBean){
+        this.goodsType = goodsTypeSubBean.getGoodsType();
+        this.id = goodsTypeSubBean.getId();
+        this.img = goodsTypeSubBean.getImg();
+        this.name = goodsTypeSubBean.getName();
+        this.rec = goodsTypeSubBean.getRec();
+        this.sale = goodsTypeSubBean.getSale();
+        this.sort = goodsTypeSubBean.getSort();
+        if(goodsTypeSubBean.getGoodsPhone() != null){
+            this.parameter = JSON.toJSONString(goodsTypeSubBean.getGoodsPhone());
+        }
+    }
+    public GoodsTypeSubBean toBean() {
+        GoodsTypeSubBean goodsTypeSubBean = new GoodsTypeSubBean();
+        goodsTypeSubBean.setName(this.name);
+        goodsTypeSubBean.setId(this.id);
+        goodsTypeSubBean.setCreateTime(this.createTime);
+        goodsTypeSubBean.setGoodsType(this.goodsType);
+        goodsTypeSubBean.setImg(this.img);
+        goodsTypeSubBean.setRec(this.rec);
+        goodsTypeSubBean.setSale(this.sale);
+        goodsTypeSubBean.setSort(this.sort);
+        if(!StringUtils.isEmpty(this.parameter)){
+            goodsTypeSubBean.setGoodsPhone(JSON.parseObject(this.parameter, GoodsPhoneBean.class));
+        }
+        return goodsTypeSubBean;
     }
 }

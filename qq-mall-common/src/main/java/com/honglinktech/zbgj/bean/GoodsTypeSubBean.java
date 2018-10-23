@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class GoodsTypeSubBean {
     /**
-     * 
+     *
      */
     private Integer id;
 
@@ -31,6 +31,11 @@ public class GoodsTypeSubBean {
      * 类型名称
      */
     private String typeName;
+
+    /**
+     * 参数配置
+     */
+    private GoodsPhoneBean goodsPhone;
 
     /**
      * 删除标志
@@ -133,5 +138,13 @@ public class GoodsTypeSubBean {
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public GoodsPhoneBean getGoodsPhone() {
+        return goodsPhone;
+    }
+
+    public void setGoodsPhone(GoodsPhoneBean goodsPhone) {
+        this.goodsPhone = goodsPhone;
     }
 }

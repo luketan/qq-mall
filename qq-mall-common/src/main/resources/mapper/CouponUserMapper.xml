@@ -113,6 +113,19 @@
     LEFT JOIN t_goods_type gt ON(c.goods_type = gt.id )
     WHERE cu.delete_flag = 0
     AND cu.user_id = #{userId}
+    <if test="type == 1">
+      AND cu.status = 0
+      AND c.start_date <![CDATA[ <= ]]> CURDATE()
+      AND c.end_date <![CDATA[ >= ]]> CURDATE()
+    </if>
+    <if test="type == 2">
+      AND cu.status = 1
+    </if>
+    <if test="type == 3">
+      AND (cu.status = 0 AND
+            (c.start_date <![CDATA[ > ]]> CURDATE() OR c.end_date <![CDATA[ < ]]> CURDATE())
+          )
+    </if>
     ORDER BY cu.update_time DESC
     <if test="start!=null and rows!=null">
       limit #{start},#{rows}

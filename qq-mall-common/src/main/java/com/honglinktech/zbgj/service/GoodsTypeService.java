@@ -61,14 +61,14 @@ public interface GoodsTypeService{
 	 * @param id
 	 * @return
 	 */
-	Response<GoodsTypeSub> findSubById(Integer id);
+	Response<GoodsTypeSubBean> findGoodsTypeSubBeanById(Integer id);
 
 	/**
 	 * console 子类
 	 * @param goodsTypeSub
 	 * @return
 	 */
-	Response<GoodsTypeSub> saveOrUpdateSub(GoodsTypeSub goodsTypeSub);
+	Response<GoodsTypeSub> saveOrUpdateSub(GoodsTypeSubBean goodsTypeSubBean);
 
 	/**
 	 * console 子类

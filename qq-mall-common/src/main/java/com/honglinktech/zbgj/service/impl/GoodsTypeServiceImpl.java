@@ -165,9 +165,10 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	 * @return
 	 */
 	@Override
-	public Response<GoodsTypeSub> findSubById(Integer id) {
+	public Response<GoodsTypeSubBean> findGoodsTypeSubBeanById(Integer id) {
 		GoodsTypeSub goodsTypeSub = goodsTypeSubDao.findById(id);
-		return Result.resultSet(goodsTypeSub);
+		GoodsTypeSubBean goodsTypeSubBean = goodsTypeSub.toBean();
+		return Result.resultSet(goodsTypeSubBean);
 	}
 
 	/**
@@ -175,8 +176,9 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 	 * @return
 	 */
 	@Override
-	public Response<GoodsTypeSub> saveOrUpdateSub(GoodsTypeSub goodsTypeSub) {
-		if(goodsTypeSub.getId()!=null && goodsTypeSub.getId() > 0){
+	public Response<GoodsTypeSub> saveOrUpdateSub(GoodsTypeSubBean goodsTypeSubBean) {
+		GoodsTypeSub goodsTypeSub = new GoodsTypeSub(goodsTypeSubBean);
+		if(goodsTypeSubBean.getId()!=null && goodsTypeSubBean.getId() > 0){
 			goodsTypeSubDao.update(goodsTypeSub);
 		}else{
 			goodsTypeSubDao.insert(goodsTypeSub);

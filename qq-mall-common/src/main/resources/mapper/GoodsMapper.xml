@@ -258,7 +258,7 @@
         g.sales_num as salesNum,
         g.img_url as imgUrl,
         g.detail,
-        g.former_price as formerPrice
+        g.status
         <if test="userId != null and userId > 0">
           ,(SELECt count(1)>0 from t_user_keep uk WHERE uk.user_id = #{userId} and uk.obj_id = g.id and uk.type = 1) as keep
         </if>
@@ -267,7 +267,7 @@
 --     AND g.status=1
     AND id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="findGoodsByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsBean">
+  <select id="findGoodsByWhere" parameterType="map" resultType="com.honglinktech.zbgj.vo.GoodsVO">
     SELECT
       g.id,
       g.name,
@@ -275,11 +275,12 @@
       g.mark_price as markPrice,
       g.price,
       g.sales_num as salesNum,
+      g.status,
       g.img_url as imgUrl
+      <if test="userId != null and userId > 0">
+        ,(SELECt count(1)>0 from t_user_keep uk WHERE uk.user_id = #{userId} and uk.obj_id = g.id and uk.type = 1) as keep
+      </if>
     FROM t_goods g
-    <if test="userId != null">
-      LEFT JOIN t_user_keep uk ON(g.id = uk.obj_id AND uk.type=1 AND uk.user_id=#{userId})
-    </if>
     WHERE g.delete_flag = 0
     <if test="status!=null">
       AND g.status = #{status}

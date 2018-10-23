@@ -27,7 +27,13 @@ public class GoodsTypeSubVO {
      */
     private String typeName;
 
+
     private String img;
+
+    /**
+     * 配置参数
+     */
+    private String parameter;
 
     public Integer getId() {
         return id;
@@ -67,5 +73,13 @@ public class GoodsTypeSubVO {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public String getParameter() {
+        return parameter;
+    }
+
+    public void setParameter(String parameter) {
+        this.parameter = parameter;
     }
 }

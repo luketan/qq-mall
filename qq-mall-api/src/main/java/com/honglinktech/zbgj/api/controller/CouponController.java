@@ -40,8 +40,7 @@ public class CouponController extends BaseApiController {
 
 		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
 		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
-		int type = req.get("type")==null?0:Integer.valueOf(req.get("type"));
-		Response<List<CouponUserVO>> resp = couponService.findUserCoupons(user.getId(), start, rows, type);
+		Response<List<CouponUserVO>> resp = couponService.findUserCoupons(user.getId(), start, rows, 1);
 
 		return resp; 
 	}
@@ -54,8 +53,7 @@ public class CouponController extends BaseApiController {
 
 		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
 		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
-		int type = req.get("type")==null?0:Integer.valueOf(req.get("type"));
-		Response<List<CouponUserVO>> resp = couponService.findUserCoupons(user.getId(), start, rows, type);
+		Response<List<CouponUserVO>> resp = couponService.findUserCoupons(user.getId(), start, rows, 2);
 
 		return resp;
 	}
@@ -67,8 +65,7 @@ public class CouponController extends BaseApiController {
 
 		int start = req.containsKey("start")?Integer.valueOf(req.get("start")):0;
 		int rows = req.containsKey("rows")?Integer.valueOf(req.get("rows")):10;
-		int type = req.get("type")==null?0:Integer.valueOf(req.get("type"));
-		Response<List<CouponUserVO>> resp = couponService.findUserCoupons(user.getId(), start, rows, type);
+		Response<List<CouponUserVO>> resp = couponService.findUserCoupons(user.getId(), start, rows, 3);
 
 		return resp;
 	}

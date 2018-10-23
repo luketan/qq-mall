@@ -101,7 +101,7 @@ public class OrderController extends BaseApiController {
 	 * @return
 	 * @throws BaseException
 	 */
-	@RequestMapping(value="findOrderBeanByPage",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findOrderByPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<List<OrderVO>> findOrderBeanByPage(@RequestBody Map<String, String> req, @RequestHeader HttpHeaders headers) throws BaseException{
 	   
@@ -112,7 +112,7 @@ public class OrderController extends BaseApiController {
 		Integer index = req.get("index")==null?1:Integer.valueOf(req.get("index"));
 		Integer size = req.get("size")==null?10:Integer.valueOf(req.get("size"));
 		
-		Response<List<OrderVO>> resp = orderService.findOrderVOList(Integer.valueOf(userCode),index,size);
+		Response<List<OrderVO>> resp = orderService.findOrderVOList(Integer.valueOf(userCode),0,index,size);
 		return resp; 
 	}
 	/**
@@ -122,9 +122,9 @@ public class OrderController extends BaseApiController {
 	 * @return
 	 * @throws BaseException
 	 */
-	@RequestMapping(value="findOrderBeanById",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findOrderById",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Response<OrderVO> findOrderBean(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
+	public Response<OrderVO> findOrder(@RequestBody Map<String, String> req,@RequestHeader HttpHeaders headers) throws BaseException{
 	   
 		String userCode =  headers.getFirst("userId");
 		if(StringUtils.isEmpty(userCode)){

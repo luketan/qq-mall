@@ -22,7 +22,7 @@ public interface CouponService {
      * @param userId
      * @param start
      * @param rows
-     * @param type 1,有效的购物券
+     * @param type 1,有效的购物券 ,2 已使用，3已失效
      * @return
      * @throws BaseException
      */

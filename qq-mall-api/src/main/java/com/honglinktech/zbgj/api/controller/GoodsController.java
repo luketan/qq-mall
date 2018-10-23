@@ -52,6 +52,10 @@ public class GoodsController extends BaseApiController {
 			userId = user.getId();
 			map.put("userId", userId);
 		}
+		int start = map.containsKey("start")?Integer.valueOf(map.get("start").toString()):0;
+		int rows = map.containsKey("rows")?Integer.valueOf(map.get("rows").toString()):10;
+		map.put("start", start);
+		map.put("rows", rows);
 		List<GoodsVO> goodsVOs = goodsService.findGoodsVOByWhere(map);
 
 		return Result.resultSet(goodsVOs);

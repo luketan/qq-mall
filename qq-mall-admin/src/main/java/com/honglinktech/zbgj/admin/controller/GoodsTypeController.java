@@ -2,18 +2,14 @@ package com.honglinktech.zbgj.admin.controller;
 
 
 import com.alibaba.fastjson.JSON;
-import com.honglinktech.zbgj.bean.GoodsTagBean;
 import com.honglinktech.zbgj.bean.GoodsTypeBean;
 import com.honglinktech.zbgj.bean.GoodsTypeSubBean;
 import com.honglinktech.zbgj.common.Page;
 import com.honglinktech.zbgj.common.Response;
 import com.honglinktech.zbgj.entity.GoodsType;
 import com.honglinktech.zbgj.entity.GoodsTypeSub;
-import com.honglinktech.zbgj.entity.Gtag;
-import com.honglinktech.zbgj.service.GoodsTagService;
 import com.honglinktech.zbgj.service.GoodsTypeService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.honglinktech.zbgj.utils.DateUtil;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -130,7 +126,7 @@ public class GoodsTypeController extends BaseController {
 	@RequestMapping("/subModify")
 	public String subModify(@RequestParam(required = false) Integer id, Model model) {
 
-		Response<GoodsTypeSub> goodsTypeSubResp = goodsTypeService.findSubById(id);
+		Response<GoodsTypeSubBean> goodsTypeSubResp = goodsTypeService.findGoodsTypeSubBeanById(id);
 		logger.info(id+"=====id================"+ JSON.toJSON(goodsTypeSubResp));
 		Response<List<GoodsTypeBean>> goodsTypeResp= goodsTypeService.findGoodsTypeAll();
 		model.addAttribute("goodsTypes", goodsTypeResp.getResult());
@@ -156,16 +152,23 @@ public class GoodsTypeController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/subSave")
-	public String subSave(GoodsTypeSub goodsTypeSub, Model model)  {
+	public String subSave(GoodsTypeSubBean goodsTypeSubBean, Model model)  {
 
 		try {
-			Response<GoodsTypeSub> goodsTypeSubResp = goodsTypeService.saveOrUpdateSub(goodsTypeSub);
+			String goodsPhoneGenerateTimeStr = request.getParameter("goodsPhoneGenerateTime");
+			if(!StringUtils.isEmpty(goodsPhoneGenerateTimeStr)){
+				if(goodsTypeSubBean.getGoodsPhone()!=null){
+					goodsTypeSubBean.getGoodsPhone().setGenerateTime(DateUtil.parseDate(goodsPhoneGenerateTimeStr, true));
+				}
+			}
+			Response<GoodsTypeSub> goodsTypeSubResp = goodsTypeService.saveOrUpdateSub(goodsTypeSubBean);
 			GoodsTypeSub retGoodsTypeSub = goodsTypeSubResp.getResult();
+			addMessage(model, "操作成功！");
 			return "redirect:subModify.html?id=" + retGoodsTypeSub.getId();
 		}catch (Exception e){
 			logger.error(e, e);
 			model.addAttribute("error", "保存错误!");
-			model.addAttribute("item", goodsTypeSub);
+			model.addAttribute("item", goodsTypeSubBean);
 			return "goodsType/subForm";
 		}
 	}

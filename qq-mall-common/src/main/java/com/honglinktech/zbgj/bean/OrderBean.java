@@ -91,9 +91,18 @@ public class OrderBean implements Serializable {
 	private BigDecimal lostCouponMoney;
 
 	/**
-	 * 其他优惠金额，积分，红包
+	 * 其他优惠金额，红包
 	 */
 	private BigDecimal lostMoney;
+
+	/**
+	 * 积分扣除金额
+	 */
+	private BigDecimal lostPointMoney;
+	/**
+	 * 扣除的积分
+	 */
+	private BigDecimal lostPoint;
 
 	/**
 	 * 是否需要发票
@@ -445,5 +454,21 @@ public class OrderBean implements Serializable {
 
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
+	}
+
+	public BigDecimal getLostPointMoney() {
+		return lostPointMoney;
+	}
+
+	public void setLostPointMoney(BigDecimal lostPointMoney) {
+		this.lostPointMoney = lostPointMoney;
+	}
+
+	public BigDecimal getLostPoint() {
+		return lostPoint;
+	}
+
+	public void setLostPoint(BigDecimal lostPoint) {
+		this.lostPoint = lostPoint;
 	}
 }

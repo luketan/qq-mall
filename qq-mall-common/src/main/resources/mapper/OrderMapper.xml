@@ -12,14 +12,16 @@
       o.pay_reason as payReason,
       o.status,
       o.post_id as postId,
-      o.post_name as postName,
+      pc.name as postName,
       o.post_code as postCode,
       o.money,
       o.total_money as totalMoney,
       o.post_money as postMoney,
       o.lost_activity_money as lostActivityMoney,
       o.lost_coupon_money as lostCouponMoney,
+      o.lost_point_money as lostPointMoney,
       o.lost_money as lostMoney,
+      o.lost_point as lostPoint,
       o.invoice_is as invoiceIs,
       o.invoice_head as invoiceHead,
       o.address_id as addressId,
@@ -36,6 +38,7 @@
       o.update_time as updateTime,
       o.create_time as createTime
     FROM t_order o
+    LEFT JOIN t_post_company pc on(o.post_id = pc.id)
     WHERE o.id = #{id,jdbcType=INTEGER}
     AND o.delete_flag = 0
   </select>
@@ -59,7 +62,9 @@
     o.post_money as postMoney,
     o.lost_activity_money as lostActivityMoney,
     o.lost_coupon_money as lostCouponMoney,
+    o.lost_point_money as lostPointMoney,
     o.lost_money as lostMoney,
+    o.lost_point as lostPoint,
     o.invoice_is as invoiceIs,
     o.invoice_head as invoiceHead,
     o.address_id as addressId,
@@ -104,6 +109,8 @@
     post_money,
     lost_activity_money,
     lost_coupon_money,
+    lost_point_money,
+    lost_point,
     lost_money,
     invoice_is,
     invoice_head,
@@ -133,6 +140,8 @@
     #{totalMoney},
     #{postMoney},
     #{lostActivityMoney},
+    #{lostPointMoney},
+    #{lostPoint},
     #{lostCouponMoney},
     #{lostMoney},
     #{invoiceIs},
@@ -194,6 +203,12 @@
       </if>
       <if test="lostCouponMoney != null">
         lost_coupon_money = #{lostCouponMoney},
+      </if>
+      <if test="lostPointMoney != null">
+        lost_point_money = #{lostPointMoney},
+      </if>
+      <if test="lostPointMoney != null">
+        lost_point = #{lostPoint},
       </if>
       <if test="lostMoney != null">
         lost_money = #{lostMoney},
@@ -260,6 +275,8 @@
     o.post_money as postMoney,
     o.lost_activity_money as lostActivityMoney,
     o.lost_coupon_money as lostCouponMoney,
+    o.lost_point_money as lostPointMoney,
+    o.lost_point as lostPoint,
     o.lost_money as lostMoney,
     o.invoice_is as invoiceIs,
     o.invoice_head as invoiceHead,
@@ -305,6 +322,12 @@
       o.user_phone as userPhone,
       o.money,
       o.total_money as totalMoney,
+      o.post_money as postMoney,
+      o.lost_activity_money as lostActivityMoney,
+      o.lost_coupon_money as lostCouponMoney,
+      o.lost_point_money as lostPointMoney,
+      o.lost_point as lostPoint,
+      o.lost_money as lostMoney,
       o.payment_Id as paymentId,
       o.pay_status as payStatus,
       o.status,

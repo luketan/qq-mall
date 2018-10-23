@@ -96,6 +96,15 @@ public class Order {
     private BigDecimal lostMoney;
 
     /**
+     * 积分扣除金额
+     */
+    private BigDecimal lostPointMoney;
+    /**
+     * 扣除的积分
+     */
+    private BigDecimal lostPoint;
+
+    /**
      * 是否需要发票
      */
     private Integer invoiceIs;
@@ -436,6 +445,22 @@ public class Order {
         this.userPhone = userPhone;
     }
 
+    public BigDecimal getLostPoint() {
+        return lostPoint;
+    }
+
+    public void setLostPoint(BigDecimal lostPoint) {
+        this.lostPoint = lostPoint;
+    }
+
+    public BigDecimal getLostPointMoney() {
+        return lostPointMoney;
+    }
+
+    public void setLostPointMoney(BigDecimal lostPointMoney) {
+        this.lostPointMoney = lostPointMoney;
+    }
+
     public Order(){}
     public Order(OrderBean orderBean){
         if(orderBean!=null){
@@ -456,6 +481,8 @@ public class Order {
             this.lostActivityMoney  = orderBean.getLostActivityMoney();
             this.lostCouponMoney  = orderBean.getLostCouponMoney();
             this.lostMoney  = orderBean.getLostMoney();
+            this.lostPointMoney = orderBean.getLostPointMoney();
+            this.lostPoint = orderBean.getLostPoint();
             this.invoiceIs = orderBean.getInvoiceIs();
             this.invoiceHead = orderBean.getInvoiceHead();
             this.addressId = orderBean.getAddressId();
@@ -491,6 +518,8 @@ public class Order {
         orderVO.setLostActivityMoney(this.getLostActivityMoney());
         orderVO.setLostCouponMoney(this.getLostCouponMoney());
         orderVO.setLostMoney(this.getLostMoney());
+        orderVO.setLostPointMoney(this.getLostPointMoney());
+        orderVO.setLostPoint(this.lostPoint);
         orderVO.setInvoiceIs(this.getInvoiceIs());
         orderVO.setInvoiceHead(this.getInvoiceHead());
         orderVO.setAddressId(this.getAddressId());
@@ -525,6 +554,8 @@ public class Order {
         orderBean.setLostActivityMoney(this.getLostActivityMoney());
         orderBean.setLostCouponMoney(this.getLostCouponMoney());
         orderBean.setLostMoney(this.getLostMoney());
+        orderBean.setLostPointMoney(this.getLostPointMoney());
+        orderBean.setLostPoint(this.getLostPoint());
         orderBean.setInvoiceIs(this.getInvoiceIs());
         orderBean.setInvoiceHead(this.getInvoiceHead());
         orderBean.setAddressId(this.getAddressId());
