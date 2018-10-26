@@ -43,7 +43,14 @@ public interface GoodsTypeSubDao{
      * @param map
      * @return
      */
-    List<GoodsTypeSubBean> findByWhere(Map map);
+    List<GoodsTypeSubBean> findBeanByWhere(Map map);
+
+    /**
+     * 查询商品类型子类型
+     * @param map
+     * @return
+     */
+    List<GoodsTypeSub> findByWhere(Map map);
 
     /**
      *

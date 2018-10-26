@@ -116,7 +116,7 @@ public class GoodsServiceImpl implements GoodsService{
 
 		Map retMap = new HashMap<>();
 		retMap.put("goods", goodsVO);
-		if(userId > 0){
+		if(userId != null && userId > 0){
 			int num = shoppingCartDao.findCount(userId);
 			retMap.put("shoppingCartNum", num);
 		}

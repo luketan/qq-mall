@@ -101,7 +101,7 @@ public class OrderController extends BaseApiController {
 	 * @return
 	 * @throws BaseException
 	 */
-	@RequestMapping(value="findOrderByPage",method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="findOrderBeanByPage",method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public Response<List<OrderVO>> findOrderBeanByPage(@RequestBody Map<String, String> req, @RequestHeader HttpHeaders headers) throws BaseException{
 	   

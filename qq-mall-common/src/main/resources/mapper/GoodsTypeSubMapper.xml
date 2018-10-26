@@ -157,7 +157,7 @@
       limit #{start},#{rows}
     </if>
   </select>
-  <select id="findByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsTypeSubBean">
+  <select id="findBeanByWhere" parameterType="map" resultType="com.honglinktech.zbgj.bean.GoodsTypeSubBean">
     SELECT
     gts.id,
     gts.name,
@@ -170,6 +170,23 @@
     gts.create_time,
     gts.update_time
     FROM t_goods_type_sub gts LEFT JOIN t_goods_type gt ON (gts.goods_type = gt.id)
+    WHERE gts.delete_flag = 0
+    <if test="goodsType != null">
+      and gts.goods_type = #{goodsType,jdbcType=TIMESTAMP}
+    </if>
+    <if test="sale != null">
+      and gts.sale = #{sale,jdbcType=BIT}
+    </if>
+    <if test="rec != null">
+      and gts.rec = #{rec,jdbcType=BIT}
+    </if>
+    <if test="start!=null and rows!=null">
+      limit #{start},#{rows}
+    </if>
+  </select>
+  <select id="findByWhere" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
     WHERE gts.delete_flag = 0
     <if test="goodsType != null">
       and gts.goods_type = #{goodsType,jdbcType=TIMESTAMP}

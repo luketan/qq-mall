@@ -81,7 +81,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		GoodsType goodsType = goodsTypeDao.findById(id);
 		Map whereMap = new HashMap();
 		whereMap.put("goodsType", id);
-		List<GoodsTypeSubBean> gtsList = goodsTypeSubDao.findByWhere(whereMap);
+		List<GoodsTypeSubBean> gtsList = goodsTypeSubDao.findBeanByWhere(whereMap);
 		logger.info(id+"==========findGoodsTypeBeanById=========="+ JSON.toJSONString(goodsType));
 		GoodsTypeBean goodsTypeBean = goodsType.toBean();
 		goodsTypeBean.setGoodsTypeSubList(gtsList);
@@ -100,8 +100,12 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 			for (GoodsType goodsType:goodsTypes) {
 				GoodsTypeBean goodsTypeBean = goodsType.toBean();
 				whereMap.put("goodsType", goodsTypeBean.getId());
-				List<GoodsTypeSubBean> gtsList = goodsTypeSubDao.findByWhere(whereMap);
-				goodsTypeBean.setGoodsTypeSubList(gtsList);
+				List<GoodsTypeSub> gtsList = goodsTypeSubDao.findByWhere(whereMap);
+				List<GoodsTypeSubBean> goodsTypeSubBeanList = new ArrayList<>();
+				for(GoodsTypeSub goodsTypeSub:gtsList){
+					goodsTypeSubBeanList.add(goodsTypeSub.toBean());
+				}
+				goodsTypeBean.setGoodsTypeSubList(goodsTypeSubBeanList);
 				goodsTypeBeans.add(goodsTypeBean);
 			}
 		}
@@ -200,7 +204,7 @@ public class GoodsTypeServiceImpl implements GoodsTypeService{
 		whereMap.put("start", start);
 		whereMap.put("rows", rows);
 
-		List<GoodsTypeSubBean> goodsTypeSubs = goodsTypeSubDao.findByWhere(whereMap);
+		List<GoodsTypeSubBean> goodsTypeSubs = goodsTypeSubDao.findBeanByWhere(whereMap);
 		int count = goodsTypeSubDao.findCount(whereMap);
 		return new Page<>(start, rows, count, url, goodsTypeSubs);
 	}

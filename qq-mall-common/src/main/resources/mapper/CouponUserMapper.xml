@@ -122,9 +122,9 @@
       AND cu.status = 1
     </if>
     <if test="type == 3">
-      AND (cu.status = 0 AND
-            (c.start_date <![CDATA[ > ]]> CURDATE() OR c.end_date <![CDATA[ < ]]> CURDATE())
-          )
+      AND (cu.status = 0
+      OR c.start_date <![CDATA[ > ]]> CURDATE()
+      OR c.end_date <![CDATA[ < ]]> CURDATE())
     </if>
     ORDER BY cu.update_time DESC
     <if test="start!=null and rows!=null">

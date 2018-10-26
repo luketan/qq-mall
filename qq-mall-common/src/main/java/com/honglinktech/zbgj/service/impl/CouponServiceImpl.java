@@ -32,7 +32,7 @@ public class CouponServiceImpl implements CouponService{
     /**
      * APP获取用户优惠券列表
      * @param userId
-     * @param type 1,有效的购物券
+     * @param type 1,有效的购物券,2已使用的，3已过期的
      * @return
      * @throws BaseException
      */
